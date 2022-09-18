@@ -6,3 +6,12 @@ export { txClient as jklAccountsTxClient, queryClient as jklAccountsQueryClient 
 export { txClient as jklMintTxClient, queryClient as jklMintQueryClient } from './protos/jklmint'
 export { txClient as rnsTxClient, queryClient as rnsQueryClient } from './protos/rns'
 export { txClient as storageTxClient, queryClient as storageQueryClient } from './protos/storage'
+
+export { Api as cosmQueryApi } from './protos/cosmwasm/rest'
+export { Api as dsigQueryApi } from './protos/dsig/rest'
+export { Api as filetreeQueryApi } from './protos/filetree/rest'
+export { Api as govQueryApi } from './protos/governance/rest'
+export { Api as jklAccountsQueryApi } from './protos/jklaccounts/rest'
+export { Api as jklMintQueryApi } from './protos/jklmint/rest'
+export { Api as rnsQueryApi } from './protos/rns/rest'
+export { Api as storageQueryApi } from './protos/storage/rest'
