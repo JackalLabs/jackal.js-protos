@@ -15,21 +15,51 @@ export interface FiletreeFiles {
   owner?: string;
   viewingAccess?: string;
   editAccess?: string;
+
+  /** @format uint64 */
+  trackingNumber?: string;
 }
 
 export type FiletreeMsgAddViewersResponse = object;
 
+export interface FiletreeMsgInitAccountResponse {
+  /** @format uint64 */
+  trackingNumber?: string;
+}
+
 export interface FiletreeMsgPostFileResponse {
   path?: string;
 }
+
+export type FiletreeMsgPostkeyResponse = object;
 
 /**
  * Params defines the parameters for the module.
  */
 export type FiletreeParams = object;
 
+export interface FiletreePubkey {
+  address?: string;
+  key?: string;
+}
+
 export interface FiletreeQueryAllFilesResponse {
   files?: FiletreeFiles[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
+export interface FiletreeQueryAllPubkeyResponse {
+  pubkey?: FiletreePubkey[];
 
   /**
    * PageResponse is to be embedded in gRPC response messages where the
@@ -59,12 +89,25 @@ export interface FiletreeQueryGetKeysResponse {
   keys?: string;
 }
 
+export interface FiletreeQueryGetPubkeyResponse {
+  pubkey?: FiletreePubkey;
+}
+
+export interface FiletreeQueryGetTrackerResponse {
+  Tracker?: FiletreeTracker;
+}
+
 /**
  * QueryParamsResponse is response type for the Query/Params RPC method.
  */
 export interface FiletreeQueryParamsResponse {
   /** params holds all the parameters of this module. */
   params?: FiletreeParams;
+}
+
+export interface FiletreeTracker {
+  /** @format uint64 */
+  trackingNumber?: string;
 }
 
 export interface ProtobufAny {
@@ -401,11 +444,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
    * @tags Query
    * @name QueryFiles
    * @summary Queries a Files by index.
-   * @request GET:/jackal-dao/canine/filetree/files/{address}
+   * @request GET:/jackal-dao/canine/filetree/files/{address}/{ownerAddress}
    */
-  queryFiles = (address: string, params: RequestParams = {}) =>
+  queryFiles = (address: string, ownerAddress: string, params: RequestParams = {}) =>
     this.request<FiletreeQueryGetFilesResponse, RpcStatus>({
-      path: `/jackal-dao/canine/filetree/files/${address}`,
+      path: `/jackal-dao/canine/filetree/files/${address}/${ownerAddress}`,
       method: "GET",
       format: "json",
       ...params,
@@ -422,6 +465,64 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryGetKeys = (hashpath: string, params: RequestParams = {}) =>
     this.request<FiletreeQueryGetKeysResponse, RpcStatus>({
       path: `/jackal-dao/canine/filetree/get_keys/${hashpath}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryPubkeyAll
+   * @summary Queries a list of Pubkey items.
+   * @request GET:/jackal-dao/canine/filetree/pubkey
+   */
+  queryPubkeyAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<FiletreeQueryAllPubkeyResponse, RpcStatus>({
+      path: `/jackal-dao/canine/filetree/pubkey`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryPubkey
+   * @summary Queries a Pubkey by index.
+   * @request GET:/jackal-dao/canine/filetree/pubkey/{address}
+   */
+  queryPubkey = (address: string, params: RequestParams = {}) =>
+    this.request<FiletreeQueryGetPubkeyResponse, RpcStatus>({
+      path: `/jackal-dao/canine/filetree/pubkey/${address}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryTracker
+   * @summary Queries a Tracker by index.
+   * @request GET:/jackal-dao/canine/filetree/tracker
+   */
+  queryTracker = (params: RequestParams = {}) =>
+    this.request<FiletreeQueryGetTrackerResponse, RpcStatus>({
+      path: `/jackal-dao/canine/filetree/tracker`,
       method: "GET",
       format: "json",
       ...params,

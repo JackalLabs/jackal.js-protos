@@ -1,6 +1,8 @@
 /* eslint-disable */
 import { Params } from "../filetree/params";
 import { Files } from "../filetree/files";
+import { Pubkey } from "../filetree/pubkey";
+import { Tracker } from "../filetree/tracker";
 import { Writer, Reader } from "protobufjs/minimal";
 
 export const protobufPackage = "jackaldao.canine.filetree";
@@ -8,8 +10,10 @@ export const protobufPackage = "jackaldao.canine.filetree";
 /** GenesisState defines the filetree module's genesis state. */
 export interface GenesisState {
   params: Params | undefined;
-  /** this line is used by starport scaffolding # genesis/proto/state */
   filesList: Files[];
+  pubkeyList: Pubkey[];
+  /** this line is used by starport scaffolding # genesis/proto/state */
+  tracker: Tracker | undefined;
 }
 
 const baseGenesisState: object = {};
@@ -22,6 +26,12 @@ export const GenesisState = {
     for (const v of message.filesList) {
       Files.encode(v!, writer.uint32(18).fork()).ldelim();
     }
+    for (const v of message.pubkeyList) {
+      Pubkey.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
+    if (message.tracker !== undefined) {
+      Tracker.encode(message.tracker, writer.uint32(34).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -30,6 +40,7 @@ export const GenesisState = {
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseGenesisState } as GenesisState;
     message.filesList = [];
+    message.pubkeyList = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -38,6 +49,12 @@ export const GenesisState = {
           break;
         case 2:
           message.filesList.push(Files.decode(reader, reader.uint32()));
+          break;
+        case 3:
+          message.pubkeyList.push(Pubkey.decode(reader, reader.uint32()));
+          break;
+        case 4:
+          message.tracker = Tracker.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -50,6 +67,7 @@ export const GenesisState = {
   fromJSON(object: any): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
     message.filesList = [];
+    message.pubkeyList = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromJSON(object.params);
     } else {
@@ -59,6 +77,16 @@ export const GenesisState = {
       for (const e of object.filesList) {
         message.filesList.push(Files.fromJSON(e));
       }
+    }
+    if (object.pubkeyList !== undefined && object.pubkeyList !== null) {
+      for (const e of object.pubkeyList) {
+        message.pubkeyList.push(Pubkey.fromJSON(e));
+      }
+    }
+    if (object.tracker !== undefined && object.tracker !== null) {
+      message.tracker = Tracker.fromJSON(object.tracker);
+    } else {
+      message.tracker = undefined;
     }
     return message;
   },
@@ -74,12 +102,24 @@ export const GenesisState = {
     } else {
       obj.filesList = [];
     }
+    if (message.pubkeyList) {
+      obj.pubkeyList = message.pubkeyList.map((e) =>
+        e ? Pubkey.toJSON(e) : undefined
+      );
+    } else {
+      obj.pubkeyList = [];
+    }
+    message.tracker !== undefined &&
+      (obj.tracker = message.tracker
+        ? Tracker.toJSON(message.tracker)
+        : undefined);
     return obj;
   },
 
   fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
     message.filesList = [];
+    message.pubkeyList = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromPartial(object.params);
     } else {
@@ -89,6 +129,16 @@ export const GenesisState = {
       for (const e of object.filesList) {
         message.filesList.push(Files.fromPartial(e));
       }
+    }
+    if (object.pubkeyList !== undefined && object.pubkeyList !== null) {
+      for (const e of object.pubkeyList) {
+        message.pubkeyList.push(Pubkey.fromPartial(e));
+      }
+    }
+    if (object.tracker !== undefined && object.tracker !== null) {
+      message.tracker = Tracker.fromPartial(object.tracker);
+    } else {
+      message.tracker = undefined;
     }
     return message;
   },

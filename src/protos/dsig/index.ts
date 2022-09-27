@@ -5,14 +5,14 @@ import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
 import { MsgUploadfile } from "./types/dsig/tx";
-import { MsgCreateform } from "./types/dsig/tx";
 import { MsgSignform } from "./types/dsig/tx";
+import { MsgCreateform } from "./types/dsig/tx";
 
 
 const types = [
   ["/jackaldao.canine.dsig.MsgUploadfile", MsgUploadfile],
-  ["/jackaldao.canine.dsig.MsgCreateform", MsgCreateform],
   ["/jackaldao.canine.dsig.MsgSignform", MsgSignform],
+  ["/jackaldao.canine.dsig.MsgCreateform", MsgCreateform],
   
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -35,7 +35,7 @@ interface SignAndBroadcastOptions {
 
 const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions = { addr: "http://localhost:26657" }) => {
   if (!wallet) throw MissingWalletError;
-  let client: any;
+  let client;
   if (addr) {
     client = await SigningStargateClient.connectWithSigner(addr, wallet, { registry });
   }else{
@@ -46,8 +46,8 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
     msgUploadfile: (data: MsgUploadfile): EncodeObject => ({ typeUrl: "/jackaldao.canine.dsig.MsgUploadfile", value: MsgUploadfile.fromPartial( data ) }),
-    msgCreateform: (data: MsgCreateform): EncodeObject => ({ typeUrl: "/jackaldao.canine.dsig.MsgCreateform", value: MsgCreateform.fromPartial( data ) }),
     msgSignform: (data: MsgSignform): EncodeObject => ({ typeUrl: "/jackaldao.canine.dsig.MsgSignform", value: MsgSignform.fromPartial( data ) }),
+    msgCreateform: (data: MsgCreateform): EncodeObject => ({ typeUrl: "/jackaldao.canine.dsig.MsgCreateform", value: MsgCreateform.fromPartial( data ) }),
     
   };
 };

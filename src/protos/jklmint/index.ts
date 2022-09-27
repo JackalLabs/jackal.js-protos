@@ -6,7 +6,7 @@ import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "
 import { Api } from "./rest";
 
 
-const types: any[] = [
+const types = [
   
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -29,7 +29,7 @@ interface SignAndBroadcastOptions {
 
 const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions = { addr: "http://localhost:26657" }) => {
   if (!wallet) throw MissingWalletError;
-  let client: any;
+  let client;
   if (addr) {
     client = await SigningStargateClient.connectWithSigner(addr, wallet, { registry });
   }else{
