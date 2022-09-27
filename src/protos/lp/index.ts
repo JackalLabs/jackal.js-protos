@@ -4,17 +4,17 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgInitAccount } from "./types/filetree/tx";
-import { MsgPostFile } from "./types/filetree/tx";
-import { MsgAddViewers } from "./types/filetree/tx";
-import { MsgPostkey } from "./types/filetree/tx";
+import { MsgSwap } from "./types/lp/tx";
+import { MsgCreateLPool } from "./types/lp/tx";
+import { MsgWithdrawLPool } from "./types/lp/tx";
+import { MsgDepositLPool } from "./types/lp/tx";
 
 
 const types = [
-  ["/jackaldao.canine.filetree.MsgInitAccount", MsgInitAccount],
-  ["/jackaldao.canine.filetree.MsgPostFile", MsgPostFile],
-  ["/jackaldao.canine.filetree.MsgAddViewers", MsgAddViewers],
-  ["/jackaldao.canine.filetree.MsgPostkey", MsgPostkey],
+  ["/jackaldao.canine.lp.MsgSwap", MsgSwap],
+  ["/jackaldao.canine.lp.MsgCreateLPool", MsgCreateLPool],
+  ["/jackaldao.canine.lp.MsgWithdrawLPool", MsgWithdrawLPool],
+  ["/jackaldao.canine.lp.MsgDepositLPool", MsgDepositLPool],
   
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -47,10 +47,10 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
-    msgInitAccount: (data: MsgInitAccount): EncodeObject => ({ typeUrl: "/jackaldao.canine.filetree.MsgInitAccount", value: MsgInitAccount.fromPartial( data ) }),
-    msgPostFile: (data: MsgPostFile): EncodeObject => ({ typeUrl: "/jackaldao.canine.filetree.MsgPostFile", value: MsgPostFile.fromPartial( data ) }),
-    msgAddViewers: (data: MsgAddViewers): EncodeObject => ({ typeUrl: "/jackaldao.canine.filetree.MsgAddViewers", value: MsgAddViewers.fromPartial( data ) }),
-    msgPostkey: (data: MsgPostkey): EncodeObject => ({ typeUrl: "/jackaldao.canine.filetree.MsgPostkey", value: MsgPostkey.fromPartial( data ) }),
+    msgSwap: (data: MsgSwap): EncodeObject => ({ typeUrl: "/jackaldao.canine.lp.MsgSwap", value: MsgSwap.fromPartial( data ) }),
+    msgCreateLPool: (data: MsgCreateLPool): EncodeObject => ({ typeUrl: "/jackaldao.canine.lp.MsgCreateLPool", value: MsgCreateLPool.fromPartial( data ) }),
+    msgWithdrawLPool: (data: MsgWithdrawLPool): EncodeObject => ({ typeUrl: "/jackaldao.canine.lp.MsgWithdrawLPool", value: MsgWithdrawLPool.fromPartial( data ) }),
+    msgDepositLPool: (data: MsgDepositLPool): EncodeObject => ({ typeUrl: "/jackaldao.canine.lp.MsgDepositLPool", value: MsgDepositLPool.fromPartial( data ) }),
     
   };
 };
