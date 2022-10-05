@@ -1,23 +1,31 @@
-export { txClient as bankTxClient, queryClient as bankQueryClient } from './protos/bank'
-export { txClient as cosmTxClient, queryClient as cosmQueryClient } from './protos/cosmwasm'
-export { txClient as dsigTxClient, queryClient as dsigQueryClient } from './protos/dsig'
-export { txClient as filetreeTxClient, queryClient as filetreeQueryClient } from './protos/filetree'
-export { txClient as govTxClient, queryClient as govQueryClient } from './protos/governance'
-export { txClient as jklAccountsTxClient, queryClient as jklAccountsQueryClient } from './protos/jklaccounts'
-export { txClient as jklMintTxClient, queryClient as jklMintQueryClient } from './protos/jklmint'
-export { txClient as lpTxClient, queryClient as lpQueryClient } from './protos/lp'
-export { txClient as rnsTxClient, queryClient as rnsQueryClient } from './protos/rns'
-export { txClient as stakingTxClient, queryClient as stakingQueryClient } from './protos/staking'
-export { txClient as storageTxClient, queryClient as storageQueryClient } from './protos/storage'
+/**
+ * Jackal Custom Protos
+ */
 
-export { Api as bankQueryApi } from './protos/bank/rest'
-export { Api as cosmQueryApi } from './protos/cosmwasm/rest'
-export { Api as dsigQueryApi } from './protos/dsig/rest'
-export { Api as filetreeQueryApi } from './protos/filetree/rest'
-export { Api as govQueryApi } from './protos/governance/rest'
-export { Api as jklAccountsQueryApi } from './protos/jklaccounts/rest'
-export { Api as jklMintQueryApi } from './protos/jklmint/rest'
-export { Api as lpQueryApi } from './protos/lp/rest'
-export { Api as rnsQueryApi } from './protos/rns/rest'
-export { Api as stakingQueryApi } from './protos/staking/rest'
-export { Api as storageQueryApi } from './protos/storage/rest'
+export { txClient as cosmTxClient, queryClient as cosmQueryClient } from './protos/jackal-dao/canine/cosmwasm.wasm.v1/module'
+export { txClient as dsigTxClient, queryClient as dsigQueryClient } from './protos/jackal-dao/canine/jackaldao.canine.dsig/module'
+export { txClient as filetreeTxClient, queryClient as filetreeQueryClient } from './protos/jackal-dao/canine/jackaldao.canine.filetree/module'
+export { txClient as jklMintTxClient, queryClient as jklMintQueryClient } from './protos/jackal-dao/canine/jackaldao.canine.jklmint/module'
+export { txClient as lpTxClient, queryClient as lpQueryClient } from './protos/jackal-dao/canine/jackaldao.canine.lp/module'
+export { txClient as rnsTxClient, queryClient as rnsQueryClient } from './protos/jackal-dao/canine/jackaldao.canine.rns/module'
+export { txClient as storageTxClient, queryClient as storageQueryClient } from './protos/jackal-dao/canine/jackaldao.canine.storage/module'
+
+export { Api as cosmQueryApi } from './protos/jackal-dao/canine/cosmwasm.wasm.v1/module/rest'
+export { Api as dsigQueryApi } from './protos/jackal-dao/canine/jackaldao.canine.dsig/module/rest'
+export { Api as filetreeQueryApi } from './protos/jackal-dao/canine/jackaldao.canine.filetree/module/rest'
+export { Api as jklMintQueryApi } from './protos/jackal-dao/canine/jackaldao.canine.jklmint/module/rest'
+export { Api as lpQueryApi } from './protos/jackal-dao/canine/jackaldao.canine.lp/module/rest'
+export { Api as rnsQueryApi } from './protos/jackal-dao/canine/jackaldao.canine.rns/module/rest'
+export { Api as storageQueryApi } from './protos/jackal-dao/canine/jackaldao.canine.storage/module/rest'
+
+/**
+ * Jackal Stock CosmosSDK Protos
+ */
+
+export { txClient as bankTxClient, queryClient as bankQueryClient } from './protos/cosmos/cosmos-sdk/cosmos.bank.v1beta1/module'
+export { txClient as govTxClient, queryClient as govQueryClient } from './protos/cosmos/cosmos-sdk/cosmos.gov.v1beta1/module'
+export { txClient as stakingTxClient, queryClient as stakingQueryClient } from './protos/cosmos/cosmos-sdk/cosmos.staking.v1beta1/module'
+
+export { Api as bankQueryApi } from './protos/cosmos/cosmos-sdk/cosmos.bank.v1beta1/module/rest'
+export { Api as govQueryApi } from './protos/cosmos/cosmos-sdk/cosmos.gov.v1beta1/module/rest'
+export { Api as stakingQueryApi } from './protos/cosmos/cosmos-sdk/cosmos.staking.v1beta1/module/rest'
