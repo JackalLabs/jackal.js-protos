@@ -6,7 +6,7 @@ import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "
 import { Api } from "./rest";
 
 
-const types = [
+export const types = [
   
 ];
 export const MissingWalletError = new Error("wallet is required");

@@ -7,7 +7,7 @@ import { Api } from "./rest";
 import { MsgSubmitEvidence } from "./types/cosmos/evidence/v1beta1/tx";
 
 
-const types = [
+export const types = [
   ["/cosmos.evidence.v1beta1.MsgSubmitEvidence", MsgSubmitEvidence],
   
 ];

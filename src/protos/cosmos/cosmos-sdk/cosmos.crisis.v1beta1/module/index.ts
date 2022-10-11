@@ -7,7 +7,7 @@ import { Api } from "./rest";
 import { MsgVerifyInvariant } from "./types/cosmos/crisis/v1beta1/tx";
 
 
-const types = [
+export const types = [
   ["/cosmos.crisis.v1beta1.MsgVerifyInvariant", MsgVerifyInvariant],
   
 ];

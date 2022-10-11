@@ -8,7 +8,7 @@ import { MsgRevokeAllowance } from "./types/cosmos/feegrant/v1beta1/tx";
 import { MsgGrantAllowance } from "./types/cosmos/feegrant/v1beta1/tx";
 
 
-const types = [
+export const types = [
   ["/cosmos.feegrant.v1beta1.MsgRevokeAllowance", MsgRevokeAllowance],
   ["/cosmos.feegrant.v1beta1.MsgGrantAllowance", MsgGrantAllowance],
   

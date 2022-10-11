@@ -2,6 +2,12 @@
  * Jackal Custom Protos
  */
 
+export { makeMasterBroadcaster } from './customBroadcast'
+
+/**
+ * Jackal Custom Protos
+ */
+
 export { txClient as cosmTxClient, queryClient as cosmQueryClient } from './protos/jackal-dao/canine/cosmwasm.wasm.v1/module'
 export { txClient as dsigTxClient, queryClient as dsigQueryClient } from './protos/jackal-dao/canine/jackaldao.canine.dsig/module'
 export { txClient as filetreeTxClient, queryClient as filetreeQueryClient } from './protos/jackal-dao/canine/jackaldao.canine.filetree/module'

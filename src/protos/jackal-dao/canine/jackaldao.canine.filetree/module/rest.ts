@@ -29,13 +29,19 @@ export interface FiletreeMsgInitAccountResponse {
   trackingNumber?: string;
 }
 
-export type FiletreeMsgInitAllResponse = object;
+export interface FiletreeMsgInitAllResponse {
+  name?: string;
+}
+
+export type FiletreeMsgMakeFolderResponse = object;
 
 export interface FiletreeMsgPostFileResponse {
   path?: string;
 }
 
 export type FiletreeMsgPostkeyResponse = object;
+
+export type FiletreeMsgRemoveViewersResponse = object;
 
 /**
  * Params defines the parameters for the module.

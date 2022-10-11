@@ -9,7 +9,7 @@ import { MsgSignform } from "./types/dsig/tx";
 import { MsgCreateform } from "./types/dsig/tx";
 
 
-const types = [
+export const types = [
   ["/jackaldao.canine.dsig.MsgUploadfile", MsgUploadfile],
   ["/jackaldao.canine.dsig.MsgSignform", MsgSignform],
   ["/jackaldao.canine.dsig.MsgCreateform", MsgCreateform],

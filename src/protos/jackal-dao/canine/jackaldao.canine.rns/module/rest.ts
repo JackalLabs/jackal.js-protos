@@ -141,7 +141,7 @@ export interface RnsQueryGetForsaleResponse {
 }
 
 export interface RnsQueryGetInitResponse {
-  init?: RnsInit;
+  init?: boolean;
 }
 
 export interface RnsQueryGetNamesResponse {
