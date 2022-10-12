@@ -98,7 +98,7 @@ export interface MsgCreateActiveDeals {
   creator: string;
   cid: string;
   signee: string;
-  miner: string;
+  provider: string;
   startblock: string;
   endblock: string;
   filesize: string;
@@ -113,7 +113,7 @@ export interface MsgUpdateActiveDeals {
   creator: string;
   cid: string;
   signee: string;
-  miner: string;
+  provider: string;
   startblock: string;
   endblock: string;
   filesize: string;
@@ -138,52 +138,52 @@ export interface MsgSignContract {
 
 export interface MsgSignContractResponse {}
 
-export interface MsgCreateMiners {
+export interface MsgCreateProviders {
   creator: string;
   address: string;
   ip: string;
   totalspace: string;
 }
 
-export interface MsgCreateMinersResponse {}
+export interface MsgCreateProvidersResponse {}
 
-export interface MsgUpdateMiners {
+export interface MsgUpdateProviders {
   creator: string;
   address: string;
   ip: string;
   totalspace: string;
 }
 
-export interface MsgUpdateMinersResponse {}
+export interface MsgUpdateProvidersResponse {}
 
-export interface MsgDeleteMiners {
+export interface MsgDeleteProviders {
   creator: string;
   address: string;
 }
 
-export interface MsgDeleteMinersResponse {}
+export interface MsgDeleteProvidersResponse {}
 
-export interface MsgSetMinerIp {
+export interface MsgSetProviderIp {
   creator: string;
   ip: string;
 }
 
-export interface MsgSetMinerIpResponse {}
+export interface MsgSetProviderIpResponse {}
 
-export interface MsgSetMinerTotalspace {
+export interface MsgSetProviderTotalspace {
   creator: string;
   space: string;
 }
 
-export interface MsgSetMinerTotalspaceResponse {}
+export interface MsgSetProviderTotalspaceResponse {}
 
-export interface MsgInitMiner {
+export interface MsgInitProvider {
   creator: string;
   ip: string;
   totalspace: string;
 }
 
-export interface MsgInitMinerResponse {}
+export interface MsgInitProviderResponse {}
 
 export interface MsgCancelContract {
   creator: string;
@@ -1785,7 +1785,7 @@ const baseMsgCreateActiveDeals: object = {
   creator: "",
   cid: "",
   signee: "",
-  miner: "",
+  provider: "",
   startblock: "",
   endblock: "",
   filesize: "",
@@ -1808,8 +1808,8 @@ export const MsgCreateActiveDeals = {
     if (message.signee !== "") {
       writer.uint32(26).string(message.signee);
     }
-    if (message.miner !== "") {
-      writer.uint32(34).string(message.miner);
+    if (message.provider !== "") {
+      writer.uint32(34).string(message.provider);
     }
     if (message.startblock !== "") {
       writer.uint32(42).string(message.startblock);
@@ -1849,7 +1849,7 @@ export const MsgCreateActiveDeals = {
           message.signee = reader.string();
           break;
         case 4:
-          message.miner = reader.string();
+          message.provider = reader.string();
           break;
         case 5:
           message.startblock = reader.string();
@@ -1894,10 +1894,10 @@ export const MsgCreateActiveDeals = {
     } else {
       message.signee = "";
     }
-    if (object.miner !== undefined && object.miner !== null) {
-      message.miner = String(object.miner);
+    if (object.provider !== undefined && object.provider !== null) {
+      message.provider = String(object.provider);
     } else {
-      message.miner = "";
+      message.provider = "";
     }
     if (object.startblock !== undefined && object.startblock !== null) {
       message.startblock = String(object.startblock);
@@ -1937,7 +1937,7 @@ export const MsgCreateActiveDeals = {
     message.creator !== undefined && (obj.creator = message.creator);
     message.cid !== undefined && (obj.cid = message.cid);
     message.signee !== undefined && (obj.signee = message.signee);
-    message.miner !== undefined && (obj.miner = message.miner);
+    message.provider !== undefined && (obj.provider = message.provider);
     message.startblock !== undefined && (obj.startblock = message.startblock);
     message.endblock !== undefined && (obj.endblock = message.endblock);
     message.filesize !== undefined && (obj.filesize = message.filesize);
@@ -1967,10 +1967,10 @@ export const MsgCreateActiveDeals = {
     } else {
       message.signee = "";
     }
-    if (object.miner !== undefined && object.miner !== null) {
-      message.miner = object.miner;
+    if (object.provider !== undefined && object.provider !== null) {
+      message.provider = object.provider;
     } else {
-      message.miner = "";
+      message.provider = "";
     }
     if (object.startblock !== undefined && object.startblock !== null) {
       message.startblock = object.startblock;
@@ -2062,7 +2062,7 @@ const baseMsgUpdateActiveDeals: object = {
   creator: "",
   cid: "",
   signee: "",
-  miner: "",
+  provider: "",
   startblock: "",
   endblock: "",
   filesize: "",
@@ -2085,8 +2085,8 @@ export const MsgUpdateActiveDeals = {
     if (message.signee !== "") {
       writer.uint32(26).string(message.signee);
     }
-    if (message.miner !== "") {
-      writer.uint32(34).string(message.miner);
+    if (message.provider !== "") {
+      writer.uint32(34).string(message.provider);
     }
     if (message.startblock !== "") {
       writer.uint32(42).string(message.startblock);
@@ -2126,7 +2126,7 @@ export const MsgUpdateActiveDeals = {
           message.signee = reader.string();
           break;
         case 4:
-          message.miner = reader.string();
+          message.provider = reader.string();
           break;
         case 5:
           message.startblock = reader.string();
@@ -2171,10 +2171,10 @@ export const MsgUpdateActiveDeals = {
     } else {
       message.signee = "";
     }
-    if (object.miner !== undefined && object.miner !== null) {
-      message.miner = String(object.miner);
+    if (object.provider !== undefined && object.provider !== null) {
+      message.provider = String(object.provider);
     } else {
-      message.miner = "";
+      message.provider = "";
     }
     if (object.startblock !== undefined && object.startblock !== null) {
       message.startblock = String(object.startblock);
@@ -2214,7 +2214,7 @@ export const MsgUpdateActiveDeals = {
     message.creator !== undefined && (obj.creator = message.creator);
     message.cid !== undefined && (obj.cid = message.cid);
     message.signee !== undefined && (obj.signee = message.signee);
-    message.miner !== undefined && (obj.miner = message.miner);
+    message.provider !== undefined && (obj.provider = message.provider);
     message.startblock !== undefined && (obj.startblock = message.startblock);
     message.endblock !== undefined && (obj.endblock = message.endblock);
     message.filesize !== undefined && (obj.filesize = message.filesize);
@@ -2244,10 +2244,10 @@ export const MsgUpdateActiveDeals = {
     } else {
       message.signee = "";
     }
-    if (object.miner !== undefined && object.miner !== null) {
-      message.miner = object.miner;
+    if (object.provider !== undefined && object.provider !== null) {
+      message.provider = object.provider;
     } else {
-      message.miner = "";
+      message.provider = "";
     }
     if (object.startblock !== undefined && object.startblock !== null) {
       message.startblock = object.startblock;
@@ -2580,15 +2580,18 @@ export const MsgSignContractResponse = {
   },
 };
 
-const baseMsgCreateMiners: object = {
+const baseMsgCreateProviders: object = {
   creator: "",
   address: "",
   ip: "",
   totalspace: "",
 };
 
-export const MsgCreateMiners = {
-  encode(message: MsgCreateMiners, writer: Writer = Writer.create()): Writer {
+export const MsgCreateProviders = {
+  encode(
+    message: MsgCreateProviders,
+    writer: Writer = Writer.create()
+  ): Writer {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
     }
@@ -2604,10 +2607,10 @@ export const MsgCreateMiners = {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): MsgCreateMiners {
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateProviders {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgCreateMiners } as MsgCreateMiners;
+    const message = { ...baseMsgCreateProviders } as MsgCreateProviders;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -2631,8 +2634,8 @@ export const MsgCreateMiners = {
     return message;
   },
 
-  fromJSON(object: any): MsgCreateMiners {
-    const message = { ...baseMsgCreateMiners } as MsgCreateMiners;
+  fromJSON(object: any): MsgCreateProviders {
+    const message = { ...baseMsgCreateProviders } as MsgCreateProviders;
     if (object.creator !== undefined && object.creator !== null) {
       message.creator = String(object.creator);
     } else {
@@ -2656,7 +2659,7 @@ export const MsgCreateMiners = {
     return message;
   },
 
-  toJSON(message: MsgCreateMiners): unknown {
+  toJSON(message: MsgCreateProviders): unknown {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
     message.address !== undefined && (obj.address = message.address);
@@ -2665,8 +2668,8 @@ export const MsgCreateMiners = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgCreateMiners>): MsgCreateMiners {
-    const message = { ...baseMsgCreateMiners } as MsgCreateMiners;
+  fromPartial(object: DeepPartial<MsgCreateProviders>): MsgCreateProviders {
+    const message = { ...baseMsgCreateProviders } as MsgCreateProviders;
     if (object.creator !== undefined && object.creator !== null) {
       message.creator = object.creator;
     } else {
@@ -2691,19 +2694,25 @@ export const MsgCreateMiners = {
   },
 };
 
-const baseMsgCreateMinersResponse: object = {};
+const baseMsgCreateProvidersResponse: object = {};
 
-export const MsgCreateMinersResponse = {
-  encode(_: MsgCreateMinersResponse, writer: Writer = Writer.create()): Writer {
+export const MsgCreateProvidersResponse = {
+  encode(
+    _: MsgCreateProvidersResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): MsgCreateMinersResponse {
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgCreateProvidersResponse {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = {
-      ...baseMsgCreateMinersResponse,
-    } as MsgCreateMinersResponse;
+      ...baseMsgCreateProvidersResponse,
+    } as MsgCreateProvidersResponse;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -2715,37 +2724,40 @@ export const MsgCreateMinersResponse = {
     return message;
   },
 
-  fromJSON(_: any): MsgCreateMinersResponse {
+  fromJSON(_: any): MsgCreateProvidersResponse {
     const message = {
-      ...baseMsgCreateMinersResponse,
-    } as MsgCreateMinersResponse;
+      ...baseMsgCreateProvidersResponse,
+    } as MsgCreateProvidersResponse;
     return message;
   },
 
-  toJSON(_: MsgCreateMinersResponse): unknown {
+  toJSON(_: MsgCreateProvidersResponse): unknown {
     const obj: any = {};
     return obj;
   },
 
   fromPartial(
-    _: DeepPartial<MsgCreateMinersResponse>
-  ): MsgCreateMinersResponse {
+    _: DeepPartial<MsgCreateProvidersResponse>
+  ): MsgCreateProvidersResponse {
     const message = {
-      ...baseMsgCreateMinersResponse,
-    } as MsgCreateMinersResponse;
+      ...baseMsgCreateProvidersResponse,
+    } as MsgCreateProvidersResponse;
     return message;
   },
 };
 
-const baseMsgUpdateMiners: object = {
+const baseMsgUpdateProviders: object = {
   creator: "",
   address: "",
   ip: "",
   totalspace: "",
 };
 
-export const MsgUpdateMiners = {
-  encode(message: MsgUpdateMiners, writer: Writer = Writer.create()): Writer {
+export const MsgUpdateProviders = {
+  encode(
+    message: MsgUpdateProviders,
+    writer: Writer = Writer.create()
+  ): Writer {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
     }
@@ -2761,10 +2773,10 @@ export const MsgUpdateMiners = {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): MsgUpdateMiners {
+  decode(input: Reader | Uint8Array, length?: number): MsgUpdateProviders {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgUpdateMiners } as MsgUpdateMiners;
+    const message = { ...baseMsgUpdateProviders } as MsgUpdateProviders;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -2788,8 +2800,8 @@ export const MsgUpdateMiners = {
     return message;
   },
 
-  fromJSON(object: any): MsgUpdateMiners {
-    const message = { ...baseMsgUpdateMiners } as MsgUpdateMiners;
+  fromJSON(object: any): MsgUpdateProviders {
+    const message = { ...baseMsgUpdateProviders } as MsgUpdateProviders;
     if (object.creator !== undefined && object.creator !== null) {
       message.creator = String(object.creator);
     } else {
@@ -2813,7 +2825,7 @@ export const MsgUpdateMiners = {
     return message;
   },
 
-  toJSON(message: MsgUpdateMiners): unknown {
+  toJSON(message: MsgUpdateProviders): unknown {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
     message.address !== undefined && (obj.address = message.address);
@@ -2822,8 +2834,8 @@ export const MsgUpdateMiners = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgUpdateMiners>): MsgUpdateMiners {
-    const message = { ...baseMsgUpdateMiners } as MsgUpdateMiners;
+  fromPartial(object: DeepPartial<MsgUpdateProviders>): MsgUpdateProviders {
+    const message = { ...baseMsgUpdateProviders } as MsgUpdateProviders;
     if (object.creator !== undefined && object.creator !== null) {
       message.creator = object.creator;
     } else {
@@ -2848,19 +2860,25 @@ export const MsgUpdateMiners = {
   },
 };
 
-const baseMsgUpdateMinersResponse: object = {};
+const baseMsgUpdateProvidersResponse: object = {};
 
-export const MsgUpdateMinersResponse = {
-  encode(_: MsgUpdateMinersResponse, writer: Writer = Writer.create()): Writer {
+export const MsgUpdateProvidersResponse = {
+  encode(
+    _: MsgUpdateProvidersResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): MsgUpdateMinersResponse {
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgUpdateProvidersResponse {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = {
-      ...baseMsgUpdateMinersResponse,
-    } as MsgUpdateMinersResponse;
+      ...baseMsgUpdateProvidersResponse,
+    } as MsgUpdateProvidersResponse;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -2872,32 +2890,35 @@ export const MsgUpdateMinersResponse = {
     return message;
   },
 
-  fromJSON(_: any): MsgUpdateMinersResponse {
+  fromJSON(_: any): MsgUpdateProvidersResponse {
     const message = {
-      ...baseMsgUpdateMinersResponse,
-    } as MsgUpdateMinersResponse;
+      ...baseMsgUpdateProvidersResponse,
+    } as MsgUpdateProvidersResponse;
     return message;
   },
 
-  toJSON(_: MsgUpdateMinersResponse): unknown {
+  toJSON(_: MsgUpdateProvidersResponse): unknown {
     const obj: any = {};
     return obj;
   },
 
   fromPartial(
-    _: DeepPartial<MsgUpdateMinersResponse>
-  ): MsgUpdateMinersResponse {
+    _: DeepPartial<MsgUpdateProvidersResponse>
+  ): MsgUpdateProvidersResponse {
     const message = {
-      ...baseMsgUpdateMinersResponse,
-    } as MsgUpdateMinersResponse;
+      ...baseMsgUpdateProvidersResponse,
+    } as MsgUpdateProvidersResponse;
     return message;
   },
 };
 
-const baseMsgDeleteMiners: object = { creator: "", address: "" };
+const baseMsgDeleteProviders: object = { creator: "", address: "" };
 
-export const MsgDeleteMiners = {
-  encode(message: MsgDeleteMiners, writer: Writer = Writer.create()): Writer {
+export const MsgDeleteProviders = {
+  encode(
+    message: MsgDeleteProviders,
+    writer: Writer = Writer.create()
+  ): Writer {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
     }
@@ -2907,10 +2928,10 @@ export const MsgDeleteMiners = {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): MsgDeleteMiners {
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteProviders {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgDeleteMiners } as MsgDeleteMiners;
+    const message = { ...baseMsgDeleteProviders } as MsgDeleteProviders;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -2928,8 +2949,8 @@ export const MsgDeleteMiners = {
     return message;
   },
 
-  fromJSON(object: any): MsgDeleteMiners {
-    const message = { ...baseMsgDeleteMiners } as MsgDeleteMiners;
+  fromJSON(object: any): MsgDeleteProviders {
+    const message = { ...baseMsgDeleteProviders } as MsgDeleteProviders;
     if (object.creator !== undefined && object.creator !== null) {
       message.creator = String(object.creator);
     } else {
@@ -2943,15 +2964,15 @@ export const MsgDeleteMiners = {
     return message;
   },
 
-  toJSON(message: MsgDeleteMiners): unknown {
+  toJSON(message: MsgDeleteProviders): unknown {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
     message.address !== undefined && (obj.address = message.address);
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgDeleteMiners>): MsgDeleteMiners {
-    const message = { ...baseMsgDeleteMiners } as MsgDeleteMiners;
+  fromPartial(object: DeepPartial<MsgDeleteProviders>): MsgDeleteProviders {
+    const message = { ...baseMsgDeleteProviders } as MsgDeleteProviders;
     if (object.creator !== undefined && object.creator !== null) {
       message.creator = object.creator;
     } else {
@@ -2966,19 +2987,25 @@ export const MsgDeleteMiners = {
   },
 };
 
-const baseMsgDeleteMinersResponse: object = {};
+const baseMsgDeleteProvidersResponse: object = {};
 
-export const MsgDeleteMinersResponse = {
-  encode(_: MsgDeleteMinersResponse, writer: Writer = Writer.create()): Writer {
+export const MsgDeleteProvidersResponse = {
+  encode(
+    _: MsgDeleteProvidersResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): MsgDeleteMinersResponse {
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgDeleteProvidersResponse {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = {
-      ...baseMsgDeleteMinersResponse,
-    } as MsgDeleteMinersResponse;
+      ...baseMsgDeleteProvidersResponse,
+    } as MsgDeleteProvidersResponse;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -2990,32 +3017,32 @@ export const MsgDeleteMinersResponse = {
     return message;
   },
 
-  fromJSON(_: any): MsgDeleteMinersResponse {
+  fromJSON(_: any): MsgDeleteProvidersResponse {
     const message = {
-      ...baseMsgDeleteMinersResponse,
-    } as MsgDeleteMinersResponse;
+      ...baseMsgDeleteProvidersResponse,
+    } as MsgDeleteProvidersResponse;
     return message;
   },
 
-  toJSON(_: MsgDeleteMinersResponse): unknown {
+  toJSON(_: MsgDeleteProvidersResponse): unknown {
     const obj: any = {};
     return obj;
   },
 
   fromPartial(
-    _: DeepPartial<MsgDeleteMinersResponse>
-  ): MsgDeleteMinersResponse {
+    _: DeepPartial<MsgDeleteProvidersResponse>
+  ): MsgDeleteProvidersResponse {
     const message = {
-      ...baseMsgDeleteMinersResponse,
-    } as MsgDeleteMinersResponse;
+      ...baseMsgDeleteProvidersResponse,
+    } as MsgDeleteProvidersResponse;
     return message;
   },
 };
 
-const baseMsgSetMinerIp: object = { creator: "", ip: "" };
+const baseMsgSetProviderIp: object = { creator: "", ip: "" };
 
-export const MsgSetMinerIp = {
-  encode(message: MsgSetMinerIp, writer: Writer = Writer.create()): Writer {
+export const MsgSetProviderIp = {
+  encode(message: MsgSetProviderIp, writer: Writer = Writer.create()): Writer {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
     }
@@ -3025,10 +3052,10 @@ export const MsgSetMinerIp = {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): MsgSetMinerIp {
+  decode(input: Reader | Uint8Array, length?: number): MsgSetProviderIp {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgSetMinerIp } as MsgSetMinerIp;
+    const message = { ...baseMsgSetProviderIp } as MsgSetProviderIp;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -3046,8 +3073,8 @@ export const MsgSetMinerIp = {
     return message;
   },
 
-  fromJSON(object: any): MsgSetMinerIp {
-    const message = { ...baseMsgSetMinerIp } as MsgSetMinerIp;
+  fromJSON(object: any): MsgSetProviderIp {
+    const message = { ...baseMsgSetProviderIp } as MsgSetProviderIp;
     if (object.creator !== undefined && object.creator !== null) {
       message.creator = String(object.creator);
     } else {
@@ -3061,15 +3088,15 @@ export const MsgSetMinerIp = {
     return message;
   },
 
-  toJSON(message: MsgSetMinerIp): unknown {
+  toJSON(message: MsgSetProviderIp): unknown {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
     message.ip !== undefined && (obj.ip = message.ip);
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgSetMinerIp>): MsgSetMinerIp {
-    const message = { ...baseMsgSetMinerIp } as MsgSetMinerIp;
+  fromPartial(object: DeepPartial<MsgSetProviderIp>): MsgSetProviderIp {
+    const message = { ...baseMsgSetProviderIp } as MsgSetProviderIp;
     if (object.creator !== undefined && object.creator !== null) {
       message.creator = object.creator;
     } else {
@@ -3084,17 +3111,25 @@ export const MsgSetMinerIp = {
   },
 };
 
-const baseMsgSetMinerIpResponse: object = {};
+const baseMsgSetProviderIpResponse: object = {};
 
-export const MsgSetMinerIpResponse = {
-  encode(_: MsgSetMinerIpResponse, writer: Writer = Writer.create()): Writer {
+export const MsgSetProviderIpResponse = {
+  encode(
+    _: MsgSetProviderIpResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): MsgSetMinerIpResponse {
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgSetProviderIpResponse {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgSetMinerIpResponse } as MsgSetMinerIpResponse;
+    const message = {
+      ...baseMsgSetProviderIpResponse,
+    } as MsgSetProviderIpResponse;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -3106,27 +3141,33 @@ export const MsgSetMinerIpResponse = {
     return message;
   },
 
-  fromJSON(_: any): MsgSetMinerIpResponse {
-    const message = { ...baseMsgSetMinerIpResponse } as MsgSetMinerIpResponse;
+  fromJSON(_: any): MsgSetProviderIpResponse {
+    const message = {
+      ...baseMsgSetProviderIpResponse,
+    } as MsgSetProviderIpResponse;
     return message;
   },
 
-  toJSON(_: MsgSetMinerIpResponse): unknown {
+  toJSON(_: MsgSetProviderIpResponse): unknown {
     const obj: any = {};
     return obj;
   },
 
-  fromPartial(_: DeepPartial<MsgSetMinerIpResponse>): MsgSetMinerIpResponse {
-    const message = { ...baseMsgSetMinerIpResponse } as MsgSetMinerIpResponse;
+  fromPartial(
+    _: DeepPartial<MsgSetProviderIpResponse>
+  ): MsgSetProviderIpResponse {
+    const message = {
+      ...baseMsgSetProviderIpResponse,
+    } as MsgSetProviderIpResponse;
     return message;
   },
 };
 
-const baseMsgSetMinerTotalspace: object = { creator: "", space: "" };
+const baseMsgSetProviderTotalspace: object = { creator: "", space: "" };
 
-export const MsgSetMinerTotalspace = {
+export const MsgSetProviderTotalspace = {
   encode(
-    message: MsgSetMinerTotalspace,
+    message: MsgSetProviderTotalspace,
     writer: Writer = Writer.create()
   ): Writer {
     if (message.creator !== "") {
@@ -3138,10 +3179,15 @@ export const MsgSetMinerTotalspace = {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): MsgSetMinerTotalspace {
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgSetProviderTotalspace {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgSetMinerTotalspace } as MsgSetMinerTotalspace;
+    const message = {
+      ...baseMsgSetProviderTotalspace,
+    } as MsgSetProviderTotalspace;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -3159,8 +3205,10 @@ export const MsgSetMinerTotalspace = {
     return message;
   },
 
-  fromJSON(object: any): MsgSetMinerTotalspace {
-    const message = { ...baseMsgSetMinerTotalspace } as MsgSetMinerTotalspace;
+  fromJSON(object: any): MsgSetProviderTotalspace {
+    const message = {
+      ...baseMsgSetProviderTotalspace,
+    } as MsgSetProviderTotalspace;
     if (object.creator !== undefined && object.creator !== null) {
       message.creator = String(object.creator);
     } else {
@@ -3174,7 +3222,7 @@ export const MsgSetMinerTotalspace = {
     return message;
   },
 
-  toJSON(message: MsgSetMinerTotalspace): unknown {
+  toJSON(message: MsgSetProviderTotalspace): unknown {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
     message.space !== undefined && (obj.space = message.space);
@@ -3182,9 +3230,11 @@ export const MsgSetMinerTotalspace = {
   },
 
   fromPartial(
-    object: DeepPartial<MsgSetMinerTotalspace>
-  ): MsgSetMinerTotalspace {
-    const message = { ...baseMsgSetMinerTotalspace } as MsgSetMinerTotalspace;
+    object: DeepPartial<MsgSetProviderTotalspace>
+  ): MsgSetProviderTotalspace {
+    const message = {
+      ...baseMsgSetProviderTotalspace,
+    } as MsgSetProviderTotalspace;
     if (object.creator !== undefined && object.creator !== null) {
       message.creator = object.creator;
     } else {
@@ -3199,11 +3249,11 @@ export const MsgSetMinerTotalspace = {
   },
 };
 
-const baseMsgSetMinerTotalspaceResponse: object = {};
+const baseMsgSetProviderTotalspaceResponse: object = {};
 
-export const MsgSetMinerTotalspaceResponse = {
+export const MsgSetProviderTotalspaceResponse = {
   encode(
-    _: MsgSetMinerTotalspaceResponse,
+    _: MsgSetProviderTotalspaceResponse,
     writer: Writer = Writer.create()
   ): Writer {
     return writer;
@@ -3212,12 +3262,12 @@ export const MsgSetMinerTotalspaceResponse = {
   decode(
     input: Reader | Uint8Array,
     length?: number
-  ): MsgSetMinerTotalspaceResponse {
+  ): MsgSetProviderTotalspaceResponse {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = {
-      ...baseMsgSetMinerTotalspaceResponse,
-    } as MsgSetMinerTotalspaceResponse;
+      ...baseMsgSetProviderTotalspaceResponse,
+    } as MsgSetProviderTotalspaceResponse;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -3229,32 +3279,32 @@ export const MsgSetMinerTotalspaceResponse = {
     return message;
   },
 
-  fromJSON(_: any): MsgSetMinerTotalspaceResponse {
+  fromJSON(_: any): MsgSetProviderTotalspaceResponse {
     const message = {
-      ...baseMsgSetMinerTotalspaceResponse,
-    } as MsgSetMinerTotalspaceResponse;
+      ...baseMsgSetProviderTotalspaceResponse,
+    } as MsgSetProviderTotalspaceResponse;
     return message;
   },
 
-  toJSON(_: MsgSetMinerTotalspaceResponse): unknown {
+  toJSON(_: MsgSetProviderTotalspaceResponse): unknown {
     const obj: any = {};
     return obj;
   },
 
   fromPartial(
-    _: DeepPartial<MsgSetMinerTotalspaceResponse>
-  ): MsgSetMinerTotalspaceResponse {
+    _: DeepPartial<MsgSetProviderTotalspaceResponse>
+  ): MsgSetProviderTotalspaceResponse {
     const message = {
-      ...baseMsgSetMinerTotalspaceResponse,
-    } as MsgSetMinerTotalspaceResponse;
+      ...baseMsgSetProviderTotalspaceResponse,
+    } as MsgSetProviderTotalspaceResponse;
     return message;
   },
 };
 
-const baseMsgInitMiner: object = { creator: "", ip: "", totalspace: "" };
+const baseMsgInitProvider: object = { creator: "", ip: "", totalspace: "" };
 
-export const MsgInitMiner = {
-  encode(message: MsgInitMiner, writer: Writer = Writer.create()): Writer {
+export const MsgInitProvider = {
+  encode(message: MsgInitProvider, writer: Writer = Writer.create()): Writer {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
     }
@@ -3267,10 +3317,10 @@ export const MsgInitMiner = {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): MsgInitMiner {
+  decode(input: Reader | Uint8Array, length?: number): MsgInitProvider {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgInitMiner } as MsgInitMiner;
+    const message = { ...baseMsgInitProvider } as MsgInitProvider;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -3291,8 +3341,8 @@ export const MsgInitMiner = {
     return message;
   },
 
-  fromJSON(object: any): MsgInitMiner {
-    const message = { ...baseMsgInitMiner } as MsgInitMiner;
+  fromJSON(object: any): MsgInitProvider {
+    const message = { ...baseMsgInitProvider } as MsgInitProvider;
     if (object.creator !== undefined && object.creator !== null) {
       message.creator = String(object.creator);
     } else {
@@ -3311,7 +3361,7 @@ export const MsgInitMiner = {
     return message;
   },
 
-  toJSON(message: MsgInitMiner): unknown {
+  toJSON(message: MsgInitProvider): unknown {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
     message.ip !== undefined && (obj.ip = message.ip);
@@ -3319,8 +3369,8 @@ export const MsgInitMiner = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgInitMiner>): MsgInitMiner {
-    const message = { ...baseMsgInitMiner } as MsgInitMiner;
+  fromPartial(object: DeepPartial<MsgInitProvider>): MsgInitProvider {
+    const message = { ...baseMsgInitProvider } as MsgInitProvider;
     if (object.creator !== undefined && object.creator !== null) {
       message.creator = object.creator;
     } else {
@@ -3340,17 +3390,19 @@ export const MsgInitMiner = {
   },
 };
 
-const baseMsgInitMinerResponse: object = {};
+const baseMsgInitProviderResponse: object = {};
 
-export const MsgInitMinerResponse = {
-  encode(_: MsgInitMinerResponse, writer: Writer = Writer.create()): Writer {
+export const MsgInitProviderResponse = {
+  encode(_: MsgInitProviderResponse, writer: Writer = Writer.create()): Writer {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): MsgInitMinerResponse {
+  decode(input: Reader | Uint8Array, length?: number): MsgInitProviderResponse {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgInitMinerResponse } as MsgInitMinerResponse;
+    const message = {
+      ...baseMsgInitProviderResponse,
+    } as MsgInitProviderResponse;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -3362,18 +3414,24 @@ export const MsgInitMinerResponse = {
     return message;
   },
 
-  fromJSON(_: any): MsgInitMinerResponse {
-    const message = { ...baseMsgInitMinerResponse } as MsgInitMinerResponse;
+  fromJSON(_: any): MsgInitProviderResponse {
+    const message = {
+      ...baseMsgInitProviderResponse,
+    } as MsgInitProviderResponse;
     return message;
   },
 
-  toJSON(_: MsgInitMinerResponse): unknown {
+  toJSON(_: MsgInitProviderResponse): unknown {
     const obj: any = {};
     return obj;
   },
 
-  fromPartial(_: DeepPartial<MsgInitMinerResponse>): MsgInitMinerResponse {
-    const message = { ...baseMsgInitMinerResponse } as MsgInitMinerResponse;
+  fromPartial(
+    _: DeepPartial<MsgInitProviderResponse>
+  ): MsgInitProviderResponse {
+    const message = {
+      ...baseMsgInitProviderResponse,
+    } as MsgInitProviderResponse;
     return message;
   },
 };
@@ -3675,11 +3733,11 @@ export interface Msg {
   PostContract(request: MsgPostContract): Promise<MsgPostContractResponse>;
   Postproof(request: MsgPostproof): Promise<MsgPostproofResponse>;
   SignContract(request: MsgSignContract): Promise<MsgSignContractResponse>;
-  SetMinerIp(request: MsgSetMinerIp): Promise<MsgSetMinerIpResponse>;
-  SetMinerTotalspace(
-    request: MsgSetMinerTotalspace
-  ): Promise<MsgSetMinerTotalspaceResponse>;
-  InitMiner(request: MsgInitMiner): Promise<MsgInitMinerResponse>;
+  SetProviderIp(request: MsgSetProviderIp): Promise<MsgSetProviderIpResponse>;
+  SetProviderTotalspace(
+    request: MsgSetProviderTotalspace
+  ): Promise<MsgSetProviderTotalspaceResponse>;
+  InitProvider(request: MsgInitProvider): Promise<MsgInitProviderResponse>;
   CancelContract(
     request: MsgCancelContract
   ): Promise<MsgCancelContractResponse>;
@@ -3728,41 +3786,41 @@ export class MsgClientImpl implements Msg {
     );
   }
 
-  SetMinerIp(request: MsgSetMinerIp): Promise<MsgSetMinerIpResponse> {
-    const data = MsgSetMinerIp.encode(request).finish();
+  SetProviderIp(request: MsgSetProviderIp): Promise<MsgSetProviderIpResponse> {
+    const data = MsgSetProviderIp.encode(request).finish();
     const promise = this.rpc.request(
       "jackaldao.canine.storage.Msg",
-      "SetMinerIp",
+      "SetProviderIp",
       data
     );
     return promise.then((data) =>
-      MsgSetMinerIpResponse.decode(new Reader(data))
+      MsgSetProviderIpResponse.decode(new Reader(data))
     );
   }
 
-  SetMinerTotalspace(
-    request: MsgSetMinerTotalspace
-  ): Promise<MsgSetMinerTotalspaceResponse> {
-    const data = MsgSetMinerTotalspace.encode(request).finish();
+  SetProviderTotalspace(
+    request: MsgSetProviderTotalspace
+  ): Promise<MsgSetProviderTotalspaceResponse> {
+    const data = MsgSetProviderTotalspace.encode(request).finish();
     const promise = this.rpc.request(
       "jackaldao.canine.storage.Msg",
-      "SetMinerTotalspace",
+      "SetProviderTotalspace",
       data
     );
     return promise.then((data) =>
-      MsgSetMinerTotalspaceResponse.decode(new Reader(data))
+      MsgSetProviderTotalspaceResponse.decode(new Reader(data))
     );
   }
 
-  InitMiner(request: MsgInitMiner): Promise<MsgInitMinerResponse> {
-    const data = MsgInitMiner.encode(request).finish();
+  InitProvider(request: MsgInitProvider): Promise<MsgInitProviderResponse> {
+    const data = MsgInitProvider.encode(request).finish();
     const promise = this.rpc.request(
       "jackaldao.canine.storage.Msg",
-      "InitMiner",
+      "InitProvider",
       data
     );
     return promise.then((data) =>
-      MsgInitMinerResponse.decode(new Reader(data))
+      MsgInitProviderResponse.decode(new Reader(data))
     );
   }
 

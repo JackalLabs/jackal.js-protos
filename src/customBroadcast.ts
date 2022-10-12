@@ -52,7 +52,7 @@ const defaultFee = {
   gas: '200000',
 }
 
-async function makeMasterBroadcaster (wallet: OfflineSigner, { addr: addr }: TxClientOptions = { addr: 'http://localhost:26657' }) {
+const genBroadcaster = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions = { addr: 'http://localhost:26657' }) => {
   if (!wallet) throw new Error('wallet is required')
   const client = await SigningStargateClient.connectWithSigner(addr, wallet, { registry })
   const { address } = (await wallet.getAccounts())[0]
@@ -63,5 +63,5 @@ async function makeMasterBroadcaster (wallet: OfflineSigner, { addr: addr }: TxC
 }
 
 export {
-  makeMasterBroadcaster
+  genBroadcaster
 }

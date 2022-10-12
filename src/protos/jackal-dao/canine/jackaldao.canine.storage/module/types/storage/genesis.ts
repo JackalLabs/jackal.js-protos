@@ -3,7 +3,7 @@ import { Params } from "../storage/params";
 import { Contracts } from "../storage/contracts";
 import { Proofs } from "../storage/proofs";
 import { ActiveDeals } from "../storage/active_deals";
-import { Miners } from "../storage/miners";
+import { Providers } from "../storage/providers";
 import { PayBlocks } from "../storage/pay_blocks";
 import { ClientUsage } from "../storage/client_usage";
 import { Strays } from "../storage/strays";
@@ -17,7 +17,7 @@ export interface GenesisState {
   contractsList: Contracts[];
   proofsList: Proofs[];
   activeDealsList: ActiveDeals[];
-  minersList: Miners[];
+  providersList: Providers[];
   payBlocksList: PayBlocks[];
   clientUsageList: ClientUsage[];
   /** this line is used by starport scaffolding # genesis/proto/state */
@@ -40,8 +40,8 @@ export const GenesisState = {
     for (const v of message.activeDealsList) {
       ActiveDeals.encode(v!, writer.uint32(34).fork()).ldelim();
     }
-    for (const v of message.minersList) {
-      Miners.encode(v!, writer.uint32(42).fork()).ldelim();
+    for (const v of message.providersList) {
+      Providers.encode(v!, writer.uint32(42).fork()).ldelim();
     }
     for (const v of message.payBlocksList) {
       PayBlocks.encode(v!, writer.uint32(50).fork()).ldelim();
@@ -62,7 +62,7 @@ export const GenesisState = {
     message.contractsList = [];
     message.proofsList = [];
     message.activeDealsList = [];
-    message.minersList = [];
+    message.providersList = [];
     message.payBlocksList = [];
     message.clientUsageList = [];
     message.straysList = [];
@@ -84,7 +84,7 @@ export const GenesisState = {
           );
           break;
         case 5:
-          message.minersList.push(Miners.decode(reader, reader.uint32()));
+          message.providersList.push(Providers.decode(reader, reader.uint32()));
           break;
         case 6:
           message.payBlocksList.push(PayBlocks.decode(reader, reader.uint32()));
@@ -110,7 +110,7 @@ export const GenesisState = {
     message.contractsList = [];
     message.proofsList = [];
     message.activeDealsList = [];
-    message.minersList = [];
+    message.providersList = [];
     message.payBlocksList = [];
     message.clientUsageList = [];
     message.straysList = [];
@@ -137,9 +137,9 @@ export const GenesisState = {
         message.activeDealsList.push(ActiveDeals.fromJSON(e));
       }
     }
-    if (object.minersList !== undefined && object.minersList !== null) {
-      for (const e of object.minersList) {
-        message.minersList.push(Miners.fromJSON(e));
+    if (object.providersList !== undefined && object.providersList !== null) {
+      for (const e of object.providersList) {
+        message.providersList.push(Providers.fromJSON(e));
       }
     }
     if (object.payBlocksList !== undefined && object.payBlocksList !== null) {
@@ -188,12 +188,12 @@ export const GenesisState = {
     } else {
       obj.activeDealsList = [];
     }
-    if (message.minersList) {
-      obj.minersList = message.minersList.map((e) =>
-        e ? Miners.toJSON(e) : undefined
+    if (message.providersList) {
+      obj.providersList = message.providersList.map((e) =>
+        e ? Providers.toJSON(e) : undefined
       );
     } else {
-      obj.minersList = [];
+      obj.providersList = [];
     }
     if (message.payBlocksList) {
       obj.payBlocksList = message.payBlocksList.map((e) =>
@@ -224,7 +224,7 @@ export const GenesisState = {
     message.contractsList = [];
     message.proofsList = [];
     message.activeDealsList = [];
-    message.minersList = [];
+    message.providersList = [];
     message.payBlocksList = [];
     message.clientUsageList = [];
     message.straysList = [];
@@ -251,9 +251,9 @@ export const GenesisState = {
         message.activeDealsList.push(ActiveDeals.fromPartial(e));
       }
     }
-    if (object.minersList !== undefined && object.minersList !== null) {
-      for (const e of object.minersList) {
-        message.minersList.push(Miners.fromPartial(e));
+    if (object.providersList !== undefined && object.providersList !== null) {
+      for (const e of object.providersList) {
+        message.providersList.push(Providers.fromPartial(e));
       }
     }
     if (object.payBlocksList !== undefined && object.payBlocksList !== null) {

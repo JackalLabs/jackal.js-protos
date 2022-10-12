@@ -15,8 +15,6 @@ export interface FiletreeFiles {
   owner?: string;
   viewingAccess?: string;
   editAccess?: string;
-
-  /** @format uint64 */
   trackingNumber?: string;
 }
 
@@ -24,16 +22,13 @@ export type FiletreeMsgAddViewersResponse = object;
 
 export type FiletreeMsgDeleteFileResponse = object;
 
-export interface FiletreeMsgInitAccountResponse {
-  /** @format uint64 */
-  trackingNumber?: string;
-}
+export type FiletreeMsgInitAccountResponse = object;
 
 export interface FiletreeMsgInitAllResponse {
   name?: string;
 }
 
-export type FiletreeMsgMakeFolderResponse = object;
+export type FiletreeMsgMakeRootResponse = object;
 
 export interface FiletreeMsgPostFileResponse {
   path?: string;

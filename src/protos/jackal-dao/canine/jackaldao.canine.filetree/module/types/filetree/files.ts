@@ -1,6 +1,5 @@
 /* eslint-disable */
-import Long from "long";
-import { util, configure, Writer, Reader } from "protobufjs/minimal";
+import { Writer, Reader } from "protobufjs/minimal";
 
 export const protobufPackage = "jackaldao.canine.filetree";
 
@@ -10,7 +9,7 @@ export interface Files {
   owner: string;
   viewingAccess: string;
   editAccess: string;
-  trackingNumber: number;
+  trackingNumber: string;
 }
 
 const baseFiles: object = {
@@ -19,7 +18,7 @@ const baseFiles: object = {
   owner: "",
   viewingAccess: "",
   editAccess: "",
-  trackingNumber: 0,
+  trackingNumber: "",
 };
 
 export const Files = {
@@ -39,8 +38,8 @@ export const Files = {
     if (message.editAccess !== "") {
       writer.uint32(42).string(message.editAccess);
     }
-    if (message.trackingNumber !== 0) {
-      writer.uint32(48).uint64(message.trackingNumber);
+    if (message.trackingNumber !== "") {
+      writer.uint32(50).string(message.trackingNumber);
     }
     return writer;
   },
@@ -68,7 +67,7 @@ export const Files = {
           message.editAccess = reader.string();
           break;
         case 6:
-          message.trackingNumber = longToNumber(reader.uint64() as Long);
+          message.trackingNumber = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -106,9 +105,9 @@ export const Files = {
       message.editAccess = "";
     }
     if (object.trackingNumber !== undefined && object.trackingNumber !== null) {
-      message.trackingNumber = Number(object.trackingNumber);
+      message.trackingNumber = String(object.trackingNumber);
     } else {
-      message.trackingNumber = 0;
+      message.trackingNumber = "";
     }
     return message;
   },
@@ -156,21 +155,11 @@ export const Files = {
     if (object.trackingNumber !== undefined && object.trackingNumber !== null) {
       message.trackingNumber = object.trackingNumber;
     } else {
-      message.trackingNumber = 0;
+      message.trackingNumber = "";
     }
     return message;
   },
 };
-
-declare var self: any | undefined;
-declare var window: any | undefined;
-var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
-  throw "Unable to locate global object";
-})();
 
 type Builtin = Date | Function | Uint8Array | string | number | undefined;
 export type DeepPartial<T> = T extends Builtin
@@ -182,15 +171,3 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
-
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
-}
-
-if (util.Long !== Long) {
-  util.Long = Long as any;
-  configure();
-}

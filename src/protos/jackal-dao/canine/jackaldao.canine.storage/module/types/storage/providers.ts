@@ -3,7 +3,7 @@ import { Writer, Reader } from "protobufjs/minimal";
 
 export const protobufPackage = "jackaldao.canine.storage";
 
-export interface Miners {
+export interface Providers {
   address: string;
   ip: string;
   totalspace: string;
@@ -11,7 +11,7 @@ export interface Miners {
   creator: string;
 }
 
-const baseMiners: object = {
+const baseProviders: object = {
   address: "",
   ip: "",
   totalspace: "",
@@ -19,8 +19,8 @@ const baseMiners: object = {
   creator: "",
 };
 
-export const Miners = {
-  encode(message: Miners, writer: Writer = Writer.create()): Writer {
+export const Providers = {
+  encode(message: Providers, writer: Writer = Writer.create()): Writer {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
@@ -39,10 +39,10 @@ export const Miners = {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): Miners {
+  decode(input: Reader | Uint8Array, length?: number): Providers {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMiners } as Miners;
+    const message = { ...baseProviders } as Providers;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -69,8 +69,8 @@ export const Miners = {
     return message;
   },
 
-  fromJSON(object: any): Miners {
-    const message = { ...baseMiners } as Miners;
+  fromJSON(object: any): Providers {
+    const message = { ...baseProviders } as Providers;
     if (object.address !== undefined && object.address !== null) {
       message.address = String(object.address);
     } else {
@@ -102,7 +102,7 @@ export const Miners = {
     return message;
   },
 
-  toJSON(message: Miners): unknown {
+  toJSON(message: Providers): unknown {
     const obj: any = {};
     message.address !== undefined && (obj.address = message.address);
     message.ip !== undefined && (obj.ip = message.ip);
@@ -113,8 +113,8 @@ export const Miners = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Miners>): Miners {
-    const message = { ...baseMiners } as Miners;
+  fromPartial(object: DeepPartial<Providers>): Providers {
+    const message = { ...baseProviders } as Providers;
     if (object.address !== undefined && object.address !== null) {
       message.address = object.address;
     } else {

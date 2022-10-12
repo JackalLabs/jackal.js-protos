@@ -2,7 +2,7 @@
  * Jackal Custom Protos
  */
 
-export { makeMasterBroadcaster } from './customBroadcast'
+export { genBroadcaster as makeMasterBroadcaster } from './customBroadcast'
 
 /**
  * Jackal Custom Protos
