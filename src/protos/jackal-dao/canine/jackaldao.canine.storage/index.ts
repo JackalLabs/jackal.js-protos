@@ -3,10 +3,10 @@ import { txClient, queryClient, MissingWalletError , registry} from './module'
 import { ActiveDeals } from "./module/types/storage/active_deals"
 import { ClientUsage } from "./module/types/storage/client_usage"
 import { Contracts } from "./module/types/storage/contracts"
-import { Miners } from "./module/types/storage/miners"
 import { Params } from "./module/types/storage/params"
 import { PayBlocks } from "./module/types/storage/pay_blocks"
 import { Proofs } from "./module/types/storage/proofs"
+import { Providers } from "./module/types/storage/providers"
 import { Strays } from "./module/types/storage/strays"
 import { MsgCreateContractsResponse } from "./module/types/storage/tx"
 import { MsgUpdateContractsResponse } from "./module/types/storage/tx"
@@ -18,12 +18,12 @@ import { MsgItemResponse } from "./module/types/storage/tx"
 import { MsgCreateActiveDealsResponse } from "./module/types/storage/tx"
 import { MsgUpdateActiveDealsResponse } from "./module/types/storage/tx"
 import { MsgDeleteActiveDealsResponse } from "./module/types/storage/tx"
-import { MsgCreateMinersResponse } from "./module/types/storage/tx"
-import { MsgUpdateMinersResponse } from "./module/types/storage/tx"
-import { MsgDeleteMinersResponse } from "./module/types/storage/tx"
+import { MsgCreateProvidersResponse } from "./module/types/storage/tx"
+import { MsgUpdateProvidersResponse } from "./module/types/storage/tx"
+import { MsgDeleteProvidersResponse } from "./module/types/storage/tx"
 
 
-export { ActiveDeals, ClientUsage, Contracts, Miners, Params, PayBlocks, Proofs, Strays, MsgCreateContractsResponse, MsgUpdateContractsResponse, MsgDeleteContractsResponse, MsgCreateProofsResponse, MsgUpdateProofsResponse, MsgDeleteProofsResponse, MsgItemResponse, MsgCreateActiveDealsResponse, MsgUpdateActiveDealsResponse, MsgDeleteActiveDealsResponse, MsgCreateMinersResponse, MsgUpdateMinersResponse, MsgDeleteMinersResponse };
+export { ActiveDeals, ClientUsage, Contracts, Params, PayBlocks, Proofs, Providers, Strays, MsgCreateContractsResponse, MsgUpdateContractsResponse, MsgDeleteContractsResponse, MsgCreateProofsResponse, MsgUpdateProofsResponse, MsgDeleteProofsResponse, MsgItemResponse, MsgCreateActiveDealsResponse, MsgUpdateActiveDealsResponse, MsgDeleteActiveDealsResponse, MsgCreateProvidersResponse, MsgUpdateProvidersResponse, MsgDeleteProvidersResponse };
 
 async function initTxClient(vuexGetters) {
 	return await txClient(vuexGetters['common/wallet/signer'], {
@@ -49,7 +49,7 @@ function mergeResults(value, next_values) {
 }
 
 function getStructure(template) {
-	let structure = { fields: [] }
+	let structure: { fields: any[] } = { fields: [] }
 	for (const [key, value] of Object.entries(template)) {
 		let field: any = {}
 		field.name = key
@@ -68,8 +68,8 @@ const getDefaultState = () => {
 				ProofsAll: {},
 				ActiveDeals: {},
 				ActiveDealsAll: {},
-				Miners: {},
-				MinersAll: {},
+				Providers: {},
+				ProvidersAll: {},
 				Freespace: {},
 				FindFile: {},
 				PayBlocks: {},
@@ -84,10 +84,10 @@ const getDefaultState = () => {
 						ActiveDeals: getStructure(ActiveDeals.fromPartial({})),
 						ClientUsage: getStructure(ClientUsage.fromPartial({})),
 						Contracts: getStructure(Contracts.fromPartial({})),
-						Miners: getStructure(Miners.fromPartial({})),
 						Params: getStructure(Params.fromPartial({})),
 						PayBlocks: getStructure(PayBlocks.fromPartial({})),
 						Proofs: getStructure(Proofs.fromPartial({})),
+						Providers: getStructure(Providers.fromPartial({})),
 						Strays: getStructure(Strays.fromPartial({})),
 						MsgCreateContractsResponse: getStructure(MsgCreateContractsResponse.fromPartial({})),
 						MsgUpdateContractsResponse: getStructure(MsgUpdateContractsResponse.fromPartial({})),
@@ -99,9 +99,9 @@ const getDefaultState = () => {
 						MsgCreateActiveDealsResponse: getStructure(MsgCreateActiveDealsResponse.fromPartial({})),
 						MsgUpdateActiveDealsResponse: getStructure(MsgUpdateActiveDealsResponse.fromPartial({})),
 						MsgDeleteActiveDealsResponse: getStructure(MsgDeleteActiveDealsResponse.fromPartial({})),
-						MsgCreateMinersResponse: getStructure(MsgCreateMinersResponse.fromPartial({})),
-						MsgUpdateMinersResponse: getStructure(MsgUpdateMinersResponse.fromPartial({})),
-						MsgDeleteMinersResponse: getStructure(MsgDeleteMinersResponse.fromPartial({})),
+						MsgCreateProvidersResponse: getStructure(MsgCreateProvidersResponse.fromPartial({})),
+						MsgUpdateProvidersResponse: getStructure(MsgUpdateProvidersResponse.fromPartial({})),
+						MsgDeleteProvidersResponse: getStructure(MsgDeleteProvidersResponse.fromPartial({})),
 						
 		},
 		_Registry: registry,
@@ -172,17 +172,17 @@ export default {
 					}
 			return state.ActiveDealsAll[JSON.stringify(params)] ?? {}
 		},
-				getMiners: (state) => (params = { params: {}}) => {
+				getProviders: (state) => (params = { params: {}}) => {
 					if (!(<any> params).query) {
 						(<any> params).query=null
 					}
-			return state.Miners[JSON.stringify(params)] ?? {}
+			return state.Providers[JSON.stringify(params)] ?? {}
 		},
-				getMinersAll: (state) => (params = { params: {}}) => {
+				getProvidersAll: (state) => (params = { params: {}}) => {
 					if (!(<any> params).query) {
 						(<any> params).query=null
 					}
-			return state.MinersAll[JSON.stringify(params)] ?? {}
+			return state.ProvidersAll[JSON.stringify(params)] ?? {}
 		},
 				getFreespace: (state) => (params = { params: {}}) => {
 					if (!(<any> params).query) {
@@ -277,7 +277,7 @@ export default {
 		 		
 		
 		
-		async QueryParams({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryParams({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -299,7 +299,7 @@ export default {
 		 		
 		
 		
-		async QueryContracts({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryContracts({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -321,7 +321,7 @@ export default {
 		 		
 		
 		
-		async QueryContractsAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryContractsAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -347,7 +347,7 @@ export default {
 		 		
 		
 		
-		async QueryProofs({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryProofs({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -369,7 +369,7 @@ export default {
 		 		
 		
 		
-		async QueryProofsAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryProofsAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -395,7 +395,7 @@ export default {
 		 		
 		
 		
-		async QueryActiveDeals({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryActiveDeals({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -417,7 +417,7 @@ export default {
 		 		
 		
 		
-		async QueryActiveDealsAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryActiveDealsAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -443,18 +443,18 @@ export default {
 		 		
 		
 		
-		async QueryMiners({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryProviders({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
-				let value= (await queryClient.queryMiners( key.address)).data
+				let value= (await queryClient.queryProviders( key.address)).data
 				
 					
-				commit('QUERY', { query: 'Miners', key: { params: {...key}, query}, value })
-				if (subscribe) commit('SUBSCRIBE', { action: 'QueryMiners', payload: { options: { all }, params: {...key},query }})
-				return getters['getMiners']( { params: {...key}, query}) ?? {}
+				commit('QUERY', { query: 'Providers', key: { params: {...key}, query}, value })
+				if (subscribe) commit('SUBSCRIBE', { action: 'QueryProviders', payload: { options: { all }, params: {...key},query }})
+				return getters['getProviders']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryMiners API Node Unavailable. Could not perform query: ' + e.message)
+				throw new Error('QueryClient:QueryProviders API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -465,22 +465,22 @@ export default {
 		 		
 		
 		
-		async QueryMinersAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryProvidersAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
-				let value= (await queryClient.queryMinersAll(query)).data
+				let value= (await queryClient.queryProvidersAll(query)).data
 				
 					
 				while (all && (<any> value).pagination && (<any> value).pagination.next_key!=null) {
-					let next_values=(await queryClient.queryMinersAll({...query, 'pagination.key':(<any> value).pagination.next_key})).data
+					let next_values=(await queryClient.queryProvidersAll({...query, 'pagination.key':(<any> value).pagination.next_key})).data
 					value = mergeResults(value, next_values);
 				}
-				commit('QUERY', { query: 'MinersAll', key: { params: {...key}, query}, value })
-				if (subscribe) commit('SUBSCRIBE', { action: 'QueryMinersAll', payload: { options: { all }, params: {...key},query }})
-				return getters['getMinersAll']( { params: {...key}, query}) ?? {}
+				commit('QUERY', { query: 'ProvidersAll', key: { params: {...key}, query}, value })
+				if (subscribe) commit('SUBSCRIBE', { action: 'QueryProvidersAll', payload: { options: { all }, params: {...key},query }})
+				return getters['getProvidersAll']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryMinersAll API Node Unavailable. Could not perform query: ' + e.message)
+				throw new Error('QueryClient:QueryProvidersAll API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -491,7 +491,7 @@ export default {
 		 		
 		
 		
-		async QueryFreespace({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryFreespace({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -513,7 +513,7 @@ export default {
 		 		
 		
 		
-		async QueryFindFile({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryFindFile({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -535,7 +535,7 @@ export default {
 		 		
 		
 		
-		async QueryPayBlocks({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryPayBlocks({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -557,7 +557,7 @@ export default {
 		 		
 		
 		
-		async QueryPayBlocksAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryPayBlocksAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -583,7 +583,7 @@ export default {
 		 		
 		
 		
-		async QueryClientUsage({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryClientUsage({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -605,7 +605,7 @@ export default {
 		 		
 		
 		
-		async QueryClientUsageAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryClientUsageAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -631,7 +631,7 @@ export default {
 		 		
 		
 		
-		async QueryStrays({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryStrays({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -653,7 +653,7 @@ export default {
 		 		
 		
 		
-		async QueryStraysAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryStraysAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -679,7 +679,7 @@ export default {
 		 		
 		
 		
-		async QueryGetClientFreeSpace({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryGetClientFreeSpace({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -696,81 +696,6 @@ export default {
 		},
 		
 		
-		async sendMsgInitMiner({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgInitMiner(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgInitMiner:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgInitMiner:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgUpdateActiveDeals({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgUpdateActiveDeals(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgUpdateActiveDeals:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgUpdateActiveDeals:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgBuyStorage({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgBuyStorage(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgBuyStorage:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgBuyStorage:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgCreateContracts({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreateContracts(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCreateContracts:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgCreateContracts:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgDeleteMiners({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgDeleteMiners(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgDeleteMiners:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgDeleteMiners:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
 		async sendMsgUpdateContracts({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -783,66 +708,6 @@ export default {
 					throw new Error('TxClient:MsgUpdateContracts:Init Could not initialize signing client. Wallet is required.')
 				}else{
 					throw new Error('TxClient:MsgUpdateContracts:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgDeleteProofs({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgDeleteProofs(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgDeleteProofs:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgDeleteProofs:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgUpdateProofs({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgUpdateProofs(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgUpdateProofs:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgUpdateProofs:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgCreateProofs({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreateProofs(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCreateProofs:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgCreateProofs:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgCancelContract({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCancelContract(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCancelContract:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgCancelContract:Send Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
@@ -861,6 +726,36 @@ export default {
 				}
 			}
 		},
+		async sendMsgSetProviderIp({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgSetProviderIp(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgSetProviderIp:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgSetProviderIp:Send Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgCreateProviders({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCreateProviders(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgCreateProviders:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgCreateProviders:Send Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
 		async sendMsgPostproof({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -873,6 +768,21 @@ export default {
 					throw new Error('TxClient:MsgPostproof:Init Could not initialize signing client. Wallet is required.')
 				}else{
 					throw new Error('TxClient:MsgPostproof:Send Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgCancelContract({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCancelContract(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgCancelContract:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgCancelContract:Send Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
@@ -891,93 +801,48 @@ export default {
 				}
 			}
 		},
-		async sendMsgCreateMiners({ rootGetters }, { value, fee = [], memo = '' }) {
+		async sendMsgInitProvider({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreateMiners(value)
+				const msg = await txClient.msgInitProvider(value)
 				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
 	gas: "200000" }, memo})
 				return result
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCreateMiners:Init Could not initialize signing client. Wallet is required.')
+					throw new Error('TxClient:MsgInitProvider:Init Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new Error('TxClient:MsgCreateMiners:Send Could not broadcast Tx: '+ e.message)
+					throw new Error('TxClient:MsgInitProvider:Send Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
-		async sendMsgDeleteContracts({ rootGetters }, { value, fee = [], memo = '' }) {
+		async sendMsgSetProviderTotalspace({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgDeleteContracts(value)
+				const msg = await txClient.msgSetProviderTotalspace(value)
 				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
 	gas: "200000" }, memo})
 				return result
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgDeleteContracts:Init Could not initialize signing client. Wallet is required.')
+					throw new Error('TxClient:MsgSetProviderTotalspace:Init Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new Error('TxClient:MsgDeleteContracts:Send Could not broadcast Tx: '+ e.message)
+					throw new Error('TxClient:MsgSetProviderTotalspace:Send Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
-		async sendMsgItem({ rootGetters }, { value, fee = [], memo = '' }) {
+		async sendMsgCreateProofs({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgItem(value)
+				const msg = await txClient.msgCreateProofs(value)
 				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
 	gas: "200000" }, memo})
 				return result
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgItem:Init Could not initialize signing client. Wallet is required.')
+					throw new Error('TxClient:MsgCreateProofs:Init Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new Error('TxClient:MsgItem:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgSetMinerTotalspace({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgSetMinerTotalspace(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgSetMinerTotalspace:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgSetMinerTotalspace:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgCreateActiveDeals({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreateActiveDeals(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCreateActiveDeals:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgCreateActiveDeals:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgUpdateMiners({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgUpdateMiners(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgUpdateMiners:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgUpdateMiners:Send Could not broadcast Tx: '+ e.message)
+					throw new Error('TxClient:MsgCreateProofs:Send Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
@@ -996,87 +861,157 @@ export default {
 				}
 			}
 		},
-		async sendMsgSetMinerIp({ rootGetters }, { value, fee = [], memo = '' }) {
+		async sendMsgUpdateProofs({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgSetMinerIp(value)
+				const msg = await txClient.msgUpdateProofs(value)
 				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
 	gas: "200000" }, memo})
 				return result
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgSetMinerIp:Init Could not initialize signing client. Wallet is required.')
+					throw new Error('TxClient:MsgUpdateProofs:Init Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new Error('TxClient:MsgSetMinerIp:Send Could not broadcast Tx: '+ e.message)
+					throw new Error('TxClient:MsgUpdateProofs:Send Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgDeleteProofs({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgDeleteProofs(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgDeleteProofs:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgDeleteProofs:Send Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgCreateContracts({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCreateContracts(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgCreateContracts:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgCreateContracts:Send Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgUpdateActiveDeals({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgUpdateActiveDeals(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgUpdateActiveDeals:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgUpdateActiveDeals:Send Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgDeleteProviders({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgDeleteProviders(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgDeleteProviders:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgDeleteProviders:Send Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgItem({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgItem(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgItem:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgItem:Send Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgBuyStorage({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgBuyStorage(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgBuyStorage:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgBuyStorage:Send Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgDeleteContracts({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgDeleteContracts(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgDeleteContracts:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgDeleteContracts:Send Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgUpdateProviders({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgUpdateProviders(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgUpdateProviders:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgUpdateProviders:Send Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgCreateActiveDeals({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCreateActiveDeals(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgCreateActiveDeals:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgCreateActiveDeals:Send Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
 		
-		async MsgInitMiner({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgInitMiner(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgInitMiner:Init Could not initialize signing client. Wallet is required.')
-				} else{
-					throw new Error('TxClient:MsgInitMiner:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgUpdateActiveDeals({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgUpdateActiveDeals(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgUpdateActiveDeals:Init Could not initialize signing client. Wallet is required.')
-				} else{
-					throw new Error('TxClient:MsgUpdateActiveDeals:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgBuyStorage({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgBuyStorage(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgBuyStorage:Init Could not initialize signing client. Wallet is required.')
-				} else{
-					throw new Error('TxClient:MsgBuyStorage:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgCreateContracts({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreateContracts(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCreateContracts:Init Could not initialize signing client. Wallet is required.')
-				} else{
-					throw new Error('TxClient:MsgCreateContracts:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgDeleteMiners({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgDeleteMiners(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgDeleteMiners:Init Could not initialize signing client. Wallet is required.')
-				} else{
-					throw new Error('TxClient:MsgDeleteMiners:Create Could not create message: ' + e.message)
-				}
-			}
-		},
 		async MsgUpdateContracts({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -1087,58 +1022,6 @@ export default {
 					throw new Error('TxClient:MsgUpdateContracts:Init Could not initialize signing client. Wallet is required.')
 				} else{
 					throw new Error('TxClient:MsgUpdateContracts:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgDeleteProofs({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgDeleteProofs(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgDeleteProofs:Init Could not initialize signing client. Wallet is required.')
-				} else{
-					throw new Error('TxClient:MsgDeleteProofs:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgUpdateProofs({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgUpdateProofs(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgUpdateProofs:Init Could not initialize signing client. Wallet is required.')
-				} else{
-					throw new Error('TxClient:MsgUpdateProofs:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgCreateProofs({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreateProofs(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCreateProofs:Init Could not initialize signing client. Wallet is required.')
-				} else{
-					throw new Error('TxClient:MsgCreateProofs:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgCancelContract({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCancelContract(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCancelContract:Init Could not initialize signing client. Wallet is required.')
-				} else{
-					throw new Error('TxClient:MsgCancelContract:Create Could not create message: ' + e.message)
 				}
 			}
 		},
@@ -1155,6 +1038,32 @@ export default {
 				}
 			}
 		},
+		async MsgSetProviderIp({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgSetProviderIp(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgSetProviderIp:Init Could not initialize signing client. Wallet is required.')
+				} else{
+					throw new Error('TxClient:MsgSetProviderIp:Create Could not create message: ' + e.message)
+				}
+			}
+		},
+		async MsgCreateProviders({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCreateProviders(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgCreateProviders:Init Could not initialize signing client. Wallet is required.')
+				} else{
+					throw new Error('TxClient:MsgCreateProviders:Create Could not create message: ' + e.message)
+				}
+			}
+		},
 		async MsgPostproof({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -1165,6 +1074,19 @@ export default {
 					throw new Error('TxClient:MsgPostproof:Init Could not initialize signing client. Wallet is required.')
 				} else{
 					throw new Error('TxClient:MsgPostproof:Create Could not create message: ' + e.message)
+				}
+			}
+		},
+		async MsgCancelContract({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCancelContract(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgCancelContract:Init Could not initialize signing client. Wallet is required.')
+				} else{
+					throw new Error('TxClient:MsgCancelContract:Create Could not create message: ' + e.message)
 				}
 			}
 		},
@@ -1181,81 +1103,42 @@ export default {
 				}
 			}
 		},
-		async MsgCreateMiners({ rootGetters }, { value }) {
+		async MsgInitProvider({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreateMiners(value)
+				const msg = await txClient.msgInitProvider(value)
 				return msg
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCreateMiners:Init Could not initialize signing client. Wallet is required.')
+					throw new Error('TxClient:MsgInitProvider:Init Could not initialize signing client. Wallet is required.')
 				} else{
-					throw new Error('TxClient:MsgCreateMiners:Create Could not create message: ' + e.message)
+					throw new Error('TxClient:MsgInitProvider:Create Could not create message: ' + e.message)
 				}
 			}
 		},
-		async MsgDeleteContracts({ rootGetters }, { value }) {
+		async MsgSetProviderTotalspace({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgDeleteContracts(value)
+				const msg = await txClient.msgSetProviderTotalspace(value)
 				return msg
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgDeleteContracts:Init Could not initialize signing client. Wallet is required.')
+					throw new Error('TxClient:MsgSetProviderTotalspace:Init Could not initialize signing client. Wallet is required.')
 				} else{
-					throw new Error('TxClient:MsgDeleteContracts:Create Could not create message: ' + e.message)
+					throw new Error('TxClient:MsgSetProviderTotalspace:Create Could not create message: ' + e.message)
 				}
 			}
 		},
-		async MsgItem({ rootGetters }, { value }) {
+		async MsgCreateProofs({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgItem(value)
+				const msg = await txClient.msgCreateProofs(value)
 				return msg
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgItem:Init Could not initialize signing client. Wallet is required.')
+					throw new Error('TxClient:MsgCreateProofs:Init Could not initialize signing client. Wallet is required.')
 				} else{
-					throw new Error('TxClient:MsgItem:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgSetMinerTotalspace({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgSetMinerTotalspace(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgSetMinerTotalspace:Init Could not initialize signing client. Wallet is required.')
-				} else{
-					throw new Error('TxClient:MsgSetMinerTotalspace:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgCreateActiveDeals({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreateActiveDeals(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCreateActiveDeals:Init Could not initialize signing client. Wallet is required.')
-				} else{
-					throw new Error('TxClient:MsgCreateActiveDeals:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgUpdateMiners({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgUpdateMiners(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgUpdateMiners:Init Could not initialize signing client. Wallet is required.')
-				} else{
-					throw new Error('TxClient:MsgUpdateMiners:Create Could not create message: ' + e.message)
+					throw new Error('TxClient:MsgCreateProofs:Create Could not create message: ' + e.message)
 				}
 			}
 		},
@@ -1272,16 +1155,133 @@ export default {
 				}
 			}
 		},
-		async MsgSetMinerIp({ rootGetters }, { value }) {
+		async MsgUpdateProofs({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgSetMinerIp(value)
+				const msg = await txClient.msgUpdateProofs(value)
 				return msg
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgSetMinerIp:Init Could not initialize signing client. Wallet is required.')
+					throw new Error('TxClient:MsgUpdateProofs:Init Could not initialize signing client. Wallet is required.')
 				} else{
-					throw new Error('TxClient:MsgSetMinerIp:Create Could not create message: ' + e.message)
+					throw new Error('TxClient:MsgUpdateProofs:Create Could not create message: ' + e.message)
+				}
+			}
+		},
+		async MsgDeleteProofs({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgDeleteProofs(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgDeleteProofs:Init Could not initialize signing client. Wallet is required.')
+				} else{
+					throw new Error('TxClient:MsgDeleteProofs:Create Could not create message: ' + e.message)
+				}
+			}
+		},
+		async MsgCreateContracts({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCreateContracts(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgCreateContracts:Init Could not initialize signing client. Wallet is required.')
+				} else{
+					throw new Error('TxClient:MsgCreateContracts:Create Could not create message: ' + e.message)
+				}
+			}
+		},
+		async MsgUpdateActiveDeals({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgUpdateActiveDeals(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgUpdateActiveDeals:Init Could not initialize signing client. Wallet is required.')
+				} else{
+					throw new Error('TxClient:MsgUpdateActiveDeals:Create Could not create message: ' + e.message)
+				}
+			}
+		},
+		async MsgDeleteProviders({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgDeleteProviders(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgDeleteProviders:Init Could not initialize signing client. Wallet is required.')
+				} else{
+					throw new Error('TxClient:MsgDeleteProviders:Create Could not create message: ' + e.message)
+				}
+			}
+		},
+		async MsgItem({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgItem(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgItem:Init Could not initialize signing client. Wallet is required.')
+				} else{
+					throw new Error('TxClient:MsgItem:Create Could not create message: ' + e.message)
+				}
+			}
+		},
+		async MsgBuyStorage({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgBuyStorage(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgBuyStorage:Init Could not initialize signing client. Wallet is required.')
+				} else{
+					throw new Error('TxClient:MsgBuyStorage:Create Could not create message: ' + e.message)
+				}
+			}
+		},
+		async MsgDeleteContracts({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgDeleteContracts(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgDeleteContracts:Init Could not initialize signing client. Wallet is required.')
+				} else{
+					throw new Error('TxClient:MsgDeleteContracts:Create Could not create message: ' + e.message)
+				}
+			}
+		},
+		async MsgUpdateProviders({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgUpdateProviders(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgUpdateProviders:Init Could not initialize signing client. Wallet is required.')
+				} else{
+					throw new Error('TxClient:MsgUpdateProviders:Create Could not create message: ' + e.message)
+				}
+			}
+		},
+		async MsgCreateActiveDeals({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCreateActiveDeals(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgCreateActiveDeals:Init Could not initialize signing client. Wallet is required.')
+				} else{
+					throw new Error('TxClient:MsgCreateActiveDeals:Create Could not create message: ' + e.message)
 				}
 			}
 		},

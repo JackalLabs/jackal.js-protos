@@ -12,7 +12,7 @@ import {
   proposalStatusToJSON,
 } from "../../../cosmos/gov/v1beta1/gov";
 import { Reader, util, configure, Writer } from "protobufjs/minimal";
-import * as Long from "long";
+import Long from "long";
 import {
   PageRequest,
   PageResponse,

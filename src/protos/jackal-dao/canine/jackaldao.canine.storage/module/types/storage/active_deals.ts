@@ -6,7 +6,7 @@ export const protobufPackage = "jackaldao.canine.storage";
 export interface ActiveDeals {
   cid: string;
   signee: string;
-  miner: string;
+  provider: string;
   startblock: string;
   endblock: string;
   filesize: string;
@@ -21,7 +21,7 @@ export interface ActiveDeals {
 const baseActiveDeals: object = {
   cid: "",
   signee: "",
-  miner: "",
+  provider: "",
   startblock: "",
   endblock: "",
   filesize: "",
@@ -41,8 +41,8 @@ export const ActiveDeals = {
     if (message.signee !== "") {
       writer.uint32(18).string(message.signee);
     }
-    if (message.miner !== "") {
-      writer.uint32(26).string(message.miner);
+    if (message.provider !== "") {
+      writer.uint32(26).string(message.provider);
     }
     if (message.startblock !== "") {
       writer.uint32(34).string(message.startblock);
@@ -88,7 +88,7 @@ export const ActiveDeals = {
           message.signee = reader.string();
           break;
         case 3:
-          message.miner = reader.string();
+          message.provider = reader.string();
           break;
         case 4:
           message.startblock = reader.string();
@@ -137,10 +137,10 @@ export const ActiveDeals = {
     } else {
       message.signee = "";
     }
-    if (object.miner !== undefined && object.miner !== null) {
-      message.miner = String(object.miner);
+    if (object.provider !== undefined && object.provider !== null) {
+      message.provider = String(object.provider);
     } else {
-      message.miner = "";
+      message.provider = "";
     }
     if (object.startblock !== undefined && object.startblock !== null) {
       message.startblock = String(object.startblock);
@@ -194,7 +194,7 @@ export const ActiveDeals = {
     const obj: any = {};
     message.cid !== undefined && (obj.cid = message.cid);
     message.signee !== undefined && (obj.signee = message.signee);
-    message.miner !== undefined && (obj.miner = message.miner);
+    message.provider !== undefined && (obj.provider = message.provider);
     message.startblock !== undefined && (obj.startblock = message.startblock);
     message.endblock !== undefined && (obj.endblock = message.endblock);
     message.filesize !== undefined && (obj.filesize = message.filesize);
@@ -222,10 +222,10 @@ export const ActiveDeals = {
     } else {
       message.signee = "";
     }
-    if (object.miner !== undefined && object.miner !== null) {
-      message.miner = object.miner;
+    if (object.provider !== undefined && object.provider !== null) {
+      message.provider = object.provider;
     } else {
-      message.miner = "";
+      message.provider = "";
     }
     if (object.startblock !== undefined && object.startblock !== null) {
       message.startblock = object.startblock;

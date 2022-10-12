@@ -31,7 +31,7 @@ function mergeResults(value, next_values) {
 }
 
 function getStructure(template) {
-	let structure = { fields: [] }
+	let structure: { fields: any[] } = { fields: [] }
 	for (const [key, value] of Object.entries(template)) {
 		let field: any = {}
 		field.name = key
@@ -185,7 +185,7 @@ export default {
 		 		
 		
 		
-		async QueryParams({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryParams({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -207,7 +207,7 @@ export default {
 		 		
 		
 		
-		async QueryLPool({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryLPool({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -229,7 +229,7 @@ export default {
 		 		
 		
 		
-		async QueryLPoolAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryLPoolAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -255,7 +255,7 @@ export default {
 		 		
 		
 		
-		async QueryLProviderRecord({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryLProviderRecord({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -277,7 +277,7 @@ export default {
 		 		
 		
 		
-		async QueryEstimateSwapOut({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryEstimateSwapOut({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -299,7 +299,7 @@ export default {
 		 		
 		
 		
-		async QueryEstimateSwapIn({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryEstimateSwapIn({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -321,7 +321,7 @@ export default {
 		 		
 		
 		
-		async QueryEstimateContribution({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryEstimateContribution({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -343,7 +343,7 @@ export default {
 		 		
 		
 		
-		async QueryMakeValidPair({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryMakeValidPair({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -365,7 +365,7 @@ export default {
 		 		
 		
 		
-		async QueryEstimatePoolRemove({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryEstimatePoolRemove({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -391,7 +391,7 @@ export default {
 		 		
 		
 		
-		async QueryListRecordsFromPool({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryListRecordsFromPool({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -408,21 +408,6 @@ export default {
 		},
 		
 		
-		async sendMsgDepositLPool({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgDepositLPool(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgDepositLPool:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgDepositLPool:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
 		async sendMsgWithdrawLPool({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -435,6 +420,21 @@ export default {
 					throw new Error('TxClient:MsgWithdrawLPool:Init Could not initialize signing client. Wallet is required.')
 				}else{
 					throw new Error('TxClient:MsgWithdrawLPool:Send Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgDepositLPool({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgDepositLPool(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgDepositLPool:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgDepositLPool:Send Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
@@ -469,19 +469,6 @@ export default {
 			}
 		},
 		
-		async MsgDepositLPool({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgDepositLPool(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgDepositLPool:Init Could not initialize signing client. Wallet is required.')
-				} else{
-					throw new Error('TxClient:MsgDepositLPool:Create Could not create message: ' + e.message)
-				}
-			}
-		},
 		async MsgWithdrawLPool({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -492,6 +479,19 @@ export default {
 					throw new Error('TxClient:MsgWithdrawLPool:Init Could not initialize signing client. Wallet is required.')
 				} else{
 					throw new Error('TxClient:MsgWithdrawLPool:Create Could not create message: ' + e.message)
+				}
+			}
+		},
+		async MsgDepositLPool({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgDepositLPool(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgDepositLPool:Init Could not initialize signing client. Wallet is required.')
+				} else{
+					throw new Error('TxClient:MsgDepositLPool:Create Could not create message: ' + e.message)
 				}
 			}
 		},

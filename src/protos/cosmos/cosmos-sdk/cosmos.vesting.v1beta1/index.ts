@@ -34,7 +34,7 @@ function mergeResults(value, next_values) {
 }
 
 function getStructure(template) {
-	let structure = { fields: [] }
+	let structure: { fields: any[] } = { fields: [] }
 	for (const [key, value] of Object.entries(template)) {
 		let field: any = {}
 		field.name = key
@@ -140,7 +140,7 @@ export default {
 			} catch (e) {
 				if (e == MissingWalletError) {
 					throw new Error('TxClient:MsgCreateVestingAccount:Init Could not initialize signing client. Wallet is required.')
-				}else{
+				} else{
 					throw new Error('TxClient:MsgCreateVestingAccount:Create Could not create message: ' + e.message)
 				}
 			}

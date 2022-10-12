@@ -7,7 +7,7 @@ import { Api } from "./rest";
 import { MsgCreateVestingAccount } from "./types/cosmos/vesting/v1beta1/tx";
 
 
-const types = [
+export const types = [
   ["/cosmos.vesting.v1beta1.MsgCreateVestingAccount", MsgCreateVestingAccount],
   
 ];

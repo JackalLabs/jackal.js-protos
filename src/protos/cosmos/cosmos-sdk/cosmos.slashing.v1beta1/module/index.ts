@@ -7,7 +7,7 @@ import { Api } from "./rest";
 import { MsgUnjail } from "./types/cosmos/slashing/v1beta1/tx";
 
 
-const types = [
+export const types = [
   ["/cosmos.slashing.v1beta1.MsgUnjail", MsgUnjail],
   
 ];

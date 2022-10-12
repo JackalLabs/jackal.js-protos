@@ -4,7 +4,7 @@ import {
   signModeFromJSON,
   signModeToJSON,
 } from "../../../cosmos/tx/signing/v1beta1/signing";
-import * as Long from "long";
+import Long from "long";
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
 import { Any } from "../../../google/protobuf/any";
 import { CompactBitArray } from "../../../cosmos/crypto/multisig/v1beta1/multisig";

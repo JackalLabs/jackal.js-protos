@@ -8,7 +8,7 @@ import {
 } from "../cosmos/base/query/v1beta1/pagination";
 import { Proofs } from "../storage/proofs";
 import { ActiveDeals } from "../storage/active_deals";
-import { Miners } from "../storage/miners";
+import { Providers } from "../storage/providers";
 import { PayBlocks } from "../storage/pay_blocks";
 import { ClientUsage } from "../storage/client_usage";
 import { Strays } from "../storage/strays";
@@ -75,20 +75,20 @@ export interface QueryAllActiveDealsResponse {
   pagination: PageResponse | undefined;
 }
 
-export interface QueryGetMinersRequest {
+export interface QueryGetProvidersRequest {
   address: string;
 }
 
-export interface QueryGetMinersResponse {
-  miners: Miners | undefined;
+export interface QueryGetProvidersResponse {
+  providers: Providers | undefined;
 }
 
-export interface QueryAllMinersRequest {
+export interface QueryAllProvidersRequest {
   pagination: PageRequest | undefined;
 }
 
-export interface QueryAllMinersResponse {
-  miners: Miners[];
+export interface QueryAllProvidersResponse {
+  providers: Providers[];
   pagination: PageResponse | undefined;
 }
 
@@ -105,7 +105,7 @@ export interface QueryFindFileRequest {
 }
 
 export interface QueryFindFileResponse {
-  minerIps: string;
+  providerIps: string;
 }
 
 export interface QueryGetPayBlocksRequest {
@@ -1171,11 +1171,11 @@ export const QueryAllActiveDealsResponse = {
   },
 };
 
-const baseQueryGetMinersRequest: object = { address: "" };
+const baseQueryGetProvidersRequest: object = { address: "" };
 
-export const QueryGetMinersRequest = {
+export const QueryGetProvidersRequest = {
   encode(
-    message: QueryGetMinersRequest,
+    message: QueryGetProvidersRequest,
     writer: Writer = Writer.create()
   ): Writer {
     if (message.address !== "") {
@@ -1184,10 +1184,15 @@ export const QueryGetMinersRequest = {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): QueryGetMinersRequest {
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetProvidersRequest {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseQueryGetMinersRequest } as QueryGetMinersRequest;
+    const message = {
+      ...baseQueryGetProvidersRequest,
+    } as QueryGetProvidersRequest;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1202,8 +1207,10 @@ export const QueryGetMinersRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryGetMinersRequest {
-    const message = { ...baseQueryGetMinersRequest } as QueryGetMinersRequest;
+  fromJSON(object: any): QueryGetProvidersRequest {
+    const message = {
+      ...baseQueryGetProvidersRequest,
+    } as QueryGetProvidersRequest;
     if (object.address !== undefined && object.address !== null) {
       message.address = String(object.address);
     } else {
@@ -1212,16 +1219,18 @@ export const QueryGetMinersRequest = {
     return message;
   },
 
-  toJSON(message: QueryGetMinersRequest): unknown {
+  toJSON(message: QueryGetProvidersRequest): unknown {
     const obj: any = {};
     message.address !== undefined && (obj.address = message.address);
     return obj;
   },
 
   fromPartial(
-    object: DeepPartial<QueryGetMinersRequest>
-  ): QueryGetMinersRequest {
-    const message = { ...baseQueryGetMinersRequest } as QueryGetMinersRequest;
+    object: DeepPartial<QueryGetProvidersRequest>
+  ): QueryGetProvidersRequest {
+    const message = {
+      ...baseQueryGetProvidersRequest,
+    } as QueryGetProvidersRequest;
     if (object.address !== undefined && object.address !== null) {
       message.address = object.address;
     } else {
@@ -1231,28 +1240,33 @@ export const QueryGetMinersRequest = {
   },
 };
 
-const baseQueryGetMinersResponse: object = {};
+const baseQueryGetProvidersResponse: object = {};
 
-export const QueryGetMinersResponse = {
+export const QueryGetProvidersResponse = {
   encode(
-    message: QueryGetMinersResponse,
+    message: QueryGetProvidersResponse,
     writer: Writer = Writer.create()
   ): Writer {
-    if (message.miners !== undefined) {
-      Miners.encode(message.miners, writer.uint32(10).fork()).ldelim();
+    if (message.providers !== undefined) {
+      Providers.encode(message.providers, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): QueryGetMinersResponse {
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetProvidersResponse {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseQueryGetMinersResponse } as QueryGetMinersResponse;
+    const message = {
+      ...baseQueryGetProvidersResponse,
+    } as QueryGetProvidersResponse;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.miners = Miners.decode(reader, reader.uint32());
+          message.providers = Providers.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -1262,41 +1276,47 @@ export const QueryGetMinersResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryGetMinersResponse {
-    const message = { ...baseQueryGetMinersResponse } as QueryGetMinersResponse;
-    if (object.miners !== undefined && object.miners !== null) {
-      message.miners = Miners.fromJSON(object.miners);
+  fromJSON(object: any): QueryGetProvidersResponse {
+    const message = {
+      ...baseQueryGetProvidersResponse,
+    } as QueryGetProvidersResponse;
+    if (object.providers !== undefined && object.providers !== null) {
+      message.providers = Providers.fromJSON(object.providers);
     } else {
-      message.miners = undefined;
+      message.providers = undefined;
     }
     return message;
   },
 
-  toJSON(message: QueryGetMinersResponse): unknown {
+  toJSON(message: QueryGetProvidersResponse): unknown {
     const obj: any = {};
-    message.miners !== undefined &&
-      (obj.miners = message.miners ? Miners.toJSON(message.miners) : undefined);
+    message.providers !== undefined &&
+      (obj.providers = message.providers
+        ? Providers.toJSON(message.providers)
+        : undefined);
     return obj;
   },
 
   fromPartial(
-    object: DeepPartial<QueryGetMinersResponse>
-  ): QueryGetMinersResponse {
-    const message = { ...baseQueryGetMinersResponse } as QueryGetMinersResponse;
-    if (object.miners !== undefined && object.miners !== null) {
-      message.miners = Miners.fromPartial(object.miners);
+    object: DeepPartial<QueryGetProvidersResponse>
+  ): QueryGetProvidersResponse {
+    const message = {
+      ...baseQueryGetProvidersResponse,
+    } as QueryGetProvidersResponse;
+    if (object.providers !== undefined && object.providers !== null) {
+      message.providers = Providers.fromPartial(object.providers);
     } else {
-      message.miners = undefined;
+      message.providers = undefined;
     }
     return message;
   },
 };
 
-const baseQueryAllMinersRequest: object = {};
+const baseQueryAllProvidersRequest: object = {};
 
-export const QueryAllMinersRequest = {
+export const QueryAllProvidersRequest = {
   encode(
-    message: QueryAllMinersRequest,
+    message: QueryAllProvidersRequest,
     writer: Writer = Writer.create()
   ): Writer {
     if (message.pagination !== undefined) {
@@ -1305,10 +1325,15 @@ export const QueryAllMinersRequest = {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): QueryAllMinersRequest {
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryAllProvidersRequest {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseQueryAllMinersRequest } as QueryAllMinersRequest;
+    const message = {
+      ...baseQueryAllProvidersRequest,
+    } as QueryAllProvidersRequest;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1323,8 +1348,10 @@ export const QueryAllMinersRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryAllMinersRequest {
-    const message = { ...baseQueryAllMinersRequest } as QueryAllMinersRequest;
+  fromJSON(object: any): QueryAllProvidersRequest {
+    const message = {
+      ...baseQueryAllProvidersRequest,
+    } as QueryAllProvidersRequest;
     if (object.pagination !== undefined && object.pagination !== null) {
       message.pagination = PageRequest.fromJSON(object.pagination);
     } else {
@@ -1333,7 +1360,7 @@ export const QueryAllMinersRequest = {
     return message;
   },
 
-  toJSON(message: QueryAllMinersRequest): unknown {
+  toJSON(message: QueryAllProvidersRequest): unknown {
     const obj: any = {};
     message.pagination !== undefined &&
       (obj.pagination = message.pagination
@@ -1343,9 +1370,11 @@ export const QueryAllMinersRequest = {
   },
 
   fromPartial(
-    object: DeepPartial<QueryAllMinersRequest>
-  ): QueryAllMinersRequest {
-    const message = { ...baseQueryAllMinersRequest } as QueryAllMinersRequest;
+    object: DeepPartial<QueryAllProvidersRequest>
+  ): QueryAllProvidersRequest {
+    const message = {
+      ...baseQueryAllProvidersRequest,
+    } as QueryAllProvidersRequest;
     if (object.pagination !== undefined && object.pagination !== null) {
       message.pagination = PageRequest.fromPartial(object.pagination);
     } else {
@@ -1355,15 +1384,15 @@ export const QueryAllMinersRequest = {
   },
 };
 
-const baseQueryAllMinersResponse: object = {};
+const baseQueryAllProvidersResponse: object = {};
 
-export const QueryAllMinersResponse = {
+export const QueryAllProvidersResponse = {
   encode(
-    message: QueryAllMinersResponse,
+    message: QueryAllProvidersResponse,
     writer: Writer = Writer.create()
   ): Writer {
-    for (const v of message.miners) {
-      Miners.encode(v!, writer.uint32(10).fork()).ldelim();
+    for (const v of message.providers) {
+      Providers.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     if (message.pagination !== undefined) {
       PageResponse.encode(
@@ -1374,16 +1403,21 @@ export const QueryAllMinersResponse = {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): QueryAllMinersResponse {
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryAllProvidersResponse {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseQueryAllMinersResponse } as QueryAllMinersResponse;
-    message.miners = [];
+    const message = {
+      ...baseQueryAllProvidersResponse,
+    } as QueryAllProvidersResponse;
+    message.providers = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.miners.push(Miners.decode(reader, reader.uint32()));
+          message.providers.push(Providers.decode(reader, reader.uint32()));
           break;
         case 2:
           message.pagination = PageResponse.decode(reader, reader.uint32());
@@ -1396,12 +1430,14 @@ export const QueryAllMinersResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryAllMinersResponse {
-    const message = { ...baseQueryAllMinersResponse } as QueryAllMinersResponse;
-    message.miners = [];
-    if (object.miners !== undefined && object.miners !== null) {
-      for (const e of object.miners) {
-        message.miners.push(Miners.fromJSON(e));
+  fromJSON(object: any): QueryAllProvidersResponse {
+    const message = {
+      ...baseQueryAllProvidersResponse,
+    } as QueryAllProvidersResponse;
+    message.providers = [];
+    if (object.providers !== undefined && object.providers !== null) {
+      for (const e of object.providers) {
+        message.providers.push(Providers.fromJSON(e));
       }
     }
     if (object.pagination !== undefined && object.pagination !== null) {
@@ -1412,14 +1448,14 @@ export const QueryAllMinersResponse = {
     return message;
   },
 
-  toJSON(message: QueryAllMinersResponse): unknown {
+  toJSON(message: QueryAllProvidersResponse): unknown {
     const obj: any = {};
-    if (message.miners) {
-      obj.miners = message.miners.map((e) =>
-        e ? Miners.toJSON(e) : undefined
+    if (message.providers) {
+      obj.providers = message.providers.map((e) =>
+        e ? Providers.toJSON(e) : undefined
       );
     } else {
-      obj.miners = [];
+      obj.providers = [];
     }
     message.pagination !== undefined &&
       (obj.pagination = message.pagination
@@ -1429,13 +1465,15 @@ export const QueryAllMinersResponse = {
   },
 
   fromPartial(
-    object: DeepPartial<QueryAllMinersResponse>
-  ): QueryAllMinersResponse {
-    const message = { ...baseQueryAllMinersResponse } as QueryAllMinersResponse;
-    message.miners = [];
-    if (object.miners !== undefined && object.miners !== null) {
-      for (const e of object.miners) {
-        message.miners.push(Miners.fromPartial(e));
+    object: DeepPartial<QueryAllProvidersResponse>
+  ): QueryAllProvidersResponse {
+    const message = {
+      ...baseQueryAllProvidersResponse,
+    } as QueryAllProvidersResponse;
+    message.providers = [];
+    if (object.providers !== undefined && object.providers !== null) {
+      for (const e of object.providers) {
+        message.providers.push(Providers.fromPartial(e));
       }
     }
     if (object.pagination !== undefined && object.pagination !== null) {
@@ -1625,15 +1663,15 @@ export const QueryFindFileRequest = {
   },
 };
 
-const baseQueryFindFileResponse: object = { minerIps: "" };
+const baseQueryFindFileResponse: object = { providerIps: "" };
 
 export const QueryFindFileResponse = {
   encode(
     message: QueryFindFileResponse,
     writer: Writer = Writer.create()
   ): Writer {
-    if (message.minerIps !== "") {
-      writer.uint32(10).string(message.minerIps);
+    if (message.providerIps !== "") {
+      writer.uint32(10).string(message.providerIps);
     }
     return writer;
   },
@@ -1646,7 +1684,7 @@ export const QueryFindFileResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.minerIps = reader.string();
+          message.providerIps = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -1658,17 +1696,18 @@ export const QueryFindFileResponse = {
 
   fromJSON(object: any): QueryFindFileResponse {
     const message = { ...baseQueryFindFileResponse } as QueryFindFileResponse;
-    if (object.minerIps !== undefined && object.minerIps !== null) {
-      message.minerIps = String(object.minerIps);
+    if (object.providerIps !== undefined && object.providerIps !== null) {
+      message.providerIps = String(object.providerIps);
     } else {
-      message.minerIps = "";
+      message.providerIps = "";
     }
     return message;
   },
 
   toJSON(message: QueryFindFileResponse): unknown {
     const obj: any = {};
-    message.minerIps !== undefined && (obj.minerIps = message.minerIps);
+    message.providerIps !== undefined &&
+      (obj.providerIps = message.providerIps);
     return obj;
   },
 
@@ -1676,10 +1715,10 @@ export const QueryFindFileResponse = {
     object: DeepPartial<QueryFindFileResponse>
   ): QueryFindFileResponse {
     const message = { ...baseQueryFindFileResponse } as QueryFindFileResponse;
-    if (object.minerIps !== undefined && object.minerIps !== null) {
-      message.minerIps = object.minerIps;
+    if (object.providerIps !== undefined && object.providerIps !== null) {
+      message.providerIps = object.providerIps;
     } else {
-      message.minerIps = "";
+      message.providerIps = "";
     }
     return message;
   },
@@ -2754,10 +2793,14 @@ export interface Query {
   ActiveDealsAll(
     request: QueryAllActiveDealsRequest
   ): Promise<QueryAllActiveDealsResponse>;
-  /** Queries a Miners by index. */
-  Miners(request: QueryGetMinersRequest): Promise<QueryGetMinersResponse>;
-  /** Queries a list of Miners items. */
-  MinersAll(request: QueryAllMinersRequest): Promise<QueryAllMinersResponse>;
+  /** Queries a Providers by index. */
+  Providers(
+    request: QueryGetProvidersRequest
+  ): Promise<QueryGetProvidersResponse>;
+  /** Queries a list of Providers items. */
+  ProvidersAll(
+    request: QueryAllProvidersRequest
+  ): Promise<QueryAllProvidersResponse>;
   /** Queries a list of Freespace items. */
   Freespace(request: QueryFreespaceRequest): Promise<QueryFreespaceResponse>;
   /** Queries a list of FindFile items. */
@@ -2883,27 +2926,31 @@ export class QueryClientImpl implements Query {
     );
   }
 
-  Miners(request: QueryGetMinersRequest): Promise<QueryGetMinersResponse> {
-    const data = QueryGetMinersRequest.encode(request).finish();
+  Providers(
+    request: QueryGetProvidersRequest
+  ): Promise<QueryGetProvidersResponse> {
+    const data = QueryGetProvidersRequest.encode(request).finish();
     const promise = this.rpc.request(
       "jackaldao.canine.storage.Query",
-      "Miners",
+      "Providers",
       data
     );
     return promise.then((data) =>
-      QueryGetMinersResponse.decode(new Reader(data))
+      QueryGetProvidersResponse.decode(new Reader(data))
     );
   }
 
-  MinersAll(request: QueryAllMinersRequest): Promise<QueryAllMinersResponse> {
-    const data = QueryAllMinersRequest.encode(request).finish();
+  ProvidersAll(
+    request: QueryAllProvidersRequest
+  ): Promise<QueryAllProvidersResponse> {
+    const data = QueryAllProvidersRequest.encode(request).finish();
     const promise = this.rpc.request(
       "jackaldao.canine.storage.Query",
-      "MinersAll",
+      "ProvidersAll",
       data
     );
     return promise.then((data) =>
-      QueryAllMinersResponse.decode(new Reader(data))
+      QueryAllProvidersResponse.decode(new Reader(data))
     );
   }
 

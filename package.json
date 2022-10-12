@@ -1,6 +1,6 @@
 {
   "name": "jackal.js-protos",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Package of all protos used by Jackal.js",
   "keywords": [
     "jackal",
@@ -12,7 +12,11 @@
   "scripts": {
     "build": "tsc",
     "packit": "tsc && npm pack --pack-destination packs",
-    "fixlong": "find ./src -name '*.ts' -exec sed -i -e 's/^import \\* as Long/import Long/' {} \\; && find . -name '*.ts-e' -exec rm -R {} \\;",
+    "fix": "npm run fixlong && npm run fixquery && npm run fixfields && npm run fixexport && find . -name '*.ts-e' -exec rm -R {} \\;",
+    "fixlong": "find ./src -name '*.ts' -exec sed -i -e 's/^import \\* as Long/import Long/' {} \\;",
+    "fixquery": "find ./src -name '*.ts' -exec sed -i -e 's/ query=null / query /' {} \\;",
+    "fixexport": "find ./src -name 'index.ts' -exec sed -i -e 's/^const types = \\[/export const types = \\[/' {} \\;",
+    "fixfields": "find ./src -name '*.ts' -exec sed -i -e 's/\tlet structure = { fields: \\[\\] }/\tlet structure: { fields: any\\[\\] } = { fields: \\[\\] }/' {} \\;",
     "push": "tsc && npm publish",
     "test": "echo \"Error: no tests included\" && exit 1"
   },

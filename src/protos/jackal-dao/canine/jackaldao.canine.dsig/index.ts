@@ -31,7 +31,7 @@ function mergeResults(value, next_values) {
 }
 
 function getStructure(template) {
-	let structure = { fields: [] }
+	let structure: { fields: any[] } = { fields: [] }
 	for (const [key, value] of Object.entries(template)) {
 		let field: any = {}
 		field.name = key
@@ -150,7 +150,7 @@ export default {
 		 		
 		
 		
-		async QueryParams({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryParams({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -172,7 +172,7 @@ export default {
 		 		
 		
 		
-		async QueryUserUploads({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryUserUploads({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -194,7 +194,7 @@ export default {
 		 		
 		
 		
-		async QueryUserUploadsAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryUserUploadsAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -220,7 +220,7 @@ export default {
 		 		
 		
 		
-		async QueryForm({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryForm({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -242,7 +242,7 @@ export default {
 		 		
 		
 		
-		async QueryFormAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+		async QueryFormAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
@@ -263,6 +263,21 @@ export default {
 		},
 		
 		
+		async sendMsgCreateform({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCreateform(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgCreateform:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgCreateform:Send Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
 		async sendMsgUploadfile({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -293,22 +308,20 @@ export default {
 				}
 			}
 		},
-		async sendMsgCreateform({ rootGetters }, { value, fee = [], memo = '' }) {
+		
+		async MsgCreateform({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
 				const msg = await txClient.msgCreateform(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
+				return msg
 			} catch (e) {
 				if (e == MissingWalletError) {
 					throw new Error('TxClient:MsgCreateform:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgCreateform:Send Could not broadcast Tx: '+ e.message)
+				} else{
+					throw new Error('TxClient:MsgCreateform:Create Could not create message: ' + e.message)
 				}
 			}
 		},
-		
 		async MsgUploadfile({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -332,19 +345,6 @@ export default {
 					throw new Error('TxClient:MsgSignform:Init Could not initialize signing client. Wallet is required.')
 				} else{
 					throw new Error('TxClient:MsgSignform:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgCreateform({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreateform(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCreateform:Init Could not initialize signing client. Wallet is required.')
-				} else{
-					throw new Error('TxClient:MsgCreateform:Create Could not create message: ' + e.message)
 				}
 			}
 		},

@@ -23,7 +23,7 @@ export interface RpcStatus {
 export interface StorageActiveDeals {
   cid?: string;
   signee?: string;
-  miner?: string;
+  provider?: string;
   startblock?: string;
   endblock?: string;
   filesize?: string;
@@ -52,19 +52,11 @@ export interface StorageContracts {
   creator?: string;
 }
 
-export interface StorageMiners {
-  address?: string;
-  ip?: string;
-  totalspace?: string;
-  burned_contracts?: string;
-  creator?: string;
-}
-
 export type StorageMsgBuyStorageResponse = object;
 
 export type StorageMsgCancelContractResponse = object;
 
-export type StorageMsgInitMinerResponse = object;
+export type StorageMsgInitProviderResponse = object;
 
 export type StorageMsgPostContractResponse = object;
 
@@ -72,9 +64,9 @@ export interface StorageMsgPostproofResponse {
   merkle?: string;
 }
 
-export type StorageMsgSetMinerIpResponse = object;
+export type StorageMsgSetProviderIpResponse = object;
 
-export type StorageMsgSetMinerTotalspaceResponse = object;
+export type StorageMsgSetProviderTotalspaceResponse = object;
 
 export type StorageMsgSignContractResponse = object;
 
@@ -94,6 +86,14 @@ export interface StorageProofs {
   cid?: string;
   item?: string;
   hashes?: string;
+  creator?: string;
+}
+
+export interface StorageProviders {
+  address?: string;
+  ip?: string;
+  totalspace?: string;
+  burned_contracts?: string;
   creator?: string;
 }
 
@@ -142,21 +142,6 @@ export interface StorageQueryAllContractsResponse {
   pagination?: V1Beta1PageResponse;
 }
 
-export interface StorageQueryAllMinersResponse {
-  miners?: StorageMiners[];
-
-  /**
-   * PageResponse is to be embedded in gRPC response messages where the
-   * corresponding request message has used PageRequest.
-   *
-   *  message SomeResponse {
-   *          repeated Bar results = 1;
-   *          PageResponse page = 2;
-   *  }
-   */
-  pagination?: V1Beta1PageResponse;
-}
-
 export interface StorageQueryAllPayBlocksResponse {
   payBlocks?: StoragePayBlocks[];
 
@@ -187,6 +172,21 @@ export interface StorageQueryAllProofsResponse {
   pagination?: V1Beta1PageResponse;
 }
 
+export interface StorageQueryAllProvidersResponse {
+  providers?: StorageProviders[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
 export interface StorageQueryAllStraysResponse {
   strays?: StorageStrays[];
 
@@ -203,7 +203,7 @@ export interface StorageQueryAllStraysResponse {
 }
 
 export interface StorageQueryFindFileResponse {
-  minerIps?: string;
+  providerIps?: string;
 }
 
 export interface StorageQueryFreespaceResponse {
@@ -226,16 +226,16 @@ export interface StorageQueryGetContractsResponse {
   contracts?: StorageContracts;
 }
 
-export interface StorageQueryGetMinersResponse {
-  miners?: StorageMiners;
-}
-
 export interface StorageQueryGetPayBlocksResponse {
   payBlocks?: StoragePayBlocks;
 }
 
 export interface StorageQueryGetProofsResponse {
   proofs?: StorageProofs;
+}
+
+export interface StorageQueryGetProvidersResponse {
+  providers?: StorageProviders;
 }
 
 export interface StorageQueryGetStraysResponse {
@@ -695,48 +695,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
    * No description
    *
    * @tags Query
-   * @name QueryMinersAll
-   * @summary Queries a list of Miners items.
-   * @request GET:/jackal-dao/canine/storage/miners
-   */
-  queryMinersAll = (
-    query?: {
-      "pagination.key"?: string;
-      "pagination.offset"?: string;
-      "pagination.limit"?: string;
-      "pagination.count_total"?: boolean;
-      "pagination.reverse"?: boolean;
-    },
-    params: RequestParams = {},
-  ) =>
-    this.request<StorageQueryAllMinersResponse, RpcStatus>({
-      path: `/jackal-dao/canine/storage/miners`,
-      method: "GET",
-      query: query,
-      format: "json",
-      ...params,
-    });
-
-  /**
-   * No description
-   *
-   * @tags Query
-   * @name QueryMiners
-   * @summary Queries a Miners by index.
-   * @request GET:/jackal-dao/canine/storage/miners/{address}
-   */
-  queryMiners = (address: string, params: RequestParams = {}) =>
-    this.request<StorageQueryGetMinersResponse, RpcStatus>({
-      path: `/jackal-dao/canine/storage/miners/${address}`,
-      method: "GET",
-      format: "json",
-      ...params,
-    });
-
-  /**
-   * No description
-   *
-   * @tags Query
    * @name QueryParams
    * @summary Parameters queries the parameters of the module.
    * @request GET:/jackal-dao/canine/storage/params
@@ -828,6 +786,48 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryProofs = (cid: string, params: RequestParams = {}) =>
     this.request<StorageQueryGetProofsResponse, RpcStatus>({
       path: `/jackal-dao/canine/storage/proofs/${cid}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryProvidersAll
+   * @summary Queries a list of Providers items.
+   * @request GET:/jackal-dao/canine/storage/providers
+   */
+  queryProvidersAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<StorageQueryAllProvidersResponse, RpcStatus>({
+      path: `/jackal-dao/canine/storage/providers`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryProviders
+   * @summary Queries a Providers by index.
+   * @request GET:/jackal-dao/canine/storage/providers/{address}
+   */
+  queryProviders = (address: string, params: RequestParams = {}) =>
+    this.request<StorageQueryGetProvidersResponse, RpcStatus>({
+      path: `/jackal-dao/canine/storage/providers/${address}`,
       method: "GET",
       format: "json",
       ...params,

@@ -95,7 +95,7 @@ export interface QueryGetInitRequest {
 }
 
 export interface QueryGetInitResponse {
-  init: Init | undefined;
+  init: boolean;
 }
 
 export interface QueryAllInitRequest {
@@ -1368,15 +1368,15 @@ export const QueryGetInitRequest = {
   },
 };
 
-const baseQueryGetInitResponse: object = {};
+const baseQueryGetInitResponse: object = { init: false };
 
 export const QueryGetInitResponse = {
   encode(
     message: QueryGetInitResponse,
     writer: Writer = Writer.create()
   ): Writer {
-    if (message.init !== undefined) {
-      Init.encode(message.init, writer.uint32(10).fork()).ldelim();
+    if (message.init === true) {
+      writer.uint32(8).bool(message.init);
     }
     return writer;
   },
@@ -1389,7 +1389,7 @@ export const QueryGetInitResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.init = Init.decode(reader, reader.uint32());
+          message.init = reader.bool();
           break;
         default:
           reader.skipType(tag & 7);
@@ -1402,26 +1402,25 @@ export const QueryGetInitResponse = {
   fromJSON(object: any): QueryGetInitResponse {
     const message = { ...baseQueryGetInitResponse } as QueryGetInitResponse;
     if (object.init !== undefined && object.init !== null) {
-      message.init = Init.fromJSON(object.init);
+      message.init = Boolean(object.init);
     } else {
-      message.init = undefined;
+      message.init = false;
     }
     return message;
   },
 
   toJSON(message: QueryGetInitResponse): unknown {
     const obj: any = {};
-    message.init !== undefined &&
-      (obj.init = message.init ? Init.toJSON(message.init) : undefined);
+    message.init !== undefined && (obj.init = message.init);
     return obj;
   },
 
   fromPartial(object: DeepPartial<QueryGetInitResponse>): QueryGetInitResponse {
     const message = { ...baseQueryGetInitResponse } as QueryGetInitResponse;
     if (object.init !== undefined && object.init !== null) {
-      message.init = Init.fromPartial(object.init);
+      message.init = object.init;
     } else {
-      message.init = undefined;
+      message.init = false;
     }
     return message;
   },

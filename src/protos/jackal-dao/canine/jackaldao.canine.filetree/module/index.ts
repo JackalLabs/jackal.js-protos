@@ -5,20 +5,24 @@ import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
 import { MsgInitAccount } from "./types/filetree/tx";
-import { MsgInitAll } from "./types/filetree/tx";
-import { MsgAddViewers } from "./types/filetree/tx";
+import { MsgMakeRoot } from "./types/filetree/tx";
 import { MsgPostFile } from "./types/filetree/tx";
-import { MsgPostkey } from "./types/filetree/tx";
+import { MsgAddViewers } from "./types/filetree/tx";
 import { MsgDeleteFile } from "./types/filetree/tx";
+import { MsgInitAll } from "./types/filetree/tx";
+import { MsgRemoveViewers } from "./types/filetree/tx";
+import { MsgPostkey } from "./types/filetree/tx";
 
 
-const types = [
+export const types = [
   ["/jackaldao.canine.filetree.MsgInitAccount", MsgInitAccount],
-  ["/jackaldao.canine.filetree.MsgInitAll", MsgInitAll],
-  ["/jackaldao.canine.filetree.MsgAddViewers", MsgAddViewers],
+  ["/jackaldao.canine.filetree.MsgMakeRoot", MsgMakeRoot],
   ["/jackaldao.canine.filetree.MsgPostFile", MsgPostFile],
-  ["/jackaldao.canine.filetree.MsgPostkey", MsgPostkey],
+  ["/jackaldao.canine.filetree.MsgAddViewers", MsgAddViewers],
   ["/jackaldao.canine.filetree.MsgDeleteFile", MsgDeleteFile],
+  ["/jackaldao.canine.filetree.MsgInitAll", MsgInitAll],
+  ["/jackaldao.canine.filetree.MsgRemoveViewers", MsgRemoveViewers],
+  ["/jackaldao.canine.filetree.MsgPostkey", MsgPostkey],
   
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -52,11 +56,13 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
     msgInitAccount: (data: MsgInitAccount): EncodeObject => ({ typeUrl: "/jackaldao.canine.filetree.MsgInitAccount", value: MsgInitAccount.fromPartial( data ) }),
-    msgInitAll: (data: MsgInitAll): EncodeObject => ({ typeUrl: "/jackaldao.canine.filetree.MsgInitAll", value: MsgInitAll.fromPartial( data ) }),
-    msgAddViewers: (data: MsgAddViewers): EncodeObject => ({ typeUrl: "/jackaldao.canine.filetree.MsgAddViewers", value: MsgAddViewers.fromPartial( data ) }),
+    msgMakeRoot: (data: MsgMakeRoot): EncodeObject => ({ typeUrl: "/jackaldao.canine.filetree.MsgMakeRoot", value: MsgMakeRoot.fromPartial( data ) }),
     msgPostFile: (data: MsgPostFile): EncodeObject => ({ typeUrl: "/jackaldao.canine.filetree.MsgPostFile", value: MsgPostFile.fromPartial( data ) }),
-    msgPostkey: (data: MsgPostkey): EncodeObject => ({ typeUrl: "/jackaldao.canine.filetree.MsgPostkey", value: MsgPostkey.fromPartial( data ) }),
+    msgAddViewers: (data: MsgAddViewers): EncodeObject => ({ typeUrl: "/jackaldao.canine.filetree.MsgAddViewers", value: MsgAddViewers.fromPartial( data ) }),
     msgDeleteFile: (data: MsgDeleteFile): EncodeObject => ({ typeUrl: "/jackaldao.canine.filetree.MsgDeleteFile", value: MsgDeleteFile.fromPartial( data ) }),
+    msgInitAll: (data: MsgInitAll): EncodeObject => ({ typeUrl: "/jackaldao.canine.filetree.MsgInitAll", value: MsgInitAll.fromPartial( data ) }),
+    msgRemoveViewers: (data: MsgRemoveViewers): EncodeObject => ({ typeUrl: "/jackaldao.canine.filetree.MsgRemoveViewers", value: MsgRemoveViewers.fromPartial( data ) }),
+    msgPostkey: (data: MsgPostkey): EncodeObject => ({ typeUrl: "/jackaldao.canine.filetree.MsgPostkey", value: MsgPostkey.fromPartial( data ) }),
     
   };
 };

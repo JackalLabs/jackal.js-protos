@@ -15,8 +15,6 @@ export interface FiletreeFiles {
   owner?: string;
   viewingAccess?: string;
   editAccess?: string;
-
-  /** @format uint64 */
   trackingNumber?: string;
 }
 
@@ -24,18 +22,21 @@ export type FiletreeMsgAddViewersResponse = object;
 
 export type FiletreeMsgDeleteFileResponse = object;
 
-export interface FiletreeMsgInitAccountResponse {
-  /** @format uint64 */
-  trackingNumber?: string;
+export type FiletreeMsgInitAccountResponse = object;
+
+export interface FiletreeMsgInitAllResponse {
+  name?: string;
 }
 
-export type FiletreeMsgInitAllResponse = object;
+export type FiletreeMsgMakeRootResponse = object;
 
 export interface FiletreeMsgPostFileResponse {
   path?: string;
 }
 
 export type FiletreeMsgPostkeyResponse = object;
+
+export type FiletreeMsgRemoveViewersResponse = object;
 
 /**
  * Params defines the parameters for the module.
