@@ -33,8 +33,6 @@ export interface NotificationsNotifications {
   notification?: string;
   address?: string;
   sender?: string;
-  hashPath?: string;
-  hashPathOwner?: string;
 }
 
 /**
@@ -73,7 +71,7 @@ export interface NotificationsQueryAllNotificationsResponse {
 }
 
 export interface NotificationsQueryFilteredNotificationsResponse {
-  notifications?: string[];
+  notifications?: string;
 }
 
 export interface NotificationsQueryGetNotiCounterResponse {
@@ -88,7 +86,7 @@ export interface NotificationsQueryGetNotificationsResponse {
  * QueryParamsResponse is response type for the Query/Params RPC method.
  */
 export interface NotificationsQueryParamsResponse {
-  /** params holds all the parameters of this module. */
+  /** Params defines the parameters for the module. */
   params?: NotificationsParams;
 }
 

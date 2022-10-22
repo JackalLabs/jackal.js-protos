@@ -9,8 +9,6 @@ export interface Notifications {
   notification: string;
   address: string;
   sender: string;
-  hashPath: string;
-  hashPathOwner: string;
 }
 
 const baseNotifications: object = {
@@ -18,8 +16,6 @@ const baseNotifications: object = {
   notification: "",
   address: "",
   sender: "",
-  hashPath: "",
-  hashPathOwner: "",
 };
 
 export const Notifications = {
@@ -35,12 +31,6 @@ export const Notifications = {
     }
     if (message.sender !== "") {
       writer.uint32(34).string(message.sender);
-    }
-    if (message.hashPath !== "") {
-      writer.uint32(42).string(message.hashPath);
-    }
-    if (message.hashPathOwner !== "") {
-      writer.uint32(50).string(message.hashPathOwner);
     }
     return writer;
   },
@@ -63,12 +53,6 @@ export const Notifications = {
           break;
         case 4:
           message.sender = reader.string();
-          break;
-        case 5:
-          message.hashPath = reader.string();
-          break;
-        case 6:
-          message.hashPathOwner = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -100,16 +84,6 @@ export const Notifications = {
     } else {
       message.sender = "";
     }
-    if (object.hashPath !== undefined && object.hashPath !== null) {
-      message.hashPath = String(object.hashPath);
-    } else {
-      message.hashPath = "";
-    }
-    if (object.hashPathOwner !== undefined && object.hashPathOwner !== null) {
-      message.hashPathOwner = String(object.hashPathOwner);
-    } else {
-      message.hashPathOwner = "";
-    }
     return message;
   },
 
@@ -120,9 +94,6 @@ export const Notifications = {
       (obj.notification = message.notification);
     message.address !== undefined && (obj.address = message.address);
     message.sender !== undefined && (obj.sender = message.sender);
-    message.hashPath !== undefined && (obj.hashPath = message.hashPath);
-    message.hashPathOwner !== undefined &&
-      (obj.hashPathOwner = message.hashPathOwner);
     return obj;
   },
 
@@ -147,16 +118,6 @@ export const Notifications = {
       message.sender = object.sender;
     } else {
       message.sender = "";
-    }
-    if (object.hashPath !== undefined && object.hashPath !== null) {
-      message.hashPath = object.hashPath;
-    } else {
-      message.hashPath = "";
-    }
-    if (object.hashPathOwner !== undefined && object.hashPathOwner !== null) {
-      message.hashPathOwner = object.hashPathOwner;
-    } else {
-      message.hashPathOwner = "";
     }
     return message;
   },

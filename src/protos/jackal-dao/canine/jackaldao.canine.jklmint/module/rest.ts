@@ -36,7 +36,7 @@ export interface JklmintQueryInflationResponse {
  * QueryParamsResponse is response type for the Query/Params RPC method.
  */
 export interface JklmintQueryParamsResponse {
-  /** params holds all the parameters of this module. */
+  /** Params defines the parameters for the module. */
   params?: JklmintParams;
 }
 
