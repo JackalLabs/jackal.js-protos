@@ -29,6 +29,7 @@ export interface MsgAddViewers {
   address: string;
   fileowner: string;
   notifyViewers: string;
+  notiForViewers: string;
 }
 
 export interface MsgAddViewersResponse {}
@@ -39,17 +40,6 @@ export interface MsgPostkey {
 }
 
 export interface MsgPostkeyResponse {}
-
-export interface MsgInitAccount {
-  creator: string;
-  account: string;
-  rootHashpath: string;
-  editors: string;
-  key: string;
-  trackingNumber: string;
-}
-
-export interface MsgInitAccountResponse {}
 
 export interface MsgDeleteFile {
   creator: string;
@@ -74,6 +64,7 @@ export interface MsgRemoveViewers {
   address: string;
   fileowner: string;
   notifyviewers: string;
+  notiForViewers: string;
 }
 
 export interface MsgRemoveViewersResponse {}
@@ -89,6 +80,54 @@ export interface MsgMakeRoot {
 }
 
 export interface MsgMakeRootResponse {}
+
+export interface MsgAddEditors {
+  creator: string;
+  editorIds: string;
+  editorKeys: string;
+  address: string;
+  fileowner: string;
+  notifyEditors: string;
+  notiForEditors: string;
+}
+
+export interface MsgAddEditorsResponse {}
+
+export interface MsgRemoveEditors {
+  creator: string;
+  editorIds: string;
+  address: string;
+  fileowner: string;
+  notifyEditors: string;
+  notiForEditors: string;
+}
+
+export interface MsgRemoveEditorsResponse {}
+
+export interface MsgResetEditors {
+  creator: string;
+  address: string;
+  fileowner: string;
+}
+
+export interface MsgResetEditorsResponse {}
+
+export interface MsgResetViewers {
+  creator: string;
+  address: string;
+  fileowner: string;
+}
+
+export interface MsgResetViewersResponse {}
+
+export interface MsgChangeOwner {
+  creator: string;
+  address: string;
+  fileOwner: string;
+  newOwner: string;
+}
+
+export interface MsgChangeOwnerResponse {}
 
 const baseMsgPostFile: object = {
   creator: "",
@@ -427,6 +466,7 @@ const baseMsgAddViewers: object = {
   address: "",
   fileowner: "",
   notifyViewers: "",
+  notiForViewers: "",
 };
 
 export const MsgAddViewers = {
@@ -448,6 +488,9 @@ export const MsgAddViewers = {
     }
     if (message.notifyViewers !== "") {
       writer.uint32(50).string(message.notifyViewers);
+    }
+    if (message.notiForViewers !== "") {
+      writer.uint32(58).string(message.notiForViewers);
     }
     return writer;
   },
@@ -476,6 +519,9 @@ export const MsgAddViewers = {
           break;
         case 6:
           message.notifyViewers = reader.string();
+          break;
+        case 7:
+          message.notiForViewers = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -517,6 +563,11 @@ export const MsgAddViewers = {
     } else {
       message.notifyViewers = "";
     }
+    if (object.notiForViewers !== undefined && object.notiForViewers !== null) {
+      message.notiForViewers = String(object.notiForViewers);
+    } else {
+      message.notiForViewers = "";
+    }
     return message;
   },
 
@@ -529,6 +580,8 @@ export const MsgAddViewers = {
     message.fileowner !== undefined && (obj.fileowner = message.fileowner);
     message.notifyViewers !== undefined &&
       (obj.notifyViewers = message.notifyViewers);
+    message.notiForViewers !== undefined &&
+      (obj.notiForViewers = message.notiForViewers);
     return obj;
   },
 
@@ -563,6 +616,11 @@ export const MsgAddViewers = {
       message.notifyViewers = object.notifyViewers;
     } else {
       message.notifyViewers = "";
+    }
+    if (object.notiForViewers !== undefined && object.notiForViewers !== null) {
+      message.notiForViewers = object.notiForViewers;
+    } else {
+      message.notiForViewers = "";
     }
     return message;
   },
@@ -712,193 +770,6 @@ export const MsgPostkeyResponse = {
 
   fromPartial(_: DeepPartial<MsgPostkeyResponse>): MsgPostkeyResponse {
     const message = { ...baseMsgPostkeyResponse } as MsgPostkeyResponse;
-    return message;
-  },
-};
-
-const baseMsgInitAccount: object = {
-  creator: "",
-  account: "",
-  rootHashpath: "",
-  editors: "",
-  key: "",
-  trackingNumber: "",
-};
-
-export const MsgInitAccount = {
-  encode(message: MsgInitAccount, writer: Writer = Writer.create()): Writer {
-    if (message.creator !== "") {
-      writer.uint32(10).string(message.creator);
-    }
-    if (message.account !== "") {
-      writer.uint32(18).string(message.account);
-    }
-    if (message.rootHashpath !== "") {
-      writer.uint32(26).string(message.rootHashpath);
-    }
-    if (message.editors !== "") {
-      writer.uint32(34).string(message.editors);
-    }
-    if (message.key !== "") {
-      writer.uint32(42).string(message.key);
-    }
-    if (message.trackingNumber !== "") {
-      writer.uint32(50).string(message.trackingNumber);
-    }
-    return writer;
-  },
-
-  decode(input: Reader | Uint8Array, length?: number): MsgInitAccount {
-    const reader = input instanceof Uint8Array ? new Reader(input) : input;
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgInitAccount } as MsgInitAccount;
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.creator = reader.string();
-          break;
-        case 2:
-          message.account = reader.string();
-          break;
-        case 3:
-          message.rootHashpath = reader.string();
-          break;
-        case 4:
-          message.editors = reader.string();
-          break;
-        case 5:
-          message.key = reader.string();
-          break;
-        case 6:
-          message.trackingNumber = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): MsgInitAccount {
-    const message = { ...baseMsgInitAccount } as MsgInitAccount;
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = String(object.creator);
-    } else {
-      message.creator = "";
-    }
-    if (object.account !== undefined && object.account !== null) {
-      message.account = String(object.account);
-    } else {
-      message.account = "";
-    }
-    if (object.rootHashpath !== undefined && object.rootHashpath !== null) {
-      message.rootHashpath = String(object.rootHashpath);
-    } else {
-      message.rootHashpath = "";
-    }
-    if (object.editors !== undefined && object.editors !== null) {
-      message.editors = String(object.editors);
-    } else {
-      message.editors = "";
-    }
-    if (object.key !== undefined && object.key !== null) {
-      message.key = String(object.key);
-    } else {
-      message.key = "";
-    }
-    if (object.trackingNumber !== undefined && object.trackingNumber !== null) {
-      message.trackingNumber = String(object.trackingNumber);
-    } else {
-      message.trackingNumber = "";
-    }
-    return message;
-  },
-
-  toJSON(message: MsgInitAccount): unknown {
-    const obj: any = {};
-    message.creator !== undefined && (obj.creator = message.creator);
-    message.account !== undefined && (obj.account = message.account);
-    message.rootHashpath !== undefined &&
-      (obj.rootHashpath = message.rootHashpath);
-    message.editors !== undefined && (obj.editors = message.editors);
-    message.key !== undefined && (obj.key = message.key);
-    message.trackingNumber !== undefined &&
-      (obj.trackingNumber = message.trackingNumber);
-    return obj;
-  },
-
-  fromPartial(object: DeepPartial<MsgInitAccount>): MsgInitAccount {
-    const message = { ...baseMsgInitAccount } as MsgInitAccount;
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = object.creator;
-    } else {
-      message.creator = "";
-    }
-    if (object.account !== undefined && object.account !== null) {
-      message.account = object.account;
-    } else {
-      message.account = "";
-    }
-    if (object.rootHashpath !== undefined && object.rootHashpath !== null) {
-      message.rootHashpath = object.rootHashpath;
-    } else {
-      message.rootHashpath = "";
-    }
-    if (object.editors !== undefined && object.editors !== null) {
-      message.editors = object.editors;
-    } else {
-      message.editors = "";
-    }
-    if (object.key !== undefined && object.key !== null) {
-      message.key = object.key;
-    } else {
-      message.key = "";
-    }
-    if (object.trackingNumber !== undefined && object.trackingNumber !== null) {
-      message.trackingNumber = object.trackingNumber;
-    } else {
-      message.trackingNumber = "";
-    }
-    return message;
-  },
-};
-
-const baseMsgInitAccountResponse: object = {};
-
-export const MsgInitAccountResponse = {
-  encode(_: MsgInitAccountResponse, writer: Writer = Writer.create()): Writer {
-    return writer;
-  },
-
-  decode(input: Reader | Uint8Array, length?: number): MsgInitAccountResponse {
-    const reader = input instanceof Uint8Array ? new Reader(input) : input;
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgInitAccountResponse } as MsgInitAccountResponse;
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(_: any): MsgInitAccountResponse {
-    const message = { ...baseMsgInitAccountResponse } as MsgInitAccountResponse;
-    return message;
-  },
-
-  toJSON(_: MsgInitAccountResponse): unknown {
-    const obj: any = {};
-    return obj;
-  },
-
-  fromPartial(_: DeepPartial<MsgInitAccountResponse>): MsgInitAccountResponse {
-    const message = { ...baseMsgInitAccountResponse } as MsgInitAccountResponse;
     return message;
   },
 };
@@ -1166,6 +1037,7 @@ const baseMsgRemoveViewers: object = {
   address: "",
   fileowner: "",
   notifyviewers: "",
+  notiForViewers: "",
 };
 
 export const MsgRemoveViewers = {
@@ -1184,6 +1056,9 @@ export const MsgRemoveViewers = {
     }
     if (message.notifyviewers !== "") {
       writer.uint32(42).string(message.notifyviewers);
+    }
+    if (message.notiForViewers !== "") {
+      writer.uint32(50).string(message.notiForViewers);
     }
     return writer;
   },
@@ -1209,6 +1084,9 @@ export const MsgRemoveViewers = {
           break;
         case 5:
           message.notifyviewers = reader.string();
+          break;
+        case 6:
+          message.notiForViewers = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -1245,6 +1123,11 @@ export const MsgRemoveViewers = {
     } else {
       message.notifyviewers = "";
     }
+    if (object.notiForViewers !== undefined && object.notiForViewers !== null) {
+      message.notiForViewers = String(object.notiForViewers);
+    } else {
+      message.notiForViewers = "";
+    }
     return message;
   },
 
@@ -1256,6 +1139,8 @@ export const MsgRemoveViewers = {
     message.fileowner !== undefined && (obj.fileowner = message.fileowner);
     message.notifyviewers !== undefined &&
       (obj.notifyviewers = message.notifyviewers);
+    message.notiForViewers !== undefined &&
+      (obj.notiForViewers = message.notiForViewers);
     return obj;
   },
 
@@ -1285,6 +1170,11 @@ export const MsgRemoveViewers = {
       message.notifyviewers = object.notifyviewers;
     } else {
       message.notifyviewers = "";
+    }
+    if (object.notiForViewers !== undefined && object.notiForViewers !== null) {
+      message.notiForViewers = object.notiForViewers;
+    } else {
+      message.notiForViewers = "";
     }
     return message;
   },
@@ -1547,16 +1437,846 @@ export const MsgMakeRootResponse = {
   },
 };
 
+const baseMsgAddEditors: object = {
+  creator: "",
+  editorIds: "",
+  editorKeys: "",
+  address: "",
+  fileowner: "",
+  notifyEditors: "",
+  notiForEditors: "",
+};
+
+export const MsgAddEditors = {
+  encode(message: MsgAddEditors, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.editorIds !== "") {
+      writer.uint32(18).string(message.editorIds);
+    }
+    if (message.editorKeys !== "") {
+      writer.uint32(26).string(message.editorKeys);
+    }
+    if (message.address !== "") {
+      writer.uint32(34).string(message.address);
+    }
+    if (message.fileowner !== "") {
+      writer.uint32(42).string(message.fileowner);
+    }
+    if (message.notifyEditors !== "") {
+      writer.uint32(50).string(message.notifyEditors);
+    }
+    if (message.notiForEditors !== "") {
+      writer.uint32(58).string(message.notiForEditors);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgAddEditors {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgAddEditors } as MsgAddEditors;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.editorIds = reader.string();
+          break;
+        case 3:
+          message.editorKeys = reader.string();
+          break;
+        case 4:
+          message.address = reader.string();
+          break;
+        case 5:
+          message.fileowner = reader.string();
+          break;
+        case 6:
+          message.notifyEditors = reader.string();
+          break;
+        case 7:
+          message.notiForEditors = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgAddEditors {
+    const message = { ...baseMsgAddEditors } as MsgAddEditors;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.editorIds !== undefined && object.editorIds !== null) {
+      message.editorIds = String(object.editorIds);
+    } else {
+      message.editorIds = "";
+    }
+    if (object.editorKeys !== undefined && object.editorKeys !== null) {
+      message.editorKeys = String(object.editorKeys);
+    } else {
+      message.editorKeys = "";
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = String(object.address);
+    } else {
+      message.address = "";
+    }
+    if (object.fileowner !== undefined && object.fileowner !== null) {
+      message.fileowner = String(object.fileowner);
+    } else {
+      message.fileowner = "";
+    }
+    if (object.notifyEditors !== undefined && object.notifyEditors !== null) {
+      message.notifyEditors = String(object.notifyEditors);
+    } else {
+      message.notifyEditors = "";
+    }
+    if (object.notiForEditors !== undefined && object.notiForEditors !== null) {
+      message.notiForEditors = String(object.notiForEditors);
+    } else {
+      message.notiForEditors = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgAddEditors): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.editorIds !== undefined && (obj.editorIds = message.editorIds);
+    message.editorKeys !== undefined && (obj.editorKeys = message.editorKeys);
+    message.address !== undefined && (obj.address = message.address);
+    message.fileowner !== undefined && (obj.fileowner = message.fileowner);
+    message.notifyEditors !== undefined &&
+      (obj.notifyEditors = message.notifyEditors);
+    message.notiForEditors !== undefined &&
+      (obj.notiForEditors = message.notiForEditors);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgAddEditors>): MsgAddEditors {
+    const message = { ...baseMsgAddEditors } as MsgAddEditors;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.editorIds !== undefined && object.editorIds !== null) {
+      message.editorIds = object.editorIds;
+    } else {
+      message.editorIds = "";
+    }
+    if (object.editorKeys !== undefined && object.editorKeys !== null) {
+      message.editorKeys = object.editorKeys;
+    } else {
+      message.editorKeys = "";
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    } else {
+      message.address = "";
+    }
+    if (object.fileowner !== undefined && object.fileowner !== null) {
+      message.fileowner = object.fileowner;
+    } else {
+      message.fileowner = "";
+    }
+    if (object.notifyEditors !== undefined && object.notifyEditors !== null) {
+      message.notifyEditors = object.notifyEditors;
+    } else {
+      message.notifyEditors = "";
+    }
+    if (object.notiForEditors !== undefined && object.notiForEditors !== null) {
+      message.notiForEditors = object.notiForEditors;
+    } else {
+      message.notiForEditors = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgAddEditorsResponse: object = {};
+
+export const MsgAddEditorsResponse = {
+  encode(_: MsgAddEditorsResponse, writer: Writer = Writer.create()): Writer {
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgAddEditorsResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgAddEditorsResponse } as MsgAddEditorsResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgAddEditorsResponse {
+    const message = { ...baseMsgAddEditorsResponse } as MsgAddEditorsResponse;
+    return message;
+  },
+
+  toJSON(_: MsgAddEditorsResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(_: DeepPartial<MsgAddEditorsResponse>): MsgAddEditorsResponse {
+    const message = { ...baseMsgAddEditorsResponse } as MsgAddEditorsResponse;
+    return message;
+  },
+};
+
+const baseMsgRemoveEditors: object = {
+  creator: "",
+  editorIds: "",
+  address: "",
+  fileowner: "",
+  notifyEditors: "",
+  notiForEditors: "",
+};
+
+export const MsgRemoveEditors = {
+  encode(message: MsgRemoveEditors, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.editorIds !== "") {
+      writer.uint32(18).string(message.editorIds);
+    }
+    if (message.address !== "") {
+      writer.uint32(26).string(message.address);
+    }
+    if (message.fileowner !== "") {
+      writer.uint32(34).string(message.fileowner);
+    }
+    if (message.notifyEditors !== "") {
+      writer.uint32(42).string(message.notifyEditors);
+    }
+    if (message.notiForEditors !== "") {
+      writer.uint32(50).string(message.notiForEditors);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgRemoveEditors {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgRemoveEditors } as MsgRemoveEditors;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.editorIds = reader.string();
+          break;
+        case 3:
+          message.address = reader.string();
+          break;
+        case 4:
+          message.fileowner = reader.string();
+          break;
+        case 5:
+          message.notifyEditors = reader.string();
+          break;
+        case 6:
+          message.notiForEditors = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgRemoveEditors {
+    const message = { ...baseMsgRemoveEditors } as MsgRemoveEditors;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.editorIds !== undefined && object.editorIds !== null) {
+      message.editorIds = String(object.editorIds);
+    } else {
+      message.editorIds = "";
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = String(object.address);
+    } else {
+      message.address = "";
+    }
+    if (object.fileowner !== undefined && object.fileowner !== null) {
+      message.fileowner = String(object.fileowner);
+    } else {
+      message.fileowner = "";
+    }
+    if (object.notifyEditors !== undefined && object.notifyEditors !== null) {
+      message.notifyEditors = String(object.notifyEditors);
+    } else {
+      message.notifyEditors = "";
+    }
+    if (object.notiForEditors !== undefined && object.notiForEditors !== null) {
+      message.notiForEditors = String(object.notiForEditors);
+    } else {
+      message.notiForEditors = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgRemoveEditors): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.editorIds !== undefined && (obj.editorIds = message.editorIds);
+    message.address !== undefined && (obj.address = message.address);
+    message.fileowner !== undefined && (obj.fileowner = message.fileowner);
+    message.notifyEditors !== undefined &&
+      (obj.notifyEditors = message.notifyEditors);
+    message.notiForEditors !== undefined &&
+      (obj.notiForEditors = message.notiForEditors);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgRemoveEditors>): MsgRemoveEditors {
+    const message = { ...baseMsgRemoveEditors } as MsgRemoveEditors;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.editorIds !== undefined && object.editorIds !== null) {
+      message.editorIds = object.editorIds;
+    } else {
+      message.editorIds = "";
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    } else {
+      message.address = "";
+    }
+    if (object.fileowner !== undefined && object.fileowner !== null) {
+      message.fileowner = object.fileowner;
+    } else {
+      message.fileowner = "";
+    }
+    if (object.notifyEditors !== undefined && object.notifyEditors !== null) {
+      message.notifyEditors = object.notifyEditors;
+    } else {
+      message.notifyEditors = "";
+    }
+    if (object.notiForEditors !== undefined && object.notiForEditors !== null) {
+      message.notiForEditors = object.notiForEditors;
+    } else {
+      message.notiForEditors = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgRemoveEditorsResponse: object = {};
+
+export const MsgRemoveEditorsResponse = {
+  encode(
+    _: MsgRemoveEditorsResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgRemoveEditorsResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgRemoveEditorsResponse,
+    } as MsgRemoveEditorsResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgRemoveEditorsResponse {
+    const message = {
+      ...baseMsgRemoveEditorsResponse,
+    } as MsgRemoveEditorsResponse;
+    return message;
+  },
+
+  toJSON(_: MsgRemoveEditorsResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgRemoveEditorsResponse>
+  ): MsgRemoveEditorsResponse {
+    const message = {
+      ...baseMsgRemoveEditorsResponse,
+    } as MsgRemoveEditorsResponse;
+    return message;
+  },
+};
+
+const baseMsgResetEditors: object = { creator: "", address: "", fileowner: "" };
+
+export const MsgResetEditors = {
+  encode(message: MsgResetEditors, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.address !== "") {
+      writer.uint32(18).string(message.address);
+    }
+    if (message.fileowner !== "") {
+      writer.uint32(26).string(message.fileowner);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgResetEditors {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgResetEditors } as MsgResetEditors;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.address = reader.string();
+          break;
+        case 3:
+          message.fileowner = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgResetEditors {
+    const message = { ...baseMsgResetEditors } as MsgResetEditors;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = String(object.address);
+    } else {
+      message.address = "";
+    }
+    if (object.fileowner !== undefined && object.fileowner !== null) {
+      message.fileowner = String(object.fileowner);
+    } else {
+      message.fileowner = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgResetEditors): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.address !== undefined && (obj.address = message.address);
+    message.fileowner !== undefined && (obj.fileowner = message.fileowner);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgResetEditors>): MsgResetEditors {
+    const message = { ...baseMsgResetEditors } as MsgResetEditors;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    } else {
+      message.address = "";
+    }
+    if (object.fileowner !== undefined && object.fileowner !== null) {
+      message.fileowner = object.fileowner;
+    } else {
+      message.fileowner = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgResetEditorsResponse: object = {};
+
+export const MsgResetEditorsResponse = {
+  encode(_: MsgResetEditorsResponse, writer: Writer = Writer.create()): Writer {
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgResetEditorsResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgResetEditorsResponse,
+    } as MsgResetEditorsResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgResetEditorsResponse {
+    const message = {
+      ...baseMsgResetEditorsResponse,
+    } as MsgResetEditorsResponse;
+    return message;
+  },
+
+  toJSON(_: MsgResetEditorsResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgResetEditorsResponse>
+  ): MsgResetEditorsResponse {
+    const message = {
+      ...baseMsgResetEditorsResponse,
+    } as MsgResetEditorsResponse;
+    return message;
+  },
+};
+
+const baseMsgResetViewers: object = { creator: "", address: "", fileowner: "" };
+
+export const MsgResetViewers = {
+  encode(message: MsgResetViewers, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.address !== "") {
+      writer.uint32(18).string(message.address);
+    }
+    if (message.fileowner !== "") {
+      writer.uint32(26).string(message.fileowner);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgResetViewers {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgResetViewers } as MsgResetViewers;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.address = reader.string();
+          break;
+        case 3:
+          message.fileowner = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgResetViewers {
+    const message = { ...baseMsgResetViewers } as MsgResetViewers;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = String(object.address);
+    } else {
+      message.address = "";
+    }
+    if (object.fileowner !== undefined && object.fileowner !== null) {
+      message.fileowner = String(object.fileowner);
+    } else {
+      message.fileowner = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgResetViewers): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.address !== undefined && (obj.address = message.address);
+    message.fileowner !== undefined && (obj.fileowner = message.fileowner);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgResetViewers>): MsgResetViewers {
+    const message = { ...baseMsgResetViewers } as MsgResetViewers;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    } else {
+      message.address = "";
+    }
+    if (object.fileowner !== undefined && object.fileowner !== null) {
+      message.fileowner = object.fileowner;
+    } else {
+      message.fileowner = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgResetViewersResponse: object = {};
+
+export const MsgResetViewersResponse = {
+  encode(_: MsgResetViewersResponse, writer: Writer = Writer.create()): Writer {
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgResetViewersResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgResetViewersResponse,
+    } as MsgResetViewersResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgResetViewersResponse {
+    const message = {
+      ...baseMsgResetViewersResponse,
+    } as MsgResetViewersResponse;
+    return message;
+  },
+
+  toJSON(_: MsgResetViewersResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgResetViewersResponse>
+  ): MsgResetViewersResponse {
+    const message = {
+      ...baseMsgResetViewersResponse,
+    } as MsgResetViewersResponse;
+    return message;
+  },
+};
+
+const baseMsgChangeOwner: object = {
+  creator: "",
+  address: "",
+  fileOwner: "",
+  newOwner: "",
+};
+
+export const MsgChangeOwner = {
+  encode(message: MsgChangeOwner, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.address !== "") {
+      writer.uint32(18).string(message.address);
+    }
+    if (message.fileOwner !== "") {
+      writer.uint32(26).string(message.fileOwner);
+    }
+    if (message.newOwner !== "") {
+      writer.uint32(34).string(message.newOwner);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgChangeOwner {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgChangeOwner } as MsgChangeOwner;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.address = reader.string();
+          break;
+        case 3:
+          message.fileOwner = reader.string();
+          break;
+        case 4:
+          message.newOwner = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgChangeOwner {
+    const message = { ...baseMsgChangeOwner } as MsgChangeOwner;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = String(object.address);
+    } else {
+      message.address = "";
+    }
+    if (object.fileOwner !== undefined && object.fileOwner !== null) {
+      message.fileOwner = String(object.fileOwner);
+    } else {
+      message.fileOwner = "";
+    }
+    if (object.newOwner !== undefined && object.newOwner !== null) {
+      message.newOwner = String(object.newOwner);
+    } else {
+      message.newOwner = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgChangeOwner): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.address !== undefined && (obj.address = message.address);
+    message.fileOwner !== undefined && (obj.fileOwner = message.fileOwner);
+    message.newOwner !== undefined && (obj.newOwner = message.newOwner);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgChangeOwner>): MsgChangeOwner {
+    const message = { ...baseMsgChangeOwner } as MsgChangeOwner;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    } else {
+      message.address = "";
+    }
+    if (object.fileOwner !== undefined && object.fileOwner !== null) {
+      message.fileOwner = object.fileOwner;
+    } else {
+      message.fileOwner = "";
+    }
+    if (object.newOwner !== undefined && object.newOwner !== null) {
+      message.newOwner = object.newOwner;
+    } else {
+      message.newOwner = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgChangeOwnerResponse: object = {};
+
+export const MsgChangeOwnerResponse = {
+  encode(_: MsgChangeOwnerResponse, writer: Writer = Writer.create()): Writer {
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgChangeOwnerResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgChangeOwnerResponse } as MsgChangeOwnerResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgChangeOwnerResponse {
+    const message = { ...baseMsgChangeOwnerResponse } as MsgChangeOwnerResponse;
+    return message;
+  },
+
+  toJSON(_: MsgChangeOwnerResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(_: DeepPartial<MsgChangeOwnerResponse>): MsgChangeOwnerResponse {
+    const message = { ...baseMsgChangeOwnerResponse } as MsgChangeOwnerResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   PostFile(request: MsgPostFile): Promise<MsgPostFileResponse>;
   AddViewers(request: MsgAddViewers): Promise<MsgAddViewersResponse>;
   Postkey(request: MsgPostkey): Promise<MsgPostkeyResponse>;
-  InitAccount(request: MsgInitAccount): Promise<MsgInitAccountResponse>;
   DeleteFile(request: MsgDeleteFile): Promise<MsgDeleteFileResponse>;
   InitAll(request: MsgInitAll): Promise<MsgInitAllResponse>;
   RemoveViewers(request: MsgRemoveViewers): Promise<MsgRemoveViewersResponse>;
   MakeRoot(request: MsgMakeRoot): Promise<MsgMakeRootResponse>;
+  AddEditors(request: MsgAddEditors): Promise<MsgAddEditorsResponse>;
+  RemoveEditors(request: MsgRemoveEditors): Promise<MsgRemoveEditorsResponse>;
+  ResetEditors(request: MsgResetEditors): Promise<MsgResetEditorsResponse>;
+  ResetViewers(request: MsgResetViewers): Promise<MsgResetViewersResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  ChangeOwner(request: MsgChangeOwner): Promise<MsgChangeOwnerResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -1594,18 +2314,6 @@ export class MsgClientImpl implements Msg {
       data
     );
     return promise.then((data) => MsgPostkeyResponse.decode(new Reader(data)));
-  }
-
-  InitAccount(request: MsgInitAccount): Promise<MsgInitAccountResponse> {
-    const data = MsgInitAccount.encode(request).finish();
-    const promise = this.rpc.request(
-      "jackaldao.canine.filetree.Msg",
-      "InitAccount",
-      data
-    );
-    return promise.then((data) =>
-      MsgInitAccountResponse.decode(new Reader(data))
-    );
   }
 
   DeleteFile(request: MsgDeleteFile): Promise<MsgDeleteFileResponse> {
@@ -1650,6 +2358,66 @@ export class MsgClientImpl implements Msg {
       data
     );
     return promise.then((data) => MsgMakeRootResponse.decode(new Reader(data)));
+  }
+
+  AddEditors(request: MsgAddEditors): Promise<MsgAddEditorsResponse> {
+    const data = MsgAddEditors.encode(request).finish();
+    const promise = this.rpc.request(
+      "jackaldao.canine.filetree.Msg",
+      "AddEditors",
+      data
+    );
+    return promise.then((data) =>
+      MsgAddEditorsResponse.decode(new Reader(data))
+    );
+  }
+
+  RemoveEditors(request: MsgRemoveEditors): Promise<MsgRemoveEditorsResponse> {
+    const data = MsgRemoveEditors.encode(request).finish();
+    const promise = this.rpc.request(
+      "jackaldao.canine.filetree.Msg",
+      "RemoveEditors",
+      data
+    );
+    return promise.then((data) =>
+      MsgRemoveEditorsResponse.decode(new Reader(data))
+    );
+  }
+
+  ResetEditors(request: MsgResetEditors): Promise<MsgResetEditorsResponse> {
+    const data = MsgResetEditors.encode(request).finish();
+    const promise = this.rpc.request(
+      "jackaldao.canine.filetree.Msg",
+      "ResetEditors",
+      data
+    );
+    return promise.then((data) =>
+      MsgResetEditorsResponse.decode(new Reader(data))
+    );
+  }
+
+  ResetViewers(request: MsgResetViewers): Promise<MsgResetViewersResponse> {
+    const data = MsgResetViewers.encode(request).finish();
+    const promise = this.rpc.request(
+      "jackaldao.canine.filetree.Msg",
+      "ResetViewers",
+      data
+    );
+    return promise.then((data) =>
+      MsgResetViewersResponse.decode(new Reader(data))
+    );
+  }
+
+  ChangeOwner(request: MsgChangeOwner): Promise<MsgChangeOwnerResponse> {
+    const data = MsgChangeOwner.encode(request).finish();
+    const promise = this.rpc.request(
+      "jackaldao.canine.filetree.Msg",
+      "ChangeOwner",
+      data
+    );
+    return promise.then((data) =>
+      MsgChangeOwnerResponse.decode(new Reader(data))
+    );
   }
 }
 

@@ -52,9 +52,16 @@ export interface StorageContracts {
   creator?: string;
 }
 
+export interface StorageFidCid {
+  fid?: string;
+  cids?: string;
+}
+
 export type StorageMsgBuyStorageResponse = object;
 
 export type StorageMsgCancelContractResponse = object;
+
+export type StorageMsgClaimStrayResponse = object;
 
 export type StorageMsgInitProviderResponse = object;
 
@@ -129,6 +136,21 @@ export interface StorageQueryAllClientUsageResponse {
 
 export interface StorageQueryAllContractsResponse {
   contracts?: StorageContracts[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
+export interface StorageQueryAllFidCidResponse {
+  fidCid?: StorageFidCid[];
 
   /**
    * PageResponse is to be embedded in gRPC response messages where the
@@ -226,6 +248,10 @@ export interface StorageQueryGetContractsResponse {
   contracts?: StorageContracts;
 }
 
+export interface StorageQueryGetFidCidResponse {
+  fidCid?: StorageFidCid;
+}
+
 export interface StorageQueryGetPayBlocksResponse {
   payBlocks?: StoragePayBlocks;
 }
@@ -246,7 +272,7 @@ export interface StorageQueryGetStraysResponse {
  * QueryParamsResponse is response type for the Query/Params RPC method.
  */
 export interface StorageQueryParamsResponse {
-  /** params holds all the parameters of this module. */
+  /** Params defines the parameters for the module. */
   params?: StorageParams;
 }
 
@@ -638,6 +664,48 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryContracts = (cid: string, params: RequestParams = {}) =>
     this.request<StorageQueryGetContractsResponse, RpcStatus>({
       path: `/jackal-dao/canine/storage/contracts/${cid}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryFidCidAll
+   * @summary Queries a list of FidCid items.
+   * @request GET:/jackal-dao/canine/storage/fid_cid
+   */
+  queryFidCidAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<StorageQueryAllFidCidResponse, RpcStatus>({
+      path: `/jackal-dao/canine/storage/fid_cid`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryFidCid
+   * @summary Queries a FidCid by index.
+   * @request GET:/jackal-dao/canine/storage/fid_cid/{fid}
+   */
+  queryFidCid = (fid: string, params: RequestParams = {}) =>
+    this.request<StorageQueryGetFidCidResponse, RpcStatus>({
+      path: `/jackal-dao/canine/storage/fid_cid/${fid}`,
       method: "GET",
       format: "json",
       ...params,

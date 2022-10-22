@@ -5,11 +5,12 @@ import { SigningStargateClient } from '@cosmjs/stargate'
 /**
  * Jackal Custom Protos
  */
-import { types as cosmTypes } from './protos/jackal-dao/canine/cosmwasm.wasm.v1/module'
+import { types as cosmTypes } from './protos/CosmWasm/wasmd/cosmwasm.wasm.v1/module'
 import { types as dsigTypes } from './protos/jackal-dao/canine/jackaldao.canine.dsig/module'
 import { types as filetreeTypes } from './protos/jackal-dao/canine/jackaldao.canine.filetree/module'
 import { types as jklTypes } from './protos/jackal-dao/canine/jackaldao.canine.jklmint/module'
-import { types as lpTypes } from './protos/jackal-dao/canine/jackaldao.canine.lp/module'
+// import { types as lpTypes } from './protos/jackal-dao/canine/jackaldao.canine.lp/module'
+import { types as notificationTypes } from './protos/jackal-dao/canine/jackaldao.canine.notifications/module'
 import { types as rnsTypes } from './protos/jackal-dao/canine/jackaldao.canine.rns/module'
 import { types as storageTypes } from './protos/jackal-dao/canine/jackaldao.canine.storage/module'
 
@@ -39,7 +40,8 @@ const masterTypes = [
   ...dsigTypes,
   ...filetreeTypes,
   ...jklTypes,
-  ...lpTypes,
+  // ...lpTypes,
+  ...notificationTypes,
   ...rnsTypes,
   ...storageTypes,
   ...bankTypes,

@@ -12,6 +12,7 @@ import { Providers } from "../storage/providers";
 import { PayBlocks } from "../storage/pay_blocks";
 import { ClientUsage } from "../storage/client_usage";
 import { Strays } from "../storage/strays";
+import { FidCid } from "../storage/fid_cid";
 
 export const protobufPackage = "jackaldao.canine.storage";
 
@@ -165,6 +166,23 @@ export interface QueryGetClientFreeSpaceRequest {
 
 export interface QueryGetClientFreeSpaceResponse {
   bytesfree: string;
+}
+
+export interface QueryGetFidCidRequest {
+  fid: string;
+}
+
+export interface QueryGetFidCidResponse {
+  fidCid: FidCid | undefined;
+}
+
+export interface QueryAllFidCidRequest {
+  pagination: PageRequest | undefined;
+}
+
+export interface QueryAllFidCidResponse {
+  fidCid: FidCid[];
+  pagination: PageResponse | undefined;
 }
 
 const baseQueryParamsRequest: object = {};
@@ -2769,6 +2787,282 @@ export const QueryGetClientFreeSpaceResponse = {
   },
 };
 
+const baseQueryGetFidCidRequest: object = { fid: "" };
+
+export const QueryGetFidCidRequest = {
+  encode(
+    message: QueryGetFidCidRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.fid !== "") {
+      writer.uint32(10).string(message.fid);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetFidCidRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryGetFidCidRequest } as QueryGetFidCidRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.fid = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetFidCidRequest {
+    const message = { ...baseQueryGetFidCidRequest } as QueryGetFidCidRequest;
+    if (object.fid !== undefined && object.fid !== null) {
+      message.fid = String(object.fid);
+    } else {
+      message.fid = "";
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetFidCidRequest): unknown {
+    const obj: any = {};
+    message.fid !== undefined && (obj.fid = message.fid);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetFidCidRequest>
+  ): QueryGetFidCidRequest {
+    const message = { ...baseQueryGetFidCidRequest } as QueryGetFidCidRequest;
+    if (object.fid !== undefined && object.fid !== null) {
+      message.fid = object.fid;
+    } else {
+      message.fid = "";
+    }
+    return message;
+  },
+};
+
+const baseQueryGetFidCidResponse: object = {};
+
+export const QueryGetFidCidResponse = {
+  encode(
+    message: QueryGetFidCidResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.fidCid !== undefined) {
+      FidCid.encode(message.fidCid, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetFidCidResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryGetFidCidResponse } as QueryGetFidCidResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.fidCid = FidCid.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetFidCidResponse {
+    const message = { ...baseQueryGetFidCidResponse } as QueryGetFidCidResponse;
+    if (object.fidCid !== undefined && object.fidCid !== null) {
+      message.fidCid = FidCid.fromJSON(object.fidCid);
+    } else {
+      message.fidCid = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetFidCidResponse): unknown {
+    const obj: any = {};
+    message.fidCid !== undefined &&
+      (obj.fidCid = message.fidCid ? FidCid.toJSON(message.fidCid) : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetFidCidResponse>
+  ): QueryGetFidCidResponse {
+    const message = { ...baseQueryGetFidCidResponse } as QueryGetFidCidResponse;
+    if (object.fidCid !== undefined && object.fidCid !== null) {
+      message.fidCid = FidCid.fromPartial(object.fidCid);
+    } else {
+      message.fidCid = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllFidCidRequest: object = {};
+
+export const QueryAllFidCidRequest = {
+  encode(
+    message: QueryAllFidCidRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllFidCidRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryAllFidCidRequest } as QueryAllFidCidRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllFidCidRequest {
+    const message = { ...baseQueryAllFidCidRequest } as QueryAllFidCidRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllFidCidRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllFidCidRequest>
+  ): QueryAllFidCidRequest {
+    const message = { ...baseQueryAllFidCidRequest } as QueryAllFidCidRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllFidCidResponse: object = {};
+
+export const QueryAllFidCidResponse = {
+  encode(
+    message: QueryAllFidCidResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    for (const v of message.fidCid) {
+      FidCid.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllFidCidResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryAllFidCidResponse } as QueryAllFidCidResponse;
+    message.fidCid = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.fidCid.push(FidCid.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllFidCidResponse {
+    const message = { ...baseQueryAllFidCidResponse } as QueryAllFidCidResponse;
+    message.fidCid = [];
+    if (object.fidCid !== undefined && object.fidCid !== null) {
+      for (const e of object.fidCid) {
+        message.fidCid.push(FidCid.fromJSON(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllFidCidResponse): unknown {
+    const obj: any = {};
+    if (message.fidCid) {
+      obj.fidCid = message.fidCid.map((e) =>
+        e ? FidCid.toJSON(e) : undefined
+      );
+    } else {
+      obj.fidCid = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllFidCidResponse>
+  ): QueryAllFidCidResponse {
+    const message = { ...baseQueryAllFidCidResponse } as QueryAllFidCidResponse;
+    message.fidCid = [];
+    if (object.fidCid !== undefined && object.fidCid !== null) {
+      for (const e of object.fidCid) {
+        message.fidCid.push(FidCid.fromPartial(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -2829,6 +3123,10 @@ export interface Query {
   GetClientFreeSpace(
     request: QueryGetClientFreeSpaceRequest
   ): Promise<QueryGetClientFreeSpaceResponse>;
+  /** Queries a FidCid by index. */
+  FidCid(request: QueryGetFidCidRequest): Promise<QueryGetFidCidResponse>;
+  /** Queries a list of FidCid items. */
+  FidCidAll(request: QueryAllFidCidRequest): Promise<QueryAllFidCidResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -3069,6 +3367,30 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryGetClientFreeSpaceResponse.decode(new Reader(data))
+    );
+  }
+
+  FidCid(request: QueryGetFidCidRequest): Promise<QueryGetFidCidResponse> {
+    const data = QueryGetFidCidRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "jackaldao.canine.storage.Query",
+      "FidCid",
+      data
+    );
+    return promise.then((data) =>
+      QueryGetFidCidResponse.decode(new Reader(data))
+    );
+  }
+
+  FidCidAll(request: QueryAllFidCidRequest): Promise<QueryAllFidCidResponse> {
+    const data = QueryAllFidCidRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "jackaldao.canine.storage.Query",
+      "FidCidAll",
+      data
+    );
+    return promise.then((data) =>
+      QueryAllFidCidResponse.decode(new Reader(data))
     );
   }
 }

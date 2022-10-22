@@ -202,6 +202,13 @@ export interface MsgBuyStorage {
 
 export interface MsgBuyStorageResponse {}
 
+export interface MsgClaimStray {
+  creator: string;
+  cid: string;
+}
+
+export interface MsgClaimStrayResponse {}
+
 const baseMsgPostContract: object = {
   creator: "",
   priceamt: "",
@@ -3728,6 +3735,116 @@ export const MsgBuyStorageResponse = {
   },
 };
 
+const baseMsgClaimStray: object = { creator: "", cid: "" };
+
+export const MsgClaimStray = {
+  encode(message: MsgClaimStray, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.cid !== "") {
+      writer.uint32(18).string(message.cid);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgClaimStray {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgClaimStray } as MsgClaimStray;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.cid = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgClaimStray {
+    const message = { ...baseMsgClaimStray } as MsgClaimStray;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.cid !== undefined && object.cid !== null) {
+      message.cid = String(object.cid);
+    } else {
+      message.cid = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgClaimStray): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.cid !== undefined && (obj.cid = message.cid);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgClaimStray>): MsgClaimStray {
+    const message = { ...baseMsgClaimStray } as MsgClaimStray;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.cid !== undefined && object.cid !== null) {
+      message.cid = object.cid;
+    } else {
+      message.cid = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgClaimStrayResponse: object = {};
+
+export const MsgClaimStrayResponse = {
+  encode(_: MsgClaimStrayResponse, writer: Writer = Writer.create()): Writer {
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgClaimStrayResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgClaimStrayResponse } as MsgClaimStrayResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgClaimStrayResponse {
+    const message = { ...baseMsgClaimStrayResponse } as MsgClaimStrayResponse;
+    return message;
+  },
+
+  toJSON(_: MsgClaimStrayResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(_: DeepPartial<MsgClaimStrayResponse>): MsgClaimStrayResponse {
+    const message = { ...baseMsgClaimStrayResponse } as MsgClaimStrayResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   PostContract(request: MsgPostContract): Promise<MsgPostContractResponse>;
@@ -3741,8 +3858,9 @@ export interface Msg {
   CancelContract(
     request: MsgCancelContract
   ): Promise<MsgCancelContractResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   BuyStorage(request: MsgBuyStorage): Promise<MsgBuyStorageResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  ClaimStray(request: MsgClaimStray): Promise<MsgClaimStrayResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -3847,6 +3965,18 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgBuyStorageResponse.decode(new Reader(data))
+    );
+  }
+
+  ClaimStray(request: MsgClaimStray): Promise<MsgClaimStrayResponse> {
+    const data = MsgClaimStray.encode(request).finish();
+    const promise = this.rpc.request(
+      "jackaldao.canine.storage.Msg",
+      "ClaimStray",
+      data
+    );
+    return promise.then((data) =>
+      MsgClaimStrayResponse.decode(new Reader(data))
     );
   }
 }

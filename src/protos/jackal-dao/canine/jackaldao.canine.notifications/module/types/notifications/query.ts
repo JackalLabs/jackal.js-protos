@@ -43,8 +43,8 @@ export interface QueryFilteredNotificationsRequest {
 }
 
 export interface QueryFilteredNotificationsResponse {
-  /** could turn it back to 'repeated Notifications notifications' */
-  notifications: string[];
+  /** could turn it back to 'repeated Notifications notifications' if needed */
+  notifications: string;
 }
 
 export interface QueryGetNotiCounterRequest {
@@ -573,8 +573,8 @@ export const QueryFilteredNotificationsResponse = {
     message: QueryFilteredNotificationsResponse,
     writer: Writer = Writer.create()
   ): Writer {
-    for (const v of message.notifications) {
-      writer.uint32(10).string(v!);
+    if (message.notifications !== "") {
+      writer.uint32(10).string(message.notifications);
     }
     return writer;
   },
@@ -588,12 +588,11 @@ export const QueryFilteredNotificationsResponse = {
     const message = {
       ...baseQueryFilteredNotificationsResponse,
     } as QueryFilteredNotificationsResponse;
-    message.notifications = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.notifications.push(reader.string());
+          message.notifications = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -607,22 +606,18 @@ export const QueryFilteredNotificationsResponse = {
     const message = {
       ...baseQueryFilteredNotificationsResponse,
     } as QueryFilteredNotificationsResponse;
-    message.notifications = [];
     if (object.notifications !== undefined && object.notifications !== null) {
-      for (const e of object.notifications) {
-        message.notifications.push(String(e));
-      }
+      message.notifications = String(object.notifications);
+    } else {
+      message.notifications = "";
     }
     return message;
   },
 
   toJSON(message: QueryFilteredNotificationsResponse): unknown {
     const obj: any = {};
-    if (message.notifications) {
-      obj.notifications = message.notifications.map((e) => e);
-    } else {
-      obj.notifications = [];
-    }
+    message.notifications !== undefined &&
+      (obj.notifications = message.notifications);
     return obj;
   },
 
@@ -632,11 +627,10 @@ export const QueryFilteredNotificationsResponse = {
     const message = {
       ...baseQueryFilteredNotificationsResponse,
     } as QueryFilteredNotificationsResponse;
-    message.notifications = [];
     if (object.notifications !== undefined && object.notifications !== null) {
-      for (const e of object.notifications) {
-        message.notifications.push(e);
-      }
+      message.notifications = object.notifications;
+    } else {
+      message.notifications = "";
     }
     return message;
   },
