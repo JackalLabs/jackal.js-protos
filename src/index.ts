@@ -31,11 +31,13 @@ export { Api as storageQueryApi } from './protos/jackal-dao/canine/jackaldao.can
 export { txClient as cosmTxClient, queryClient as cosmQueryClient } from './protos/CosmWasm/wasmd/cosmwasm.wasm.v1/module'
 
 export { txClient as bankTxClient, queryClient as bankQueryClient } from './protos/cosmos/cosmos-sdk/cosmos.bank.v1beta1/module'
+export { txClient as distributionTxClient, queryClient as distributionQueryClient } from './protos/cosmos/cosmos-sdk/cosmos.distribution.v1beta1/module'
 export { txClient as govTxClient, queryClient as govQueryClient } from './protos/cosmos/cosmos-sdk/cosmos.gov.v1beta1/module'
 export { txClient as stakingTxClient, queryClient as stakingQueryClient } from './protos/cosmos/cosmos-sdk/cosmos.staking.v1beta1/module'
 
 export { Api as cosmQueryApi } from './protos/CosmWasm/wasmd/cosmwasm.wasm.v1/module/rest'
 
 export { Api as bankQueryApi } from './protos/cosmos/cosmos-sdk/cosmos.bank.v1beta1/module/rest'
+export { Api as distributionQueryApi } from './protos/cosmos/cosmos-sdk/cosmos.distribution.v1beta1/module/rest'
 export { Api as govQueryApi } from './protos/cosmos/cosmos-sdk/cosmos.gov.v1beta1/module/rest'
 export { Api as stakingQueryApi } from './protos/cosmos/cosmos-sdk/cosmos.staking.v1beta1/module/rest'

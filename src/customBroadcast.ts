@@ -18,6 +18,7 @@ import { types as storageTypes } from './protos/jackal-dao/canine/jackaldao.cani
  * Jackal Stock CosmosSDK Protos
  */
 import { types as bankTypes } from './protos/cosmos/cosmos-sdk/cosmos.bank.v1beta1/module'
+import { types as distributionTypes } from './protos/cosmos/cosmos-sdk/cosmos.distribution.v1beta1/module'
 import { types as govTypes } from './protos/cosmos/cosmos-sdk/cosmos.gov.v1beta1/module'
 import { types as stakingTypes } from './protos/cosmos/cosmos-sdk/cosmos.staking.v1beta1/module'
 
@@ -45,6 +46,7 @@ const masterTypes = [
   ...rnsTypes,
   ...storageTypes,
   ...bankTypes,
+  ...distributionTypes,
   ...govTypes,
   ...stakingTypes
 ]

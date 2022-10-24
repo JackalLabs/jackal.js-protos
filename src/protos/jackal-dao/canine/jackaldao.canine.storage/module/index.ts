@@ -4,53 +4,53 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgCreateContracts } from "./types/storage/tx";
-import { MsgUpdateActiveDeals } from "./types/storage/tx";
-import { MsgUpdateProviders } from "./types/storage/tx";
-import { MsgDeleteActiveDeals } from "./types/storage/tx";
-import { MsgSetProviderTotalspace } from "./types/storage/tx";
-import { MsgCreateProviders } from "./types/storage/tx";
+import { MsgUpdateProofs } from "./types/storage/tx";
+import { MsgCreateActiveDeals } from "./types/storage/tx";
 import { MsgInitProvider } from "./types/storage/tx";
+import { MsgPostContract } from "./types/storage/tx";
+import { MsgCreateProviders } from "./types/storage/tx";
+import { MsgUpdateProviders } from "./types/storage/tx";
+import { MsgItem } from "./types/storage/tx";
+import { MsgPostproof } from "./types/storage/tx";
+import { MsgSetProviderIp } from "./types/storage/tx";
+import { MsgDeleteContracts } from "./types/storage/tx";
+import { MsgUpdateActiveDeals } from "./types/storage/tx";
+import { MsgBuyStorage } from "./types/storage/tx";
+import { MsgUpdateContracts } from "./types/storage/tx";
+import { MsgDeleteProviders } from "./types/storage/tx";
+import { MsgCancelContract } from "./types/storage/tx";
+import { MsgDeleteActiveDeals } from "./types/storage/tx";
+import { MsgCreateProofs } from "./types/storage/tx";
 import { MsgClaimStray } from "./types/storage/tx";
 import { MsgDeleteProofs } from "./types/storage/tx";
-import { MsgBuyStorage } from "./types/storage/tx";
-import { MsgUpdateProofs } from "./types/storage/tx";
-import { MsgPostproof } from "./types/storage/tx";
-import { MsgDeleteContracts } from "./types/storage/tx";
-import { MsgSetProviderIp } from "./types/storage/tx";
 import { MsgSignContract } from "./types/storage/tx";
-import { MsgDeleteProviders } from "./types/storage/tx";
-import { MsgUpdateContracts } from "./types/storage/tx";
-import { MsgCreateProofs } from "./types/storage/tx";
-import { MsgCancelContract } from "./types/storage/tx";
-import { MsgCreateActiveDeals } from "./types/storage/tx";
-import { MsgItem } from "./types/storage/tx";
-import { MsgPostContract } from "./types/storage/tx";
+import { MsgSetProviderTotalspace } from "./types/storage/tx";
+import { MsgCreateContracts } from "./types/storage/tx";
 
 
 export const types = [
-  ["/jackaldao.canine.storage.MsgCreateContracts", MsgCreateContracts],
-  ["/jackaldao.canine.storage.MsgUpdateActiveDeals", MsgUpdateActiveDeals],
-  ["/jackaldao.canine.storage.MsgUpdateProviders", MsgUpdateProviders],
-  ["/jackaldao.canine.storage.MsgDeleteActiveDeals", MsgDeleteActiveDeals],
-  ["/jackaldao.canine.storage.MsgSetProviderTotalspace", MsgSetProviderTotalspace],
-  ["/jackaldao.canine.storage.MsgCreateProviders", MsgCreateProviders],
+  ["/jackaldao.canine.storage.MsgUpdateProofs", MsgUpdateProofs],
+  ["/jackaldao.canine.storage.MsgCreateActiveDeals", MsgCreateActiveDeals],
   ["/jackaldao.canine.storage.MsgInitProvider", MsgInitProvider],
+  ["/jackaldao.canine.storage.MsgPostContract", MsgPostContract],
+  ["/jackaldao.canine.storage.MsgCreateProviders", MsgCreateProviders],
+  ["/jackaldao.canine.storage.MsgUpdateProviders", MsgUpdateProviders],
+  ["/jackaldao.canine.storage.MsgItem", MsgItem],
+  ["/jackaldao.canine.storage.MsgPostproof", MsgPostproof],
+  ["/jackaldao.canine.storage.MsgSetProviderIp", MsgSetProviderIp],
+  ["/jackaldao.canine.storage.MsgDeleteContracts", MsgDeleteContracts],
+  ["/jackaldao.canine.storage.MsgUpdateActiveDeals", MsgUpdateActiveDeals],
+  ["/jackaldao.canine.storage.MsgBuyStorage", MsgBuyStorage],
+  ["/jackaldao.canine.storage.MsgUpdateContracts", MsgUpdateContracts],
+  ["/jackaldao.canine.storage.MsgDeleteProviders", MsgDeleteProviders],
+  ["/jackaldao.canine.storage.MsgCancelContract", MsgCancelContract],
+  ["/jackaldao.canine.storage.MsgDeleteActiveDeals", MsgDeleteActiveDeals],
+  ["/jackaldao.canine.storage.MsgCreateProofs", MsgCreateProofs],
   ["/jackaldao.canine.storage.MsgClaimStray", MsgClaimStray],
   ["/jackaldao.canine.storage.MsgDeleteProofs", MsgDeleteProofs],
-  ["/jackaldao.canine.storage.MsgBuyStorage", MsgBuyStorage],
-  ["/jackaldao.canine.storage.MsgUpdateProofs", MsgUpdateProofs],
-  ["/jackaldao.canine.storage.MsgPostproof", MsgPostproof],
-  ["/jackaldao.canine.storage.MsgDeleteContracts", MsgDeleteContracts],
-  ["/jackaldao.canine.storage.MsgSetProviderIp", MsgSetProviderIp],
   ["/jackaldao.canine.storage.MsgSignContract", MsgSignContract],
-  ["/jackaldao.canine.storage.MsgDeleteProviders", MsgDeleteProviders],
-  ["/jackaldao.canine.storage.MsgUpdateContracts", MsgUpdateContracts],
-  ["/jackaldao.canine.storage.MsgCreateProofs", MsgCreateProofs],
-  ["/jackaldao.canine.storage.MsgCancelContract", MsgCancelContract],
-  ["/jackaldao.canine.storage.MsgCreateActiveDeals", MsgCreateActiveDeals],
-  ["/jackaldao.canine.storage.MsgItem", MsgItem],
-  ["/jackaldao.canine.storage.MsgPostContract", MsgPostContract],
+  ["/jackaldao.canine.storage.MsgSetProviderTotalspace", MsgSetProviderTotalspace],
+  ["/jackaldao.canine.storage.MsgCreateContracts", MsgCreateContracts],
   
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -83,28 +83,28 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
-    msgCreateContracts: (data: MsgCreateContracts): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgCreateContracts", value: MsgCreateContracts.fromPartial( data ) }),
-    msgUpdateActiveDeals: (data: MsgUpdateActiveDeals): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgUpdateActiveDeals", value: MsgUpdateActiveDeals.fromPartial( data ) }),
-    msgUpdateProviders: (data: MsgUpdateProviders): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgUpdateProviders", value: MsgUpdateProviders.fromPartial( data ) }),
-    msgDeleteActiveDeals: (data: MsgDeleteActiveDeals): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgDeleteActiveDeals", value: MsgDeleteActiveDeals.fromPartial( data ) }),
-    msgSetProviderTotalspace: (data: MsgSetProviderTotalspace): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgSetProviderTotalspace", value: MsgSetProviderTotalspace.fromPartial( data ) }),
-    msgCreateProviders: (data: MsgCreateProviders): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgCreateProviders", value: MsgCreateProviders.fromPartial( data ) }),
+    msgUpdateProofs: (data: MsgUpdateProofs): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgUpdateProofs", value: MsgUpdateProofs.fromPartial( data ) }),
+    msgCreateActiveDeals: (data: MsgCreateActiveDeals): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgCreateActiveDeals", value: MsgCreateActiveDeals.fromPartial( data ) }),
     msgInitProvider: (data: MsgInitProvider): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgInitProvider", value: MsgInitProvider.fromPartial( data ) }),
+    msgPostContract: (data: MsgPostContract): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgPostContract", value: MsgPostContract.fromPartial( data ) }),
+    msgCreateProviders: (data: MsgCreateProviders): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgCreateProviders", value: MsgCreateProviders.fromPartial( data ) }),
+    msgUpdateProviders: (data: MsgUpdateProviders): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgUpdateProviders", value: MsgUpdateProviders.fromPartial( data ) }),
+    msgItem: (data: MsgItem): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgItem", value: MsgItem.fromPartial( data ) }),
+    msgPostproof: (data: MsgPostproof): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgPostproof", value: MsgPostproof.fromPartial( data ) }),
+    msgSetProviderIp: (data: MsgSetProviderIp): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgSetProviderIp", value: MsgSetProviderIp.fromPartial( data ) }),
+    msgDeleteContracts: (data: MsgDeleteContracts): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgDeleteContracts", value: MsgDeleteContracts.fromPartial( data ) }),
+    msgUpdateActiveDeals: (data: MsgUpdateActiveDeals): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgUpdateActiveDeals", value: MsgUpdateActiveDeals.fromPartial( data ) }),
+    msgBuyStorage: (data: MsgBuyStorage): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgBuyStorage", value: MsgBuyStorage.fromPartial( data ) }),
+    msgUpdateContracts: (data: MsgUpdateContracts): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgUpdateContracts", value: MsgUpdateContracts.fromPartial( data ) }),
+    msgDeleteProviders: (data: MsgDeleteProviders): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgDeleteProviders", value: MsgDeleteProviders.fromPartial( data ) }),
+    msgCancelContract: (data: MsgCancelContract): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgCancelContract", value: MsgCancelContract.fromPartial( data ) }),
+    msgDeleteActiveDeals: (data: MsgDeleteActiveDeals): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgDeleteActiveDeals", value: MsgDeleteActiveDeals.fromPartial( data ) }),
+    msgCreateProofs: (data: MsgCreateProofs): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgCreateProofs", value: MsgCreateProofs.fromPartial( data ) }),
     msgClaimStray: (data: MsgClaimStray): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgClaimStray", value: MsgClaimStray.fromPartial( data ) }),
     msgDeleteProofs: (data: MsgDeleteProofs): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgDeleteProofs", value: MsgDeleteProofs.fromPartial( data ) }),
-    msgBuyStorage: (data: MsgBuyStorage): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgBuyStorage", value: MsgBuyStorage.fromPartial( data ) }),
-    msgUpdateProofs: (data: MsgUpdateProofs): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgUpdateProofs", value: MsgUpdateProofs.fromPartial( data ) }),
-    msgPostproof: (data: MsgPostproof): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgPostproof", value: MsgPostproof.fromPartial( data ) }),
-    msgDeleteContracts: (data: MsgDeleteContracts): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgDeleteContracts", value: MsgDeleteContracts.fromPartial( data ) }),
-    msgSetProviderIp: (data: MsgSetProviderIp): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgSetProviderIp", value: MsgSetProviderIp.fromPartial( data ) }),
     msgSignContract: (data: MsgSignContract): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgSignContract", value: MsgSignContract.fromPartial( data ) }),
-    msgDeleteProviders: (data: MsgDeleteProviders): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgDeleteProviders", value: MsgDeleteProviders.fromPartial( data ) }),
-    msgUpdateContracts: (data: MsgUpdateContracts): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgUpdateContracts", value: MsgUpdateContracts.fromPartial( data ) }),
-    msgCreateProofs: (data: MsgCreateProofs): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgCreateProofs", value: MsgCreateProofs.fromPartial( data ) }),
-    msgCancelContract: (data: MsgCancelContract): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgCancelContract", value: MsgCancelContract.fromPartial( data ) }),
-    msgCreateActiveDeals: (data: MsgCreateActiveDeals): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgCreateActiveDeals", value: MsgCreateActiveDeals.fromPartial( data ) }),
-    msgItem: (data: MsgItem): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgItem", value: MsgItem.fromPartial( data ) }),
-    msgPostContract: (data: MsgPostContract): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgPostContract", value: MsgPostContract.fromPartial( data ) }),
+    msgSetProviderTotalspace: (data: MsgSetProviderTotalspace): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgSetProviderTotalspace", value: MsgSetProviderTotalspace.fromPartial( data ) }),
+    msgCreateContracts: (data: MsgCreateContracts): EncodeObject => ({ typeUrl: "/jackaldao.canine.storage.MsgCreateContracts", value: MsgCreateContracts.fromPartial( data ) }),
     
   };
 };

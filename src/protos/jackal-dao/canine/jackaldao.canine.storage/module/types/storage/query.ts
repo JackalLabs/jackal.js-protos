@@ -1,5 +1,6 @@
 /* eslint-disable */
-import { Reader, Writer } from "protobufjs/minimal";
+import { Reader, util, configure, Writer } from "protobufjs/minimal";
+import Long from "long";
 import { Params } from "../storage/params";
 import { Contracts } from "../storage/contracts";
 import {
@@ -183,6 +184,15 @@ export interface QueryAllFidCidRequest {
 export interface QueryAllFidCidResponse {
   fidCid: FidCid[];
   pagination: PageResponse | undefined;
+}
+
+export interface QueryGetPayDataRequest {
+  address: string;
+}
+
+export interface QueryGetPayDataResponse {
+  blocks_remaining: number;
+  bytes: number;
 }
 
 const baseQueryParamsRequest: object = {};
@@ -3063,6 +3073,156 @@ export const QueryAllFidCidResponse = {
   },
 };
 
+const baseQueryGetPayDataRequest: object = { address: "" };
+
+export const QueryGetPayDataRequest = {
+  encode(
+    message: QueryGetPayDataRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.address !== "") {
+      writer.uint32(10).string(message.address);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetPayDataRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryGetPayDataRequest } as QueryGetPayDataRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.address = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetPayDataRequest {
+    const message = { ...baseQueryGetPayDataRequest } as QueryGetPayDataRequest;
+    if (object.address !== undefined && object.address !== null) {
+      message.address = String(object.address);
+    } else {
+      message.address = "";
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetPayDataRequest): unknown {
+    const obj: any = {};
+    message.address !== undefined && (obj.address = message.address);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetPayDataRequest>
+  ): QueryGetPayDataRequest {
+    const message = { ...baseQueryGetPayDataRequest } as QueryGetPayDataRequest;
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    } else {
+      message.address = "";
+    }
+    return message;
+  },
+};
+
+const baseQueryGetPayDataResponse: object = { blocks_remaining: 0, bytes: 0 };
+
+export const QueryGetPayDataResponse = {
+  encode(
+    message: QueryGetPayDataResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.blocks_remaining !== 0) {
+      writer.uint32(8).int64(message.blocks_remaining);
+    }
+    if (message.bytes !== 0) {
+      writer.uint32(16).int64(message.bytes);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetPayDataResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetPayDataResponse,
+    } as QueryGetPayDataResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.blocks_remaining = longToNumber(reader.int64() as Long);
+          break;
+        case 2:
+          message.bytes = longToNumber(reader.int64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetPayDataResponse {
+    const message = {
+      ...baseQueryGetPayDataResponse,
+    } as QueryGetPayDataResponse;
+    if (
+      object.blocks_remaining !== undefined &&
+      object.blocks_remaining !== null
+    ) {
+      message.blocks_remaining = Number(object.blocks_remaining);
+    } else {
+      message.blocks_remaining = 0;
+    }
+    if (object.bytes !== undefined && object.bytes !== null) {
+      message.bytes = Number(object.bytes);
+    } else {
+      message.bytes = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetPayDataResponse): unknown {
+    const obj: any = {};
+    message.blocks_remaining !== undefined &&
+      (obj.blocks_remaining = message.blocks_remaining);
+    message.bytes !== undefined && (obj.bytes = message.bytes);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetPayDataResponse>
+  ): QueryGetPayDataResponse {
+    const message = {
+      ...baseQueryGetPayDataResponse,
+    } as QueryGetPayDataResponse;
+    if (
+      object.blocks_remaining !== undefined &&
+      object.blocks_remaining !== null
+    ) {
+      message.blocks_remaining = object.blocks_remaining;
+    } else {
+      message.blocks_remaining = 0;
+    }
+    if (object.bytes !== undefined && object.bytes !== null) {
+      message.bytes = object.bytes;
+    } else {
+      message.bytes = 0;
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -3127,6 +3287,8 @@ export interface Query {
   FidCid(request: QueryGetFidCidRequest): Promise<QueryGetFidCidResponse>;
   /** Queries a list of FidCid items. */
   FidCidAll(request: QueryAllFidCidRequest): Promise<QueryAllFidCidResponse>;
+  /** Queries a list of GetPayData items. */
+  GetPayData(request: QueryGetPayDataRequest): Promise<QueryGetPayDataResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -3393,6 +3555,20 @@ export class QueryClientImpl implements Query {
       QueryAllFidCidResponse.decode(new Reader(data))
     );
   }
+
+  GetPayData(
+    request: QueryGetPayDataRequest
+  ): Promise<QueryGetPayDataResponse> {
+    const data = QueryGetPayDataRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "jackaldao.canine.storage.Query",
+      "GetPayData",
+      data
+    );
+    return promise.then((data) =>
+      QueryGetPayDataResponse.decode(new Reader(data))
+    );
+  }
 }
 
 interface Rpc {
@@ -3402,6 +3578,16 @@ interface Rpc {
     data: Uint8Array
   ): Promise<Uint8Array>;
 }
+
+declare var self: any | undefined;
+declare var window: any | undefined;
+var globalThis: any = (() => {
+  if (typeof globalThis !== "undefined") return globalThis;
+  if (typeof self !== "undefined") return self;
+  if (typeof window !== "undefined") return window;
+  if (typeof global !== "undefined") return global;
+  throw "Unable to locate global object";
+})();
 
 type Builtin = Date | Function | Uint8Array | string | number | undefined;
 export type DeepPartial<T> = T extends Builtin
@@ -3413,3 +3599,15 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+function longToNumber(long: Long): number {
+  if (long.gt(Number.MAX_SAFE_INTEGER)) {
+    throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+  }
+  return long.toNumber();
+}
+
+if (util.Long !== Long) {
+  util.Long = Long as any;
+  configure();
+}

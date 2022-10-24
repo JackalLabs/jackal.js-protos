@@ -256,6 +256,14 @@ export interface StorageQueryGetPayBlocksResponse {
   payBlocks?: StoragePayBlocks;
 }
 
+export interface StorageQueryGetPayDataResponse {
+  /** @format int64 */
+  blocks_remaining?: string;
+
+  /** @format int64 */
+  bytes?: string;
+}
+
 export interface StorageQueryGetProofsResponse {
   proofs?: StorageProofs;
 }
@@ -754,6 +762,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryGetClientFreeSpace = (address: string, params: RequestParams = {}) =>
     this.request<StorageQueryGetClientFreeSpaceResponse, RpcStatus>({
       path: `/jackal-dao/canine/storage/get_client_free_space/${address}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryGetPayData
+   * @summary Queries a list of GetPayData items.
+   * @request GET:/jackal-dao/canine/storage/get_pay_data/{address}
+   */
+  queryGetPayData = (address: string, params: RequestParams = {}) =>
+    this.request<StorageQueryGetPayDataResponse, RpcStatus>({
+      path: `/jackal-dao/canine/storage/get_pay_data/${address}`,
       method: "GET",
       format: "json",
       ...params,
