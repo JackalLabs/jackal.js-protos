@@ -11,7 +11,7 @@ import {
   QueryGetNamesRequest, QueryGetNamesResponse,
   QueryListOwnedNamesRequest, QueryListOwnedNamesResponse,
   QueryParamsRequest, QueryParamsResponse
-} from '@/postgen_off/canine-chain/rns/query'
+} from '@/postgen/canine-chain/rns/query'
 
 import IQueryRns from '@/interfaces/classes/IQueryRns'
 import IRpc from '@/interfaces/IRpc'

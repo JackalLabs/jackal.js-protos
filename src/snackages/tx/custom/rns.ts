@@ -10,9 +10,9 @@ import {
   MsgList,
   MsgRegister,
   MsgTransfer
-} from '@/postgen/canine-chain/rns/tx'
+} from '../../../postgen/canine-chain/rns/tx'
 import { EncodeObject } from '@cosmjs/proto-signing'
-import ITypeTuple from '@/interfaces/ITypeTuple'
+import ITypeTuple from '../../../interfaces/ITypeTuple'
 
 const rnsTypes: ITypeTuple = {
   acceptBid: ['jackaldao.canine.rns.MsgAcceptBid', MsgAcceptBid],
