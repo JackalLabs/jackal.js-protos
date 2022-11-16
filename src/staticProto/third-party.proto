@@ -1,0 +1,13 @@
+syntax = "proto3";
+package jackaldao.canine.static;
+
+import "cosmos/bank/v1beta1/tx.proto";
+import "cosmos/distribution/v1beta1/tx.proto";
+import "cosmos/gov/v1beta1/tx.proto";
+import "cosmos/staking/v1beta1/tx.proto";
+
+// Msg defines the Msg service.
+service SdkStatic {
+  // Intentionally blank
+}
+
