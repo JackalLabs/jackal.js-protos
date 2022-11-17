@@ -1,4 +1,6 @@
 /* eslint-disable */
+import { grpc } from "@improbable-eng/grpc-web";
+import { BrowserHeaders } from "browser-headers";
 import _m0 from "protobufjs/minimal";
 import { Coin } from "../../base/v1beta1/coin";
 import { Input, Output, Params, SendEnabled } from "./bank";
@@ -518,16 +520,16 @@ export const MsgSetSendEnabledResponse = {
 /** Msg defines the bank Msg service. */
 export interface Msg {
   /** Send defines a method for sending coins from one account to another account. */
-  Send(request: MsgSend): Promise<MsgSendResponse>;
+  Send(request: DeepPartial<MsgSend>, metadata?: grpc.Metadata): Promise<MsgSendResponse>;
   /** MultiSend defines a method for sending coins from some accounts to other accounts. */
-  MultiSend(request: MsgMultiSend): Promise<MsgMultiSendResponse>;
+  MultiSend(request: DeepPartial<MsgMultiSend>, metadata?: grpc.Metadata): Promise<MsgMultiSendResponse>;
   /**
    * UpdateParams defines a governance operation for updating the x/bank module parameters.
    * The authority is defined in the keeper.
    *
    * Since: cosmos-sdk 0.47
    */
-  UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
+  UpdateParams(request: DeepPartial<MsgUpdateParams>, metadata?: grpc.Metadata): Promise<MsgUpdateParamsResponse>;
   /**
    * SetSendEnabled is a governance operation for setting the SendEnabled flag
    * on any number of Denoms. Only the entries to add or update should be
@@ -536,47 +538,196 @@ export interface Msg {
    *
    * Since: cosmos-sdk 0.47
    */
-  SetSendEnabled(request: MsgSetSendEnabled): Promise<MsgSetSendEnabledResponse>;
+  SetSendEnabled(request: DeepPartial<MsgSetSendEnabled>, metadata?: grpc.Metadata): Promise<MsgSetSendEnabledResponse>;
 }
 
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
-  private readonly service: string;
-  constructor(rpc: Rpc, opts?: { service?: string }) {
-    this.service = opts?.service || "cosmos.bank.v1beta1.Msg";
+
+  constructor(rpc: Rpc) {
     this.rpc = rpc;
     this.Send = this.Send.bind(this);
     this.MultiSend = this.MultiSend.bind(this);
     this.UpdateParams = this.UpdateParams.bind(this);
     this.SetSendEnabled = this.SetSendEnabled.bind(this);
   }
-  Send(request: MsgSend): Promise<MsgSendResponse> {
-    const data = MsgSend.encode(request).finish();
-    const promise = this.rpc.request(this.service, "Send", data);
-    return promise.then((data) => MsgSendResponse.decode(new _m0.Reader(data)));
+
+  Send(request: DeepPartial<MsgSend>, metadata?: grpc.Metadata): Promise<MsgSendResponse> {
+    return this.rpc.unary(MsgSendDesc, MsgSend.fromPartial(request), metadata);
   }
 
-  MultiSend(request: MsgMultiSend): Promise<MsgMultiSendResponse> {
-    const data = MsgMultiSend.encode(request).finish();
-    const promise = this.rpc.request(this.service, "MultiSend", data);
-    return promise.then((data) => MsgMultiSendResponse.decode(new _m0.Reader(data)));
+  MultiSend(request: DeepPartial<MsgMultiSend>, metadata?: grpc.Metadata): Promise<MsgMultiSendResponse> {
+    return this.rpc.unary(MsgMultiSendDesc, MsgMultiSend.fromPartial(request), metadata);
   }
 
-  UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
-    const data = MsgUpdateParams.encode(request).finish();
-    const promise = this.rpc.request(this.service, "UpdateParams", data);
-    return promise.then((data) => MsgUpdateParamsResponse.decode(new _m0.Reader(data)));
+  UpdateParams(request: DeepPartial<MsgUpdateParams>, metadata?: grpc.Metadata): Promise<MsgUpdateParamsResponse> {
+    return this.rpc.unary(MsgUpdateParamsDesc, MsgUpdateParams.fromPartial(request), metadata);
   }
 
-  SetSendEnabled(request: MsgSetSendEnabled): Promise<MsgSetSendEnabledResponse> {
-    const data = MsgSetSendEnabled.encode(request).finish();
-    const promise = this.rpc.request(this.service, "SetSendEnabled", data);
-    return promise.then((data) => MsgSetSendEnabledResponse.decode(new _m0.Reader(data)));
+  SetSendEnabled(
+    request: DeepPartial<MsgSetSendEnabled>,
+    metadata?: grpc.Metadata,
+  ): Promise<MsgSetSendEnabledResponse> {
+    return this.rpc.unary(MsgSetSendEnabledDesc, MsgSetSendEnabled.fromPartial(request), metadata);
   }
 }
 
+export const MsgDesc = { serviceName: "cosmos.bank.v1beta1.Msg" };
+
+export const MsgSendDesc: UnaryMethodDefinitionish = {
+  methodName: "Send",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgSend.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgSendResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const MsgMultiSendDesc: UnaryMethodDefinitionish = {
+  methodName: "MultiSend",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgMultiSend.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgMultiSendResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const MsgUpdateParamsDesc: UnaryMethodDefinitionish = {
+  methodName: "UpdateParams",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgUpdateParams.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgUpdateParamsResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const MsgSetSendEnabledDesc: UnaryMethodDefinitionish = {
+  methodName: "SetSendEnabled",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgSetSendEnabled.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgSetSendEnabledResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+interface UnaryMethodDefinitionishR extends grpc.UnaryMethodDefinition<any, any> {
+  requestStream: any;
+  responseStream: any;
+}
+
+type UnaryMethodDefinitionish = UnaryMethodDefinitionishR;
+
 interface Rpc {
-  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
+  unary<T extends UnaryMethodDefinitionish>(
+    methodDesc: T,
+    request: any,
+    metadata: grpc.Metadata | undefined,
+  ): Promise<any>;
+}
+
+export class GrpcWebImpl {
+  private host: string;
+  private options: {
+    transport?: grpc.TransportFactory;
+
+    debug?: boolean;
+    metadata?: grpc.Metadata;
+    upStreamRetryCodes?: number[];
+  };
+
+  constructor(
+    host: string,
+    options: {
+      transport?: grpc.TransportFactory;
+
+      debug?: boolean;
+      metadata?: grpc.Metadata;
+      upStreamRetryCodes?: number[];
+    },
+  ) {
+    this.host = host;
+    this.options = options;
+  }
+
+  unary<T extends UnaryMethodDefinitionish>(
+    methodDesc: T,
+    _request: any,
+    metadata: grpc.Metadata | undefined,
+  ): Promise<any> {
+    const request = { ..._request, ...methodDesc.requestType };
+    const maybeCombinedMetadata = metadata && this.options.metadata
+      ? new BrowserHeaders({ ...this.options?.metadata.headersMap, ...metadata?.headersMap })
+      : metadata || this.options.metadata;
+    return new Promise((resolve, reject) => {
+      grpc.unary(methodDesc, {
+        request,
+        host: this.host,
+        metadata: maybeCombinedMetadata,
+        transport: this.options.transport,
+        debug: this.options.debug,
+        onEnd: function (response) {
+          if (response.status === grpc.Code.OK) {
+            resolve(response.message);
+          } else {
+            const err = new GrpcWebError(response.statusMessage, response.status, response.trailers);
+            reject(err);
+          }
+        },
+      });
+    });
+  }
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
@@ -592,4 +743,10 @@ export type Exact<P, I extends P> = P extends Builtin ? P
 
 function isSet(value: any): boolean {
   return value !== null && value !== undefined;
+}
+
+export class GrpcWebError extends globalThis.Error {
+  constructor(message: string, public code: grpc.Code, public metadata: grpc.Metadata) {
+    super(message);
+  }
 }

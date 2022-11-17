@@ -1,4 +1,6 @@
 /* eslint-disable */
+import { grpc } from "@improbable-eng/grpc-web";
+import { BrowserHeaders } from "browser-headers";
 import _m0 from "protobufjs/minimal";
 import { PageRequest, PageResponse } from "../../cosmos/base/query/v1beta1/pagination";
 import { Bids } from "./bids";
@@ -1379,32 +1381,34 @@ export const QueryListOwnedNamesResponse = {
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
-  Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
+  Params(request: DeepPartial<QueryParamsRequest>, metadata?: grpc.Metadata): Promise<QueryParamsResponse>;
   /** Queries a Name by index. */
-  Names(request: QueryGetNamesRequest): Promise<QueryGetNamesResponse>;
+  Names(request: DeepPartial<QueryGetNamesRequest>, metadata?: grpc.Metadata): Promise<QueryGetNamesResponse>;
   /** Queries a list of Names. */
-  NamesAll(request: QueryAllNamesRequest): Promise<QueryAllNamesResponse>;
+  NamesAll(request: DeepPartial<QueryAllNamesRequest>, metadata?: grpc.Metadata): Promise<QueryAllNamesResponse>;
   /** Queries a Bid by index. */
-  Bids(request: QueryGetBidsRequest): Promise<QueryGetBidsResponse>;
+  Bids(request: DeepPartial<QueryGetBidsRequest>, metadata?: grpc.Metadata): Promise<QueryGetBidsResponse>;
   /** Queries a list of Bids. */
-  BidsAll(request: QueryAllBidsRequest): Promise<QueryAllBidsResponse>;
+  BidsAll(request: DeepPartial<QueryAllBidsRequest>, metadata?: grpc.Metadata): Promise<QueryAllBidsResponse>;
   /** Queries a Listing by index. */
-  Forsale(request: QueryGetForsaleRequest): Promise<QueryGetForsaleResponse>;
+  Forsale(request: DeepPartial<QueryGetForsaleRequest>, metadata?: grpc.Metadata): Promise<QueryGetForsaleResponse>;
   /** Queries all Listings. */
-  ForsaleAll(request: QueryAllForsaleRequest): Promise<QueryAllForsaleResponse>;
+  ForsaleAll(request: DeepPartial<QueryAllForsaleRequest>, metadata?: grpc.Metadata): Promise<QueryAllForsaleResponse>;
   /** Queries a Init by index. */
-  Init(request: QueryGetInitRequest): Promise<QueryGetInitResponse>;
+  Init(request: DeepPartial<QueryGetInitRequest>, metadata?: grpc.Metadata): Promise<QueryGetInitResponse>;
   /** Queries a list of Init items. */
-  InitAll(request: QueryAllInitRequest): Promise<QueryAllInitResponse>;
+  InitAll(request: DeepPartial<QueryAllInitRequest>, metadata?: grpc.Metadata): Promise<QueryAllInitResponse>;
   /** Queries a list of ListOwnedNames items. */
-  ListOwnedNames(request: QueryListOwnedNamesRequest): Promise<QueryListOwnedNamesResponse>;
+  ListOwnedNames(
+    request: DeepPartial<QueryListOwnedNamesRequest>,
+    metadata?: grpc.Metadata,
+  ): Promise<QueryListOwnedNamesResponse>;
 }
 
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;
-  private readonly service: string;
-  constructor(rpc: Rpc, opts?: { service?: string }) {
-    this.service = opts?.service || "jackaldao.canine.rns.Query";
+
+  constructor(rpc: Rpc) {
     this.rpc = rpc;
     this.Params = this.Params.bind(this);
     this.Names = this.Names.bind(this);
@@ -1417,69 +1421,339 @@ export class QueryClientImpl implements Query {
     this.InitAll = this.InitAll.bind(this);
     this.ListOwnedNames = this.ListOwnedNames.bind(this);
   }
-  Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
-    const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request(this.service, "Params", data);
-    return promise.then((data) => QueryParamsResponse.decode(new _m0.Reader(data)));
+
+  Params(request: DeepPartial<QueryParamsRequest>, metadata?: grpc.Metadata): Promise<QueryParamsResponse> {
+    return this.rpc.unary(QueryParamsDesc, QueryParamsRequest.fromPartial(request), metadata);
   }
 
-  Names(request: QueryGetNamesRequest): Promise<QueryGetNamesResponse> {
-    const data = QueryGetNamesRequest.encode(request).finish();
-    const promise = this.rpc.request(this.service, "Names", data);
-    return promise.then((data) => QueryGetNamesResponse.decode(new _m0.Reader(data)));
+  Names(request: DeepPartial<QueryGetNamesRequest>, metadata?: grpc.Metadata): Promise<QueryGetNamesResponse> {
+    return this.rpc.unary(QueryNamesDesc, QueryGetNamesRequest.fromPartial(request), metadata);
   }
 
-  NamesAll(request: QueryAllNamesRequest): Promise<QueryAllNamesResponse> {
-    const data = QueryAllNamesRequest.encode(request).finish();
-    const promise = this.rpc.request(this.service, "NamesAll", data);
-    return promise.then((data) => QueryAllNamesResponse.decode(new _m0.Reader(data)));
+  NamesAll(request: DeepPartial<QueryAllNamesRequest>, metadata?: grpc.Metadata): Promise<QueryAllNamesResponse> {
+    return this.rpc.unary(QueryNamesAllDesc, QueryAllNamesRequest.fromPartial(request), metadata);
   }
 
-  Bids(request: QueryGetBidsRequest): Promise<QueryGetBidsResponse> {
-    const data = QueryGetBidsRequest.encode(request).finish();
-    const promise = this.rpc.request(this.service, "Bids", data);
-    return promise.then((data) => QueryGetBidsResponse.decode(new _m0.Reader(data)));
+  Bids(request: DeepPartial<QueryGetBidsRequest>, metadata?: grpc.Metadata): Promise<QueryGetBidsResponse> {
+    return this.rpc.unary(QueryBidsDesc, QueryGetBidsRequest.fromPartial(request), metadata);
   }
 
-  BidsAll(request: QueryAllBidsRequest): Promise<QueryAllBidsResponse> {
-    const data = QueryAllBidsRequest.encode(request).finish();
-    const promise = this.rpc.request(this.service, "BidsAll", data);
-    return promise.then((data) => QueryAllBidsResponse.decode(new _m0.Reader(data)));
+  BidsAll(request: DeepPartial<QueryAllBidsRequest>, metadata?: grpc.Metadata): Promise<QueryAllBidsResponse> {
+    return this.rpc.unary(QueryBidsAllDesc, QueryAllBidsRequest.fromPartial(request), metadata);
   }
 
-  Forsale(request: QueryGetForsaleRequest): Promise<QueryGetForsaleResponse> {
-    const data = QueryGetForsaleRequest.encode(request).finish();
-    const promise = this.rpc.request(this.service, "Forsale", data);
-    return promise.then((data) => QueryGetForsaleResponse.decode(new _m0.Reader(data)));
+  Forsale(request: DeepPartial<QueryGetForsaleRequest>, metadata?: grpc.Metadata): Promise<QueryGetForsaleResponse> {
+    return this.rpc.unary(QueryForsaleDesc, QueryGetForsaleRequest.fromPartial(request), metadata);
   }
 
-  ForsaleAll(request: QueryAllForsaleRequest): Promise<QueryAllForsaleResponse> {
-    const data = QueryAllForsaleRequest.encode(request).finish();
-    const promise = this.rpc.request(this.service, "ForsaleAll", data);
-    return promise.then((data) => QueryAllForsaleResponse.decode(new _m0.Reader(data)));
+  ForsaleAll(request: DeepPartial<QueryAllForsaleRequest>, metadata?: grpc.Metadata): Promise<QueryAllForsaleResponse> {
+    return this.rpc.unary(QueryForsaleAllDesc, QueryAllForsaleRequest.fromPartial(request), metadata);
   }
 
-  Init(request: QueryGetInitRequest): Promise<QueryGetInitResponse> {
-    const data = QueryGetInitRequest.encode(request).finish();
-    const promise = this.rpc.request(this.service, "Init", data);
-    return promise.then((data) => QueryGetInitResponse.decode(new _m0.Reader(data)));
+  Init(request: DeepPartial<QueryGetInitRequest>, metadata?: grpc.Metadata): Promise<QueryGetInitResponse> {
+    return this.rpc.unary(QueryInitDesc, QueryGetInitRequest.fromPartial(request), metadata);
   }
 
-  InitAll(request: QueryAllInitRequest): Promise<QueryAllInitResponse> {
-    const data = QueryAllInitRequest.encode(request).finish();
-    const promise = this.rpc.request(this.service, "InitAll", data);
-    return promise.then((data) => QueryAllInitResponse.decode(new _m0.Reader(data)));
+  InitAll(request: DeepPartial<QueryAllInitRequest>, metadata?: grpc.Metadata): Promise<QueryAllInitResponse> {
+    return this.rpc.unary(QueryInitAllDesc, QueryAllInitRequest.fromPartial(request), metadata);
   }
 
-  ListOwnedNames(request: QueryListOwnedNamesRequest): Promise<QueryListOwnedNamesResponse> {
-    const data = QueryListOwnedNamesRequest.encode(request).finish();
-    const promise = this.rpc.request(this.service, "ListOwnedNames", data);
-    return promise.then((data) => QueryListOwnedNamesResponse.decode(new _m0.Reader(data)));
+  ListOwnedNames(
+    request: DeepPartial<QueryListOwnedNamesRequest>,
+    metadata?: grpc.Metadata,
+  ): Promise<QueryListOwnedNamesResponse> {
+    return this.rpc.unary(QueryListOwnedNamesDesc, QueryListOwnedNamesRequest.fromPartial(request), metadata);
   }
 }
 
+export const QueryDesc = { serviceName: "jackaldao.canine.rns.Query" };
+
+export const QueryParamsDesc: UnaryMethodDefinitionish = {
+  methodName: "Params",
+  service: QueryDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return QueryParamsRequest.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...QueryParamsResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const QueryNamesDesc: UnaryMethodDefinitionish = {
+  methodName: "Names",
+  service: QueryDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return QueryGetNamesRequest.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...QueryGetNamesResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const QueryNamesAllDesc: UnaryMethodDefinitionish = {
+  methodName: "NamesAll",
+  service: QueryDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return QueryAllNamesRequest.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...QueryAllNamesResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const QueryBidsDesc: UnaryMethodDefinitionish = {
+  methodName: "Bids",
+  service: QueryDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return QueryGetBidsRequest.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...QueryGetBidsResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const QueryBidsAllDesc: UnaryMethodDefinitionish = {
+  methodName: "BidsAll",
+  service: QueryDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return QueryAllBidsRequest.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...QueryAllBidsResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const QueryForsaleDesc: UnaryMethodDefinitionish = {
+  methodName: "Forsale",
+  service: QueryDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return QueryGetForsaleRequest.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...QueryGetForsaleResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const QueryForsaleAllDesc: UnaryMethodDefinitionish = {
+  methodName: "ForsaleAll",
+  service: QueryDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return QueryAllForsaleRequest.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...QueryAllForsaleResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const QueryInitDesc: UnaryMethodDefinitionish = {
+  methodName: "Init",
+  service: QueryDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return QueryGetInitRequest.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...QueryGetInitResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const QueryInitAllDesc: UnaryMethodDefinitionish = {
+  methodName: "InitAll",
+  service: QueryDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return QueryAllInitRequest.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...QueryAllInitResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const QueryListOwnedNamesDesc: UnaryMethodDefinitionish = {
+  methodName: "ListOwnedNames",
+  service: QueryDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return QueryListOwnedNamesRequest.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...QueryListOwnedNamesResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+interface UnaryMethodDefinitionishR extends grpc.UnaryMethodDefinition<any, any> {
+  requestStream: any;
+  responseStream: any;
+}
+
+type UnaryMethodDefinitionish = UnaryMethodDefinitionishR;
+
 interface Rpc {
-  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
+  unary<T extends UnaryMethodDefinitionish>(
+    methodDesc: T,
+    request: any,
+    metadata: grpc.Metadata | undefined,
+  ): Promise<any>;
+}
+
+export class GrpcWebImpl {
+  private host: string;
+  private options: {
+    transport?: grpc.TransportFactory;
+
+    debug?: boolean;
+    metadata?: grpc.Metadata;
+    upStreamRetryCodes?: number[];
+  };
+
+  constructor(
+    host: string,
+    options: {
+      transport?: grpc.TransportFactory;
+
+      debug?: boolean;
+      metadata?: grpc.Metadata;
+      upStreamRetryCodes?: number[];
+    },
+  ) {
+    this.host = host;
+    this.options = options;
+  }
+
+  unary<T extends UnaryMethodDefinitionish>(
+    methodDesc: T,
+    _request: any,
+    metadata: grpc.Metadata | undefined,
+  ): Promise<any> {
+    const request = { ..._request, ...methodDesc.requestType };
+    const maybeCombinedMetadata = metadata && this.options.metadata
+      ? new BrowserHeaders({ ...this.options?.metadata.headersMap, ...metadata?.headersMap })
+      : metadata || this.options.metadata;
+    return new Promise((resolve, reject) => {
+      grpc.unary(methodDesc, {
+        request,
+        host: this.host,
+        metadata: maybeCombinedMetadata,
+        transport: this.options.transport,
+        debug: this.options.debug,
+        onEnd: function (response) {
+          if (response.status === grpc.Code.OK) {
+            resolve(response.message);
+          } else {
+            const err = new GrpcWebError(response.statusMessage, response.status, response.trailers);
+            reject(err);
+          }
+        },
+      });
+    });
+  }
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
@@ -1495,4 +1769,10 @@ export type Exact<P, I extends P> = P extends Builtin ? P
 
 function isSet(value: any): boolean {
   return value !== null && value !== undefined;
+}
+
+export class GrpcWebError extends globalThis.Error {
+  constructor(message: string, public code: grpc.Code, public metadata: grpc.Metadata) {
+    super(message);
+  }
 }

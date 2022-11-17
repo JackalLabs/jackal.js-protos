@@ -6,3 +6,4 @@ plugins:
     strategy: all
     opt:
       - esModuleInterop=true
+      - outputClientImpl=grpc-web

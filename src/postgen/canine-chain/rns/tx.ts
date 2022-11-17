@@ -1,4 +1,6 @@
 /* eslint-disable */
+import { grpc } from "@improbable-eng/grpc-web";
+import { BrowserHeaders } from "browser-headers";
 import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "jackaldao.canine.rns";
@@ -1238,24 +1240,23 @@ export const MsgInitResponse = {
 
 /** Msg defines the Msg service. */
 export interface Msg {
-  Register(request: MsgRegister): Promise<MsgRegisterResponse>;
-  Bid(request: MsgBid): Promise<MsgBidResponse>;
-  AcceptBid(request: MsgAcceptBid): Promise<MsgAcceptBidResponse>;
-  CancelBid(request: MsgCancelBid): Promise<MsgCancelBidResponse>;
-  List(request: MsgList): Promise<MsgListResponse>;
-  Buy(request: MsgBuy): Promise<MsgBuyResponse>;
-  Delist(request: MsgDelist): Promise<MsgDelistResponse>;
-  Transfer(request: MsgTransfer): Promise<MsgTransferResponse>;
-  AddRecord(request: MsgAddRecord): Promise<MsgAddRecordResponse>;
-  DelRecord(request: MsgDelRecord): Promise<MsgDelRecordResponse>;
-  Init(request: MsgInit): Promise<MsgInitResponse>;
+  Register(request: DeepPartial<MsgRegister>, metadata?: grpc.Metadata): Promise<MsgRegisterResponse>;
+  Bid(request: DeepPartial<MsgBid>, metadata?: grpc.Metadata): Promise<MsgBidResponse>;
+  AcceptBid(request: DeepPartial<MsgAcceptBid>, metadata?: grpc.Metadata): Promise<MsgAcceptBidResponse>;
+  CancelBid(request: DeepPartial<MsgCancelBid>, metadata?: grpc.Metadata): Promise<MsgCancelBidResponse>;
+  List(request: DeepPartial<MsgList>, metadata?: grpc.Metadata): Promise<MsgListResponse>;
+  Buy(request: DeepPartial<MsgBuy>, metadata?: grpc.Metadata): Promise<MsgBuyResponse>;
+  Delist(request: DeepPartial<MsgDelist>, metadata?: grpc.Metadata): Promise<MsgDelistResponse>;
+  Transfer(request: DeepPartial<MsgTransfer>, metadata?: grpc.Metadata): Promise<MsgTransferResponse>;
+  AddRecord(request: DeepPartial<MsgAddRecord>, metadata?: grpc.Metadata): Promise<MsgAddRecordResponse>;
+  DelRecord(request: DeepPartial<MsgDelRecord>, metadata?: grpc.Metadata): Promise<MsgDelRecordResponse>;
+  Init(request: DeepPartial<MsgInit>, metadata?: grpc.Metadata): Promise<MsgInitResponse>;
 }
 
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
-  private readonly service: string;
-  constructor(rpc: Rpc, opts?: { service?: string }) {
-    this.service = opts?.service || "jackaldao.canine.rns.Msg";
+
+  constructor(rpc: Rpc) {
     this.rpc = rpc;
     this.Register = this.Register.bind(this);
     this.Bid = this.Bid.bind(this);
@@ -1269,75 +1270,362 @@ export class MsgClientImpl implements Msg {
     this.DelRecord = this.DelRecord.bind(this);
     this.Init = this.Init.bind(this);
   }
-  Register(request: MsgRegister): Promise<MsgRegisterResponse> {
-    const data = MsgRegister.encode(request).finish();
-    const promise = this.rpc.request(this.service, "Register", data);
-    return promise.then((data) => MsgRegisterResponse.decode(new _m0.Reader(data)));
+
+  Register(request: DeepPartial<MsgRegister>, metadata?: grpc.Metadata): Promise<MsgRegisterResponse> {
+    return this.rpc.unary(MsgRegisterDesc, MsgRegister.fromPartial(request), metadata);
   }
 
-  Bid(request: MsgBid): Promise<MsgBidResponse> {
-    const data = MsgBid.encode(request).finish();
-    const promise = this.rpc.request(this.service, "Bid", data);
-    return promise.then((data) => MsgBidResponse.decode(new _m0.Reader(data)));
+  Bid(request: DeepPartial<MsgBid>, metadata?: grpc.Metadata): Promise<MsgBidResponse> {
+    return this.rpc.unary(MsgBidDesc, MsgBid.fromPartial(request), metadata);
   }
 
-  AcceptBid(request: MsgAcceptBid): Promise<MsgAcceptBidResponse> {
-    const data = MsgAcceptBid.encode(request).finish();
-    const promise = this.rpc.request(this.service, "AcceptBid", data);
-    return promise.then((data) => MsgAcceptBidResponse.decode(new _m0.Reader(data)));
+  AcceptBid(request: DeepPartial<MsgAcceptBid>, metadata?: grpc.Metadata): Promise<MsgAcceptBidResponse> {
+    return this.rpc.unary(MsgAcceptBidDesc, MsgAcceptBid.fromPartial(request), metadata);
   }
 
-  CancelBid(request: MsgCancelBid): Promise<MsgCancelBidResponse> {
-    const data = MsgCancelBid.encode(request).finish();
-    const promise = this.rpc.request(this.service, "CancelBid", data);
-    return promise.then((data) => MsgCancelBidResponse.decode(new _m0.Reader(data)));
+  CancelBid(request: DeepPartial<MsgCancelBid>, metadata?: grpc.Metadata): Promise<MsgCancelBidResponse> {
+    return this.rpc.unary(MsgCancelBidDesc, MsgCancelBid.fromPartial(request), metadata);
   }
 
-  List(request: MsgList): Promise<MsgListResponse> {
-    const data = MsgList.encode(request).finish();
-    const promise = this.rpc.request(this.service, "List", data);
-    return promise.then((data) => MsgListResponse.decode(new _m0.Reader(data)));
+  List(request: DeepPartial<MsgList>, metadata?: grpc.Metadata): Promise<MsgListResponse> {
+    return this.rpc.unary(MsgListDesc, MsgList.fromPartial(request), metadata);
   }
 
-  Buy(request: MsgBuy): Promise<MsgBuyResponse> {
-    const data = MsgBuy.encode(request).finish();
-    const promise = this.rpc.request(this.service, "Buy", data);
-    return promise.then((data) => MsgBuyResponse.decode(new _m0.Reader(data)));
+  Buy(request: DeepPartial<MsgBuy>, metadata?: grpc.Metadata): Promise<MsgBuyResponse> {
+    return this.rpc.unary(MsgBuyDesc, MsgBuy.fromPartial(request), metadata);
   }
 
-  Delist(request: MsgDelist): Promise<MsgDelistResponse> {
-    const data = MsgDelist.encode(request).finish();
-    const promise = this.rpc.request(this.service, "Delist", data);
-    return promise.then((data) => MsgDelistResponse.decode(new _m0.Reader(data)));
+  Delist(request: DeepPartial<MsgDelist>, metadata?: grpc.Metadata): Promise<MsgDelistResponse> {
+    return this.rpc.unary(MsgDelistDesc, MsgDelist.fromPartial(request), metadata);
   }
 
-  Transfer(request: MsgTransfer): Promise<MsgTransferResponse> {
-    const data = MsgTransfer.encode(request).finish();
-    const promise = this.rpc.request(this.service, "Transfer", data);
-    return promise.then((data) => MsgTransferResponse.decode(new _m0.Reader(data)));
+  Transfer(request: DeepPartial<MsgTransfer>, metadata?: grpc.Metadata): Promise<MsgTransferResponse> {
+    return this.rpc.unary(MsgTransferDesc, MsgTransfer.fromPartial(request), metadata);
   }
 
-  AddRecord(request: MsgAddRecord): Promise<MsgAddRecordResponse> {
-    const data = MsgAddRecord.encode(request).finish();
-    const promise = this.rpc.request(this.service, "AddRecord", data);
-    return promise.then((data) => MsgAddRecordResponse.decode(new _m0.Reader(data)));
+  AddRecord(request: DeepPartial<MsgAddRecord>, metadata?: grpc.Metadata): Promise<MsgAddRecordResponse> {
+    return this.rpc.unary(MsgAddRecordDesc, MsgAddRecord.fromPartial(request), metadata);
   }
 
-  DelRecord(request: MsgDelRecord): Promise<MsgDelRecordResponse> {
-    const data = MsgDelRecord.encode(request).finish();
-    const promise = this.rpc.request(this.service, "DelRecord", data);
-    return promise.then((data) => MsgDelRecordResponse.decode(new _m0.Reader(data)));
+  DelRecord(request: DeepPartial<MsgDelRecord>, metadata?: grpc.Metadata): Promise<MsgDelRecordResponse> {
+    return this.rpc.unary(MsgDelRecordDesc, MsgDelRecord.fromPartial(request), metadata);
   }
 
-  Init(request: MsgInit): Promise<MsgInitResponse> {
-    const data = MsgInit.encode(request).finish();
-    const promise = this.rpc.request(this.service, "Init", data);
-    return promise.then((data) => MsgInitResponse.decode(new _m0.Reader(data)));
+  Init(request: DeepPartial<MsgInit>, metadata?: grpc.Metadata): Promise<MsgInitResponse> {
+    return this.rpc.unary(MsgInitDesc, MsgInit.fromPartial(request), metadata);
   }
 }
 
+export const MsgDesc = { serviceName: "jackaldao.canine.rns.Msg" };
+
+export const MsgRegisterDesc: UnaryMethodDefinitionish = {
+  methodName: "Register",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgRegister.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgRegisterResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const MsgBidDesc: UnaryMethodDefinitionish = {
+  methodName: "Bid",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgBid.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgBidResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const MsgAcceptBidDesc: UnaryMethodDefinitionish = {
+  methodName: "AcceptBid",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgAcceptBid.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgAcceptBidResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const MsgCancelBidDesc: UnaryMethodDefinitionish = {
+  methodName: "CancelBid",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgCancelBid.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgCancelBidResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const MsgListDesc: UnaryMethodDefinitionish = {
+  methodName: "List",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgList.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgListResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const MsgBuyDesc: UnaryMethodDefinitionish = {
+  methodName: "Buy",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgBuy.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgBuyResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const MsgDelistDesc: UnaryMethodDefinitionish = {
+  methodName: "Delist",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgDelist.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgDelistResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const MsgTransferDesc: UnaryMethodDefinitionish = {
+  methodName: "Transfer",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgTransfer.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgTransferResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const MsgAddRecordDesc: UnaryMethodDefinitionish = {
+  methodName: "AddRecord",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgAddRecord.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgAddRecordResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const MsgDelRecordDesc: UnaryMethodDefinitionish = {
+  methodName: "DelRecord",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgDelRecord.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgDelRecordResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const MsgInitDesc: UnaryMethodDefinitionish = {
+  methodName: "Init",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgInit.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgInitResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+interface UnaryMethodDefinitionishR extends grpc.UnaryMethodDefinition<any, any> {
+  requestStream: any;
+  responseStream: any;
+}
+
+type UnaryMethodDefinitionish = UnaryMethodDefinitionishR;
+
 interface Rpc {
-  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
+  unary<T extends UnaryMethodDefinitionish>(
+    methodDesc: T,
+    request: any,
+    metadata: grpc.Metadata | undefined,
+  ): Promise<any>;
+}
+
+export class GrpcWebImpl {
+  private host: string;
+  private options: {
+    transport?: grpc.TransportFactory;
+
+    debug?: boolean;
+    metadata?: grpc.Metadata;
+    upStreamRetryCodes?: number[];
+  };
+
+  constructor(
+    host: string,
+    options: {
+      transport?: grpc.TransportFactory;
+
+      debug?: boolean;
+      metadata?: grpc.Metadata;
+      upStreamRetryCodes?: number[];
+    },
+  ) {
+    this.host = host;
+    this.options = options;
+  }
+
+  unary<T extends UnaryMethodDefinitionish>(
+    methodDesc: T,
+    _request: any,
+    metadata: grpc.Metadata | undefined,
+  ): Promise<any> {
+    const request = { ..._request, ...methodDesc.requestType };
+    const maybeCombinedMetadata = metadata && this.options.metadata
+      ? new BrowserHeaders({ ...this.options?.metadata.headersMap, ...metadata?.headersMap })
+      : metadata || this.options.metadata;
+    return new Promise((resolve, reject) => {
+      grpc.unary(methodDesc, {
+        request,
+        host: this.host,
+        metadata: maybeCombinedMetadata,
+        transport: this.options.transport,
+        debug: this.options.debug,
+        onEnd: function (response) {
+          if (response.status === grpc.Code.OK) {
+            resolve(response.message);
+          } else {
+            const err = new GrpcWebError(response.statusMessage, response.status, response.trailers);
+            reject(err);
+          }
+        },
+      });
+    });
+  }
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
@@ -1353,4 +1641,10 @@ export type Exact<P, I extends P> = P extends Builtin ? P
 
 function isSet(value: any): boolean {
   return value !== null && value !== undefined;
+}
+
+export class GrpcWebError extends globalThis.Error {
+  constructor(message: string, public code: grpc.Code, public metadata: grpc.Metadata) {
+    super(message);
+  }
 }

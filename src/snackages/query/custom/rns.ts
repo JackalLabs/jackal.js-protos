@@ -1,4 +1,5 @@
 import {
+  GrpcWebImpl,
   Query,
   QueryAllBidsRequest, QueryAllBidsResponse,
   QueryAllForsaleRequest, QueryAllForsaleResponse,
@@ -14,12 +15,11 @@ import {
 } from '@/postgen/canine-chain/rns/query'
 
 import IQueryRns from '@/interfaces/classes/IQueryRns'
-import IRpc from '@/interfaces/IRpc'
 
 export default class QueryRns implements IQueryRns {
   private readonly queryClient: Query
 
-  constructor (rpc: IRpc) {
+  constructor (rpc: GrpcWebImpl) {
     this.queryClient = new QueryClientImpl(rpc)
   }
 

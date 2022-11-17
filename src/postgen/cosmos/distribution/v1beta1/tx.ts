@@ -1,4 +1,6 @@
 /* eslint-disable */
+import { grpc } from "@improbable-eng/grpc-web";
+import { BrowserHeaders } from "browser-headers";
 import _m0 from "protobufjs/minimal";
 import { Coin } from "../../base/v1beta1/coin";
 import { Params } from "./distribution";
@@ -743,29 +745,41 @@ export interface Msg {
    * SetWithdrawAddress defines a method to change the withdraw address
    * for a delegator (or validator self-delegation).
    */
-  SetWithdrawAddress(request: MsgSetWithdrawAddress): Promise<MsgSetWithdrawAddressResponse>;
+  SetWithdrawAddress(
+    request: DeepPartial<MsgSetWithdrawAddress>,
+    metadata?: grpc.Metadata,
+  ): Promise<MsgSetWithdrawAddressResponse>;
   /**
    * WithdrawDelegatorReward defines a method to withdraw rewards of delegator
    * from a single validator.
    */
-  WithdrawDelegatorReward(request: MsgWithdrawDelegatorReward): Promise<MsgWithdrawDelegatorRewardResponse>;
+  WithdrawDelegatorReward(
+    request: DeepPartial<MsgWithdrawDelegatorReward>,
+    metadata?: grpc.Metadata,
+  ): Promise<MsgWithdrawDelegatorRewardResponse>;
   /**
    * WithdrawValidatorCommission defines a method to withdraw the
    * full commission to the validator address.
    */
-  WithdrawValidatorCommission(request: MsgWithdrawValidatorCommission): Promise<MsgWithdrawValidatorCommissionResponse>;
+  WithdrawValidatorCommission(
+    request: DeepPartial<MsgWithdrawValidatorCommission>,
+    metadata?: grpc.Metadata,
+  ): Promise<MsgWithdrawValidatorCommissionResponse>;
   /**
    * FundCommunityPool defines a method to allow an account to directly
    * fund the community pool.
    */
-  FundCommunityPool(request: MsgFundCommunityPool): Promise<MsgFundCommunityPoolResponse>;
+  FundCommunityPool(
+    request: DeepPartial<MsgFundCommunityPool>,
+    metadata?: grpc.Metadata,
+  ): Promise<MsgFundCommunityPoolResponse>;
   /**
    * UpdateParams defines a governance operation for updating the x/distribution
    * module parameters. The authority is defined in the keeper.
    *
    * Since: cosmos-sdk 0.47
    */
-  UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
+  UpdateParams(request: DeepPartial<MsgUpdateParams>, metadata?: grpc.Metadata): Promise<MsgUpdateParamsResponse>;
   /**
    * CommunityPoolSpend defines a governance operation for sending tokens from
    * the community pool in the x/distribution module to another account, which
@@ -774,14 +788,16 @@ export interface Msg {
    *
    * Since: cosmos-sdk 0.47
    */
-  CommunityPoolSpend(request: MsgCommunityPoolSpend): Promise<MsgCommunityPoolSpendResponse>;
+  CommunityPoolSpend(
+    request: DeepPartial<MsgCommunityPoolSpend>,
+    metadata?: grpc.Metadata,
+  ): Promise<MsgCommunityPoolSpendResponse>;
 }
 
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
-  private readonly service: string;
-  constructor(rpc: Rpc, opts?: { service?: string }) {
-    this.service = opts?.service || "cosmos.distribution.v1beta1.Msg";
+
+  constructor(rpc: Rpc) {
     this.rpc = rpc;
     this.SetWithdrawAddress = this.SetWithdrawAddress.bind(this);
     this.WithdrawDelegatorReward = this.WithdrawDelegatorReward.bind(this);
@@ -790,47 +806,251 @@ export class MsgClientImpl implements Msg {
     this.UpdateParams = this.UpdateParams.bind(this);
     this.CommunityPoolSpend = this.CommunityPoolSpend.bind(this);
   }
-  SetWithdrawAddress(request: MsgSetWithdrawAddress): Promise<MsgSetWithdrawAddressResponse> {
-    const data = MsgSetWithdrawAddress.encode(request).finish();
-    const promise = this.rpc.request(this.service, "SetWithdrawAddress", data);
-    return promise.then((data) => MsgSetWithdrawAddressResponse.decode(new _m0.Reader(data)));
+
+  SetWithdrawAddress(
+    request: DeepPartial<MsgSetWithdrawAddress>,
+    metadata?: grpc.Metadata,
+  ): Promise<MsgSetWithdrawAddressResponse> {
+    return this.rpc.unary(MsgSetWithdrawAddressDesc, MsgSetWithdrawAddress.fromPartial(request), metadata);
   }
 
-  WithdrawDelegatorReward(request: MsgWithdrawDelegatorReward): Promise<MsgWithdrawDelegatorRewardResponse> {
-    const data = MsgWithdrawDelegatorReward.encode(request).finish();
-    const promise = this.rpc.request(this.service, "WithdrawDelegatorReward", data);
-    return promise.then((data) => MsgWithdrawDelegatorRewardResponse.decode(new _m0.Reader(data)));
+  WithdrawDelegatorReward(
+    request: DeepPartial<MsgWithdrawDelegatorReward>,
+    metadata?: grpc.Metadata,
+  ): Promise<MsgWithdrawDelegatorRewardResponse> {
+    return this.rpc.unary(MsgWithdrawDelegatorRewardDesc, MsgWithdrawDelegatorReward.fromPartial(request), metadata);
   }
 
   WithdrawValidatorCommission(
-    request: MsgWithdrawValidatorCommission,
+    request: DeepPartial<MsgWithdrawValidatorCommission>,
+    metadata?: grpc.Metadata,
   ): Promise<MsgWithdrawValidatorCommissionResponse> {
-    const data = MsgWithdrawValidatorCommission.encode(request).finish();
-    const promise = this.rpc.request(this.service, "WithdrawValidatorCommission", data);
-    return promise.then((data) => MsgWithdrawValidatorCommissionResponse.decode(new _m0.Reader(data)));
+    return this.rpc.unary(
+      MsgWithdrawValidatorCommissionDesc,
+      MsgWithdrawValidatorCommission.fromPartial(request),
+      metadata,
+    );
   }
 
-  FundCommunityPool(request: MsgFundCommunityPool): Promise<MsgFundCommunityPoolResponse> {
-    const data = MsgFundCommunityPool.encode(request).finish();
-    const promise = this.rpc.request(this.service, "FundCommunityPool", data);
-    return promise.then((data) => MsgFundCommunityPoolResponse.decode(new _m0.Reader(data)));
+  FundCommunityPool(
+    request: DeepPartial<MsgFundCommunityPool>,
+    metadata?: grpc.Metadata,
+  ): Promise<MsgFundCommunityPoolResponse> {
+    return this.rpc.unary(MsgFundCommunityPoolDesc, MsgFundCommunityPool.fromPartial(request), metadata);
   }
 
-  UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
-    const data = MsgUpdateParams.encode(request).finish();
-    const promise = this.rpc.request(this.service, "UpdateParams", data);
-    return promise.then((data) => MsgUpdateParamsResponse.decode(new _m0.Reader(data)));
+  UpdateParams(request: DeepPartial<MsgUpdateParams>, metadata?: grpc.Metadata): Promise<MsgUpdateParamsResponse> {
+    return this.rpc.unary(MsgUpdateParamsDesc, MsgUpdateParams.fromPartial(request), metadata);
   }
 
-  CommunityPoolSpend(request: MsgCommunityPoolSpend): Promise<MsgCommunityPoolSpendResponse> {
-    const data = MsgCommunityPoolSpend.encode(request).finish();
-    const promise = this.rpc.request(this.service, "CommunityPoolSpend", data);
-    return promise.then((data) => MsgCommunityPoolSpendResponse.decode(new _m0.Reader(data)));
+  CommunityPoolSpend(
+    request: DeepPartial<MsgCommunityPoolSpend>,
+    metadata?: grpc.Metadata,
+  ): Promise<MsgCommunityPoolSpendResponse> {
+    return this.rpc.unary(MsgCommunityPoolSpendDesc, MsgCommunityPoolSpend.fromPartial(request), metadata);
   }
 }
 
+export const MsgDesc = { serviceName: "cosmos.distribution.v1beta1.Msg" };
+
+export const MsgSetWithdrawAddressDesc: UnaryMethodDefinitionish = {
+  methodName: "SetWithdrawAddress",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgSetWithdrawAddress.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgSetWithdrawAddressResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const MsgWithdrawDelegatorRewardDesc: UnaryMethodDefinitionish = {
+  methodName: "WithdrawDelegatorReward",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgWithdrawDelegatorReward.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgWithdrawDelegatorRewardResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const MsgWithdrawValidatorCommissionDesc: UnaryMethodDefinitionish = {
+  methodName: "WithdrawValidatorCommission",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgWithdrawValidatorCommission.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgWithdrawValidatorCommissionResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const MsgFundCommunityPoolDesc: UnaryMethodDefinitionish = {
+  methodName: "FundCommunityPool",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgFundCommunityPool.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgFundCommunityPoolResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const MsgUpdateParamsDesc: UnaryMethodDefinitionish = {
+  methodName: "UpdateParams",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgUpdateParams.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgUpdateParamsResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const MsgCommunityPoolSpendDesc: UnaryMethodDefinitionish = {
+  methodName: "CommunityPoolSpend",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgCommunityPoolSpend.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgCommunityPoolSpendResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+interface UnaryMethodDefinitionishR extends grpc.UnaryMethodDefinition<any, any> {
+  requestStream: any;
+  responseStream: any;
+}
+
+type UnaryMethodDefinitionish = UnaryMethodDefinitionishR;
+
 interface Rpc {
-  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
+  unary<T extends UnaryMethodDefinitionish>(
+    methodDesc: T,
+    request: any,
+    metadata: grpc.Metadata | undefined,
+  ): Promise<any>;
+}
+
+export class GrpcWebImpl {
+  private host: string;
+  private options: {
+    transport?: grpc.TransportFactory;
+
+    debug?: boolean;
+    metadata?: grpc.Metadata;
+    upStreamRetryCodes?: number[];
+  };
+
+  constructor(
+    host: string,
+    options: {
+      transport?: grpc.TransportFactory;
+
+      debug?: boolean;
+      metadata?: grpc.Metadata;
+      upStreamRetryCodes?: number[];
+    },
+  ) {
+    this.host = host;
+    this.options = options;
+  }
+
+  unary<T extends UnaryMethodDefinitionish>(
+    methodDesc: T,
+    _request: any,
+    metadata: grpc.Metadata | undefined,
+  ): Promise<any> {
+    const request = { ..._request, ...methodDesc.requestType };
+    const maybeCombinedMetadata = metadata && this.options.metadata
+      ? new BrowserHeaders({ ...this.options?.metadata.headersMap, ...metadata?.headersMap })
+      : metadata || this.options.metadata;
+    return new Promise((resolve, reject) => {
+      grpc.unary(methodDesc, {
+        request,
+        host: this.host,
+        metadata: maybeCombinedMetadata,
+        transport: this.options.transport,
+        debug: this.options.debug,
+        onEnd: function (response) {
+          if (response.status === grpc.Code.OK) {
+            resolve(response.message);
+          } else {
+            const err = new GrpcWebError(response.statusMessage, response.status, response.trailers);
+            reject(err);
+          }
+        },
+      });
+    });
+  }
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
@@ -846,4 +1066,10 @@ export type Exact<P, I extends P> = P extends Builtin ? P
 
 function isSet(value: any): boolean {
   return value !== null && value !== undefined;
+}
+
+export class GrpcWebError extends globalThis.Error {
+  constructor(message: string, public code: grpc.Code, public metadata: grpc.Metadata) {
+    super(message);
+  }
 }

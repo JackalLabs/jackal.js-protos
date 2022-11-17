@@ -1,4 +1,6 @@
 /* eslint-disable */
+import { grpc } from "@improbable-eng/grpc-web";
+import { BrowserHeaders } from "browser-headers";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Any } from "../../../google/protobuf/any";
@@ -981,44 +983,52 @@ export const MsgUpdateParamsResponse = {
 /** Msg defines the staking Msg service. */
 export interface Msg {
   /** CreateValidator defines a method for creating a new validator. */
-  CreateValidator(request: MsgCreateValidator): Promise<MsgCreateValidatorResponse>;
+  CreateValidator(
+    request: DeepPartial<MsgCreateValidator>,
+    metadata?: grpc.Metadata,
+  ): Promise<MsgCreateValidatorResponse>;
   /** EditValidator defines a method for editing an existing validator. */
-  EditValidator(request: MsgEditValidator): Promise<MsgEditValidatorResponse>;
+  EditValidator(request: DeepPartial<MsgEditValidator>, metadata?: grpc.Metadata): Promise<MsgEditValidatorResponse>;
   /**
    * Delegate defines a method for performing a delegation of coins
    * from a delegator to a validator.
    */
-  Delegate(request: MsgDelegate): Promise<MsgDelegateResponse>;
+  Delegate(request: DeepPartial<MsgDelegate>, metadata?: grpc.Metadata): Promise<MsgDelegateResponse>;
   /**
    * BeginRedelegate defines a method for performing a redelegation
    * of coins from a delegator and source validator to a destination validator.
    */
-  BeginRedelegate(request: MsgBeginRedelegate): Promise<MsgBeginRedelegateResponse>;
+  BeginRedelegate(
+    request: DeepPartial<MsgBeginRedelegate>,
+    metadata?: grpc.Metadata,
+  ): Promise<MsgBeginRedelegateResponse>;
   /**
    * Undelegate defines a method for performing an undelegation from a
    * delegate and a validator.
    */
-  Undelegate(request: MsgUndelegate): Promise<MsgUndelegateResponse>;
+  Undelegate(request: DeepPartial<MsgUndelegate>, metadata?: grpc.Metadata): Promise<MsgUndelegateResponse>;
   /**
    * CancelUnbondingDelegation defines a method for performing canceling the unbonding delegation
    * and delegate back to previous validator.
    *
    * Since: cosmos-sdk 0.46
    */
-  CancelUnbondingDelegation(request: MsgCancelUnbondingDelegation): Promise<MsgCancelUnbondingDelegationResponse>;
+  CancelUnbondingDelegation(
+    request: DeepPartial<MsgCancelUnbondingDelegation>,
+    metadata?: grpc.Metadata,
+  ): Promise<MsgCancelUnbondingDelegationResponse>;
   /**
    * UpdateParams defines an operation for updating the x/staking module
    * parameters.
    * Since: cosmos-sdk 0.47
    */
-  UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
+  UpdateParams(request: DeepPartial<MsgUpdateParams>, metadata?: grpc.Metadata): Promise<MsgUpdateParamsResponse>;
 }
 
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
-  private readonly service: string;
-  constructor(rpc: Rpc, opts?: { service?: string }) {
-    this.service = opts?.service || "cosmos.staking.v1beta1.Msg";
+
+  constructor(rpc: Rpc) {
     this.rpc = rpc;
     this.CreateValidator = this.CreateValidator.bind(this);
     this.EditValidator = this.EditValidator.bind(this);
@@ -1028,51 +1038,271 @@ export class MsgClientImpl implements Msg {
     this.CancelUnbondingDelegation = this.CancelUnbondingDelegation.bind(this);
     this.UpdateParams = this.UpdateParams.bind(this);
   }
-  CreateValidator(request: MsgCreateValidator): Promise<MsgCreateValidatorResponse> {
-    const data = MsgCreateValidator.encode(request).finish();
-    const promise = this.rpc.request(this.service, "CreateValidator", data);
-    return promise.then((data) => MsgCreateValidatorResponse.decode(new _m0.Reader(data)));
+
+  CreateValidator(
+    request: DeepPartial<MsgCreateValidator>,
+    metadata?: grpc.Metadata,
+  ): Promise<MsgCreateValidatorResponse> {
+    return this.rpc.unary(MsgCreateValidatorDesc, MsgCreateValidator.fromPartial(request), metadata);
   }
 
-  EditValidator(request: MsgEditValidator): Promise<MsgEditValidatorResponse> {
-    const data = MsgEditValidator.encode(request).finish();
-    const promise = this.rpc.request(this.service, "EditValidator", data);
-    return promise.then((data) => MsgEditValidatorResponse.decode(new _m0.Reader(data)));
+  EditValidator(request: DeepPartial<MsgEditValidator>, metadata?: grpc.Metadata): Promise<MsgEditValidatorResponse> {
+    return this.rpc.unary(MsgEditValidatorDesc, MsgEditValidator.fromPartial(request), metadata);
   }
 
-  Delegate(request: MsgDelegate): Promise<MsgDelegateResponse> {
-    const data = MsgDelegate.encode(request).finish();
-    const promise = this.rpc.request(this.service, "Delegate", data);
-    return promise.then((data) => MsgDelegateResponse.decode(new _m0.Reader(data)));
+  Delegate(request: DeepPartial<MsgDelegate>, metadata?: grpc.Metadata): Promise<MsgDelegateResponse> {
+    return this.rpc.unary(MsgDelegateDesc, MsgDelegate.fromPartial(request), metadata);
   }
 
-  BeginRedelegate(request: MsgBeginRedelegate): Promise<MsgBeginRedelegateResponse> {
-    const data = MsgBeginRedelegate.encode(request).finish();
-    const promise = this.rpc.request(this.service, "BeginRedelegate", data);
-    return promise.then((data) => MsgBeginRedelegateResponse.decode(new _m0.Reader(data)));
+  BeginRedelegate(
+    request: DeepPartial<MsgBeginRedelegate>,
+    metadata?: grpc.Metadata,
+  ): Promise<MsgBeginRedelegateResponse> {
+    return this.rpc.unary(MsgBeginRedelegateDesc, MsgBeginRedelegate.fromPartial(request), metadata);
   }
 
-  Undelegate(request: MsgUndelegate): Promise<MsgUndelegateResponse> {
-    const data = MsgUndelegate.encode(request).finish();
-    const promise = this.rpc.request(this.service, "Undelegate", data);
-    return promise.then((data) => MsgUndelegateResponse.decode(new _m0.Reader(data)));
+  Undelegate(request: DeepPartial<MsgUndelegate>, metadata?: grpc.Metadata): Promise<MsgUndelegateResponse> {
+    return this.rpc.unary(MsgUndelegateDesc, MsgUndelegate.fromPartial(request), metadata);
   }
 
-  CancelUnbondingDelegation(request: MsgCancelUnbondingDelegation): Promise<MsgCancelUnbondingDelegationResponse> {
-    const data = MsgCancelUnbondingDelegation.encode(request).finish();
-    const promise = this.rpc.request(this.service, "CancelUnbondingDelegation", data);
-    return promise.then((data) => MsgCancelUnbondingDelegationResponse.decode(new _m0.Reader(data)));
+  CancelUnbondingDelegation(
+    request: DeepPartial<MsgCancelUnbondingDelegation>,
+    metadata?: grpc.Metadata,
+  ): Promise<MsgCancelUnbondingDelegationResponse> {
+    return this.rpc.unary(
+      MsgCancelUnbondingDelegationDesc,
+      MsgCancelUnbondingDelegation.fromPartial(request),
+      metadata,
+    );
   }
 
-  UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
-    const data = MsgUpdateParams.encode(request).finish();
-    const promise = this.rpc.request(this.service, "UpdateParams", data);
-    return promise.then((data) => MsgUpdateParamsResponse.decode(new _m0.Reader(data)));
+  UpdateParams(request: DeepPartial<MsgUpdateParams>, metadata?: grpc.Metadata): Promise<MsgUpdateParamsResponse> {
+    return this.rpc.unary(MsgUpdateParamsDesc, MsgUpdateParams.fromPartial(request), metadata);
   }
 }
 
+export const MsgDesc = { serviceName: "cosmos.staking.v1beta1.Msg" };
+
+export const MsgCreateValidatorDesc: UnaryMethodDefinitionish = {
+  methodName: "CreateValidator",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgCreateValidator.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgCreateValidatorResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const MsgEditValidatorDesc: UnaryMethodDefinitionish = {
+  methodName: "EditValidator",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgEditValidator.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgEditValidatorResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const MsgDelegateDesc: UnaryMethodDefinitionish = {
+  methodName: "Delegate",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgDelegate.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgDelegateResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const MsgBeginRedelegateDesc: UnaryMethodDefinitionish = {
+  methodName: "BeginRedelegate",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgBeginRedelegate.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgBeginRedelegateResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const MsgUndelegateDesc: UnaryMethodDefinitionish = {
+  methodName: "Undelegate",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgUndelegate.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgUndelegateResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const MsgCancelUnbondingDelegationDesc: UnaryMethodDefinitionish = {
+  methodName: "CancelUnbondingDelegation",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgCancelUnbondingDelegation.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgCancelUnbondingDelegationResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const MsgUpdateParamsDesc: UnaryMethodDefinitionish = {
+  methodName: "UpdateParams",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgUpdateParams.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgUpdateParamsResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+interface UnaryMethodDefinitionishR extends grpc.UnaryMethodDefinition<any, any> {
+  requestStream: any;
+  responseStream: any;
+}
+
+type UnaryMethodDefinitionish = UnaryMethodDefinitionishR;
+
 interface Rpc {
-  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
+  unary<T extends UnaryMethodDefinitionish>(
+    methodDesc: T,
+    request: any,
+    metadata: grpc.Metadata | undefined,
+  ): Promise<any>;
+}
+
+export class GrpcWebImpl {
+  private host: string;
+  private options: {
+    transport?: grpc.TransportFactory;
+
+    debug?: boolean;
+    metadata?: grpc.Metadata;
+    upStreamRetryCodes?: number[];
+  };
+
+  constructor(
+    host: string,
+    options: {
+      transport?: grpc.TransportFactory;
+
+      debug?: boolean;
+      metadata?: grpc.Metadata;
+      upStreamRetryCodes?: number[];
+    },
+  ) {
+    this.host = host;
+    this.options = options;
+  }
+
+  unary<T extends UnaryMethodDefinitionish>(
+    methodDesc: T,
+    _request: any,
+    metadata: grpc.Metadata | undefined,
+  ): Promise<any> {
+    const request = { ..._request, ...methodDesc.requestType };
+    const maybeCombinedMetadata = metadata && this.options.metadata
+      ? new BrowserHeaders({ ...this.options?.metadata.headersMap, ...metadata?.headersMap })
+      : metadata || this.options.metadata;
+    return new Promise((resolve, reject) => {
+      grpc.unary(methodDesc, {
+        request,
+        host: this.host,
+        metadata: maybeCombinedMetadata,
+        transport: this.options.transport,
+        debug: this.options.debug,
+        onEnd: function (response) {
+          if (response.status === grpc.Code.OK) {
+            resolve(response.message);
+          } else {
+            const err = new GrpcWebError(response.statusMessage, response.status, response.trailers);
+            reject(err);
+          }
+        },
+      });
+    });
+  }
 }
 
 declare var self: any | undefined;
@@ -1141,4 +1371,10 @@ if (_m0.util.Long !== Long) {
 
 function isSet(value: any): boolean {
   return value !== null && value !== undefined;
+}
+
+export class GrpcWebError extends globalThis.Error {
+  constructor(message: string, public code: grpc.Code, public metadata: grpc.Metadata) {
+    super(message);
+  }
 }

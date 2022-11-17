@@ -45,7 +45,6 @@ export interface ITxRns {
 }
 
 export class TxRns implements ITxRns {
-
   msgAcceptBid (data: MsgAcceptBid): EncodeObject {
     return { typeUrl: rnsTypes.acceptBid[0], value: rnsTypes.acceptBid[1].fromPartial( data ) }
   }
@@ -79,5 +78,4 @@ export class TxRns implements ITxRns {
   msgTransfer (data: MsgTransfer): EncodeObject {
     return { typeUrl: rnsTypes.transfer[0], value: rnsTypes.transfer[1].fromPartial( data ) }
   }
-
 }
