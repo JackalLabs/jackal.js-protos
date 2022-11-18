@@ -1,4 +1,6 @@
+import { grpc } from '@improbable-eng/grpc-web'
 import {
+  DeepPartial,
   GrpcWebImpl,
   Query,
   QueryAllBidsRequest, QueryAllBidsResponse,
@@ -13,7 +15,6 @@ import {
   QueryListOwnedNamesRequest, QueryListOwnedNamesResponse,
   QueryParamsRequest, QueryParamsResponse
 } from '@/postgen/canine-chain/rns/query'
-
 import IQueryRns from '@/interfaces/classes/IQueryRns'
 
 export default class QueryRns implements IQueryRns {
@@ -24,43 +25,46 @@ export default class QueryRns implements IQueryRns {
   }
 
   /** Parameters queries the parameters of the module. */
-  queryParams(request: QueryParamsRequest): Promise<QueryParamsResponse> {
-    return this.queryClient.Params(request)
+  queryParams(request: DeepPartial<QueryParamsRequest>, metadata?: grpc.Metadata): Promise<QueryParamsResponse> {
+    return this.queryClient.Params(request, metadata)
   }
   /** Queries a Name by index. */
-  queryNames(request: QueryGetNamesRequest): Promise<QueryGetNamesResponse> {
-    return this.queryClient.Names(request)
+  queryNames(request: DeepPartial<QueryGetNamesRequest>, metadata?: grpc.Metadata): Promise<QueryGetNamesResponse> {
+    return this.queryClient.Names(request, metadata)
   }
   /** Queries a list of Names. */
-  queryNamesAll(request: QueryAllNamesRequest): Promise<QueryAllNamesResponse> {
-    return this.queryClient.NamesAll(request)
+  queryNamesAll(request: DeepPartial<QueryAllNamesRequest>, metadata?: grpc.Metadata): Promise<QueryAllNamesResponse> {
+    return this.queryClient.NamesAll(request, metadata)
   }
   /** Queries a Bid by index. */
-  queryBids(request: QueryGetBidsRequest): Promise<QueryGetBidsResponse> {
-    return this.queryClient.Bids(request)
+  queryBids(request: DeepPartial<QueryGetBidsRequest>, metadata?: grpc.Metadata): Promise<QueryGetBidsResponse> {
+    return this.queryClient.Bids(request, metadata)
   }
   /** Queries a list of Bids. */
-  queryBidsAll(request: QueryAllBidsRequest): Promise<QueryAllBidsResponse> {
-    return this.queryClient.BidsAll(request)
+  queryBidsAll(request: DeepPartial<QueryAllBidsRequest>, metadata?: grpc.Metadata): Promise<QueryAllBidsResponse> {
+    return this.queryClient.BidsAll(request, metadata)
   }
   /** Queries a Listing by index. */
-  queryForsale(request: QueryGetForsaleRequest): Promise<QueryGetForsaleResponse> {
-    return this.queryClient.Forsale(request)
+  queryForsale(request: DeepPartial<QueryGetForsaleRequest>, metadata?: grpc.Metadata): Promise<QueryGetForsaleResponse> {
+    return this.queryClient.Forsale(request, metadata)
   }
   /** Queries all Listings. */
-  queryForsaleAll(request: QueryAllForsaleRequest): Promise<QueryAllForsaleResponse> {
-    return this.queryClient.ForsaleAll(request)
+  queryForsaleAll(request: DeepPartial<QueryAllForsaleRequest>, metadata?: grpc.Metadata): Promise<QueryAllForsaleResponse> {
+    return this.queryClient.ForsaleAll(request, metadata)
   }
   /** Queries a Init by index. */
-  queryInit(request: QueryGetInitRequest): Promise<QueryGetInitResponse> {
-    return this.queryClient.Init(request)
+  queryInit(request: DeepPartial<QueryGetInitRequest>, metadata?: grpc.Metadata): Promise<QueryGetInitResponse> {
+    return this.queryClient.Init(request, metadata)
   }
   /** Queries a list of Init items. */
-  queryInitAll(request: QueryAllInitRequest): Promise<QueryAllInitResponse> {
-    return this.queryClient.InitAll(request)
+  queryInitAll(request: DeepPartial<QueryAllInitRequest>, metadata?: grpc.Metadata): Promise<QueryAllInitResponse> {
+    return this.queryClient.InitAll(request, metadata)
   }
   /** Queries a list of ListOwnedNames items. */
-  queryListOwnedNames(request: QueryListOwnedNamesRequest): Promise<QueryListOwnedNamesResponse> {
-    return this.queryClient.ListOwnedNames(request)
+  queryListOwnedNames(
+    request: DeepPartial<QueryListOwnedNamesRequest>,
+    metadata?: grpc.Metadata,
+  ): Promise<QueryListOwnedNamesResponse>  {
+    return this.queryClient.ListOwnedNames(request, metadata)
   }
 }
