@@ -5,21 +5,16 @@ import { SigningStargateClient } from '@cosmjs/stargate'
 /**
  * Jackal Custom Protos
  */
-import { types as cosmTypes } from './protos/CosmWasm/wasmd/cosmwasm.wasm.v1/module'
-import { types as dsigTypes } from './protos/jackal-dao/canine/jackaldao.canine.dsig/module'
-import { types as filetreeTypes } from './protos/jackal-dao/canine/jackaldao.canine.filetree/module'
-import { types as jklTypes } from './protos/jackal-dao/canine/jackaldao.canine.jklmint/module'
-// import { types as lpTypes } from './protos/jackal-dao/canine/jackaldao.canine.lp/module'
-import { types as notificationTypes } from './protos/jackal-dao/canine/jackaldao.canine.notifications/module'
-import { types as rnsTypes } from './protos/jackal-dao/canine/jackaldao.canine.rns/module'
-import { types as storageTypes } from './protos/jackal-dao/canine/jackaldao.canine.storage/module'
+import rnsTypes from './snackages/tx/custom/rns'
+import storageTypes from '@/snackages/tx/custom/storage'
 
 /**
  * Jackal Stock CosmosSDK Protos
  */
-import { types as bankTypes } from './protos/cosmos/cosmos-sdk/cosmos.bank.v1beta1/module'
-import { types as govTypes } from './protos/cosmos/cosmos-sdk/cosmos.gov.v1beta1/module'
-import { types as stakingTypes } from './protos/cosmos/cosmos-sdk/cosmos.staking.v1beta1/module'
+import bankTypes from './snackages/tx/static/bank'
+import distributionTypes from './snackages/tx/static/distribution'
+import govTypes from './snackages/tx/static/gov'
+import stakingTypes from './snackages/tx/static/staking'
 
 /**
  * Interfaces
@@ -27,7 +22,7 @@ import { types as stakingTypes } from './protos/cosmos/cosmos-sdk/cosmos.staking
 interface TxClientOptions {
   addr: string
 }
-interface SignAndBroadcastOptions {
+export interface SignAndBroadcastOptions {
   fee: StdFee,
   memo?: string
 }
@@ -36,17 +31,12 @@ interface SignAndBroadcastOptions {
  * The Magic
  */
 const masterTypes = [
-  ...cosmTypes,
-  ...dsigTypes,
-  ...filetreeTypes,
-  ...jklTypes,
-  // ...lpTypes,
-  ...notificationTypes,
-  ...rnsTypes,
-  ...storageTypes,
-  ...bankTypes,
-  ...govTypes,
-  ...stakingTypes
+  ...Object.values(rnsTypes),
+  ...Object.values(storageTypes),
+  ...Object.values(bankTypes),
+  ...Object.values(distributionTypes),
+  ...Object.values(govTypes),
+  ...Object.values(stakingTypes)
 ]
 const registry = new Registry(<any>masterTypes)
 const defaultFee = {
