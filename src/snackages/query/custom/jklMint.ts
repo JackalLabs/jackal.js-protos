@@ -9,7 +9,7 @@ import {
 } from '@/postgen/canine-chain/jklmint/query'
 import IQueryJklMint from '@/interfaces/classes/IQueryJklMint'
 
-export class QueryJklMint implements IQueryJklMint {
+export default class QueryJklMint implements IQueryJklMint {
   private readonly queryClient: Query
 
   constructor(rpc: GrpcWebImpl) {

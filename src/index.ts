@@ -18,13 +18,18 @@ import {
   TGrpc
 } from '@/interfaces/IGrpcWebImpl'
 
-import { QueryJklMint } from '@/snackages/query/custom/jklMint'
+import QueryJklMint from '@/snackages/query/custom/jklMint'
+import QueryRns from '@/snackages/query/custom/rns'
 import QueryDistribution from '@/snackages/query/static/distribution'
 import QueryGov from '@/snackages/query/static/gov'
 import QueryStaking from '@/snackages/query/static/staking'
 import QueryBank from '@/snackages/query/static/bank'
+
 import { TxRns, ITxRns } from '@/snackages/tx/custom/rns'
-import QueryRns from '@/snackages/query/custom/rns'
+import { TxBank, ITxBank } from '@/snackages/tx/static/bank'
+import { ITxDistribution, TxDistribution } from '@/snackages/tx/static/distribution'
+import { ITxGov, TxGov } from '@/snackages/tx/static/gov'
+import { ITxStaking, TxStaking } from '@/snackages/tx/static/staking'
 
 export default class ProtoBuilder implements IProtoBuilder {
   private readonly signer: OfflineSigner
@@ -48,14 +53,26 @@ export default class ProtoBuilder implements IProtoBuilder {
   makeBankQuery (): IQueryBank {
     return new QueryBank(this.GRpc as IBankGrpc)
   }
+  makeBankTx (): ITxBank {
+    return new TxBank()
+  }
   makeDistributionQuery (): IQueryDistribution {
     return new QueryDistribution(this.GRpc as IDistributionGrpc)
+  }
+  makeDistributionTx (): ITxDistribution {
+    return new TxDistribution()
   }
   makeGovQuery (): IQueryGov {
     return new QueryGov(this.GRpc as IGovGrpc)
   }
+  makeGovTx (): ITxGov {
+    return new TxGov()
+  }
   makeStakingQuery (): IQueryStaking {
     return new QueryStaking(this.GRpc as IStakingGrpc)
+  }
+  makeStakingTx (): ITxStaking {
+    return new TxStaking()
   }
 
   /** Custom */
