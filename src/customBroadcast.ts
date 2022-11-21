@@ -6,6 +6,7 @@ import { SigningStargateClient } from '@cosmjs/stargate'
  * Jackal Custom Protos
  */
 import rnsTypes from './snackages/tx/custom/rns'
+import storageTypes from '@/snackages/tx/custom/storage'
 
 /**
  * Jackal Stock CosmosSDK Protos
@@ -31,6 +32,7 @@ export interface SignAndBroadcastOptions {
  */
 const masterTypes = [
   ...Object.values(rnsTypes),
+  ...Object.values(storageTypes),
   ...Object.values(bankTypes),
   ...Object.values(distributionTypes),
   ...Object.values(govTypes),

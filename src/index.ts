@@ -1,31 +1,35 @@
 import { OfflineSigner } from '@cosmjs/proto-signing'
 import { genBroadcaster } from '@/customBroadcast'
 import IProtoBuilder from '@/interfaces/classes/IProtoBuilder'
-import IQueryRns from '@/interfaces/classes/IQueryRns'
 import IQueryJklMint from '@/interfaces/classes/IQueryJklMint'
+import IQueryRns from '@/interfaces/classes/IQueryRns'
+import IQueryStorage from '@/interfaces/classes/IQueryStorage'
 import IQueryBank from '@/interfaces/classes/IQueryBank'
 import IQueryDistribution from '@/interfaces/classes/IQueryDistribution'
 import IQueryGov from '@/interfaces/classes/IQueryGov'
 import IQueryStaking from '@/interfaces/classes/IQueryStaking'
 import {
   GrpcWebImpl,
+  IJklMintGrpc,
+  IRnsGrpc,
+  IStorageGrpc,
   IBankGrpc,
   IDistributionGrpc,
   IGovGrpc,
   IStakingGrpc,
-  IJklMintGrpc,
-  IRnsGrpc,
   TGrpc
 } from '@/interfaces/IGrpcWebImpl'
 
 import QueryJklMint from '@/snackages/query/custom/jklMint'
 import QueryRns from '@/snackages/query/custom/rns'
+import QueryStorage from '@/snackages/query/custom/storage'
 import QueryDistribution from '@/snackages/query/static/distribution'
 import QueryGov from '@/snackages/query/static/gov'
 import QueryStaking from '@/snackages/query/static/staking'
 import QueryBank from '@/snackages/query/static/bank'
 
 import { TxRns, ITxRns } from '@/snackages/tx/custom/rns'
+import { ITxStorage, TxStorage } from '@/snackages/tx/custom/storage'
 import { TxBank, ITxBank } from '@/snackages/tx/static/bank'
 import { ITxDistribution, TxDistribution } from '@/snackages/tx/static/distribution'
 import { ITxGov, TxGov } from '@/snackages/tx/static/gov'
@@ -84,6 +88,12 @@ export default class ProtoBuilder implements IProtoBuilder {
   }
   makeRnsTx (): ITxRns {
     return new TxRns()
+  }
+  makeStorageQuery (): IQueryStorage {
+    return new QueryStorage(this.GRpc as IStorageGrpc)
+  }
+  makeStorageTx (): ITxStorage {
+    return new TxStorage()
   }
 
 }

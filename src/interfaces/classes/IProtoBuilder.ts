@@ -10,6 +10,8 @@ import { ITxBank } from '@/snackages/tx/static/bank'
 import { ITxDistribution } from '@/snackages/tx/static/distribution'
 import { ITxGov } from '@/snackages/tx/static/gov'
 import { ITxStaking } from '@/snackages/tx/static/staking'
+import IQueryStorage from '@/interfaces/classes/IQueryStorage'
+import { ITxStorage } from '@/snackages/tx/custom/storage'
 
 export default interface IProtoBuilder {
   /** General */
@@ -28,5 +30,7 @@ export default interface IProtoBuilder {
   makeJklMintQuery (): IQueryJklMint
   makeRnsQuery (): IQueryRns
   makeRnsTx (): ITxRns
+  makeStorageQuery (): IQueryStorage
+  makeStorageTx (): ITxStorage
 
 }
