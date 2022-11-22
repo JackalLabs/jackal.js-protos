@@ -49,10 +49,35 @@ export default class ProtoBuilder implements IProtoBuilder {
     this.GRpc = new GrpcWebImpl(qUrl, {})
   }
 
-  /** Class Gen Methods */
   /** General */
   makeMasterBroadcaster () {
     return genBroadcaster(this.signer, { addr: this.txUrl })
+  }
+  makeAllQuery (): IAllQuery {
+    return {
+      /** Custom */
+      jklMint: this.makeJklMintQuery(),
+      rns: this.makeRnsQuery(),
+      storage: this.makeStorageQuery(),
+      /** Static */
+      bank: this.makeBankQuery(),
+      distribution: this.makeDistributionQuery(),
+      gov: this.makeGovQuery(),
+      staking: this.makeStakingQuery()
+    }
+  }
+  makeAllTx (): IAllTx {
+    return {
+      /** Custom */
+      jklMint: null,
+      rns: this.makeRnsTx(),
+      storage: this.makeStorageTx(),
+      /** Static */
+      bank: this.makeBankTx(),
+      distribution: this.makeDistributionTx(),
+      gov: this.makeGovTx(),
+      staking: this.makeStakingTx()
+    }
   }
 
   /** Custom */
@@ -97,35 +122,4 @@ export default class ProtoBuilder implements IProtoBuilder {
   makeStakingTx (): ITxStaking {
     return new TxStaking()
   }
-
-
-
-  /** Bundles */
-  makeAllQuery (): IAllQuery {
-    return {
-      /** Custom */
-      jklMint: this.makeJklMintQuery(),
-      rns: this.makeRnsQuery(),
-      storage: this.makeStorageQuery(),
-      /** Static */
-      bank: this.makeBankQuery(),
-      distribution: this.makeDistributionQuery(),
-      gov: this.makeGovQuery(),
-      staking: this.makeStakingQuery()
-    }
-  }
-  makeAllTx (): IAllTx {
-    return {
-      /** Custom */
-      jklMint: null,
-      rns: this.makeRnsTx(),
-      storage: this.makeStorageTx(),
-      /** Static */
-      bank: this.makeBankTx(),
-      distribution: this.makeDistributionTx(),
-      gov: this.makeGovTx(),
-      staking: this.makeStakingTx()
-    }
-  }
-
 }
