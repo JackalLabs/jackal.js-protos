@@ -17,7 +17,7 @@
     "fixquery": "find ./src -name '*.ts' -exec sed -i -e 's/ query=null / query /' {} \\;",
     "fixexport": "find ./src -name 'index.ts' -exec sed -i -e 's/^const types = \\[/export const types = \\[/' {} \\;",
     "fixfields": "find ./src -name '*.ts' -exec sed -i -e 's/\tlet structure = { fields: \\[\\] }/\tlet structure: { fields: any\\[\\] } = { fields: \\[\\] }/' {} \\;",
-    "push": "tsc && npm publish",
+    "push": "npm run build && npm publish",
     "test": "echo \"Error: no tests included\" && exit 1"
   },
   "contributors": [
