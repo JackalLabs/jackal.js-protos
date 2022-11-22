@@ -14,10 +14,11 @@ import IQueryStorage from '@/interfaces/classes/IQueryStorage'
 import { ITxStorage } from '@/snackages/tx/custom/storage'
 import IAllQuery from '@/interfaces/IAllQuery'
 import IAllTx from '@/interfaces/IAllTx'
+import { IGenBroadcaster } from '@/customBroadcast'
 
 export default interface IProtoBuilder {
   /** General */
-  makeMasterBroadcaster(signer: OfflineSigner, { addr: string })
+  makeMasterBroadcaster (signer: OfflineSigner, { addr: string }): Promise<IGenBroadcaster>
 
   /** Custom */
   makeJklMintQuery (): IQueryJklMint

@@ -1,6 +1,6 @@
 import { StdFee } from '@cosmjs/launchpad'
 import { EncodeObject, OfflineSigner, Registry } from '@cosmjs/proto-signing'
-import { SigningStargateClient } from '@cosmjs/stargate'
+import { DeliverTxResponse, SigningStargateClient } from '@cosmjs/stargate'
 
 /**
  * Jackal Custom Protos
@@ -26,6 +26,9 @@ export interface SignAndBroadcastOptions {
   fee: StdFee,
   memo?: string
 }
+export interface IGenBroadcaster {
+  masterBroadcaster (msgs: EncodeObject[], options: SignAndBroadcastOptions): Promise<DeliverTxResponse>
+}
 
 /**
  * The Magic
@@ -44,7 +47,7 @@ const defaultFee = {
   gas: '200000',
 }
 
-const genBroadcaster = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions = { addr: 'http://localhost:26657' }) => {
+const genBroadcaster = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions = { addr: 'http://localhost:26657' }): Promise<IGenBroadcaster> => {
   if (!wallet) throw new Error('wallet is required')
   const client = await SigningStargateClient.connectWithSigner(addr, wallet, { registry })
   const { address } = (await wallet.getAccounts())[0]

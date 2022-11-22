@@ -1,5 +1,5 @@
 import { OfflineSigner } from '@cosmjs/proto-signing'
-import { genBroadcaster } from '@/customBroadcast'
+import { genBroadcaster, IGenBroadcaster } from '@/customBroadcast'
 import IProtoBuilder from '@/interfaces/classes/IProtoBuilder'
 import IQueryJklMint from '@/interfaces/classes/IQueryJklMint'
 import IQueryRns from '@/interfaces/classes/IQueryRns'
@@ -23,14 +23,14 @@ import {
 import QueryJklMint from '@/snackages/query/custom/jklMint'
 import QueryRns from '@/snackages/query/custom/rns'
 import QueryStorage from '@/snackages/query/custom/storage'
+import QueryBank from '@/snackages/query/static/bank'
 import QueryDistribution from '@/snackages/query/static/distribution'
 import QueryGov from '@/snackages/query/static/gov'
 import QueryStaking from '@/snackages/query/static/staking'
-import QueryBank from '@/snackages/query/static/bank'
 
-import { TxRns, ITxRns } from '@/snackages/tx/custom/rns'
+import { ITxRns, TxRns } from '@/snackages/tx/custom/rns'
 import { ITxStorage, TxStorage } from '@/snackages/tx/custom/storage'
-import { TxBank, ITxBank } from '@/snackages/tx/static/bank'
+import { ITxBank, TxBank } from '@/snackages/tx/static/bank'
 import { ITxDistribution, TxDistribution } from '@/snackages/tx/static/distribution'
 import { ITxGov, TxGov } from '@/snackages/tx/static/gov'
 import { ITxStaking, TxStaking } from '@/snackages/tx/static/staking'
@@ -50,7 +50,7 @@ export default class ProtoBuilder implements IProtoBuilder {
   }
 
   /** General */
-  makeMasterBroadcaster () {
+  makeMasterBroadcaster (): Promise<IGenBroadcaster> {
     return genBroadcaster(this.signer, { addr: this.txUrl })
   }
   makeAllQuery (): IAllQuery {
@@ -122,4 +122,29 @@ export default class ProtoBuilder implements IProtoBuilder {
   makeStakingTx (): ITxStaking {
     return new TxStaking()
   }
+}
+
+export {
+  /** General */
+  IAllQuery,
+  IAllTx,
+  IGenBroadcaster,
+  IProtoBuilder,
+
+  /** Custom */
+  IQueryJklMint,
+  IQueryRns,
+  ITxRns,
+  IQueryStorage,
+  ITxStorage,
+
+  /** Static */
+  IQueryBank,
+  ITxBank,
+  IQueryDistribution,
+  ITxDistribution,
+  IQueryGov,
+  ITxGov,
+  IQueryStaking,
+  ITxStaking
 }
