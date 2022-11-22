@@ -34,6 +34,8 @@ import { TxBank, ITxBank } from '@/snackages/tx/static/bank'
 import { ITxDistribution, TxDistribution } from '@/snackages/tx/static/distribution'
 import { ITxGov, TxGov } from '@/snackages/tx/static/gov'
 import { ITxStaking, TxStaking } from '@/snackages/tx/static/staking'
+import IAllQuery from '@/interfaces/IAllQuery'
+import IAllTx from '@/interfaces/IAllTx'
 
 export default class ProtoBuilder implements IProtoBuilder {
   private readonly signer: OfflineSigner
@@ -51,6 +53,23 @@ export default class ProtoBuilder implements IProtoBuilder {
   /** General */
   makeMasterBroadcaster () {
     return genBroadcaster(this.signer, { addr: this.txUrl })
+  }
+
+  /** Custom */
+  makeJklMintQuery (): IQueryJklMint {
+    return new QueryJklMint(this.GRpc as IJklMintGrpc)
+  }
+  makeRnsQuery (): IQueryRns {
+    return new QueryRns(this.GRpc as IRnsGrpc)
+  }
+  makeRnsTx (): ITxRns {
+    return new TxRns()
+  }
+  makeStorageQuery (): IQueryStorage {
+    return new QueryStorage(this.GRpc as IStorageGrpc)
+  }
+  makeStorageTx (): ITxStorage {
+    return new TxStorage()
   }
 
   /** Static */
@@ -79,21 +98,34 @@ export default class ProtoBuilder implements IProtoBuilder {
     return new TxStaking()
   }
 
-  /** Custom */
-  makeJklMintQuery (): IQueryJklMint {
-    return new QueryJklMint(this.GRpc as IJklMintGrpc)
+
+
+  /** Bundles */
+  makeAllQuery (): IAllQuery {
+    return {
+      /** Custom */
+      jklMint: this.makeJklMintQuery(),
+      rns: this.makeRnsQuery(),
+      storage: this.makeStorageQuery(),
+      /** Static */
+      bank: this.makeBankQuery(),
+      distribution: this.makeDistributionQuery(),
+      gov: this.makeGovQuery(),
+      staking: this.makeStakingQuery()
+    }
   }
-  makeRnsQuery (): IQueryRns {
-    return new QueryRns(this.GRpc as IRnsGrpc)
-  }
-  makeRnsTx (): ITxRns {
-    return new TxRns()
-  }
-  makeStorageQuery (): IQueryStorage {
-    return new QueryStorage(this.GRpc as IStorageGrpc)
-  }
-  makeStorageTx (): ITxStorage {
-    return new TxStorage()
+  makeAllTx (): IAllTx {
+    return {
+      /** Custom */
+      jklMint: null,
+      rns: this.makeRnsTx(),
+      storage: this.makeStorageTx(),
+      /** Static */
+      bank: this.makeBankTx(),
+      distribution: this.makeDistributionTx(),
+      gov: this.makeGovTx(),
+      staking: this.makeStakingTx()
+    }
   }
 
 }

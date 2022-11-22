@@ -12,10 +12,19 @@ import { ITxGov } from '@/snackages/tx/static/gov'
 import { ITxStaking } from '@/snackages/tx/static/staking'
 import IQueryStorage from '@/interfaces/classes/IQueryStorage'
 import { ITxStorage } from '@/snackages/tx/custom/storage'
+import IAllQuery from '@/interfaces/IAllQuery'
+import IAllTx from '@/interfaces/IAllTx'
 
 export default interface IProtoBuilder {
   /** General */
   makeMasterBroadcaster(signer: OfflineSigner, { addr: string })
+
+  /** Custom */
+  makeJklMintQuery (): IQueryJklMint
+  makeRnsQuery (): IQueryRns
+  makeRnsTx (): ITxRns
+  makeStorageQuery (): IQueryStorage
+  makeStorageTx (): ITxStorage
 
   /** Static */
   makeBankQuery (): IQueryBank
@@ -26,11 +35,8 @@ export default interface IProtoBuilder {
   makeGovTx (): ITxGov
   makeStakingQuery (): IQueryStaking
   makeStakingTx (): ITxStaking
-  /** Custom */
-  makeJklMintQuery (): IQueryJklMint
-  makeRnsQuery (): IQueryRns
-  makeRnsTx (): ITxRns
-  makeStorageQuery (): IQueryStorage
-  makeStorageTx (): ITxStorage
 
+  /** Bundles */
+  makeAllQuery (): IAllQuery
+  makeAllTx (): IAllTx
 }
