@@ -1,5 +1,5 @@
 import { OfflineSigner } from '@cosmjs/proto-signing'
-import { genBroadcaster, IGenBroadcaster } from '@/customBroadcast'
+import { genBroadcaster, IGenBroadcaster, TMasterBroadcaster } from '@/customBroadcast'
 import IProtoBuilder from '@/interfaces/classes/IProtoBuilder'
 import IQueryJklMint from '@/interfaces/classes/IQueryJklMint'
 import IQueryRns from '@/interfaces/classes/IQueryRns'
@@ -130,6 +130,7 @@ export {
   IAllTx,
   IGenBroadcaster,
   IProtoBuilder,
+  TMasterBroadcaster,
 
   /** Custom */
   IQueryJklMint,

@@ -26,8 +26,9 @@ export interface SignAndBroadcastOptions {
   fee: StdFee,
   memo?: string
 }
+export type TMasterBroadcaster = (msgs: EncodeObject[], options: SignAndBroadcastOptions) => Promise<DeliverTxResponse>
 export interface IGenBroadcaster {
-  masterBroadcaster (msgs: EncodeObject[], options: SignAndBroadcastOptions): Promise<DeliverTxResponse>
+  masterBroadcaster: TMasterBroadcaster
 }
 
 /**
