@@ -5,16 +5,16 @@ import { DeliverTxResponse, SigningStargateClient } from '@cosmjs/stargate'
 /**
  * Jackal Custom Protos
  */
-import rnsTypes from './snackages/tx/custom/rns'
+import rnsTypes from '@/snackages/tx/custom/rns'
 import storageTypes from '@/snackages/tx/custom/storage'
 
 /**
  * Jackal Stock CosmosSDK Protos
  */
-import bankTypes from './snackages/tx/static/bank'
-import distributionTypes from './snackages/tx/static/distribution'
-import govTypes from './snackages/tx/static/gov'
-import stakingTypes from './snackages/tx/static/staking'
+import bankTypes from '@/snackages/tx/static/bank'
+import distributionTypes from '@/snackages/tx/static/distribution'
+import govTypes from '@/snackages/tx/static/gov'
+import stakingTypes from '@/snackages/tx/static/staking'
 
 /**
  * Interfaces

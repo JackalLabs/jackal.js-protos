@@ -18,7 +18,7 @@ import { IGenBroadcaster } from '@/customBroadcast'
 
 export default interface IProtoBuilder {
   /** General */
-  makeMasterBroadcaster (signer: OfflineSigner, { addr: string }): Promise<IGenBroadcaster>
+  makeMasterBroadcaster (): Promise<IGenBroadcaster>
 
   /** Custom */
   makeJklMintQuery (): IQueryJklMint
