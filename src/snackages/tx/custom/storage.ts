@@ -14,16 +14,16 @@ import { EncodeObject } from '@cosmjs/proto-signing'
 import ITypeTuple from '@/interfaces/ITypeTuple'
 
 const storageTypes: ITypeTuple = {
-  postContract: ['jackaldao.canine.storage.MsgPostContract', MsgPostContract],
-  postproof: ['jackaldao.canine.storage.MsgPostproof', MsgPostproof],
-  signContract: ['jackaldao.canine.storage.MsgSignContract', MsgSignContract],
-  setProviderIP: ['jackaldao.canine.storage.MsgSetProviderIP', MsgSetProviderIP],
-  setProviderKeybase: ['jackaldao.canine.storage.MsgSetProviderKeybase', MsgSetProviderKeybase],
-  setProviderTotalspace: ['jackaldao.canine.storage.MsgSetProviderTotalspace', MsgSetProviderTotalspace],
-  initProvider: ['jackaldao.canine.storage.MsgInitProvider', MsgInitProvider],
-  cancelContract: ['jackaldao.canine.storage.MsgCancelContract', MsgCancelContract],
-  buyStorage: ['jackaldao.canine.storage.MsgBuyStorage', MsgBuyStorage],
-  claimStray: ['jackaldao.canine.storage.MsgClaimStray', MsgClaimStray]
+  postContract: ['/jackaldao.canine.storage.MsgPostContract', MsgPostContract],
+  postproof: ['/jackaldao.canine.storage.MsgPostproof', MsgPostproof],
+  signContract: ['/jackaldao.canine.storage.MsgSignContract', MsgSignContract],
+  setProviderIP: ['/jackaldao.canine.storage.MsgSetProviderIP', MsgSetProviderIP],
+  setProviderKeybase: ['/jackaldao.canine.storage.MsgSetProviderKeybase', MsgSetProviderKeybase],
+  setProviderTotalspace: ['/jackaldao.canine.storage.MsgSetProviderTotalspace', MsgSetProviderTotalspace],
+  initProvider: ['/jackaldao.canine.storage.MsgInitProvider', MsgInitProvider],
+  cancelContract: ['/jackaldao.canine.storage.MsgCancelContract', MsgCancelContract],
+  buyStorage: ['/jackaldao.canine.storage.MsgBuyStorage', MsgBuyStorage],
+  claimStray: ['/jackaldao.canine.storage.MsgClaimStray', MsgClaimStray]
 }
 
 export default storageTypes

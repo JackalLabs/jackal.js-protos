@@ -8,10 +8,10 @@ import { EncodeObject } from '@cosmjs/proto-signing'
 import ITypeTuple from '@/interfaces/ITypeTuple'
 
 const govTypes: ITypeTuple = {
-  deposit: ['cosmos.gov.v1beta1.MsgDeposit', MsgDeposit],
-  submitProposal: ['cosmos.gov.v1beta1.MsgSubmitProposal', MsgSubmitProposal],
-  vote: ['cosmos.gov.v1beta1.MsgVote', MsgVote],
-  voteWeighted: ['cosmos.gov.v1beta1.MsgVoteWeighted', MsgVoteWeighted]
+  deposit: ['/cosmos.gov.v1beta1.MsgDeposit', MsgDeposit],
+  submitProposal: ['/cosmos.gov.v1beta1.MsgSubmitProposal', MsgSubmitProposal],
+  vote: ['/cosmos.gov.v1beta1.MsgVote', MsgVote],
+  voteWeighted: ['/cosmos.gov.v1beta1.MsgVoteWeighted', MsgVoteWeighted]
 }
 
 export default govTypes

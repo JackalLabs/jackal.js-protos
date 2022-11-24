@@ -9,11 +9,11 @@ import { EncodeObject } from '@cosmjs/proto-signing'
 import ITypeTuple from '@/interfaces/ITypeTuple'
 
 const stakingTypes: ITypeTuple = {
-  beginRedelegate: ['cosmos.staking.v1beta1.MsgBeginRedelegate', MsgBeginRedelegate],
-  msgCreateValidator: ['cosmos.staking.v1beta1.MsgCreateValidator', MsgCreateValidator],
-  delegate: ['cosmos.staking.v1beta1.MsgDelegate', MsgDelegate],
-  editValidator: ['cosmos.staking.v1beta1.MsgEditValidator', MsgEditValidator],
-  undelegate: ['cosmos.staking.v1beta1.MsgUndelegate', MsgUndelegate]
+  beginRedelegate: ['/cosmos.staking.v1beta1.MsgBeginRedelegate', MsgBeginRedelegate],
+  msgCreateValidator: ['/cosmos.staking.v1beta1.MsgCreateValidator', MsgCreateValidator],
+  delegate: ['/cosmos.staking.v1beta1.MsgDelegate', MsgDelegate],
+  editValidator: ['/cosmos.staking.v1beta1.MsgEditValidator', MsgEditValidator],
+  undelegate: ['/cosmos.staking.v1beta1.MsgUndelegate', MsgUndelegate]
 }
 
 export default stakingTypes

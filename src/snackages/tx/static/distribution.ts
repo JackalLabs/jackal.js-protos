@@ -8,10 +8,10 @@ import { EncodeObject } from '@cosmjs/proto-signing'
 import ITypeTuple from '@/interfaces/ITypeTuple'
 
 const distibutionTypes: ITypeTuple = {
-  fundCommunityPool: ['cosmos.distribution.v1beta1.MsgFundCommunityPool', MsgFundCommunityPool],
-  setWithdrawAddress: ['cosmos.distribution.v1beta1.MsgSetWithdrawAddress', MsgSetWithdrawAddress],
-  withdrawDelegatorReward: ['cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward', MsgWithdrawDelegatorReward],
-  withdrawValidatorCommission: ['cosmos.distribution.v1beta1.MsgWithdrawValidatorCommission', MsgWithdrawValidatorCommission]
+  fundCommunityPool: ['/cosmos.distribution.v1beta1.MsgFundCommunityPool', MsgFundCommunityPool],
+  setWithdrawAddress: ['/cosmos.distribution.v1beta1.MsgSetWithdrawAddress', MsgSetWithdrawAddress],
+  withdrawDelegatorReward: ['/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward', MsgWithdrawDelegatorReward],
+  withdrawValidatorCommission: ['/cosmos.distribution.v1beta1.MsgWithdrawValidatorCommission', MsgWithdrawValidatorCommission]
 }
 
 export default  distibutionTypes

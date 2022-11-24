@@ -6,8 +6,8 @@ import { EncodeObject } from '@cosmjs/proto-signing'
 import ITypeTuple from '@/interfaces/ITypeTuple'
 
 const bankTypes: ITypeTuple = {
-  multiSend: ['cosmos.bank.v1beta1.MsgMultiSend', MsgMultiSend],
-  send: ['cosmos.bank.v1beta1.MsgSend', MsgSend]
+  multiSend: ['/cosmos.bank.v1beta1.MsgMultiSend', MsgMultiSend],
+  send: ['/cosmos.bank.v1beta1.MsgSend', MsgSend]
 }
 
 export default bankTypes
