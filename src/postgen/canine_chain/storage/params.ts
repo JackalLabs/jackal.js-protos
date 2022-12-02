@@ -1,7 +1,7 @@
 /* eslint-disable */
 import _m0 from "protobufjs/minimal";
 
-export const protobufPackage = "jackaldao.canine.storage";
+export const protobufPackage = "canine_chain.storage";
 
 /** Params defines the parameters for the module. */
 export interface Params {

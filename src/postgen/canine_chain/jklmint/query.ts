@@ -4,7 +4,7 @@ import { BrowserHeaders } from "browser-headers";
 import _m0 from "protobufjs/minimal";
 import { Params } from "./params";
 
-export const protobufPackage = "jackaldao.canine.jklmint";
+export const protobufPackage = "canine_chain.jklmint";
 
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {
@@ -230,7 +230,7 @@ export class QueryClientImpl implements Query {
   }
 }
 
-export const QueryDesc = { serviceName: "jackaldao.canine.jklmint.Query" };
+export const QueryDesc = { serviceName: "canine_chain.jklmint.Query" };
 
 export const QueryParamsDesc: UnaryMethodDefinitionish = {
   methodName: "Params",

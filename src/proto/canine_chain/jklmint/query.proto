@@ -1,25 +1,23 @@
 syntax = "proto3";
-package jackaldao.canine.jklmint;
+package canine_chain.jklmint;
 
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
-import "cosmos/base/query/v1beta1/pagination.proto";
-import "canine-chain/jklmint/params.proto";
+import "canine_chain/jklmint/params.proto";
 
-option go_package = "github.com/jackal-dao/canine/x/jklmint/types";
+option go_package = "github.com/jackalLabs/canine-chain/x/jklmint/types";
 
 // Query defines the gRPC querier service.
 service Query {
   // Parameters queries the parameters of the module.
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/cosmos/mint/v1beta1/params";
+    option (google.api.http).get = "/jackal-dao/canine-chain/jklmint/params";
   }
 
   // Inflation returns the current minting inflation value.
   rpc Inflation(QueryInflationRequest) returns (QueryInflationResponse) {
-    option (google.api.http).get = "/cosmos/mint/v1beta1/inflation";
+    option (google.api.http).get = "/jackal-dao/canine-chain/jklmint/inflation";
   }
-
 }
 
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -28,7 +26,7 @@ message QueryParamsRequest {}
 // QueryParamsResponse is response type for the Query/Params RPC method.
 message QueryParamsResponse {
   // params holds all the parameters of this module.
-  Params params = 1 [(gogoproto.nullable) = false];
+  Params params = 1 [ (gogoproto.nullable) = false ];
 }
 
 // QueryInflationRequest is the request type for the Query/Inflation RPC method.
@@ -38,6 +36,8 @@ message QueryInflationRequest {}
 // method.
 message QueryInflationResponse {
   // inflation is the current minting inflation value.
-  bytes inflation = 1 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (gogoproto.nullable) = false];
+  bytes inflation = 1 [
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable) = false
+  ];
 }
-

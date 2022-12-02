@@ -1,32 +1,32 @@
 /* eslint-disable */
 import _m0 from "protobufjs/minimal";
 
-export const protobufPackage = "canine_chain.storage";
+export const protobufPackage = "canine_chain.filetree";
 
-export interface ClientUsage {
+export interface Pubkey {
   address: string;
-  usage: string;
+  key: string;
 }
 
-function createBaseClientUsage(): ClientUsage {
-  return { address: "", usage: "" };
+function createBasePubkey(): Pubkey {
+  return { address: "", key: "" };
 }
 
-export const ClientUsage = {
-  encode(message: ClientUsage, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const Pubkey = {
+  encode(message: Pubkey, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
-    if (message.usage !== "") {
-      writer.uint32(18).string(message.usage);
+    if (message.key !== "") {
+      writer.uint32(18).string(message.key);
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): ClientUsage {
+  decode(input: _m0.Reader | Uint8Array, length?: number): Pubkey {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseClientUsage();
+    const message = createBasePubkey();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -34,7 +34,7 @@ export const ClientUsage = {
           message.address = reader.string();
           break;
         case 2:
-          message.usage = reader.string();
+          message.key = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -44,24 +44,24 @@ export const ClientUsage = {
     return message;
   },
 
-  fromJSON(object: any): ClientUsage {
+  fromJSON(object: any): Pubkey {
     return {
       address: isSet(object.address) ? String(object.address) : "",
-      usage: isSet(object.usage) ? String(object.usage) : "",
+      key: isSet(object.key) ? String(object.key) : "",
     };
   },
 
-  toJSON(message: ClientUsage): unknown {
+  toJSON(message: Pubkey): unknown {
     const obj: any = {};
     message.address !== undefined && (obj.address = message.address);
-    message.usage !== undefined && (obj.usage = message.usage);
+    message.key !== undefined && (obj.key = message.key);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ClientUsage>, I>>(object: I): ClientUsage {
-    const message = createBaseClientUsage();
+  fromPartial<I extends Exact<DeepPartial<Pubkey>, I>>(object: I): Pubkey {
+    const message = createBasePubkey();
     message.address = object.address ?? "";
-    message.usage = object.usage ?? "";
+    message.key = object.key ?? "";
     return message;
   },
 };

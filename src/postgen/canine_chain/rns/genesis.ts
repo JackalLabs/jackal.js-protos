@@ -7,20 +7,20 @@ import { Names } from "./names";
 import { Params } from "./params";
 import { Whois } from "./whois";
 
-export const protobufPackage = "jackaldao.canine.rns";
+export const protobufPackage = "canine_chain.rns";
 
 /** GenesisState defines the rns module's genesis state. */
 export interface GenesisState {
   params: Params | undefined;
-  whoisList: Whois[];
+  whoIsList: Whois[];
   namesList: Names[];
   bidsList: Bids[];
-  forsaleList: Forsale[];
+  forSaleList: Forsale[];
   initList: Init[];
 }
 
 function createBaseGenesisState(): GenesisState {
-  return { params: undefined, whoisList: [], namesList: [], bidsList: [], forsaleList: [], initList: [] };
+  return { params: undefined, whoIsList: [], namesList: [], bidsList: [], forSaleList: [], initList: [] };
 }
 
 export const GenesisState = {
@@ -28,7 +28,7 @@ export const GenesisState = {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
-    for (const v of message.whoisList) {
+    for (const v of message.whoIsList) {
       Whois.encode(v!, writer.uint32(18).fork()).ldelim();
     }
     for (const v of message.namesList) {
@@ -37,7 +37,7 @@ export const GenesisState = {
     for (const v of message.bidsList) {
       Bids.encode(v!, writer.uint32(34).fork()).ldelim();
     }
-    for (const v of message.forsaleList) {
+    for (const v of message.forSaleList) {
       Forsale.encode(v!, writer.uint32(42).fork()).ldelim();
     }
     for (const v of message.initList) {
@@ -57,7 +57,7 @@ export const GenesisState = {
           message.params = Params.decode(reader, reader.uint32());
           break;
         case 2:
-          message.whoisList.push(Whois.decode(reader, reader.uint32()));
+          message.whoIsList.push(Whois.decode(reader, reader.uint32()));
           break;
         case 3:
           message.namesList.push(Names.decode(reader, reader.uint32()));
@@ -66,7 +66,7 @@ export const GenesisState = {
           message.bidsList.push(Bids.decode(reader, reader.uint32()));
           break;
         case 5:
-          message.forsaleList.push(Forsale.decode(reader, reader.uint32()));
+          message.forSaleList.push(Forsale.decode(reader, reader.uint32()));
           break;
         case 6:
           message.initList.push(Init.decode(reader, reader.uint32()));
@@ -82,10 +82,10 @@ export const GenesisState = {
   fromJSON(object: any): GenesisState {
     return {
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-      whoisList: Array.isArray(object?.whoisList) ? object.whoisList.map((e: any) => Whois.fromJSON(e)) : [],
+      whoIsList: Array.isArray(object?.whoIsList) ? object.whoIsList.map((e: any) => Whois.fromJSON(e)) : [],
       namesList: Array.isArray(object?.namesList) ? object.namesList.map((e: any) => Names.fromJSON(e)) : [],
       bidsList: Array.isArray(object?.bidsList) ? object.bidsList.map((e: any) => Bids.fromJSON(e)) : [],
-      forsaleList: Array.isArray(object?.forsaleList) ? object.forsaleList.map((e: any) => Forsale.fromJSON(e)) : [],
+      forSaleList: Array.isArray(object?.forSaleList) ? object.forSaleList.map((e: any) => Forsale.fromJSON(e)) : [],
       initList: Array.isArray(object?.initList) ? object.initList.map((e: any) => Init.fromJSON(e)) : [],
     };
   },
@@ -93,10 +93,10 @@ export const GenesisState = {
   toJSON(message: GenesisState): unknown {
     const obj: any = {};
     message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined);
-    if (message.whoisList) {
-      obj.whoisList = message.whoisList.map((e) => e ? Whois.toJSON(e) : undefined);
+    if (message.whoIsList) {
+      obj.whoIsList = message.whoIsList.map((e) => e ? Whois.toJSON(e) : undefined);
     } else {
-      obj.whoisList = [];
+      obj.whoIsList = [];
     }
     if (message.namesList) {
       obj.namesList = message.namesList.map((e) => e ? Names.toJSON(e) : undefined);
@@ -108,10 +108,10 @@ export const GenesisState = {
     } else {
       obj.bidsList = [];
     }
-    if (message.forsaleList) {
-      obj.forsaleList = message.forsaleList.map((e) => e ? Forsale.toJSON(e) : undefined);
+    if (message.forSaleList) {
+      obj.forSaleList = message.forSaleList.map((e) => e ? Forsale.toJSON(e) : undefined);
     } else {
-      obj.forsaleList = [];
+      obj.forSaleList = [];
     }
     if (message.initList) {
       obj.initList = message.initList.map((e) => e ? Init.toJSON(e) : undefined);
@@ -126,10 +126,10 @@ export const GenesisState = {
     message.params = (object.params !== undefined && object.params !== null)
       ? Params.fromPartial(object.params)
       : undefined;
-    message.whoisList = object.whoisList?.map((e) => Whois.fromPartial(e)) || [];
+    message.whoIsList = object.whoIsList?.map((e) => Whois.fromPartial(e)) || [];
     message.namesList = object.namesList?.map((e) => Names.fromPartial(e)) || [];
     message.bidsList = object.bidsList?.map((e) => Bids.fromPartial(e)) || [];
-    message.forsaleList = object.forsaleList?.map((e) => Forsale.fromPartial(e)) || [];
+    message.forSaleList = object.forSaleList?.map((e) => Forsale.fromPartial(e)) || [];
     message.initList = object.initList?.map((e) => Init.fromPartial(e)) || [];
     return message;
   },

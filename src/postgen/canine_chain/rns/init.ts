@@ -1,7 +1,7 @@
 /* eslint-disable */
 import _m0 from "protobufjs/minimal";
 
-export const protobufPackage = "jackaldao.canine.rns";
+export const protobufPackage = "canine_chain.rns";
 
 export interface Init {
   address: string;

@@ -2,7 +2,7 @@
 import { grpc } from "@improbable-eng/grpc-web";
 import { BrowserHeaders } from "browser-headers";
 
-export const protobufPackage = "jackaldao.canine.jklmint";
+export const protobufPackage = "canine_chain.jklmint";
 
 /** Msg defines the Msg service. */
 export interface Msg {
@@ -16,7 +16,7 @@ export class MsgClientImpl implements Msg {
   }
 }
 
-export const MsgDesc = { serviceName: "jackaldao.canine.jklmint.Msg" };
+export const MsgDesc = { serviceName: "canine_chain.jklmint.Msg" };
 
 interface UnaryMethodDefinitionishR extends grpc.UnaryMethodDefinition<any, any> {
   requestStream: any;

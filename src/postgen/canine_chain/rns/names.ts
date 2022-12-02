@@ -2,7 +2,7 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 
-export const protobufPackage = "jackaldao.canine.rns";
+export const protobufPackage = "canine_chain.rns";
 
 export interface Names {
   name: string;

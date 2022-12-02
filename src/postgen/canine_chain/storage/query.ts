@@ -13,7 +13,7 @@ import { PayBlocks } from "./pay_blocks";
 import { Providers } from "./providers";
 import { Strays } from "./strays";
 
-export const protobufPackage = "jackaldao.canine.storage";
+export const protobufPackage = "canine_chain.storage";
 
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {
@@ -265,11 +265,11 @@ export const QueryParamsResponse = {
   },
 };
 
-function createBaseQueryGetContractsRequest(): QueryContractRequest {
+function createBaseQueryContractRequest(): QueryContractRequest {
   return { cid: "" };
 }
 
-export const QueryGetContractsRequest = {
+export const QueryContractRequest = {
   encode(message: QueryContractRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.cid !== "") {
       writer.uint32(10).string(message.cid);
@@ -280,7 +280,7 @@ export const QueryGetContractsRequest = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryContractRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryGetContractsRequest();
+    const message = createBaseQueryContractRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -306,17 +306,17 @@ export const QueryGetContractsRequest = {
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryContractRequest>, I>>(object: I): QueryContractRequest {
-    const message = createBaseQueryGetContractsRequest();
+    const message = createBaseQueryContractRequest();
     message.cid = object.cid ?? "";
     return message;
   },
 };
 
-function createBaseQueryGetContractsResponse(): QueryContractResponse {
+function createBaseQueryContractResponse(): QueryContractResponse {
   return { contracts: undefined };
 }
 
-export const QueryGetContractsResponse = {
+export const QueryContractResponse = {
   encode(message: QueryContractResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.contracts !== undefined) {
       Contracts.encode(message.contracts, writer.uint32(10).fork()).ldelim();
@@ -327,7 +327,7 @@ export const QueryGetContractsResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryContractResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryGetContractsResponse();
+    const message = createBaseQueryContractResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -354,7 +354,7 @@ export const QueryGetContractsResponse = {
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryContractResponse>, I>>(object: I): QueryContractResponse {
-    const message = createBaseQueryGetContractsResponse();
+    const message = createBaseQueryContractResponse();
     message.contracts = (object.contracts !== undefined && object.contracts !== null)
       ? Contracts.fromPartial(object.contracts)
       : undefined;
@@ -477,11 +477,11 @@ export const QueryAllContractsResponse = {
   },
 };
 
-function createBaseQueryGetActiveDealsRequest(): QueryActiveDealRequest {
+function createBaseQueryActiveDealRequest(): QueryActiveDealRequest {
   return { cid: "" };
 }
 
-export const QueryGetActiveDealsRequest = {
+export const QueryActiveDealRequest = {
   encode(message: QueryActiveDealRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.cid !== "") {
       writer.uint32(10).string(message.cid);
@@ -492,7 +492,7 @@ export const QueryGetActiveDealsRequest = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryActiveDealRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryGetActiveDealsRequest();
+    const message = createBaseQueryActiveDealRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -518,17 +518,17 @@ export const QueryGetActiveDealsRequest = {
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryActiveDealRequest>, I>>(object: I): QueryActiveDealRequest {
-    const message = createBaseQueryGetActiveDealsRequest();
+    const message = createBaseQueryActiveDealRequest();
     message.cid = object.cid ?? "";
     return message;
   },
 };
 
-function createBaseQueryGetActiveDealsResponse(): QueryActiveDealResponse {
+function createBaseQueryActiveDealResponse(): QueryActiveDealResponse {
   return { activeDeals: undefined };
 }
 
-export const QueryGetActiveDealsResponse = {
+export const QueryActiveDealResponse = {
   encode(message: QueryActiveDealResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.activeDeals !== undefined) {
       ActiveDeals.encode(message.activeDeals, writer.uint32(10).fork()).ldelim();
@@ -539,7 +539,7 @@ export const QueryGetActiveDealsResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryActiveDealResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryGetActiveDealsResponse();
+    const message = createBaseQueryActiveDealResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -566,7 +566,7 @@ export const QueryGetActiveDealsResponse = {
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryActiveDealResponse>, I>>(object: I): QueryActiveDealResponse {
-    const message = createBaseQueryGetActiveDealsResponse();
+    const message = createBaseQueryActiveDealResponse();
     message.activeDeals = (object.activeDeals !== undefined && object.activeDeals !== null)
       ? ActiveDeals.fromPartial(object.activeDeals)
       : undefined;
@@ -691,11 +691,11 @@ export const QueryAllActiveDealsResponse = {
   },
 };
 
-function createBaseQueryGetProvidersRequest(): QueryProviderRequest {
+function createBaseQueryProviderRequest(): QueryProviderRequest {
   return { address: "" };
 }
 
-export const QueryGetProvidersRequest = {
+export const QueryProviderRequest = {
   encode(message: QueryProviderRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
@@ -706,7 +706,7 @@ export const QueryGetProvidersRequest = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryProviderRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryGetProvidersRequest();
+    const message = createBaseQueryProviderRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -732,17 +732,17 @@ export const QueryGetProvidersRequest = {
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryProviderRequest>, I>>(object: I): QueryProviderRequest {
-    const message = createBaseQueryGetProvidersRequest();
+    const message = createBaseQueryProviderRequest();
     message.address = object.address ?? "";
     return message;
   },
 };
 
-function createBaseQueryGetProvidersResponse(): QueryProviderResponse {
+function createBaseQueryProviderResponse(): QueryProviderResponse {
   return { providers: undefined };
 }
 
-export const QueryGetProvidersResponse = {
+export const QueryProviderResponse = {
   encode(message: QueryProviderResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.providers !== undefined) {
       Providers.encode(message.providers, writer.uint32(10).fork()).ldelim();
@@ -753,7 +753,7 @@ export const QueryGetProvidersResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryProviderResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryGetProvidersResponse();
+    const message = createBaseQueryProviderResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -780,7 +780,7 @@ export const QueryGetProvidersResponse = {
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryProviderResponse>, I>>(object: I): QueryProviderResponse {
-    const message = createBaseQueryGetProvidersResponse();
+    const message = createBaseQueryProviderResponse();
     message.providers = (object.providers !== undefined && object.providers !== null)
       ? Providers.fromPartial(object.providers)
       : undefined;
@@ -1091,11 +1091,11 @@ export const QueryFindFileResponse = {
   },
 };
 
-function createBaseQueryGetPayBlocksRequest(): QueryPayBlockRequest {
+function createBaseQueryPayBlockRequest(): QueryPayBlockRequest {
   return { blockid: "" };
 }
 
-export const QueryGetPayBlocksRequest = {
+export const QueryPayBlockRequest = {
   encode(message: QueryPayBlockRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.blockid !== "") {
       writer.uint32(10).string(message.blockid);
@@ -1106,7 +1106,7 @@ export const QueryGetPayBlocksRequest = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryPayBlockRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryGetPayBlocksRequest();
+    const message = createBaseQueryPayBlockRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1132,17 +1132,17 @@ export const QueryGetPayBlocksRequest = {
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryPayBlockRequest>, I>>(object: I): QueryPayBlockRequest {
-    const message = createBaseQueryGetPayBlocksRequest();
+    const message = createBaseQueryPayBlockRequest();
     message.blockid = object.blockid ?? "";
     return message;
   },
 };
 
-function createBaseQueryGetPayBlocksResponse(): QueryPayBlockResponse {
+function createBaseQueryPayBlockResponse(): QueryPayBlockResponse {
   return { payBlocks: undefined };
 }
 
-export const QueryGetPayBlocksResponse = {
+export const QueryPayBlockResponse = {
   encode(message: QueryPayBlockResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.payBlocks !== undefined) {
       PayBlocks.encode(message.payBlocks, writer.uint32(10).fork()).ldelim();
@@ -1153,7 +1153,7 @@ export const QueryGetPayBlocksResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryPayBlockResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryGetPayBlocksResponse();
+    const message = createBaseQueryPayBlockResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1180,7 +1180,7 @@ export const QueryGetPayBlocksResponse = {
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryPayBlockResponse>, I>>(object: I): QueryPayBlockResponse {
-    const message = createBaseQueryGetPayBlocksResponse();
+    const message = createBaseQueryPayBlockResponse();
     message.payBlocks = (object.payBlocks !== undefined && object.payBlocks !== null)
       ? PayBlocks.fromPartial(object.payBlocks)
       : undefined;
@@ -1303,11 +1303,11 @@ export const QueryAllPayBlocksResponse = {
   },
 };
 
-function createBaseQueryGetClientUsageRequest(): QueryClientUsageRequest {
+function createBaseQueryClientUsageRequest(): QueryClientUsageRequest {
   return { address: "" };
 }
 
-export const QueryGetClientUsageRequest = {
+export const QueryClientUsageRequest = {
   encode(message: QueryClientUsageRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
@@ -1318,7 +1318,7 @@ export const QueryGetClientUsageRequest = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryClientUsageRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryGetClientUsageRequest();
+    const message = createBaseQueryClientUsageRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1344,17 +1344,17 @@ export const QueryGetClientUsageRequest = {
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryClientUsageRequest>, I>>(object: I): QueryClientUsageRequest {
-    const message = createBaseQueryGetClientUsageRequest();
+    const message = createBaseQueryClientUsageRequest();
     message.address = object.address ?? "";
     return message;
   },
 };
 
-function createBaseQueryGetClientUsageResponse(): QueryClientUsageResponse {
+function createBaseQueryClientUsageResponse(): QueryClientUsageResponse {
   return { clientUsage: undefined };
 }
 
-export const QueryGetClientUsageResponse = {
+export const QueryClientUsageResponse = {
   encode(message: QueryClientUsageResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.clientUsage !== undefined) {
       ClientUsage.encode(message.clientUsage, writer.uint32(10).fork()).ldelim();
@@ -1365,7 +1365,7 @@ export const QueryGetClientUsageResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryClientUsageResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryGetClientUsageResponse();
+    const message = createBaseQueryClientUsageResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1392,7 +1392,7 @@ export const QueryGetClientUsageResponse = {
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryClientUsageResponse>, I>>(object: I): QueryClientUsageResponse {
-    const message = createBaseQueryGetClientUsageResponse();
+    const message = createBaseQueryClientUsageResponse();
     message.clientUsage = (object.clientUsage !== undefined && object.clientUsage !== null)
       ? ClientUsage.fromPartial(object.clientUsage)
       : undefined;
@@ -1517,11 +1517,11 @@ export const QueryAllClientUsageResponse = {
   },
 };
 
-function createBaseQueryGetStraysRequest(): QueryStrayRequest {
+function createBaseQueryStrayRequest(): QueryStrayRequest {
   return { cid: "" };
 }
 
-export const QueryGetStraysRequest = {
+export const QueryStrayRequest = {
   encode(message: QueryStrayRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.cid !== "") {
       writer.uint32(10).string(message.cid);
@@ -1532,7 +1532,7 @@ export const QueryGetStraysRequest = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryStrayRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryGetStraysRequest();
+    const message = createBaseQueryStrayRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1558,17 +1558,17 @@ export const QueryGetStraysRequest = {
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryStrayRequest>, I>>(object: I): QueryStrayRequest {
-    const message = createBaseQueryGetStraysRequest();
+    const message = createBaseQueryStrayRequest();
     message.cid = object.cid ?? "";
     return message;
   },
 };
 
-function createBaseQueryGetStraysResponse(): QueryStrayResponse {
+function createBaseQueryStrayResponse(): QueryStrayResponse {
   return { strays: undefined };
 }
 
-export const QueryGetStraysResponse = {
+export const QueryStrayResponse = {
   encode(message: QueryStrayResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.strays !== undefined) {
       Strays.encode(message.strays, writer.uint32(10).fork()).ldelim();
@@ -1579,7 +1579,7 @@ export const QueryGetStraysResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryStrayResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryGetStraysResponse();
+    const message = createBaseQueryStrayResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1605,7 +1605,7 @@ export const QueryGetStraysResponse = {
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryStrayResponse>, I>>(object: I): QueryStrayResponse {
-    const message = createBaseQueryGetStraysResponse();
+    const message = createBaseQueryStrayResponse();
     message.strays = (object.strays !== undefined && object.strays !== null)
       ? Strays.fromPartial(object.strays)
       : undefined;
@@ -1728,11 +1728,11 @@ export const QueryAllStraysResponse = {
   },
 };
 
-function createBaseQueryGetClientFreeSpaceRequest(): QueryClientFreeSpaceRequest {
+function createBaseQueryClientFreeSpaceRequest(): QueryClientFreeSpaceRequest {
   return { address: "" };
 }
 
-export const QueryGetClientFreeSpaceRequest = {
+export const QueryClientFreeSpaceRequest = {
   encode(message: QueryClientFreeSpaceRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
@@ -1743,7 +1743,7 @@ export const QueryGetClientFreeSpaceRequest = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryClientFreeSpaceRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryGetClientFreeSpaceRequest();
+    const message = createBaseQueryClientFreeSpaceRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1768,20 +1768,18 @@ export const QueryGetClientFreeSpaceRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryClientFreeSpaceRequest>, I>>(
-    object: I,
-  ): QueryClientFreeSpaceRequest {
-    const message = createBaseQueryGetClientFreeSpaceRequest();
+  fromPartial<I extends Exact<DeepPartial<QueryClientFreeSpaceRequest>, I>>(object: I): QueryClientFreeSpaceRequest {
+    const message = createBaseQueryClientFreeSpaceRequest();
     message.address = object.address ?? "";
     return message;
   },
 };
 
-function createBaseQueryGetClientFreeSpaceResponse(): QueryClientFreeSpaceResponse {
+function createBaseQueryClientFreeSpaceResponse(): QueryClientFreeSpaceResponse {
   return { bytesfree: "" };
 }
 
-export const QueryGetClientFreeSpaceResponse = {
+export const QueryClientFreeSpaceResponse = {
   encode(message: QueryClientFreeSpaceResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.bytesfree !== "") {
       writer.uint32(10).string(message.bytesfree);
@@ -1792,7 +1790,7 @@ export const QueryGetClientFreeSpaceResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryClientFreeSpaceResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryGetClientFreeSpaceResponse();
+    const message = createBaseQueryClientFreeSpaceResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1817,20 +1815,18 @@ export const QueryGetClientFreeSpaceResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryClientFreeSpaceResponse>, I>>(
-    object: I,
-  ): QueryClientFreeSpaceResponse {
-    const message = createBaseQueryGetClientFreeSpaceResponse();
+  fromPartial<I extends Exact<DeepPartial<QueryClientFreeSpaceResponse>, I>>(object: I): QueryClientFreeSpaceResponse {
+    const message = createBaseQueryClientFreeSpaceResponse();
     message.bytesfree = object.bytesfree ?? "";
     return message;
   },
 };
 
-function createBaseQueryGetFidCidRequest(): QueryFidCidRequest {
+function createBaseQueryFidCidRequest(): QueryFidCidRequest {
   return { fid: "" };
 }
 
-export const QueryGetFidCidRequest = {
+export const QueryFidCidRequest = {
   encode(message: QueryFidCidRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.fid !== "") {
       writer.uint32(10).string(message.fid);
@@ -1841,7 +1837,7 @@ export const QueryGetFidCidRequest = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryFidCidRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryGetFidCidRequest();
+    const message = createBaseQueryFidCidRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1867,17 +1863,17 @@ export const QueryGetFidCidRequest = {
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryFidCidRequest>, I>>(object: I): QueryFidCidRequest {
-    const message = createBaseQueryGetFidCidRequest();
+    const message = createBaseQueryFidCidRequest();
     message.fid = object.fid ?? "";
     return message;
   },
 };
 
-function createBaseQueryGetFidCidResponse(): QueryFidCidResponse {
+function createBaseQueryFidCidResponse(): QueryFidCidResponse {
   return { fidCid: undefined };
 }
 
-export const QueryGetFidCidResponse = {
+export const QueryFidCidResponse = {
   encode(message: QueryFidCidResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.fidCid !== undefined) {
       FidCid.encode(message.fidCid, writer.uint32(10).fork()).ldelim();
@@ -1888,7 +1884,7 @@ export const QueryGetFidCidResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryFidCidResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryGetFidCidResponse();
+    const message = createBaseQueryFidCidResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1914,7 +1910,7 @@ export const QueryGetFidCidResponse = {
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryFidCidResponse>, I>>(object: I): QueryFidCidResponse {
-    const message = createBaseQueryGetFidCidResponse();
+    const message = createBaseQueryFidCidResponse();
     message.fidCid = (object.fidCid !== undefined && object.fidCid !== null)
       ? FidCid.fromPartial(object.fidCid)
       : undefined;
@@ -2037,11 +2033,11 @@ export const QueryAllFidCidResponse = {
   },
 };
 
-function createBaseQueryGetPayDataRequest(): QueryPayDataRequest {
+function createBaseQueryPayDataRequest(): QueryPayDataRequest {
   return { address: "" };
 }
 
-export const QueryGetPayDataRequest = {
+export const QueryPayDataRequest = {
   encode(message: QueryPayDataRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
@@ -2052,7 +2048,7 @@ export const QueryGetPayDataRequest = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryPayDataRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryGetPayDataRequest();
+    const message = createBaseQueryPayDataRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -2078,17 +2074,17 @@ export const QueryGetPayDataRequest = {
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryPayDataRequest>, I>>(object: I): QueryPayDataRequest {
-    const message = createBaseQueryGetPayDataRequest();
+    const message = createBaseQueryPayDataRequest();
     message.address = object.address ?? "";
     return message;
   },
 };
 
-function createBaseQueryGetPayDataResponse(): QueryPayDataResponse {
+function createBaseQueryPayDataResponse(): QueryPayDataResponse {
   return { blocksRemaining: 0, bytes: 0 };
 }
 
-export const QueryGetPayDataResponse = {
+export const QueryPayDataResponse = {
   encode(message: QueryPayDataResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.blocksRemaining !== 0) {
       writer.uint32(8).int64(message.blocksRemaining);
@@ -2102,7 +2098,7 @@ export const QueryGetPayDataResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryPayDataResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryGetPayDataResponse();
+    const message = createBaseQueryPayDataResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -2135,7 +2131,7 @@ export const QueryGetPayDataResponse = {
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryPayDataResponse>, I>>(object: I): QueryPayDataResponse {
-    const message = createBaseQueryGetPayDataResponse();
+    const message = createBaseQueryPayDataResponse();
     message.blocksRemaining = object.blocksRemaining ?? 0;
     message.bytes = object.bytes ?? 0;
     return message;
@@ -2147,30 +2143,21 @@ export interface Query {
   /** Parameters queries the parameters of the module. */
   Params(request: DeepPartial<QueryParamsRequest>, metadata?: grpc.Metadata): Promise<QueryParamsResponse>;
   /** Queries a Contracts by index. */
-  Contracts(
-    request: DeepPartial<QueryContractRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<QueryContractResponse>;
+  Contracts(request: DeepPartial<QueryContractRequest>, metadata?: grpc.Metadata): Promise<QueryContractResponse>;
   /** Queries a list of Contracts items. */
   ContractsAll(
     request: DeepPartial<QueryAllContractsRequest>,
     metadata?: grpc.Metadata,
   ): Promise<QueryAllContractsResponse>;
   /** Queries a ActiveDeals by index. */
-  ActiveDeals(
-    request: DeepPartial<QueryActiveDealRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<QueryActiveDealResponse>;
+  ActiveDeals(request: DeepPartial<QueryActiveDealRequest>, metadata?: grpc.Metadata): Promise<QueryActiveDealResponse>;
   /** Queries a list of ActiveDeals items. */
   ActiveDealsAll(
     request: DeepPartial<QueryAllActiveDealsRequest>,
     metadata?: grpc.Metadata,
   ): Promise<QueryAllActiveDealsResponse>;
   /** Queries a Providers by index. */
-  Providers(
-    request: DeepPartial<QueryProviderRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<QueryProviderResponse>;
+  Providers(request: DeepPartial<QueryProviderRequest>, metadata?: grpc.Metadata): Promise<QueryProviderResponse>;
   /** Queries a list of Providers items. */
   ProvidersAll(
     request: DeepPartial<QueryAllProvidersRequest>,
@@ -2181,10 +2168,7 @@ export interface Query {
   /** Queries a list of FindFile items. */
   FindFile(request: DeepPartial<QueryFindFileRequest>, metadata?: grpc.Metadata): Promise<QueryFindFileResponse>;
   /** Queries a PayBlocks by index. */
-  PayBlocks(
-    request: DeepPartial<QueryPayBlockRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<QueryPayBlockResponse>;
+  PayBlocks(request: DeepPartial<QueryPayBlockRequest>, metadata?: grpc.Metadata): Promise<QueryPayBlockResponse>;
   /** Queries a list of PayBlocks items. */
   PayBlocksAll(
     request: DeepPartial<QueryAllPayBlocksRequest>,
@@ -2247,11 +2231,8 @@ export class QueryClientImpl implements Query {
     return this.rpc.unary(QueryParamsDesc, QueryParamsRequest.fromPartial(request), metadata);
   }
 
-  Contracts(
-    request: DeepPartial<QueryContractRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<QueryContractResponse> {
-    return this.rpc.unary(QueryContractsDesc, QueryGetContractsRequest.fromPartial(request), metadata);
+  Contracts(request: DeepPartial<QueryContractRequest>, metadata?: grpc.Metadata): Promise<QueryContractResponse> {
+    return this.rpc.unary(QueryContractsDesc, QueryContractRequest.fromPartial(request), metadata);
   }
 
   ContractsAll(
@@ -2265,7 +2246,7 @@ export class QueryClientImpl implements Query {
     request: DeepPartial<QueryActiveDealRequest>,
     metadata?: grpc.Metadata,
   ): Promise<QueryActiveDealResponse> {
-    return this.rpc.unary(QueryActiveDealsDesc, QueryGetActiveDealsRequest.fromPartial(request), metadata);
+    return this.rpc.unary(QueryActiveDealsDesc, QueryActiveDealRequest.fromPartial(request), metadata);
   }
 
   ActiveDealsAll(
@@ -2275,11 +2256,8 @@ export class QueryClientImpl implements Query {
     return this.rpc.unary(QueryActiveDealsAllDesc, QueryAllActiveDealsRequest.fromPartial(request), metadata);
   }
 
-  Providers(
-    request: DeepPartial<QueryProviderRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<QueryProviderResponse> {
-    return this.rpc.unary(QueryProvidersDesc, QueryGetProvidersRequest.fromPartial(request), metadata);
+  Providers(request: DeepPartial<QueryProviderRequest>, metadata?: grpc.Metadata): Promise<QueryProviderResponse> {
+    return this.rpc.unary(QueryProvidersDesc, QueryProviderRequest.fromPartial(request), metadata);
   }
 
   ProvidersAll(
@@ -2297,11 +2275,8 @@ export class QueryClientImpl implements Query {
     return this.rpc.unary(QueryFindFileDesc, QueryFindFileRequest.fromPartial(request), metadata);
   }
 
-  PayBlocks(
-    request: DeepPartial<QueryPayBlockRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<QueryPayBlockResponse> {
-    return this.rpc.unary(QueryPayBlocksDesc, QueryGetPayBlocksRequest.fromPartial(request), metadata);
+  PayBlocks(request: DeepPartial<QueryPayBlockRequest>, metadata?: grpc.Metadata): Promise<QueryPayBlockResponse> {
+    return this.rpc.unary(QueryPayBlocksDesc, QueryPayBlockRequest.fromPartial(request), metadata);
   }
 
   PayBlocksAll(
@@ -2315,7 +2290,7 @@ export class QueryClientImpl implements Query {
     request: DeepPartial<QueryClientUsageRequest>,
     metadata?: grpc.Metadata,
   ): Promise<QueryClientUsageResponse> {
-    return this.rpc.unary(QueryClientUsageDesc, QueryGetClientUsageRequest.fromPartial(request), metadata);
+    return this.rpc.unary(QueryClientUsageDesc, QueryClientUsageRequest.fromPartial(request), metadata);
   }
 
   ClientUsageAll(
@@ -2326,7 +2301,7 @@ export class QueryClientImpl implements Query {
   }
 
   Strays(request: DeepPartial<QueryStrayRequest>, metadata?: grpc.Metadata): Promise<QueryStrayResponse> {
-    return this.rpc.unary(QueryStraysDesc, QueryGetStraysRequest.fromPartial(request), metadata);
+    return this.rpc.unary(QueryStraysDesc, QueryStrayRequest.fromPartial(request), metadata);
   }
 
   StraysAll(request: DeepPartial<QueryAllStraysRequest>, metadata?: grpc.Metadata): Promise<QueryAllStraysResponse> {
@@ -2337,11 +2312,11 @@ export class QueryClientImpl implements Query {
     request: DeepPartial<QueryClientFreeSpaceRequest>,
     metadata?: grpc.Metadata,
   ): Promise<QueryClientFreeSpaceResponse> {
-    return this.rpc.unary(QueryGetClientFreeSpaceDesc, QueryGetClientFreeSpaceRequest.fromPartial(request), metadata);
+    return this.rpc.unary(QueryGetClientFreeSpaceDesc, QueryClientFreeSpaceRequest.fromPartial(request), metadata);
   }
 
   FidCid(request: DeepPartial<QueryFidCidRequest>, metadata?: grpc.Metadata): Promise<QueryFidCidResponse> {
-    return this.rpc.unary(QueryFidCidDesc, QueryGetFidCidRequest.fromPartial(request), metadata);
+    return this.rpc.unary(QueryFidCidDesc, QueryFidCidRequest.fromPartial(request), metadata);
   }
 
   FidCidAll(request: DeepPartial<QueryAllFidCidRequest>, metadata?: grpc.Metadata): Promise<QueryAllFidCidResponse> {
@@ -2349,11 +2324,11 @@ export class QueryClientImpl implements Query {
   }
 
   GetPayData(request: DeepPartial<QueryPayDataRequest>, metadata?: grpc.Metadata): Promise<QueryPayDataResponse> {
-    return this.rpc.unary(QueryGetPayDataDesc, QueryGetPayDataRequest.fromPartial(request), metadata);
+    return this.rpc.unary(QueryGetPayDataDesc, QueryPayDataRequest.fromPartial(request), metadata);
   }
 }
 
-export const QueryDesc = { serviceName: "jackaldao.canine.storage.Query" };
+export const QueryDesc = { serviceName: "canine_chain.storage.Query" };
 
 export const QueryParamsDesc: UnaryMethodDefinitionish = {
   methodName: "Params",
@@ -2384,13 +2359,13 @@ export const QueryContractsDesc: UnaryMethodDefinitionish = {
   responseStream: false,
   requestType: {
     serializeBinary() {
-      return QueryGetContractsRequest.encode(this).finish();
+      return QueryContractRequest.encode(this).finish();
     },
   } as any,
   responseType: {
     deserializeBinary(data: Uint8Array) {
       return {
-        ...QueryGetContractsResponse.decode(data),
+        ...QueryContractResponse.decode(data),
         toObject() {
           return this;
         },
@@ -2428,13 +2403,13 @@ export const QueryActiveDealsDesc: UnaryMethodDefinitionish = {
   responseStream: false,
   requestType: {
     serializeBinary() {
-      return QueryGetActiveDealsRequest.encode(this).finish();
+      return QueryActiveDealRequest.encode(this).finish();
     },
   } as any,
   responseType: {
     deserializeBinary(data: Uint8Array) {
       return {
-        ...QueryGetActiveDealsResponse.decode(data),
+        ...QueryActiveDealResponse.decode(data),
         toObject() {
           return this;
         },
@@ -2472,13 +2447,13 @@ export const QueryProvidersDesc: UnaryMethodDefinitionish = {
   responseStream: false,
   requestType: {
     serializeBinary() {
-      return QueryGetProvidersRequest.encode(this).finish();
+      return QueryProviderRequest.encode(this).finish();
     },
   } as any,
   responseType: {
     deserializeBinary(data: Uint8Array) {
       return {
-        ...QueryGetProvidersResponse.decode(data),
+        ...QueryProviderResponse.decode(data),
         toObject() {
           return this;
         },
@@ -2560,13 +2535,13 @@ export const QueryPayBlocksDesc: UnaryMethodDefinitionish = {
   responseStream: false,
   requestType: {
     serializeBinary() {
-      return QueryGetPayBlocksRequest.encode(this).finish();
+      return QueryPayBlockRequest.encode(this).finish();
     },
   } as any,
   responseType: {
     deserializeBinary(data: Uint8Array) {
       return {
-        ...QueryGetPayBlocksResponse.decode(data),
+        ...QueryPayBlockResponse.decode(data),
         toObject() {
           return this;
         },
@@ -2604,13 +2579,13 @@ export const QueryClientUsageDesc: UnaryMethodDefinitionish = {
   responseStream: false,
   requestType: {
     serializeBinary() {
-      return QueryGetClientUsageRequest.encode(this).finish();
+      return QueryClientUsageRequest.encode(this).finish();
     },
   } as any,
   responseType: {
     deserializeBinary(data: Uint8Array) {
       return {
-        ...QueryGetClientUsageResponse.decode(data),
+        ...QueryClientUsageResponse.decode(data),
         toObject() {
           return this;
         },
@@ -2648,13 +2623,13 @@ export const QueryStraysDesc: UnaryMethodDefinitionish = {
   responseStream: false,
   requestType: {
     serializeBinary() {
-      return QueryGetStraysRequest.encode(this).finish();
+      return QueryStrayRequest.encode(this).finish();
     },
   } as any,
   responseType: {
     deserializeBinary(data: Uint8Array) {
       return {
-        ...QueryGetStraysResponse.decode(data),
+        ...QueryStrayResponse.decode(data),
         toObject() {
           return this;
         },
@@ -2692,13 +2667,13 @@ export const QueryGetClientFreeSpaceDesc: UnaryMethodDefinitionish = {
   responseStream: false,
   requestType: {
     serializeBinary() {
-      return QueryGetClientFreeSpaceRequest.encode(this).finish();
+      return QueryClientFreeSpaceRequest.encode(this).finish();
     },
   } as any,
   responseType: {
     deserializeBinary(data: Uint8Array) {
       return {
-        ...QueryGetClientFreeSpaceResponse.decode(data),
+        ...QueryClientFreeSpaceResponse.decode(data),
         toObject() {
           return this;
         },
@@ -2714,13 +2689,13 @@ export const QueryFidCidDesc: UnaryMethodDefinitionish = {
   responseStream: false,
   requestType: {
     serializeBinary() {
-      return QueryGetFidCidRequest.encode(this).finish();
+      return QueryFidCidRequest.encode(this).finish();
     },
   } as any,
   responseType: {
     deserializeBinary(data: Uint8Array) {
       return {
-        ...QueryGetFidCidResponse.decode(data),
+        ...QueryFidCidResponse.decode(data),
         toObject() {
           return this;
         },
@@ -2758,13 +2733,13 @@ export const QueryGetPayDataDesc: UnaryMethodDefinitionish = {
   responseStream: false,
   requestType: {
     serializeBinary() {
-      return QueryGetPayDataRequest.encode(this).finish();
+      return QueryPayDataRequest.encode(this).finish();
     },
   } as any,
   responseType: {
     deserializeBinary(data: Uint8Array) {
       return {
-        ...QueryGetPayDataResponse.decode(data),
+        ...QueryPayDataResponse.decode(data),
         toObject() {
           return this;
         },

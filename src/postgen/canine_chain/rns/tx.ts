@@ -3,7 +3,7 @@ import { grpc } from "@improbable-eng/grpc-web";
 import { BrowserHeaders } from "browser-headers";
 import _m0 from "protobufjs/minimal";
 
-export const protobufPackage = "jackaldao.canine.rns";
+export const protobufPackage = "canine_chain.rns";
 
 export interface MsgRegister {
   creator: string;
@@ -1316,7 +1316,7 @@ export class MsgClientImpl implements Msg {
   }
 }
 
-export const MsgDesc = { serviceName: "jackaldao.canine.rns.Msg" };
+export const MsgDesc = { serviceName: "canine_chain.rns.Msg" };
 
 export const MsgRegisterDesc: UnaryMethodDefinitionish = {
   methodName: "Register",

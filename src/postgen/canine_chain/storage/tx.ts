@@ -3,7 +3,7 @@ import { grpc } from "@improbable-eng/grpc-web";
 import { BrowserHeaders } from "browser-headers";
 import _m0 from "protobufjs/minimal";
 
-export const protobufPackage = "jackaldao.canine.storage";
+export const protobufPackage = "canine_chain.storage";
 
 export interface MsgPostContract {
   creator: string;
@@ -1254,7 +1254,7 @@ export class MsgClientImpl implements Msg {
   }
 }
 
-export const MsgDesc = { serviceName: "jackaldao.canine.storage.Msg" };
+export const MsgDesc = { serviceName: "canine_chain.storage.Msg" };
 
 export const MsgPostContractDesc: UnaryMethodDefinitionish = {
   methodName: "PostContract",

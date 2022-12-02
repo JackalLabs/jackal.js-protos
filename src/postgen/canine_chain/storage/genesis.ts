@@ -9,7 +9,7 @@ import { PayBlocks } from "./pay_blocks";
 import { Providers } from "./providers";
 import { Strays } from "./strays";
 
-export const protobufPackage = "jackaldao.canine.storage";
+export const protobufPackage = "canine_chain.storage";
 
 /** GenesisState defines the storage module's genesis state. */
 export interface GenesisState {
@@ -46,22 +46,22 @@ export const GenesisState = {
       Contracts.encode(v!, writer.uint32(18).fork()).ldelim();
     }
     for (const v of message.activeDealsList) {
-      ActiveDeals.encode(v!, writer.uint32(34).fork()).ldelim();
+      ActiveDeals.encode(v!, writer.uint32(26).fork()).ldelim();
     }
     for (const v of message.providersList) {
-      Providers.encode(v!, writer.uint32(42).fork()).ldelim();
+      Providers.encode(v!, writer.uint32(34).fork()).ldelim();
     }
     for (const v of message.payBlocksList) {
-      PayBlocks.encode(v!, writer.uint32(50).fork()).ldelim();
+      PayBlocks.encode(v!, writer.uint32(42).fork()).ldelim();
     }
     for (const v of message.clientUsageList) {
-      ClientUsage.encode(v!, writer.uint32(58).fork()).ldelim();
+      ClientUsage.encode(v!, writer.uint32(50).fork()).ldelim();
     }
     for (const v of message.straysList) {
-      Strays.encode(v!, writer.uint32(66).fork()).ldelim();
+      Strays.encode(v!, writer.uint32(58).fork()).ldelim();
     }
     for (const v of message.fidCidList) {
-      FidCid.encode(v!, writer.uint32(26).fork()).ldelim();
+      FidCid.encode(v!, writer.uint32(66).fork()).ldelim();
     }
     return writer;
   },
@@ -79,22 +79,22 @@ export const GenesisState = {
         case 2:
           message.contractsList.push(Contracts.decode(reader, reader.uint32()));
           break;
-        case 4:
+        case 3:
           message.activeDealsList.push(ActiveDeals.decode(reader, reader.uint32()));
           break;
-        case 5:
+        case 4:
           message.providersList.push(Providers.decode(reader, reader.uint32()));
           break;
-        case 6:
+        case 5:
           message.payBlocksList.push(PayBlocks.decode(reader, reader.uint32()));
           break;
-        case 7:
+        case 6:
           message.clientUsageList.push(ClientUsage.decode(reader, reader.uint32()));
           break;
-        case 8:
+        case 7:
           message.straysList.push(Strays.decode(reader, reader.uint32()));
           break;
-        case 3:
+        case 8:
           message.fidCidList.push(FidCid.decode(reader, reader.uint32()));
           break;
         default:
