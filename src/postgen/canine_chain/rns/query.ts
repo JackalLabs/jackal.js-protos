@@ -22,11 +22,11 @@ export interface QueryParamsResponse {
   params: Params | undefined;
 }
 
-export interface QueryGetWhoisRequest {
+export interface QueryWhoisRequest {
   index: string;
 }
 
-export interface QueryGetWhoisResponse {
+export interface QueryWhoisResponse {
   whois: Whois | undefined;
 }
 
@@ -39,11 +39,11 @@ export interface QueryAllWhoisResponse {
   pagination: PageResponse | undefined;
 }
 
-export interface QueryGetNamesRequest {
+export interface QueryNameRequest {
   index: string;
 }
 
-export interface QueryGetNamesResponse {
+export interface QueryNameResponse {
   names: Names | undefined;
 }
 
@@ -56,11 +56,11 @@ export interface QueryAllNamesResponse {
   pagination: PageResponse | undefined;
 }
 
-export interface QueryGetBidsRequest {
+export interface QueryBidRequest {
   index: string;
 }
 
-export interface QueryGetBidsResponse {
+export interface QueryBidResponse {
   bids: Bids | undefined;
 }
 
@@ -73,36 +73,36 @@ export interface QueryAllBidsResponse {
   pagination: PageResponse | undefined;
 }
 
-export interface QueryGetForsaleRequest {
+export interface QueryForsaleRequest {
   name: string;
 }
 
-export interface QueryGetForsaleResponse {
+export interface QueryForsaleResponse {
   forsale: Forsale | undefined;
 }
 
-export interface QueryAllForsaleRequest {
+export interface QueryAllForsalesRequest {
   pagination: PageRequest | undefined;
 }
 
-export interface QueryAllForsaleResponse {
+export interface QueryAllForsalesResponse {
   forsale: Forsale[];
   pagination: PageResponse | undefined;
 }
 
-export interface QueryGetInitRequest {
+export interface QueryInitRequest {
   address: string;
 }
 
-export interface QueryGetInitResponse {
+export interface QueryInitResponse {
   init: boolean;
 }
 
-export interface QueryAllInitRequest {
+export interface QueryAllInitsRequest {
   pagination: PageRequest | undefined;
 }
 
-export interface QueryAllInitResponse {
+export interface QueryAllInitsResponse {
   init: Init[];
   pagination: PageResponse | undefined;
 }
@@ -205,19 +205,19 @@ export const QueryParamsResponse = {
   },
 };
 
-function createBaseQueryGetWhoisRequest(): QueryGetWhoisRequest {
+function createBaseQueryGetWhoisRequest(): QueryWhoisRequest {
   return { index: "" };
 }
 
 export const QueryGetWhoisRequest = {
-  encode(message: QueryGetWhoisRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: QueryWhoisRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.index !== "") {
       writer.uint32(10).string(message.index);
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryGetWhoisRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryWhoisRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryGetWhoisRequest();
@@ -235,36 +235,36 @@ export const QueryGetWhoisRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryGetWhoisRequest {
+  fromJSON(object: any): QueryWhoisRequest {
     return { index: isSet(object.index) ? String(object.index) : "" };
   },
 
-  toJSON(message: QueryGetWhoisRequest): unknown {
+  toJSON(message: QueryWhoisRequest): unknown {
     const obj: any = {};
     message.index !== undefined && (obj.index = message.index);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryGetWhoisRequest>, I>>(object: I): QueryGetWhoisRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryWhoisRequest>, I>>(object: I): QueryWhoisRequest {
     const message = createBaseQueryGetWhoisRequest();
     message.index = object.index ?? "";
     return message;
   },
 };
 
-function createBaseQueryGetWhoisResponse(): QueryGetWhoisResponse {
+function createBaseQueryGetWhoisResponse(): QueryWhoisResponse {
   return { whois: undefined };
 }
 
 export const QueryGetWhoisResponse = {
-  encode(message: QueryGetWhoisResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: QueryWhoisResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.whois !== undefined) {
       Whois.encode(message.whois, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryGetWhoisResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryWhoisResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryGetWhoisResponse();
@@ -282,17 +282,17 @@ export const QueryGetWhoisResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryGetWhoisResponse {
+  fromJSON(object: any): QueryWhoisResponse {
     return { whois: isSet(object.whois) ? Whois.fromJSON(object.whois) : undefined };
   },
 
-  toJSON(message: QueryGetWhoisResponse): unknown {
+  toJSON(message: QueryWhoisResponse): unknown {
     const obj: any = {};
     message.whois !== undefined && (obj.whois = message.whois ? Whois.toJSON(message.whois) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryGetWhoisResponse>, I>>(object: I): QueryGetWhoisResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryWhoisResponse>, I>>(object: I): QueryWhoisResponse {
     const message = createBaseQueryGetWhoisResponse();
     message.whois = (object.whois !== undefined && object.whois !== null) ? Whois.fromPartial(object.whois) : undefined;
     return message;
@@ -414,19 +414,19 @@ export const QueryAllWhoisResponse = {
   },
 };
 
-function createBaseQueryGetNamesRequest(): QueryGetNamesRequest {
+function createBaseQueryGetNamesRequest(): QueryNameRequest {
   return { index: "" };
 }
 
 export const QueryGetNamesRequest = {
-  encode(message: QueryGetNamesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: QueryNameRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.index !== "") {
       writer.uint32(10).string(message.index);
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryGetNamesRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryNameRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryGetNamesRequest();
@@ -444,36 +444,36 @@ export const QueryGetNamesRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryGetNamesRequest {
+  fromJSON(object: any): QueryNameRequest {
     return { index: isSet(object.index) ? String(object.index) : "" };
   },
 
-  toJSON(message: QueryGetNamesRequest): unknown {
+  toJSON(message: QueryNameRequest): unknown {
     const obj: any = {};
     message.index !== undefined && (obj.index = message.index);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryGetNamesRequest>, I>>(object: I): QueryGetNamesRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryNameRequest>, I>>(object: I): QueryNameRequest {
     const message = createBaseQueryGetNamesRequest();
     message.index = object.index ?? "";
     return message;
   },
 };
 
-function createBaseQueryGetNamesResponse(): QueryGetNamesResponse {
+function createBaseQueryGetNamesResponse(): QueryNameResponse {
   return { names: undefined };
 }
 
 export const QueryGetNamesResponse = {
-  encode(message: QueryGetNamesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: QueryNameResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.names !== undefined) {
       Names.encode(message.names, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryGetNamesResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryNameResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryGetNamesResponse();
@@ -491,17 +491,17 @@ export const QueryGetNamesResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryGetNamesResponse {
+  fromJSON(object: any): QueryNameResponse {
     return { names: isSet(object.names) ? Names.fromJSON(object.names) : undefined };
   },
 
-  toJSON(message: QueryGetNamesResponse): unknown {
+  toJSON(message: QueryNameResponse): unknown {
     const obj: any = {};
     message.names !== undefined && (obj.names = message.names ? Names.toJSON(message.names) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryGetNamesResponse>, I>>(object: I): QueryGetNamesResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryNameResponse>, I>>(object: I): QueryNameResponse {
     const message = createBaseQueryGetNamesResponse();
     message.names = (object.names !== undefined && object.names !== null) ? Names.fromPartial(object.names) : undefined;
     return message;
@@ -623,19 +623,19 @@ export const QueryAllNamesResponse = {
   },
 };
 
-function createBaseQueryGetBidsRequest(): QueryGetBidsRequest {
+function createBaseQueryGetBidsRequest(): QueryBidRequest {
   return { index: "" };
 }
 
 export const QueryGetBidsRequest = {
-  encode(message: QueryGetBidsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: QueryBidRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.index !== "") {
       writer.uint32(10).string(message.index);
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryGetBidsRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryBidRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryGetBidsRequest();
@@ -653,36 +653,36 @@ export const QueryGetBidsRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryGetBidsRequest {
+  fromJSON(object: any): QueryBidRequest {
     return { index: isSet(object.index) ? String(object.index) : "" };
   },
 
-  toJSON(message: QueryGetBidsRequest): unknown {
+  toJSON(message: QueryBidRequest): unknown {
     const obj: any = {};
     message.index !== undefined && (obj.index = message.index);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryGetBidsRequest>, I>>(object: I): QueryGetBidsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryBidRequest>, I>>(object: I): QueryBidRequest {
     const message = createBaseQueryGetBidsRequest();
     message.index = object.index ?? "";
     return message;
   },
 };
 
-function createBaseQueryGetBidsResponse(): QueryGetBidsResponse {
+function createBaseQueryGetBidsResponse(): QueryBidResponse {
   return { bids: undefined };
 }
 
 export const QueryGetBidsResponse = {
-  encode(message: QueryGetBidsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: QueryBidResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.bids !== undefined) {
       Bids.encode(message.bids, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryGetBidsResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryBidResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryGetBidsResponse();
@@ -700,17 +700,17 @@ export const QueryGetBidsResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryGetBidsResponse {
+  fromJSON(object: any): QueryBidResponse {
     return { bids: isSet(object.bids) ? Bids.fromJSON(object.bids) : undefined };
   },
 
-  toJSON(message: QueryGetBidsResponse): unknown {
+  toJSON(message: QueryBidResponse): unknown {
     const obj: any = {};
     message.bids !== undefined && (obj.bids = message.bids ? Bids.toJSON(message.bids) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryGetBidsResponse>, I>>(object: I): QueryGetBidsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryBidResponse>, I>>(object: I): QueryBidResponse {
     const message = createBaseQueryGetBidsResponse();
     message.bids = (object.bids !== undefined && object.bids !== null) ? Bids.fromPartial(object.bids) : undefined;
     return message;
@@ -832,19 +832,19 @@ export const QueryAllBidsResponse = {
   },
 };
 
-function createBaseQueryGetForsaleRequest(): QueryGetForsaleRequest {
+function createBaseQueryGetForsaleRequest(): QueryForsaleRequest {
   return { name: "" };
 }
 
 export const QueryGetForsaleRequest = {
-  encode(message: QueryGetForsaleRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: QueryForsaleRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryGetForsaleRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryForsaleRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryGetForsaleRequest();
@@ -862,36 +862,36 @@ export const QueryGetForsaleRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryGetForsaleRequest {
+  fromJSON(object: any): QueryForsaleRequest {
     return { name: isSet(object.name) ? String(object.name) : "" };
   },
 
-  toJSON(message: QueryGetForsaleRequest): unknown {
+  toJSON(message: QueryForsaleRequest): unknown {
     const obj: any = {};
     message.name !== undefined && (obj.name = message.name);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryGetForsaleRequest>, I>>(object: I): QueryGetForsaleRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryForsaleRequest>, I>>(object: I): QueryForsaleRequest {
     const message = createBaseQueryGetForsaleRequest();
     message.name = object.name ?? "";
     return message;
   },
 };
 
-function createBaseQueryGetForsaleResponse(): QueryGetForsaleResponse {
+function createBaseQueryGetForsaleResponse(): QueryForsaleResponse {
   return { forsale: undefined };
 }
 
 export const QueryGetForsaleResponse = {
-  encode(message: QueryGetForsaleResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: QueryForsaleResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.forsale !== undefined) {
       Forsale.encode(message.forsale, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryGetForsaleResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryForsaleResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryGetForsaleResponse();
@@ -909,17 +909,17 @@ export const QueryGetForsaleResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryGetForsaleResponse {
+  fromJSON(object: any): QueryForsaleResponse {
     return { forsale: isSet(object.forsale) ? Forsale.fromJSON(object.forsale) : undefined };
   },
 
-  toJSON(message: QueryGetForsaleResponse): unknown {
+  toJSON(message: QueryForsaleResponse): unknown {
     const obj: any = {};
     message.forsale !== undefined && (obj.forsale = message.forsale ? Forsale.toJSON(message.forsale) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryGetForsaleResponse>, I>>(object: I): QueryGetForsaleResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryForsaleResponse>, I>>(object: I): QueryForsaleResponse {
     const message = createBaseQueryGetForsaleResponse();
     message.forsale = (object.forsale !== undefined && object.forsale !== null)
       ? Forsale.fromPartial(object.forsale)
@@ -928,19 +928,19 @@ export const QueryGetForsaleResponse = {
   },
 };
 
-function createBaseQueryAllForsaleRequest(): QueryAllForsaleRequest {
+function createBaseQueryAllForsaleRequest(): QueryAllForsalesRequest {
   return { pagination: undefined };
 }
 
 export const QueryAllForsaleRequest = {
-  encode(message: QueryAllForsaleRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: QueryAllForsalesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllForsaleRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllForsalesRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllForsaleRequest();
@@ -958,18 +958,18 @@ export const QueryAllForsaleRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryAllForsaleRequest {
+  fromJSON(object: any): QueryAllForsalesRequest {
     return { pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined };
   },
 
-  toJSON(message: QueryAllForsaleRequest): unknown {
+  toJSON(message: QueryAllForsalesRequest): unknown {
     const obj: any = {};
     message.pagination !== undefined &&
       (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryAllForsaleRequest>, I>>(object: I): QueryAllForsaleRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryAllForsalesRequest>, I>>(object: I): QueryAllForsalesRequest {
     const message = createBaseQueryAllForsaleRequest();
     message.pagination = (object.pagination !== undefined && object.pagination !== null)
       ? PageRequest.fromPartial(object.pagination)
@@ -978,12 +978,12 @@ export const QueryAllForsaleRequest = {
   },
 };
 
-function createBaseQueryAllForsaleResponse(): QueryAllForsaleResponse {
+function createBaseQueryAllForsaleResponse(): QueryAllForsalesResponse {
   return { forsale: [], pagination: undefined };
 }
 
 export const QueryAllForsaleResponse = {
-  encode(message: QueryAllForsaleResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: QueryAllForsalesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.forsale) {
       Forsale.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -993,7 +993,7 @@ export const QueryAllForsaleResponse = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllForsaleResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllForsalesResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllForsaleResponse();
@@ -1014,14 +1014,14 @@ export const QueryAllForsaleResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryAllForsaleResponse {
+  fromJSON(object: any): QueryAllForsalesResponse {
     return {
       forsale: Array.isArray(object?.forsale) ? object.forsale.map((e: any) => Forsale.fromJSON(e)) : [],
       pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
     };
   },
 
-  toJSON(message: QueryAllForsaleResponse): unknown {
+  toJSON(message: QueryAllForsalesResponse): unknown {
     const obj: any = {};
     if (message.forsale) {
       obj.forsale = message.forsale.map((e) => e ? Forsale.toJSON(e) : undefined);
@@ -1033,7 +1033,7 @@ export const QueryAllForsaleResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryAllForsaleResponse>, I>>(object: I): QueryAllForsaleResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryAllForsalesResponse>, I>>(object: I): QueryAllForsalesResponse {
     const message = createBaseQueryAllForsaleResponse();
     message.forsale = object.forsale?.map((e) => Forsale.fromPartial(e)) || [];
     message.pagination = (object.pagination !== undefined && object.pagination !== null)
@@ -1043,19 +1043,19 @@ export const QueryAllForsaleResponse = {
   },
 };
 
-function createBaseQueryGetInitRequest(): QueryGetInitRequest {
+function createBaseQueryGetInitRequest(): QueryInitRequest {
   return { address: "" };
 }
 
 export const QueryGetInitRequest = {
-  encode(message: QueryGetInitRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: QueryInitRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryGetInitRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryInitRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryGetInitRequest();
@@ -1073,36 +1073,36 @@ export const QueryGetInitRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryGetInitRequest {
+  fromJSON(object: any): QueryInitRequest {
     return { address: isSet(object.address) ? String(object.address) : "" };
   },
 
-  toJSON(message: QueryGetInitRequest): unknown {
+  toJSON(message: QueryInitRequest): unknown {
     const obj: any = {};
     message.address !== undefined && (obj.address = message.address);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryGetInitRequest>, I>>(object: I): QueryGetInitRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryInitRequest>, I>>(object: I): QueryInitRequest {
     const message = createBaseQueryGetInitRequest();
     message.address = object.address ?? "";
     return message;
   },
 };
 
-function createBaseQueryGetInitResponse(): QueryGetInitResponse {
+function createBaseQueryGetInitResponse(): QueryInitResponse {
   return { init: false };
 }
 
 export const QueryGetInitResponse = {
-  encode(message: QueryGetInitResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: QueryInitResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.init === true) {
       writer.uint32(8).bool(message.init);
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryGetInitResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryInitResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryGetInitResponse();
@@ -1120,36 +1120,36 @@ export const QueryGetInitResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryGetInitResponse {
+  fromJSON(object: any): QueryInitResponse {
     return { init: isSet(object.init) ? Boolean(object.init) : false };
   },
 
-  toJSON(message: QueryGetInitResponse): unknown {
+  toJSON(message: QueryInitResponse): unknown {
     const obj: any = {};
     message.init !== undefined && (obj.init = message.init);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryGetInitResponse>, I>>(object: I): QueryGetInitResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryInitResponse>, I>>(object: I): QueryInitResponse {
     const message = createBaseQueryGetInitResponse();
     message.init = object.init ?? false;
     return message;
   },
 };
 
-function createBaseQueryAllInitRequest(): QueryAllInitRequest {
+function createBaseQueryAllInitRequest(): QueryAllInitsRequest {
   return { pagination: undefined };
 }
 
 export const QueryAllInitRequest = {
-  encode(message: QueryAllInitRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: QueryAllInitsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllInitRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllInitsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllInitRequest();
@@ -1167,18 +1167,18 @@ export const QueryAllInitRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryAllInitRequest {
+  fromJSON(object: any): QueryAllInitsRequest {
     return { pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined };
   },
 
-  toJSON(message: QueryAllInitRequest): unknown {
+  toJSON(message: QueryAllInitsRequest): unknown {
     const obj: any = {};
     message.pagination !== undefined &&
       (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryAllInitRequest>, I>>(object: I): QueryAllInitRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryAllInitsRequest>, I>>(object: I): QueryAllInitsRequest {
     const message = createBaseQueryAllInitRequest();
     message.pagination = (object.pagination !== undefined && object.pagination !== null)
       ? PageRequest.fromPartial(object.pagination)
@@ -1187,12 +1187,12 @@ export const QueryAllInitRequest = {
   },
 };
 
-function createBaseQueryAllInitResponse(): QueryAllInitResponse {
+function createBaseQueryAllInitResponse(): QueryAllInitsResponse {
   return { init: [], pagination: undefined };
 }
 
 export const QueryAllInitResponse = {
-  encode(message: QueryAllInitResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: QueryAllInitsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.init) {
       Init.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -1202,7 +1202,7 @@ export const QueryAllInitResponse = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllInitResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllInitsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllInitResponse();
@@ -1223,14 +1223,14 @@ export const QueryAllInitResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryAllInitResponse {
+  fromJSON(object: any): QueryAllInitsResponse {
     return {
       init: Array.isArray(object?.init) ? object.init.map((e: any) => Init.fromJSON(e)) : [],
       pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
     };
   },
 
-  toJSON(message: QueryAllInitResponse): unknown {
+  toJSON(message: QueryAllInitsResponse): unknown {
     const obj: any = {};
     if (message.init) {
       obj.init = message.init.map((e) => e ? Init.toJSON(e) : undefined);
@@ -1242,7 +1242,7 @@ export const QueryAllInitResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryAllInitResponse>, I>>(object: I): QueryAllInitResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryAllInitsResponse>, I>>(object: I): QueryAllInitsResponse {
     const message = createBaseQueryAllInitResponse();
     message.init = object.init?.map((e) => Init.fromPartial(e)) || [];
     message.pagination = (object.pagination !== undefined && object.pagination !== null)
@@ -1383,21 +1383,21 @@ export interface Query {
   /** Parameters queries the parameters of the module. */
   Params(request: DeepPartial<QueryParamsRequest>, metadata?: grpc.Metadata): Promise<QueryParamsResponse>;
   /** Queries a Name by index. */
-  Names(request: DeepPartial<QueryGetNamesRequest>, metadata?: grpc.Metadata): Promise<QueryGetNamesResponse>;
+  Names(request: DeepPartial<QueryNameRequest>, metadata?: grpc.Metadata): Promise<QueryNameResponse>;
   /** Queries a list of Names. */
   NamesAll(request: DeepPartial<QueryAllNamesRequest>, metadata?: grpc.Metadata): Promise<QueryAllNamesResponse>;
   /** Queries a Bid by index. */
-  Bids(request: DeepPartial<QueryGetBidsRequest>, metadata?: grpc.Metadata): Promise<QueryGetBidsResponse>;
+  Bids(request: DeepPartial<QueryBidRequest>, metadata?: grpc.Metadata): Promise<QueryBidResponse>;
   /** Queries a list of Bids. */
   BidsAll(request: DeepPartial<QueryAllBidsRequest>, metadata?: grpc.Metadata): Promise<QueryAllBidsResponse>;
   /** Queries a Listing by index. */
-  Forsale(request: DeepPartial<QueryGetForsaleRequest>, metadata?: grpc.Metadata): Promise<QueryGetForsaleResponse>;
+  Forsale(request: DeepPartial<QueryForsaleRequest>, metadata?: grpc.Metadata): Promise<QueryForsaleResponse>;
   /** Queries all Listings. */
-  ForsaleAll(request: DeepPartial<QueryAllForsaleRequest>, metadata?: grpc.Metadata): Promise<QueryAllForsaleResponse>;
+  ForsaleAll(request: DeepPartial<QueryAllForsalesRequest>, metadata?: grpc.Metadata): Promise<QueryAllForsalesResponse>;
   /** Queries a Init by index. */
-  Init(request: DeepPartial<QueryGetInitRequest>, metadata?: grpc.Metadata): Promise<QueryGetInitResponse>;
+  Init(request: DeepPartial<QueryInitRequest>, metadata?: grpc.Metadata): Promise<QueryInitResponse>;
   /** Queries a list of Init items. */
-  InitAll(request: DeepPartial<QueryAllInitRequest>, metadata?: grpc.Metadata): Promise<QueryAllInitResponse>;
+  InitAll(request: DeepPartial<QueryAllInitsRequest>, metadata?: grpc.Metadata): Promise<QueryAllInitsResponse>;
   /** Queries a list of ListOwnedNames items. */
   ListOwnedNames(
     request: DeepPartial<QueryListOwnedNamesRequest>,
@@ -1426,7 +1426,7 @@ export class QueryClientImpl implements Query {
     return this.rpc.unary(QueryParamsDesc, QueryParamsRequest.fromPartial(request), metadata);
   }
 
-  Names(request: DeepPartial<QueryGetNamesRequest>, metadata?: grpc.Metadata): Promise<QueryGetNamesResponse> {
+  Names(request: DeepPartial<QueryNameRequest>, metadata?: grpc.Metadata): Promise<QueryNameResponse> {
     return this.rpc.unary(QueryNamesDesc, QueryGetNamesRequest.fromPartial(request), metadata);
   }
 
@@ -1434,7 +1434,7 @@ export class QueryClientImpl implements Query {
     return this.rpc.unary(QueryNamesAllDesc, QueryAllNamesRequest.fromPartial(request), metadata);
   }
 
-  Bids(request: DeepPartial<QueryGetBidsRequest>, metadata?: grpc.Metadata): Promise<QueryGetBidsResponse> {
+  Bids(request: DeepPartial<QueryBidRequest>, metadata?: grpc.Metadata): Promise<QueryBidResponse> {
     return this.rpc.unary(QueryBidsDesc, QueryGetBidsRequest.fromPartial(request), metadata);
   }
 
@@ -1442,19 +1442,19 @@ export class QueryClientImpl implements Query {
     return this.rpc.unary(QueryBidsAllDesc, QueryAllBidsRequest.fromPartial(request), metadata);
   }
 
-  Forsale(request: DeepPartial<QueryGetForsaleRequest>, metadata?: grpc.Metadata): Promise<QueryGetForsaleResponse> {
+  Forsale(request: DeepPartial<QueryForsaleRequest>, metadata?: grpc.Metadata): Promise<QueryForsaleResponse> {
     return this.rpc.unary(QueryForsaleDesc, QueryGetForsaleRequest.fromPartial(request), metadata);
   }
 
-  ForsaleAll(request: DeepPartial<QueryAllForsaleRequest>, metadata?: grpc.Metadata): Promise<QueryAllForsaleResponse> {
+  ForsaleAll(request: DeepPartial<QueryAllForsalesRequest>, metadata?: grpc.Metadata): Promise<QueryAllForsalesResponse> {
     return this.rpc.unary(QueryForsaleAllDesc, QueryAllForsaleRequest.fromPartial(request), metadata);
   }
 
-  Init(request: DeepPartial<QueryGetInitRequest>, metadata?: grpc.Metadata): Promise<QueryGetInitResponse> {
+  Init(request: DeepPartial<QueryInitRequest>, metadata?: grpc.Metadata): Promise<QueryInitResponse> {
     return this.rpc.unary(QueryInitDesc, QueryGetInitRequest.fromPartial(request), metadata);
   }
 
-  InitAll(request: DeepPartial<QueryAllInitRequest>, metadata?: grpc.Metadata): Promise<QueryAllInitResponse> {
+  InitAll(request: DeepPartial<QueryAllInitsRequest>, metadata?: grpc.Metadata): Promise<QueryAllInitsResponse> {
     return this.rpc.unary(QueryInitAllDesc, QueryAllInitRequest.fromPartial(request), metadata);
   }
 

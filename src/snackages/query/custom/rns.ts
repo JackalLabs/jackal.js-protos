@@ -4,14 +4,14 @@ import {
   GrpcWebImpl,
   Query,
   QueryAllBidsRequest, QueryAllBidsResponse,
-  QueryAllForsaleRequest, QueryAllForsaleResponse,
-  QueryAllInitRequest, QueryAllInitResponse,
+  QueryAllForsalesRequest, QueryAllForsalesResponse,
+  QueryAllInitsRequest, QueryAllInitsResponse,
   QueryAllNamesRequest, QueryAllNamesResponse,
   QueryClientImpl,
-  QueryGetBidsRequest, QueryGetBidsResponse,
-  QueryGetForsaleRequest, QueryGetForsaleResponse,
-  QueryGetInitRequest, QueryGetInitResponse,
-  QueryGetNamesRequest, QueryGetNamesResponse,
+  QueryBidRequest, QueryBidResponse,
+  QueryForsaleRequest, QueryForsaleResponse,
+  QueryInitRequest, QueryInitResponse,
+  QueryNameRequest, QueryNameResponse,
   QueryListOwnedNamesRequest, QueryListOwnedNamesResponse,
   QueryParamsRequest, QueryParamsResponse
 } from '@/postgen/canine_chain/rns/query'
@@ -29,7 +29,7 @@ export default class QueryRns implements IQueryRns {
     return this.queryClient.Params(request, metadata)
   }
   /** Queries a Name by index. */
-  queryNames(request: DeepPartial<QueryGetNamesRequest>, metadata?: grpc.Metadata): Promise<QueryGetNamesResponse> {
+  queryNames(request: DeepPartial<QueryNameRequest>, metadata?: grpc.Metadata): Promise<QueryNameResponse> {
     return this.queryClient.Names(request, metadata)
   }
   /** Queries a list of Names. */
@@ -37,7 +37,7 @@ export default class QueryRns implements IQueryRns {
     return this.queryClient.NamesAll(request, metadata)
   }
   /** Queries a Bid by index. */
-  queryBids(request: DeepPartial<QueryGetBidsRequest>, metadata?: grpc.Metadata): Promise<QueryGetBidsResponse> {
+  queryBids(request: DeepPartial<QueryBidRequest>, metadata?: grpc.Metadata): Promise<QueryBidResponse> {
     return this.queryClient.Bids(request, metadata)
   }
   /** Queries a list of Bids. */
@@ -45,19 +45,19 @@ export default class QueryRns implements IQueryRns {
     return this.queryClient.BidsAll(request, metadata)
   }
   /** Queries a Listing by index. */
-  queryForsale(request: DeepPartial<QueryGetForsaleRequest>, metadata?: grpc.Metadata): Promise<QueryGetForsaleResponse> {
+  queryForsale(request: DeepPartial<QueryForsaleRequest>, metadata?: grpc.Metadata): Promise<QueryForsaleResponse> {
     return this.queryClient.Forsale(request, metadata)
   }
   /** Queries all Listings. */
-  queryForsaleAll(request: DeepPartial<QueryAllForsaleRequest>, metadata?: grpc.Metadata): Promise<QueryAllForsaleResponse> {
+  queryForsaleAll(request: DeepPartial<QueryAllForsalesRequest>, metadata?: grpc.Metadata): Promise<QueryAllForsalesResponse> {
     return this.queryClient.ForsaleAll(request, metadata)
   }
   /** Queries a Init by index. */
-  queryInit(request: DeepPartial<QueryGetInitRequest>, metadata?: grpc.Metadata): Promise<QueryGetInitResponse> {
+  queryInit(request: DeepPartial<QueryInitRequest>, metadata?: grpc.Metadata): Promise<QueryInitResponse> {
     return this.queryClient.Init(request, metadata)
   }
   /** Queries a list of Init items. */
-  queryInitAll(request: DeepPartial<QueryAllInitRequest>, metadata?: grpc.Metadata): Promise<QueryAllInitResponse> {
+  queryInitAll(request: DeepPartial<QueryAllInitsRequest>, metadata?: grpc.Metadata): Promise<QueryAllInitsResponse> {
     return this.queryClient.InitAll(request, metadata)
   }
   /** Queries a list of ListOwnedNames items. */

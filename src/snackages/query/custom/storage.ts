@@ -14,15 +14,15 @@ import {
   QueryClientImpl,
   QueryFindFileRequest, QueryFindFileResponse,
   QueryFreespaceRequest, QueryFreespaceResponse,
-  QueryGetActiveDealsRequest, QueryGetActiveDealsResponse,
-  QueryGetClientFreeSpaceRequest, QueryGetClientFreeSpaceResponse,
-  QueryGetClientUsageRequest, QueryGetClientUsageResponse,
-  QueryGetContractsRequest, QueryGetContractsResponse,
-  QueryGetFidCidRequest, QueryGetFidCidResponse,
-  QueryGetPayBlocksRequest, QueryGetPayBlocksResponse,
-  QueryGetPayDataRequest, QueryGetPayDataResponse,
-  QueryGetProvidersRequest, QueryGetProvidersResponse,
-  QueryGetStraysRequest, QueryGetStraysResponse
+  QueryActiveDealRequest, QueryActiveDealResponse,
+  QueryClientFreeSpaceRequest, QueryClientFreeSpaceResponse,
+  QueryClientUsageRequest, QueryClientUsageResponse,
+  QueryContractRequest, QueryContractResponse,
+  QueryFidCidRequest, QueryFidCidResponse,
+  QueryPayBlockRequest, QueryPayBlockResponse,
+  QueryPayDataRequest, QueryPayDataResponse,
+  QueryProviderRequest, QueryProviderResponse,
+  QueryStrayRequest, QueryStrayResponse
 } from '@/postgen/canine_chain/storage/query'
 import IQueryStorage from '@/interfaces/classes/IQueryStorage'
 
@@ -39,9 +39,9 @@ export default class QueryStorage implements IQueryStorage {
   }
   /** Queries a Contracts by index. */
   queryContracts(
-    request: DeepPartial<QueryGetContractsRequest>,
+    request: DeepPartial<QueryContractRequest>,
     metadata?: grpc.Metadata,
-  ): Promise<QueryGetContractsResponse> {
+  ): Promise<QueryContractResponse> {
     return this.queryClient.Contracts(request, metadata)
   }
   /** Queries a list of Contracts items. */
@@ -53,9 +53,9 @@ export default class QueryStorage implements IQueryStorage {
   }
   /** Queries a ActiveDeals by index. */
   queryActiveDeals(
-    request: DeepPartial<QueryGetActiveDealsRequest>,
+    request: DeepPartial<QueryActiveDealRequest>,
     metadata?: grpc.Metadata,
-  ): Promise<QueryGetActiveDealsResponse> {
+  ): Promise<QueryActiveDealResponse> {
     return this.queryClient.ActiveDeals(request, metadata)
   }
   /** Queries a list of ActiveDeals items. */
@@ -67,9 +67,9 @@ export default class QueryStorage implements IQueryStorage {
   }
   /** Queries a Providers by index. */
   queryProviders(
-    request: DeepPartial<QueryGetProvidersRequest>,
+    request: DeepPartial<QueryProviderRequest>,
     metadata?: grpc.Metadata,
-  ): Promise<QueryGetProvidersResponse> {
+  ): Promise<QueryProviderResponse> {
     return this.queryClient.Providers(request, metadata)
   }
   /** Queries a list of Providers items. */
@@ -89,9 +89,9 @@ export default class QueryStorage implements IQueryStorage {
   }
   /** Queries a PayBlocks by index. */
   queryPayBlocks(
-    request: DeepPartial<QueryGetPayBlocksRequest>,
+    request: DeepPartial<QueryPayBlockRequest>,
     metadata?: grpc.Metadata,
-  ): Promise<QueryGetPayBlocksResponse> {
+  ): Promise<QueryPayBlockResponse> {
     return this.queryClient.PayBlocks(request, metadata)
   }
   /** Queries a list of PayBlocks items. */
@@ -103,9 +103,9 @@ export default class QueryStorage implements IQueryStorage {
   }
   /** Queries a ClientUsage by index. */
   queryClientUsage(
-    request: DeepPartial<QueryGetClientUsageRequest>,
+    request: DeepPartial<QueryClientUsageRequest>,
     metadata?: grpc.Metadata,
-  ): Promise<QueryGetClientUsageResponse> {
+  ): Promise<QueryClientUsageResponse> {
     return this.queryClient.ClientUsage(request, metadata)
   }
   /** Queries a list of ClientUsage items. */
@@ -116,7 +116,7 @@ export default class QueryStorage implements IQueryStorage {
     return this.queryClient.ClientUsageAll(request, metadata)
   }
   /** Queries a Strays by index. */
-  queryStrays(request: DeepPartial<QueryGetStraysRequest>, metadata?: grpc.Metadata): Promise<QueryGetStraysResponse> {
+  queryStrays(request: DeepPartial<QueryStrayRequest>, metadata?: grpc.Metadata): Promise<QueryStrayResponse> {
     return this.queryClient.Strays(request, metadata)
   }
   /** Queries a list of Strays items. */
@@ -125,13 +125,13 @@ export default class QueryStorage implements IQueryStorage {
   }
   /** Queries a list of GetClientFreeSpace items. */
   queryGetClientFreeSpace(
-    request: DeepPartial<QueryGetClientFreeSpaceRequest>,
+    request: DeepPartial<QueryClientFreeSpaceRequest>,
     metadata?: grpc.Metadata,
-  ): Promise<QueryGetClientFreeSpaceResponse> {
+  ): Promise<QueryClientFreeSpaceResponse> {
     return this.queryClient.GetClientFreeSpace(request, metadata)
   }
   /** Queries a FidCid by index. */
-  queryFidCid(request: DeepPartial<QueryGetFidCidRequest>, metadata?: grpc.Metadata): Promise<QueryGetFidCidResponse> {
+  queryFidCid(request: DeepPartial<QueryFidCidRequest>, metadata?: grpc.Metadata): Promise<QueryFidCidResponse> {
     return this.queryClient.FidCid(request, metadata)
   }
   /** Queries a list of FidCid items. */
@@ -139,7 +139,7 @@ export default class QueryStorage implements IQueryStorage {
     return this.queryClient.FidCidAll(request, metadata)
   }
   /** Queries a list of GetPayData items. */
-  queryGetPayData(request: DeepPartial<QueryGetPayDataRequest>, metadata?: grpc.Metadata): Promise<QueryGetPayDataResponse> {
+  queryGetPayData(request: DeepPartial<QueryPayDataRequest>, metadata?: grpc.Metadata): Promise<QueryPayDataResponse> {
     return this.queryClient.GetPayData(request, metadata)
   }
 
