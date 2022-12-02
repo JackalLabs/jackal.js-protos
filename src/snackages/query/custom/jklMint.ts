@@ -6,7 +6,7 @@ import {
   QueryClientImpl,
   QueryInflationRequest, QueryInflationResponse,
   QueryParamsRequest, QueryParamsResponse
-} from '@/postgen/canine-chain/jklmint/query'
+} from '@/postgen/canine_chain/jklmint/query'
 import IQueryJklMint from '@/interfaces/classes/IQueryJklMint'
 
 export default class QueryJklMint implements IQueryJklMint {

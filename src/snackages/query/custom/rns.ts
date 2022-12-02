@@ -14,7 +14,7 @@ import {
   QueryGetNamesRequest, QueryGetNamesResponse,
   QueryListOwnedNamesRequest, QueryListOwnedNamesResponse,
   QueryParamsRequest, QueryParamsResponse
-} from '@/postgen/canine-chain/rns/query'
+} from '@/postgen/canine_chain/rns/query'
 import IQueryRns from '@/interfaces/classes/IQueryRns'
 
 export default class QueryRns implements IQueryRns {

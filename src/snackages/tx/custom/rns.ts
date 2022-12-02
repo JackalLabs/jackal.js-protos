@@ -10,7 +10,7 @@ import {
   MsgList,
   MsgRegister,
   MsgTransfer
-} from '@/postgen/canine-chain/rns/tx'
+} from '@/postgen/canine_chain/rns/tx'
 import { EncodeObject } from '@cosmjs/proto-signing'
 import ITypeTuple from '@/interfaces/ITypeTuple'
 

@@ -11,7 +11,7 @@ import {
   QueryGetNamesRequest, QueryGetNamesResponse,
   QueryListOwnedNamesRequest, QueryListOwnedNamesResponse,
   QueryParamsRequest, QueryParamsResponse
-} from '@/postgen/canine-chain/rns/query'
+} from '@/postgen/canine_chain/rns/query'
 
 export default interface IQueryRns {
   /** Parameters queries the parameters of the module. */

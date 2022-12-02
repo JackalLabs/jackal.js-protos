@@ -20,7 +20,7 @@ import {
   QueryGetPayDataRequest, QueryGetPayDataResponse,
   QueryGetProvidersRequest, QueryGetProvidersResponse,
   QueryGetStraysRequest, QueryGetStraysResponse
-} from '@/postgen/canine-chain/storage/query'
+} from '@/postgen/canine_chain/storage/query'
 
 export default interface IQueryStorage {
   /** Parameters queries the parameters of the module. */

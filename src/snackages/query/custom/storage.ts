@@ -23,7 +23,7 @@ import {
   QueryGetPayDataRequest, QueryGetPayDataResponse,
   QueryGetProvidersRequest, QueryGetProvidersResponse,
   QueryGetStraysRequest, QueryGetStraysResponse
-} from '@/postgen/canine-chain/storage/query'
+} from '@/postgen/canine_chain/storage/query'
 import IQueryStorage from '@/interfaces/classes/IQueryStorage'
 
 export default class QueryStorage implements IQueryStorage {

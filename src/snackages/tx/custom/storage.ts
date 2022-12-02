@@ -9,7 +9,7 @@ import {
   MsgSetProviderKeybase,
   MsgSetProviderTotalspace,
   MsgSignContract
-} from '@/postgen/canine-chain/storage/tx'
+} from '@/postgen/canine_chain/storage/tx'
 import { EncodeObject } from '@cosmjs/proto-signing'
 import ITypeTuple from '@/interfaces/ITypeTuple'
 

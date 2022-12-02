@@ -3,7 +3,7 @@ import {
   DeepPartial,
   QueryInflationRequest, QueryInflationResponse,
   QueryParamsRequest, QueryParamsResponse
-} from '@/postgen/canine-chain/jklmint/query'
+} from '@/postgen/canine_chain/jklmint/query'
 
 export default interface IQueryJklMint {
   /** Parameters queries the parameters of the module. */
