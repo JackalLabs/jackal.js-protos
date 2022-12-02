@@ -11,6 +11,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc && tscpaths -p tsconfig.json -s ./src -o ./dist",
+    "compile": "./scripts/protocgen.sh",
     "packit": "npm run build && npm pack --pack-destination packs",
     "push": "npm run build && npm publish",
     "test": "echo \"Error: no tests included\" && exit 1"
