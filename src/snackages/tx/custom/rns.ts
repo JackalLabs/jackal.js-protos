@@ -15,17 +15,17 @@ import { EncodeObject } from '@cosmjs/proto-signing'
 import ITypeTuple from '@/interfaces/ITypeTuple'
 
 const rnsTypes: ITypeTuple = {
-  acceptBid: ['/jackaldao.canine.rns.MsgAcceptBid', MsgAcceptBid],
-  addRecord: ['/jackaldao.canine.rns.MsgAddRecord', MsgAddRecord],
-  bid: ['/jackaldao.canine.rns.MsgBid', MsgBid],
-  buy: ['/jackaldao.canine.rns.MsgBuy', MsgBuy],
-  cancelBid: ['/jackaldao.canine.rns.MsgCancelBid', MsgCancelBid],
-  delist: ['/jackaldao.canine.rns.MsgDelist', MsgDelist],
-  delRecord: ['/jackaldao.canine.rns.MsgDelRecord', MsgDelRecord],
-  init: ['/jackaldao.canine.rns.MsgInit', MsgInit],
-  list: ['/jackaldao.canine.rns.MsgList', MsgList],
-  register: ['/jackaldao.canine.rns.MsgRegister', MsgRegister],
-  transfer: ['/jackaldao.canine.rns.MsgTransfer', MsgTransfer]
+  acceptBid: ['/canine_chain.rns.MsgAcceptBid', MsgAcceptBid],
+  addRecord: ['/canine_chain.rns.MsgAddRecord', MsgAddRecord],
+  bid: ['/canine_chain.rns.MsgBid', MsgBid],
+  buy: ['/canine_chain.rns.MsgBuy', MsgBuy],
+  cancelBid: ['/canine_chain.rns.MsgCancelBid', MsgCancelBid],
+  delist: ['/canine_chain.rns.MsgDelist', MsgDelist],
+  delRecord: ['/canine_chain.rns.MsgDelRecord', MsgDelRecord],
+  init: ['/canine_chain.rns.MsgInit', MsgInit],
+  list: ['/canine_chain.rns.MsgList', MsgList],
+  register: ['/canine_chain.rns.MsgRegister', MsgRegister],
+  transfer: ['/canine_chain.rns.MsgTransfer', MsgTransfer]
 }
 
 export default rnsTypes

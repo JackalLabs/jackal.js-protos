@@ -1,3 +1,4 @@
+import IQueryFileTree from '@/interfaces/classes/IQueryFileTree'
 import IQueryJklMint from '@/interfaces/classes/IQueryJklMint'
 import IQueryRns from '@/interfaces/classes/IQueryRns'
 import IQueryStorage from '@/interfaces/classes/IQueryStorage'
@@ -8,6 +9,7 @@ import IQueryStaking from '@/interfaces/classes/IQueryStaking'
 
 export default interface IAllQuery {
   /** Custom */
+  fileTree: IQueryFileTree,
   jklMint: IQueryJklMint,
   rns: IQueryRns,
   storage: IQueryStorage,

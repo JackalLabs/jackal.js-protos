@@ -1,6 +1,7 @@
 import { OfflineSigner } from '@cosmjs/proto-signing'
 import { genBroadcaster, IGenBroadcaster, TMasterBroadcaster } from '@/customBroadcast'
 import IProtoBuilder from '@/interfaces/classes/IProtoBuilder'
+import IQueryFileTree from '@/interfaces/classes/IQueryFileTree'
 import IQueryJklMint from '@/interfaces/classes/IQueryJklMint'
 import IQueryRns from '@/interfaces/classes/IQueryRns'
 import IQueryStorage from '@/interfaces/classes/IQueryStorage'
@@ -10,6 +11,7 @@ import IQueryGov from '@/interfaces/classes/IQueryGov'
 import IQueryStaking from '@/interfaces/classes/IQueryStaking'
 import {
   GrpcWebImpl,
+  IFileTreeGrpc,
   IJklMintGrpc,
   IRnsGrpc,
   IStorageGrpc,
@@ -20,6 +22,7 @@ import {
   TGrpc
 } from '@/interfaces/IGrpcWebImpl'
 
+import QueryFileTree from '@/snackages/query/custom/fileTree'
 import QueryJklMint from '@/snackages/query/custom/jklMint'
 import QueryRns from '@/snackages/query/custom/rns'
 import QueryStorage from '@/snackages/query/custom/storage'
@@ -28,6 +31,7 @@ import QueryDistribution from '@/snackages/query/static/distribution'
 import QueryGov from '@/snackages/query/static/gov'
 import QueryStaking from '@/snackages/query/static/staking'
 
+import { ITxFileTree, TxFileTree } from '@/snackages/tx/custom/fileTree'
 import { ITxRns, TxRns } from '@/snackages/tx/custom/rns'
 import { ITxStorage, TxStorage } from '@/snackages/tx/custom/storage'
 import { ITxBank, TxBank } from '@/snackages/tx/static/bank'
@@ -56,6 +60,7 @@ export default class ProtoBuilder implements IProtoBuilder {
   makeAllQuery (): IAllQuery {
     return {
       /** Custom */
+      fileTree: this.makeFileTreeQuery(),
       jklMint: this.makeJklMintQuery(),
       rns: this.makeRnsQuery(),
       storage: this.makeStorageQuery(),
@@ -69,6 +74,7 @@ export default class ProtoBuilder implements IProtoBuilder {
   makeAllTx (): IAllTx {
     return {
       /** Custom */
+      fileTree: this.makeFileTreeTx(),
       jklMint: null,
       rns: this.makeRnsTx(),
       storage: this.makeStorageTx(),
@@ -81,6 +87,12 @@ export default class ProtoBuilder implements IProtoBuilder {
   }
 
   /** Custom */
+  makeFileTreeQuery (): IQueryFileTree {
+    return new QueryFileTree(this.GRpc as IFileTreeGrpc)
+  }
+  makeFileTreeTx (): ITxFileTree {
+    return new TxFileTree()
+  }
   makeJklMintQuery (): IQueryJklMint {
     return new QueryJklMint(this.GRpc as IJklMintGrpc)
   }
