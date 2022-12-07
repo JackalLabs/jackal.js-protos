@@ -145,6 +145,8 @@ export {
   TMasterBroadcaster,
 
   /** Custom */
+  IQueryFileTree,
+  ITxFileTree,
   IQueryJklMint,
   IQueryRns,
   ITxRns,

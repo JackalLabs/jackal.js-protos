@@ -75,11 +75,11 @@ export interface StakeAuthorization {
    * allow_list specifies list of validator addresses to whom grantee can delegate tokens on behalf of granter's
    * account.
    */
-  allowList:
+  allowList?:
     | StakeAuthorization_Validators
     | undefined;
   /** deny_list specifies list of validator addresses to whom grantee can not delegate tokens. */
-  denyList:
+  denyList?:
     | StakeAuthorization_Validators
     | undefined;
   /** authorization_type defines one of AuthorizationType. */
