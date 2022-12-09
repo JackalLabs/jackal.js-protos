@@ -5,11 +5,10 @@ import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { PageRequest, PageResponse } from "../../cosmos/base/query/v1beta1/pagination";
 import { ActiveDeals } from "./active_deals";
-import { ClientUsage } from "./client_usage";
 import { Contracts } from "./contracts";
 import { FidCid } from "./fid_cid";
 import { Params } from "./params";
-import { PayBlocks } from "./pay_blocks";
+import { StoragePaymentInfo } from "./payment_info";
 import { Providers } from "./providers";
 import { Strays } from "./strays";
 
@@ -92,40 +91,6 @@ export interface QueryFindFileResponse {
   providerIps: string;
 }
 
-export interface QueryPayBlockRequest {
-  blockid: string;
-}
-
-export interface QueryPayBlockResponse {
-  payBlocks: PayBlocks | undefined;
-}
-
-export interface QueryAllPayBlocksRequest {
-  pagination: PageRequest | undefined;
-}
-
-export interface QueryAllPayBlocksResponse {
-  payBlocks: PayBlocks[];
-  pagination: PageResponse | undefined;
-}
-
-export interface QueryClientUsageRequest {
-  address: string;
-}
-
-export interface QueryClientUsageResponse {
-  clientUsage: ClientUsage | undefined;
-}
-
-export interface QueryAllClientUsageRequest {
-  pagination: PageRequest | undefined;
-}
-
-export interface QueryAllClientUsageResponse {
-  clientUsage: ClientUsage[];
-  pagination: PageResponse | undefined;
-}
-
 export interface QueryStrayRequest {
   cid: string;
 }
@@ -148,7 +113,7 @@ export interface QueryClientFreeSpaceRequest {
 }
 
 export interface QueryClientFreeSpaceResponse {
-  bytesfree: string;
+  bytesfree: number;
 }
 
 export interface QueryFidCidRequest {
@@ -173,8 +138,25 @@ export interface QueryPayDataRequest {
 }
 
 export interface QueryPayDataResponse {
-  blocksRemaining: number;
+  timeRemaining: number;
   bytes: number;
+}
+
+export interface QueryStoragePaymentInfoRequest {
+  address: string;
+}
+
+export interface QueryStoragePaymentInfoResponse {
+  storagePaymentInfo: StoragePaymentInfo | undefined;
+}
+
+export interface QueryAllStoragePaymentInfoRequest {
+  pagination: PageRequest | undefined;
+}
+
+export interface QueryAllStoragePaymentInfoResponse {
+  storagePaymentInfo: StoragePaymentInfo[];
+  pagination: PageResponse | undefined;
 }
 
 function createBaseQueryParamsRequest(): QueryParamsRequest {
@@ -1091,432 +1073,6 @@ export const QueryFindFileResponse = {
   },
 };
 
-function createBaseQueryPayBlockRequest(): QueryPayBlockRequest {
-  return { blockid: "" };
-}
-
-export const QueryPayBlockRequest = {
-  encode(message: QueryPayBlockRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.blockid !== "") {
-      writer.uint32(10).string(message.blockid);
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryPayBlockRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryPayBlockRequest();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.blockid = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): QueryPayBlockRequest {
-    return { blockid: isSet(object.blockid) ? String(object.blockid) : "" };
-  },
-
-  toJSON(message: QueryPayBlockRequest): unknown {
-    const obj: any = {};
-    message.blockid !== undefined && (obj.blockid = message.blockid);
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<QueryPayBlockRequest>, I>>(object: I): QueryPayBlockRequest {
-    const message = createBaseQueryPayBlockRequest();
-    message.blockid = object.blockid ?? "";
-    return message;
-  },
-};
-
-function createBaseQueryPayBlockResponse(): QueryPayBlockResponse {
-  return { payBlocks: undefined };
-}
-
-export const QueryPayBlockResponse = {
-  encode(message: QueryPayBlockResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.payBlocks !== undefined) {
-      PayBlocks.encode(message.payBlocks, writer.uint32(10).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryPayBlockResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryPayBlockResponse();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.payBlocks = PayBlocks.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): QueryPayBlockResponse {
-    return { payBlocks: isSet(object.payBlocks) ? PayBlocks.fromJSON(object.payBlocks) : undefined };
-  },
-
-  toJSON(message: QueryPayBlockResponse): unknown {
-    const obj: any = {};
-    message.payBlocks !== undefined &&
-      (obj.payBlocks = message.payBlocks ? PayBlocks.toJSON(message.payBlocks) : undefined);
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<QueryPayBlockResponse>, I>>(object: I): QueryPayBlockResponse {
-    const message = createBaseQueryPayBlockResponse();
-    message.payBlocks = (object.payBlocks !== undefined && object.payBlocks !== null)
-      ? PayBlocks.fromPartial(object.payBlocks)
-      : undefined;
-    return message;
-  },
-};
-
-function createBaseQueryAllPayBlocksRequest(): QueryAllPayBlocksRequest {
-  return { pagination: undefined };
-}
-
-export const QueryAllPayBlocksRequest = {
-  encode(message: QueryAllPayBlocksRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.pagination !== undefined) {
-      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllPayBlocksRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryAllPayBlocksRequest();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.pagination = PageRequest.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): QueryAllPayBlocksRequest {
-    return { pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined };
-  },
-
-  toJSON(message: QueryAllPayBlocksRequest): unknown {
-    const obj: any = {};
-    message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<QueryAllPayBlocksRequest>, I>>(object: I): QueryAllPayBlocksRequest {
-    const message = createBaseQueryAllPayBlocksRequest();
-    message.pagination = (object.pagination !== undefined && object.pagination !== null)
-      ? PageRequest.fromPartial(object.pagination)
-      : undefined;
-    return message;
-  },
-};
-
-function createBaseQueryAllPayBlocksResponse(): QueryAllPayBlocksResponse {
-  return { payBlocks: [], pagination: undefined };
-}
-
-export const QueryAllPayBlocksResponse = {
-  encode(message: QueryAllPayBlocksResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    for (const v of message.payBlocks) {
-      PayBlocks.encode(v!, writer.uint32(10).fork()).ldelim();
-    }
-    if (message.pagination !== undefined) {
-      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllPayBlocksResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryAllPayBlocksResponse();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.payBlocks.push(PayBlocks.decode(reader, reader.uint32()));
-          break;
-        case 2:
-          message.pagination = PageResponse.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): QueryAllPayBlocksResponse {
-    return {
-      payBlocks: Array.isArray(object?.payBlocks) ? object.payBlocks.map((e: any) => PayBlocks.fromJSON(e)) : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
-    };
-  },
-
-  toJSON(message: QueryAllPayBlocksResponse): unknown {
-    const obj: any = {};
-    if (message.payBlocks) {
-      obj.payBlocks = message.payBlocks.map((e) => e ? PayBlocks.toJSON(e) : undefined);
-    } else {
-      obj.payBlocks = [];
-    }
-    message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<QueryAllPayBlocksResponse>, I>>(object: I): QueryAllPayBlocksResponse {
-    const message = createBaseQueryAllPayBlocksResponse();
-    message.payBlocks = object.payBlocks?.map((e) => PayBlocks.fromPartial(e)) || [];
-    message.pagination = (object.pagination !== undefined && object.pagination !== null)
-      ? PageResponse.fromPartial(object.pagination)
-      : undefined;
-    return message;
-  },
-};
-
-function createBaseQueryClientUsageRequest(): QueryClientUsageRequest {
-  return { address: "" };
-}
-
-export const QueryClientUsageRequest = {
-  encode(message: QueryClientUsageRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.address !== "") {
-      writer.uint32(10).string(message.address);
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryClientUsageRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryClientUsageRequest();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.address = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): QueryClientUsageRequest {
-    return { address: isSet(object.address) ? String(object.address) : "" };
-  },
-
-  toJSON(message: QueryClientUsageRequest): unknown {
-    const obj: any = {};
-    message.address !== undefined && (obj.address = message.address);
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<QueryClientUsageRequest>, I>>(object: I): QueryClientUsageRequest {
-    const message = createBaseQueryClientUsageRequest();
-    message.address = object.address ?? "";
-    return message;
-  },
-};
-
-function createBaseQueryClientUsageResponse(): QueryClientUsageResponse {
-  return { clientUsage: undefined };
-}
-
-export const QueryClientUsageResponse = {
-  encode(message: QueryClientUsageResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.clientUsage !== undefined) {
-      ClientUsage.encode(message.clientUsage, writer.uint32(10).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryClientUsageResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryClientUsageResponse();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.clientUsage = ClientUsage.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): QueryClientUsageResponse {
-    return { clientUsage: isSet(object.clientUsage) ? ClientUsage.fromJSON(object.clientUsage) : undefined };
-  },
-
-  toJSON(message: QueryClientUsageResponse): unknown {
-    const obj: any = {};
-    message.clientUsage !== undefined &&
-      (obj.clientUsage = message.clientUsage ? ClientUsage.toJSON(message.clientUsage) : undefined);
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<QueryClientUsageResponse>, I>>(object: I): QueryClientUsageResponse {
-    const message = createBaseQueryClientUsageResponse();
-    message.clientUsage = (object.clientUsage !== undefined && object.clientUsage !== null)
-      ? ClientUsage.fromPartial(object.clientUsage)
-      : undefined;
-    return message;
-  },
-};
-
-function createBaseQueryAllClientUsageRequest(): QueryAllClientUsageRequest {
-  return { pagination: undefined };
-}
-
-export const QueryAllClientUsageRequest = {
-  encode(message: QueryAllClientUsageRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.pagination !== undefined) {
-      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllClientUsageRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryAllClientUsageRequest();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.pagination = PageRequest.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): QueryAllClientUsageRequest {
-    return { pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined };
-  },
-
-  toJSON(message: QueryAllClientUsageRequest): unknown {
-    const obj: any = {};
-    message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<QueryAllClientUsageRequest>, I>>(object: I): QueryAllClientUsageRequest {
-    const message = createBaseQueryAllClientUsageRequest();
-    message.pagination = (object.pagination !== undefined && object.pagination !== null)
-      ? PageRequest.fromPartial(object.pagination)
-      : undefined;
-    return message;
-  },
-};
-
-function createBaseQueryAllClientUsageResponse(): QueryAllClientUsageResponse {
-  return { clientUsage: [], pagination: undefined };
-}
-
-export const QueryAllClientUsageResponse = {
-  encode(message: QueryAllClientUsageResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    for (const v of message.clientUsage) {
-      ClientUsage.encode(v!, writer.uint32(10).fork()).ldelim();
-    }
-    if (message.pagination !== undefined) {
-      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllClientUsageResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryAllClientUsageResponse();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.clientUsage.push(ClientUsage.decode(reader, reader.uint32()));
-          break;
-        case 2:
-          message.pagination = PageResponse.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): QueryAllClientUsageResponse {
-    return {
-      clientUsage: Array.isArray(object?.clientUsage)
-        ? object.clientUsage.map((e: any) => ClientUsage.fromJSON(e))
-        : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
-    };
-  },
-
-  toJSON(message: QueryAllClientUsageResponse): unknown {
-    const obj: any = {};
-    if (message.clientUsage) {
-      obj.clientUsage = message.clientUsage.map((e) => e ? ClientUsage.toJSON(e) : undefined);
-    } else {
-      obj.clientUsage = [];
-    }
-    message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<QueryAllClientUsageResponse>, I>>(object: I): QueryAllClientUsageResponse {
-    const message = createBaseQueryAllClientUsageResponse();
-    message.clientUsage = object.clientUsage?.map((e) => ClientUsage.fromPartial(e)) || [];
-    message.pagination = (object.pagination !== undefined && object.pagination !== null)
-      ? PageResponse.fromPartial(object.pagination)
-      : undefined;
-    return message;
-  },
-};
-
 function createBaseQueryStrayRequest(): QueryStrayRequest {
   return { cid: "" };
 }
@@ -1776,13 +1332,13 @@ export const QueryClientFreeSpaceRequest = {
 };
 
 function createBaseQueryClientFreeSpaceResponse(): QueryClientFreeSpaceResponse {
-  return { bytesfree: "" };
+  return { bytesfree: 0 };
 }
 
 export const QueryClientFreeSpaceResponse = {
   encode(message: QueryClientFreeSpaceResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.bytesfree !== "") {
-      writer.uint32(10).string(message.bytesfree);
+    if (message.bytesfree !== 0) {
+      writer.uint32(8).int64(message.bytesfree);
     }
     return writer;
   },
@@ -1795,7 +1351,7 @@ export const QueryClientFreeSpaceResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.bytesfree = reader.string();
+          message.bytesfree = longToNumber(reader.int64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1806,18 +1362,18 @@ export const QueryClientFreeSpaceResponse = {
   },
 
   fromJSON(object: any): QueryClientFreeSpaceResponse {
-    return { bytesfree: isSet(object.bytesfree) ? String(object.bytesfree) : "" };
+    return { bytesfree: isSet(object.bytesfree) ? Number(object.bytesfree) : 0 };
   },
 
   toJSON(message: QueryClientFreeSpaceResponse): unknown {
     const obj: any = {};
-    message.bytesfree !== undefined && (obj.bytesfree = message.bytesfree);
+    message.bytesfree !== undefined && (obj.bytesfree = Math.round(message.bytesfree));
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryClientFreeSpaceResponse>, I>>(object: I): QueryClientFreeSpaceResponse {
     const message = createBaseQueryClientFreeSpaceResponse();
-    message.bytesfree = object.bytesfree ?? "";
+    message.bytesfree = object.bytesfree ?? 0;
     return message;
   },
 };
@@ -2081,13 +1637,13 @@ export const QueryPayDataRequest = {
 };
 
 function createBaseQueryPayDataResponse(): QueryPayDataResponse {
-  return { blocksRemaining: 0, bytes: 0 };
+  return { timeRemaining: 0, bytes: 0 };
 }
 
 export const QueryPayDataResponse = {
   encode(message: QueryPayDataResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.blocksRemaining !== 0) {
-      writer.uint32(8).int64(message.blocksRemaining);
+    if (message.timeRemaining !== 0) {
+      writer.uint32(8).int64(message.timeRemaining);
     }
     if (message.bytes !== 0) {
       writer.uint32(16).int64(message.bytes);
@@ -2103,7 +1659,7 @@ export const QueryPayDataResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.blocksRemaining = longToNumber(reader.int64() as Long);
+          message.timeRemaining = longToNumber(reader.int64() as Long);
           break;
         case 2:
           message.bytes = longToNumber(reader.int64() as Long);
@@ -2118,22 +1674,249 @@ export const QueryPayDataResponse = {
 
   fromJSON(object: any): QueryPayDataResponse {
     return {
-      blocksRemaining: isSet(object.blocksRemaining) ? Number(object.blocksRemaining) : 0,
+      timeRemaining: isSet(object.timeRemaining) ? Number(object.timeRemaining) : 0,
       bytes: isSet(object.bytes) ? Number(object.bytes) : 0,
     };
   },
 
   toJSON(message: QueryPayDataResponse): unknown {
     const obj: any = {};
-    message.blocksRemaining !== undefined && (obj.blocksRemaining = Math.round(message.blocksRemaining));
+    message.timeRemaining !== undefined && (obj.timeRemaining = Math.round(message.timeRemaining));
     message.bytes !== undefined && (obj.bytes = Math.round(message.bytes));
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryPayDataResponse>, I>>(object: I): QueryPayDataResponse {
     const message = createBaseQueryPayDataResponse();
-    message.blocksRemaining = object.blocksRemaining ?? 0;
+    message.timeRemaining = object.timeRemaining ?? 0;
     message.bytes = object.bytes ?? 0;
+    return message;
+  },
+};
+
+function createBaseQueryStoragePaymentInfoRequest(): QueryStoragePaymentInfoRequest {
+  return { address: "" };
+}
+
+export const QueryStoragePaymentInfoRequest = {
+  encode(message: QueryStoragePaymentInfoRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.address !== "") {
+      writer.uint32(10).string(message.address);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryStoragePaymentInfoRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryStoragePaymentInfoRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.address = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryStoragePaymentInfoRequest {
+    return { address: isSet(object.address) ? String(object.address) : "" };
+  },
+
+  toJSON(message: QueryStoragePaymentInfoRequest): unknown {
+    const obj: any = {};
+    message.address !== undefined && (obj.address = message.address);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryStoragePaymentInfoRequest>, I>>(
+    object: I,
+  ): QueryStoragePaymentInfoRequest {
+    const message = createBaseQueryStoragePaymentInfoRequest();
+    message.address = object.address ?? "";
+    return message;
+  },
+};
+
+function createBaseQueryStoragePaymentInfoResponse(): QueryStoragePaymentInfoResponse {
+  return { storagePaymentInfo: undefined };
+}
+
+export const QueryStoragePaymentInfoResponse = {
+  encode(message: QueryStoragePaymentInfoResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.storagePaymentInfo !== undefined) {
+      StoragePaymentInfo.encode(message.storagePaymentInfo, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryStoragePaymentInfoResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryStoragePaymentInfoResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.storagePaymentInfo = StoragePaymentInfo.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryStoragePaymentInfoResponse {
+    return {
+      storagePaymentInfo: isSet(object.storagePaymentInfo)
+        ? StoragePaymentInfo.fromJSON(object.storagePaymentInfo)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryStoragePaymentInfoResponse): unknown {
+    const obj: any = {};
+    message.storagePaymentInfo !== undefined && (obj.storagePaymentInfo = message.storagePaymentInfo
+      ? StoragePaymentInfo.toJSON(message.storagePaymentInfo)
+      : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryStoragePaymentInfoResponse>, I>>(
+    object: I,
+  ): QueryStoragePaymentInfoResponse {
+    const message = createBaseQueryStoragePaymentInfoResponse();
+    message.storagePaymentInfo = (object.storagePaymentInfo !== undefined && object.storagePaymentInfo !== null)
+      ? StoragePaymentInfo.fromPartial(object.storagePaymentInfo)
+      : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryAllStoragePaymentInfoRequest(): QueryAllStoragePaymentInfoRequest {
+  return { pagination: undefined };
+}
+
+export const QueryAllStoragePaymentInfoRequest = {
+  encode(message: QueryAllStoragePaymentInfoRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllStoragePaymentInfoRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryAllStoragePaymentInfoRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllStoragePaymentInfoRequest {
+    return { pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined };
+  },
+
+  toJSON(message: QueryAllStoragePaymentInfoRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAllStoragePaymentInfoRequest>, I>>(
+    object: I,
+  ): QueryAllStoragePaymentInfoRequest {
+    const message = createBaseQueryAllStoragePaymentInfoRequest();
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageRequest.fromPartial(object.pagination)
+      : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryAllStoragePaymentInfoResponse(): QueryAllStoragePaymentInfoResponse {
+  return { storagePaymentInfo: [], pagination: undefined };
+}
+
+export const QueryAllStoragePaymentInfoResponse = {
+  encode(message: QueryAllStoragePaymentInfoResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.storagePaymentInfo) {
+      StoragePaymentInfo.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllStoragePaymentInfoResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryAllStoragePaymentInfoResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.storagePaymentInfo.push(StoragePaymentInfo.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllStoragePaymentInfoResponse {
+    return {
+      storagePaymentInfo: Array.isArray(object?.storagePaymentInfo)
+        ? object.storagePaymentInfo.map((e: any) => StoragePaymentInfo.fromJSON(e))
+        : [],
+      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
+    };
+  },
+
+  toJSON(message: QueryAllStoragePaymentInfoResponse): unknown {
+    const obj: any = {};
+    if (message.storagePaymentInfo) {
+      obj.storagePaymentInfo = message.storagePaymentInfo.map((e) => e ? StoragePaymentInfo.toJSON(e) : undefined);
+    } else {
+      obj.storagePaymentInfo = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAllStoragePaymentInfoResponse>, I>>(
+    object: I,
+  ): QueryAllStoragePaymentInfoResponse {
+    const message = createBaseQueryAllStoragePaymentInfoResponse();
+    message.storagePaymentInfo = object.storagePaymentInfo?.map((e) => StoragePaymentInfo.fromPartial(e)) || [];
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageResponse.fromPartial(object.pagination)
+      : undefined;
     return message;
   },
 };
@@ -2167,23 +1950,6 @@ export interface Query {
   Freespace(request: DeepPartial<QueryFreespaceRequest>, metadata?: grpc.Metadata): Promise<QueryFreespaceResponse>;
   /** Queries a list of FindFile items. */
   FindFile(request: DeepPartial<QueryFindFileRequest>, metadata?: grpc.Metadata): Promise<QueryFindFileResponse>;
-  /** Queries a PayBlocks by index. */
-  PayBlocks(request: DeepPartial<QueryPayBlockRequest>, metadata?: grpc.Metadata): Promise<QueryPayBlockResponse>;
-  /** Queries a list of PayBlocks items. */
-  PayBlocksAll(
-    request: DeepPartial<QueryAllPayBlocksRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<QueryAllPayBlocksResponse>;
-  /** Queries a ClientUsage by index. */
-  ClientUsage(
-    request: DeepPartial<QueryClientUsageRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<QueryClientUsageResponse>;
-  /** Queries a list of ClientUsage items. */
-  ClientUsageAll(
-    request: DeepPartial<QueryAllClientUsageRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<QueryAllClientUsageResponse>;
   /** Queries a Strays by index. */
   Strays(request: DeepPartial<QueryStrayRequest>, metadata?: grpc.Metadata): Promise<QueryStrayResponse>;
   /** Queries a list of Strays items. */
@@ -2199,6 +1965,16 @@ export interface Query {
   FidCidAll(request: DeepPartial<QueryAllFidCidRequest>, metadata?: grpc.Metadata): Promise<QueryAllFidCidResponse>;
   /** Queries a list of GetPayData items. */
   GetPayData(request: DeepPartial<QueryPayDataRequest>, metadata?: grpc.Metadata): Promise<QueryPayDataResponse>;
+  /** Queries a StoragePaymentInfo by address. */
+  StoragePaymentInfo(
+    request: DeepPartial<QueryStoragePaymentInfoRequest>,
+    metadata?: grpc.Metadata,
+  ): Promise<QueryStoragePaymentInfoResponse>;
+  /** Queries a list of StoragePaymentInfo items. */
+  StoragePaymentInfoAll(
+    request: DeepPartial<QueryAllStoragePaymentInfoRequest>,
+    metadata?: grpc.Metadata,
+  ): Promise<QueryAllStoragePaymentInfoResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -2215,16 +1991,14 @@ export class QueryClientImpl implements Query {
     this.ProvidersAll = this.ProvidersAll.bind(this);
     this.Freespace = this.Freespace.bind(this);
     this.FindFile = this.FindFile.bind(this);
-    this.PayBlocks = this.PayBlocks.bind(this);
-    this.PayBlocksAll = this.PayBlocksAll.bind(this);
-    this.ClientUsage = this.ClientUsage.bind(this);
-    this.ClientUsageAll = this.ClientUsageAll.bind(this);
     this.Strays = this.Strays.bind(this);
     this.StraysAll = this.StraysAll.bind(this);
     this.GetClientFreeSpace = this.GetClientFreeSpace.bind(this);
     this.FidCid = this.FidCid.bind(this);
     this.FidCidAll = this.FidCidAll.bind(this);
     this.GetPayData = this.GetPayData.bind(this);
+    this.StoragePaymentInfo = this.StoragePaymentInfo.bind(this);
+    this.StoragePaymentInfoAll = this.StoragePaymentInfoAll.bind(this);
   }
 
   Params(request: DeepPartial<QueryParamsRequest>, metadata?: grpc.Metadata): Promise<QueryParamsResponse> {
@@ -2275,31 +2049,6 @@ export class QueryClientImpl implements Query {
     return this.rpc.unary(QueryFindFileDesc, QueryFindFileRequest.fromPartial(request), metadata);
   }
 
-  PayBlocks(request: DeepPartial<QueryPayBlockRequest>, metadata?: grpc.Metadata): Promise<QueryPayBlockResponse> {
-    return this.rpc.unary(QueryPayBlocksDesc, QueryPayBlockRequest.fromPartial(request), metadata);
-  }
-
-  PayBlocksAll(
-    request: DeepPartial<QueryAllPayBlocksRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<QueryAllPayBlocksResponse> {
-    return this.rpc.unary(QueryPayBlocksAllDesc, QueryAllPayBlocksRequest.fromPartial(request), metadata);
-  }
-
-  ClientUsage(
-    request: DeepPartial<QueryClientUsageRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<QueryClientUsageResponse> {
-    return this.rpc.unary(QueryClientUsageDesc, QueryClientUsageRequest.fromPartial(request), metadata);
-  }
-
-  ClientUsageAll(
-    request: DeepPartial<QueryAllClientUsageRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<QueryAllClientUsageResponse> {
-    return this.rpc.unary(QueryClientUsageAllDesc, QueryAllClientUsageRequest.fromPartial(request), metadata);
-  }
-
   Strays(request: DeepPartial<QueryStrayRequest>, metadata?: grpc.Metadata): Promise<QueryStrayResponse> {
     return this.rpc.unary(QueryStraysDesc, QueryStrayRequest.fromPartial(request), metadata);
   }
@@ -2325,6 +2074,24 @@ export class QueryClientImpl implements Query {
 
   GetPayData(request: DeepPartial<QueryPayDataRequest>, metadata?: grpc.Metadata): Promise<QueryPayDataResponse> {
     return this.rpc.unary(QueryGetPayDataDesc, QueryPayDataRequest.fromPartial(request), metadata);
+  }
+
+  StoragePaymentInfo(
+    request: DeepPartial<QueryStoragePaymentInfoRequest>,
+    metadata?: grpc.Metadata,
+  ): Promise<QueryStoragePaymentInfoResponse> {
+    return this.rpc.unary(QueryStoragePaymentInfoDesc, QueryStoragePaymentInfoRequest.fromPartial(request), metadata);
+  }
+
+  StoragePaymentInfoAll(
+    request: DeepPartial<QueryAllStoragePaymentInfoRequest>,
+    metadata?: grpc.Metadata,
+  ): Promise<QueryAllStoragePaymentInfoResponse> {
+    return this.rpc.unary(
+      QueryStoragePaymentInfoAllDesc,
+      QueryAllStoragePaymentInfoRequest.fromPartial(request),
+      metadata,
+    );
   }
 }
 
@@ -2528,94 +2295,6 @@ export const QueryFindFileDesc: UnaryMethodDefinitionish = {
   } as any,
 };
 
-export const QueryPayBlocksDesc: UnaryMethodDefinitionish = {
-  methodName: "PayBlocks",
-  service: QueryDesc,
-  requestStream: false,
-  responseStream: false,
-  requestType: {
-    serializeBinary() {
-      return QueryPayBlockRequest.encode(this).finish();
-    },
-  } as any,
-  responseType: {
-    deserializeBinary(data: Uint8Array) {
-      return {
-        ...QueryPayBlockResponse.decode(data),
-        toObject() {
-          return this;
-        },
-      };
-    },
-  } as any,
-};
-
-export const QueryPayBlocksAllDesc: UnaryMethodDefinitionish = {
-  methodName: "PayBlocksAll",
-  service: QueryDesc,
-  requestStream: false,
-  responseStream: false,
-  requestType: {
-    serializeBinary() {
-      return QueryAllPayBlocksRequest.encode(this).finish();
-    },
-  } as any,
-  responseType: {
-    deserializeBinary(data: Uint8Array) {
-      return {
-        ...QueryAllPayBlocksResponse.decode(data),
-        toObject() {
-          return this;
-        },
-      };
-    },
-  } as any,
-};
-
-export const QueryClientUsageDesc: UnaryMethodDefinitionish = {
-  methodName: "ClientUsage",
-  service: QueryDesc,
-  requestStream: false,
-  responseStream: false,
-  requestType: {
-    serializeBinary() {
-      return QueryClientUsageRequest.encode(this).finish();
-    },
-  } as any,
-  responseType: {
-    deserializeBinary(data: Uint8Array) {
-      return {
-        ...QueryClientUsageResponse.decode(data),
-        toObject() {
-          return this;
-        },
-      };
-    },
-  } as any,
-};
-
-export const QueryClientUsageAllDesc: UnaryMethodDefinitionish = {
-  methodName: "ClientUsageAll",
-  service: QueryDesc,
-  requestStream: false,
-  responseStream: false,
-  requestType: {
-    serializeBinary() {
-      return QueryAllClientUsageRequest.encode(this).finish();
-    },
-  } as any,
-  responseType: {
-    deserializeBinary(data: Uint8Array) {
-      return {
-        ...QueryAllClientUsageResponse.decode(data),
-        toObject() {
-          return this;
-        },
-      };
-    },
-  } as any,
-};
-
 export const QueryStraysDesc: UnaryMethodDefinitionish = {
   methodName: "Strays",
   service: QueryDesc,
@@ -2740,6 +2419,50 @@ export const QueryGetPayDataDesc: UnaryMethodDefinitionish = {
     deserializeBinary(data: Uint8Array) {
       return {
         ...QueryPayDataResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const QueryStoragePaymentInfoDesc: UnaryMethodDefinitionish = {
+  methodName: "StoragePaymentInfo",
+  service: QueryDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return QueryStoragePaymentInfoRequest.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...QueryStoragePaymentInfoResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const QueryStoragePaymentInfoAllDesc: UnaryMethodDefinitionish = {
+  methodName: "StoragePaymentInfoAll",
+  service: QueryDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return QueryAllStoragePaymentInfoRequest.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...QueryAllStoragePaymentInfoResponse.decode(data),
         toObject() {
           return this;
         },

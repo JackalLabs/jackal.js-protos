@@ -1,4 +1,5 @@
 import { ITxFileTree } from '@/snackages/tx/custom/fileTree'
+import { ITxOracle } from '@/snackages/tx/custom/oracle'
 import { ITxRns } from '@/snackages/tx/custom/rns'
 import { ITxStorage } from '@/snackages/tx/custom/storage'
 import { ITxBank } from '@/snackages/tx/static/bank'
@@ -10,6 +11,7 @@ export default interface IAllTx {
   /** Custom */
   fileTree: ITxFileTree,
   jklMint: null,
+  oracle: ITxOracle,
   rns: ITxRns,
   storage: ITxStorage,
   /** Static */

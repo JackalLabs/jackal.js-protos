@@ -3,28 +3,45 @@ import {
   DeepPartial,
   GrpcWebImpl,
   Query,
-  QueryParamsRequest, QueryParamsResponse,
-  QueryAllActiveDealsRequest, QueryAllActiveDealsResponse,
-  QueryAllClientUsageRequest, QueryAllClientUsageResponse,
-  QueryAllContractsRequest, QueryAllContractsResponse,
-  QueryAllFidCidRequest, QueryAllFidCidResponse,
-  QueryAllPayBlocksRequest, QueryAllPayBlocksResponse,
-  QueryAllProvidersRequest, QueryAllProvidersResponse,
-  QueryAllStraysRequest, QueryAllStraysResponse,
+  QueryParamsRequest,
+  QueryParamsResponse,
+  QueryAllActiveDealsRequest,
+  QueryAllActiveDealsResponse,
+  QueryAllContractsRequest,
+  QueryAllContractsResponse,
+  QueryAllFidCidRequest,
+  QueryAllFidCidResponse,
+  QueryAllProvidersRequest,
+  QueryAllProvidersResponse,
+  QueryAllStraysRequest,
+  QueryAllStraysResponse,
   QueryClientImpl,
-  QueryFindFileRequest, QueryFindFileResponse,
-  QueryFreespaceRequest, QueryFreespaceResponse,
-  QueryActiveDealRequest, QueryActiveDealResponse,
-  QueryClientFreeSpaceRequest, QueryClientFreeSpaceResponse,
-  QueryClientUsageRequest, QueryClientUsageResponse,
-  QueryContractRequest, QueryContractResponse,
-  QueryFidCidRequest, QueryFidCidResponse,
-  QueryPayBlockRequest, QueryPayBlockResponse,
-  QueryPayDataRequest, QueryPayDataResponse,
-  QueryProviderRequest, QueryProviderResponse,
-  QueryStrayRequest, QueryStrayResponse
+  QueryFindFileRequest,
+  QueryFindFileResponse,
+  QueryFreespaceRequest,
+  QueryFreespaceResponse,
+  QueryActiveDealRequest,
+  QueryActiveDealResponse,
+  QueryClientFreeSpaceRequest,
+  QueryClientFreeSpaceResponse,
+  QueryContractRequest,
+  QueryContractResponse,
+  QueryFidCidRequest,
+  QueryFidCidResponse,
+  QueryPayDataRequest,
+  QueryPayDataResponse,
+  QueryProviderRequest,
+  QueryProviderResponse,
+  QueryStrayRequest,
+  QueryStrayResponse,
+  QueryStoragePaymentInfoRequest,
+  QueryStoragePaymentInfoResponse,
+  QueryAllStoragePaymentInfoRequest,
+  QueryAllStoragePaymentInfoResponse
 } from '@/postgen/canine_chain/storage/query'
 import IQueryStorage from '@/interfaces/classes/IQueryStorage'
+
+/** TODO - Add StoragePaymentInfo in v1.2.5 */
 
 export default class QueryStorage implements IQueryStorage {
   private readonly queryClient: Query
@@ -87,34 +104,6 @@ export default class QueryStorage implements IQueryStorage {
   queryFindFile(request: DeepPartial<QueryFindFileRequest>, metadata?: grpc.Metadata): Promise<QueryFindFileResponse> {
     return this.queryClient.FindFile(request, metadata)
   }
-  /** Queries a PayBlocks by index. */
-  queryPayBlocks(
-    request: DeepPartial<QueryPayBlockRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<QueryPayBlockResponse> {
-    return this.queryClient.PayBlocks(request, metadata)
-  }
-  /** Queries a list of PayBlocks items. */
-  queryPayBlocksAll(
-    request: DeepPartial<QueryAllPayBlocksRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<QueryAllPayBlocksResponse> {
-    return this.queryClient.PayBlocksAll(request, metadata)
-  }
-  /** Queries a ClientUsage by index. */
-  queryClientUsage(
-    request: DeepPartial<QueryClientUsageRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<QueryClientUsageResponse> {
-    return this.queryClient.ClientUsage(request, metadata)
-  }
-  /** Queries a list of ClientUsage items. */
-  queryClientUsageAll(
-    request: DeepPartial<QueryAllClientUsageRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<QueryAllClientUsageResponse> {
-    return this.queryClient.ClientUsageAll(request, metadata)
-  }
   /** Queries a Strays by index. */
   queryStrays(request: DeepPartial<QueryStrayRequest>, metadata?: grpc.Metadata): Promise<QueryStrayResponse> {
     return this.queryClient.Strays(request, metadata)
@@ -142,5 +131,18 @@ export default class QueryStorage implements IQueryStorage {
   queryGetPayData(request: DeepPartial<QueryPayDataRequest>, metadata?: grpc.Metadata): Promise<QueryPayDataResponse> {
     return this.queryClient.GetPayData(request, metadata)
   }
-
+  /** Queries a StoragePaymentInfo by address. */
+  queryStoragePaymentInfo(
+    request: DeepPartial<QueryStoragePaymentInfoRequest>,
+    metadata?: grpc.Metadata,
+  ): Promise<QueryStoragePaymentInfoResponse> {
+    return this.queryClient.StoragePaymentInfo(request, metadata)
+  }
+  /** Queries a list of StoragePaymentInfo items. */
+  queryStoragePaymentInfoAll(
+    request: DeepPartial<QueryAllStoragePaymentInfoRequest>,
+    metadata?: grpc.Metadata,
+  ): Promise<QueryAllStoragePaymentInfoResponse> {
+    return this.queryClient.StoragePaymentInfoAll(request, metadata)
+  }
 }

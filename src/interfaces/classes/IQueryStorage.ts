@@ -1,25 +1,40 @@
 import { grpc } from '@improbable-eng/grpc-web'
 import {
   DeepPartial,
-  QueryParamsRequest, QueryParamsResponse,
-  QueryAllActiveDealsRequest, QueryAllActiveDealsResponse,
-  QueryAllClientUsageRequest, QueryAllClientUsageResponse,
-  QueryAllContractsRequest, QueryAllContractsResponse,
-  QueryAllFidCidRequest, QueryAllFidCidResponse,
-  QueryAllPayBlocksRequest, QueryAllPayBlocksResponse,
-  QueryAllProvidersRequest, QueryAllProvidersResponse,
-  QueryAllStraysRequest, QueryAllStraysResponse,
-  QueryFindFileRequest, QueryFindFileResponse,
-  QueryFreespaceRequest, QueryFreespaceResponse,
-  QueryActiveDealRequest, QueryActiveDealResponse,
-  QueryClientFreeSpaceRequest, QueryClientFreeSpaceResponse,
-  QueryClientUsageRequest, QueryClientUsageResponse,
-  QueryContractRequest, QueryContractResponse,
-  QueryFidCidRequest, QueryFidCidResponse,
-  QueryPayBlockRequest, QueryPayBlockResponse,
-  QueryPayDataRequest, QueryPayDataResponse,
-  QueryProviderRequest, QueryProviderResponse,
-  QueryStrayRequest, QueryStrayResponse
+  QueryParamsRequest,
+  QueryParamsResponse,
+  QueryAllActiveDealsRequest,
+  QueryAllActiveDealsResponse,
+  QueryAllContractsRequest,
+  QueryAllContractsResponse,
+  QueryAllFidCidRequest,
+  QueryAllFidCidResponse,
+  QueryAllProvidersRequest,
+  QueryAllProvidersResponse,
+  QueryAllStraysRequest,
+  QueryAllStraysResponse,
+  QueryFindFileRequest,
+  QueryFindFileResponse,
+  QueryFreespaceRequest,
+  QueryFreespaceResponse,
+  QueryActiveDealRequest,
+  QueryActiveDealResponse,
+  QueryClientFreeSpaceRequest,
+  QueryClientFreeSpaceResponse,
+  QueryContractRequest,
+  QueryContractResponse,
+  QueryFidCidRequest,
+  QueryFidCidResponse,
+  QueryPayDataRequest,
+  QueryPayDataResponse,
+  QueryProviderRequest,
+  QueryProviderResponse,
+  QueryStrayRequest,
+  QueryStrayResponse,
+  QueryStoragePaymentInfoRequest,
+  QueryStoragePaymentInfoResponse,
+  QueryAllStoragePaymentInfoRequest,
+  QueryAllStoragePaymentInfoResponse
 } from '@/postgen/canine_chain/storage/query'
 
 export default interface IQueryStorage {
@@ -59,26 +74,6 @@ export default interface IQueryStorage {
   queryFreespace(request: DeepPartial<QueryFreespaceRequest>, metadata?: grpc.Metadata): Promise<QueryFreespaceResponse>;
   /** Queries a list of FindFile items. */
   queryFindFile(request: DeepPartial<QueryFindFileRequest>, metadata?: grpc.Metadata): Promise<QueryFindFileResponse>;
-  /** Queries a PayBlocks by index. */
-  queryPayBlocks(
-    request: DeepPartial<QueryPayBlockRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<QueryPayBlockResponse>;
-  /** Queries a list of PayBlocks items. */
-  queryPayBlocksAll(
-    request: DeepPartial<QueryAllPayBlocksRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<QueryAllPayBlocksResponse>;
-  /** Queries a ClientUsage by index. */
-  queryClientUsage(
-    request: DeepPartial<QueryClientUsageRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<QueryClientUsageResponse>;
-  /** Queries a list of ClientUsage items. */
-  queryClientUsageAll(
-    request: DeepPartial<QueryAllClientUsageRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<QueryAllClientUsageResponse>;
   /** Queries a Strays by index. */
   queryStrays(request: DeepPartial<QueryStrayRequest>, metadata?: grpc.Metadata): Promise<QueryStrayResponse>;
   /** Queries a list of Strays items. */
@@ -94,4 +89,14 @@ export default interface IQueryStorage {
   queryFidCidAll(request: DeepPartial<QueryAllFidCidRequest>, metadata?: grpc.Metadata): Promise<QueryAllFidCidResponse>;
   /** Queries a list of GetPayData items. */
   queryGetPayData(request: DeepPartial<QueryPayDataRequest>, metadata?: grpc.Metadata): Promise<QueryPayDataResponse>;
+  /** Queries a StoragePaymentInfo by address. */
+  queryStoragePaymentInfo(
+    request: DeepPartial<QueryStoragePaymentInfoRequest>,
+    metadata?: grpc.Metadata,
+  ): Promise<QueryStoragePaymentInfoResponse>;
+  /** Queries a list of StoragePaymentInfo items. */
+  queryStoragePaymentInfoAll(
+    request: DeepPartial<QueryAllStoragePaymentInfoRequest>,
+    metadata?: grpc.Metadata,
+  ): Promise<QueryAllStoragePaymentInfoResponse>;
 }

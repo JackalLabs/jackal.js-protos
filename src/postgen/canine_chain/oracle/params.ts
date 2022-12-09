@@ -1,21 +1,21 @@
 /* eslint-disable */
 import _m0 from "protobufjs/minimal";
 
-export const protobufPackage = "canine_chain.storage";
+export const protobufPackage = "canine_chain.oracle";
 
 /** Params defines the parameters for the module. */
 export interface Params {
-  depositAccount: string;
+  deposit: string;
 }
 
 function createBaseParams(): Params {
-  return { depositAccount: "" };
+  return { deposit: "" };
 }
 
 export const Params = {
   encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.depositAccount !== "") {
-      writer.uint32(10).string(message.depositAccount);
+    if (message.deposit !== "") {
+      writer.uint32(10).string(message.deposit);
     }
     return writer;
   },
@@ -28,7 +28,7 @@ export const Params = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.depositAccount = reader.string();
+          message.deposit = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -39,18 +39,18 @@ export const Params = {
   },
 
   fromJSON(object: any): Params {
-    return { depositAccount: isSet(object.depositAccount) ? String(object.depositAccount) : "" };
+    return { deposit: isSet(object.deposit) ? String(object.deposit) : "" };
   },
 
   toJSON(message: Params): unknown {
     const obj: any = {};
-    message.depositAccount !== undefined && (obj.depositAccount = message.depositAccount);
+    message.deposit !== undefined && (obj.deposit = message.deposit);
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
     const message = createBaseParams();
-    message.depositAccount = object.depositAccount ?? "";
+    message.deposit = object.deposit ?? "";
     return message;
   },
 };
