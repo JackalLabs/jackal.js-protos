@@ -11,51 +11,60 @@ import {
   QueryValidatorOutstandingRewardsRequest, QueryValidatorOutstandingRewardsResponse,
   QueryValidatorSlashesRequest, QueryValidatorSlashesResponse
 } from '@/postgen/cosmos/distribution/v1beta1/query'
+import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 
 export default interface IQueryDistribution {
   /** Params queries params of the distribution module. */
-  queryParams(request: DeepPartial<QueryParamsRequest>, metadata?: grpc.Metadata): Promise<QueryParamsResponse>;
+  queryParams (request: DeepPartial<QueryParamsRequest>, metadata?: grpc.Metadata): Promise<SuccessNoUndefined<QueryParamsResponse>>;
+
   /** ValidatorOutstandingRewards queries rewards of a validator address. */
-  queryValidatorOutstandingRewards(
+  queryValidatorOutstandingRewards (
     request: DeepPartial<QueryValidatorOutstandingRewardsRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<QueryValidatorOutstandingRewardsResponse>;
+    metadata?: grpc.Metadata
+  ): Promise<SuccessNoUndefined<QueryValidatorOutstandingRewardsResponse>>;
+
   /** ValidatorCommission queries accumulated commission for a validator. */
-  queryValidatorCommission(
+  queryValidatorCommission (
     request: DeepPartial<QueryValidatorCommissionRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<QueryValidatorCommissionResponse>;
+    metadata?: grpc.Metadata
+  ): Promise<SuccessNoUndefined<QueryValidatorCommissionResponse>>;
+
   /** ValidatorSlashes queries slash events of a validator. */
-  queryValidatorSlashes(
+  queryValidatorSlashes (
     request: DeepPartial<QueryValidatorSlashesRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<QueryValidatorSlashesResponse>;
+    metadata?: grpc.Metadata
+  ): Promise<SuccessNoUndefined<QueryValidatorSlashesResponse>>;
+
   /** DelegationRewards queries the total rewards accrued by a delegation. */
-  queryDelegationRewards(
+  queryDelegationRewards (
     request: DeepPartial<QueryDelegationRewardsRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<QueryDelegationRewardsResponse>;
+    metadata?: grpc.Metadata
+  ): Promise<SuccessNoUndefined<QueryDelegationRewardsResponse>>;
+
   /**
    * DelegationTotalRewards queries the total rewards accrued by a each
    * validator.
    */
-  queryDelegationTotalRewards(
+  queryDelegationTotalRewards (
     request: DeepPartial<QueryDelegationTotalRewardsRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<QueryDelegationTotalRewardsResponse>;
+    metadata?: grpc.Metadata
+  ): Promise<SuccessNoUndefined<QueryDelegationTotalRewardsResponse>>;
+
   /** DelegatorValidators queries the validators of a delegator. */
-  queryDelegatorValidators(
+  queryDelegatorValidators (
     request: DeepPartial<QueryDelegatorValidatorsRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<QueryDelegatorValidatorsResponse>;
+    metadata?: grpc.Metadata
+  ): Promise<SuccessNoUndefined<QueryDelegatorValidatorsResponse>>;
+
   /** DelegatorWithdrawAddress queries withdraw address of a delegator. */
-  queryDelegatorWithdrawAddress(
+  queryDelegatorWithdrawAddress (
     request: DeepPartial<QueryDelegatorWithdrawAddressRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<QueryDelegatorWithdrawAddressResponse>;
+    metadata?: grpc.Metadata
+  ): Promise<SuccessNoUndefined<QueryDelegatorWithdrawAddressResponse>>;
+
   /** CommunityPool queries the community pool coins. */
-  queryCommunityPool(
+  queryCommunityPool (
     request: DeepPartial<QueryCommunityPoolRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<QueryCommunityPoolResponse>;
+    metadata?: grpc.Metadata
+  ): Promise<SuccessNoUndefined<QueryCommunityPoolResponse>>;
 }
