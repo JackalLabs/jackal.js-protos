@@ -1,11 +1,9 @@
 /* eslint-disable */
 import _m0 from "protobufjs/minimal";
 import { ActiveDeals } from "./active_deals";
-import { ClientUsage } from "./client_usage";
 import { Contracts } from "./contracts";
 import { FidCid } from "./fid_cid";
 import { Params } from "./params";
-import { PayBlocks } from "./pay_blocks";
 import { Providers } from "./providers";
 import { Strays } from "./strays";
 
@@ -17,8 +15,6 @@ export interface GenesisState {
   contractsList: Contracts[];
   activeDealsList: ActiveDeals[];
   providersList: Providers[];
-  payBlocksList: PayBlocks[];
-  clientUsageList: ClientUsage[];
   straysList: Strays[];
   /** this line is used by starport scaffolding # genesis/proto/state */
   fidCidList: FidCid[];
@@ -30,8 +26,6 @@ function createBaseGenesisState(): GenesisState {
     contractsList: [],
     activeDealsList: [],
     providersList: [],
-    payBlocksList: [],
-    clientUsageList: [],
     straysList: [],
     fidCidList: [],
   };
@@ -51,17 +45,11 @@ export const GenesisState = {
     for (const v of message.providersList) {
       Providers.encode(v!, writer.uint32(34).fork()).ldelim();
     }
-    for (const v of message.payBlocksList) {
-      PayBlocks.encode(v!, writer.uint32(42).fork()).ldelim();
-    }
-    for (const v of message.clientUsageList) {
-      ClientUsage.encode(v!, writer.uint32(50).fork()).ldelim();
-    }
     for (const v of message.straysList) {
       Strays.encode(v!, writer.uint32(58).fork()).ldelim();
     }
     for (const v of message.fidCidList) {
-      FidCid.encode(v!, writer.uint32(66).fork()).ldelim();
+      FidCid.encode(v!, writer.uint32(42).fork()).ldelim();
     }
     return writer;
   },
@@ -85,16 +73,10 @@ export const GenesisState = {
         case 4:
           message.providersList.push(Providers.decode(reader, reader.uint32()));
           break;
-        case 5:
-          message.payBlocksList.push(PayBlocks.decode(reader, reader.uint32()));
-          break;
-        case 6:
-          message.clientUsageList.push(ClientUsage.decode(reader, reader.uint32()));
-          break;
         case 7:
           message.straysList.push(Strays.decode(reader, reader.uint32()));
           break;
-        case 8:
+        case 5:
           message.fidCidList.push(FidCid.decode(reader, reader.uint32()));
           break;
         default:
@@ -117,15 +99,7 @@ export const GenesisState = {
       providersList: Array.isArray(object?.providersList)
         ? object.providersList.map((e: any) => Providers.fromJSON(e))
         : [],
-      payBlocksList: Array.isArray(object?.payBlocksList)
-        ? object.payBlocksList.map((e: any) => PayBlocks.fromJSON(e))
-        : [],
-      clientUsageList: Array.isArray(object?.clientUsageList)
-        ? object.clientUsageList.map((e: any) => ClientUsage.fromJSON(e))
-        : [],
-      straysList: Array.isArray(object?.straysList)
-        ? object.straysList.map((e: any) => Strays.fromJSON(e))
-        : [],
+      straysList: Array.isArray(object?.straysList) ? object.straysList.map((e: any) => Strays.fromJSON(e)) : [],
       fidCidList: Array.isArray(object?.fidCidList) ? object.fidCidList.map((e: any) => FidCid.fromJSON(e)) : [],
     };
   },
@@ -148,16 +122,6 @@ export const GenesisState = {
     } else {
       obj.providersList = [];
     }
-    if (message.payBlocksList) {
-      obj.payBlocksList = message.payBlocksList.map((e) => e ? PayBlocks.toJSON(e) : undefined);
-    } else {
-      obj.payBlocksList = [];
-    }
-    if (message.clientUsageList) {
-      obj.clientUsageList = message.clientUsageList.map((e) => e ? ClientUsage.toJSON(e) : undefined);
-    } else {
-      obj.clientUsageList = [];
-    }
     if (message.straysList) {
       obj.straysList = message.straysList.map((e) => e ? Strays.toJSON(e) : undefined);
     } else {
@@ -179,8 +143,6 @@ export const GenesisState = {
     message.contractsList = object.contractsList?.map((e) => Contracts.fromPartial(e)) || [];
     message.activeDealsList = object.activeDealsList?.map((e) => ActiveDeals.fromPartial(e)) || [];
     message.providersList = object.providersList?.map((e) => Providers.fromPartial(e)) || [];
-    message.payBlocksList = object.payBlocksList?.map((e) => PayBlocks.fromPartial(e)) || [];
-    message.clientUsageList = object.clientUsageList?.map((e) => ClientUsage.fromPartial(e)) || [];
     message.straysList = object.straysList?.map((e) => Strays.fromPartial(e)) || [];
     message.fidCidList = object.fidCidList?.map((e) => FidCid.fromPartial(e)) || [];
     return message;

@@ -1,5 +1,6 @@
 import IQueryFileTree from '@/interfaces/classes/IQueryFileTree'
 import IQueryJklMint from '@/interfaces/classes/IQueryJklMint'
+import IQueryOracle from '@/interfaces/classes/IQueryOracle'
 import IQueryRns from '@/interfaces/classes/IQueryRns'
 import IQueryStorage from '@/interfaces/classes/IQueryStorage'
 import IQueryBank from '@/interfaces/classes/IQueryBank'
@@ -7,6 +8,7 @@ import IQueryDistribution from '@/interfaces/classes/IQueryDistribution'
 import IQueryGov from '@/interfaces/classes/IQueryGov'
 import IQueryStaking from '@/interfaces/classes/IQueryStaking'
 import { ITxFileTree } from '@/snackages/tx/custom/fileTree'
+import { ITxOracle } from '@/snackages/tx/custom/oracle'
 import { ITxRns } from '@/snackages/tx/custom/rns'
 import { ITxStorage } from '@/snackages/tx/custom/storage'
 import { ITxBank } from '@/snackages/tx/static/bank'
@@ -25,6 +27,8 @@ export default interface IProtoBuilder {
   makeFileTreeQuery (): IQueryFileTree
   makeFileTreeTx (): ITxFileTree
   makeJklMintQuery (): IQueryJklMint
+  makeOracleQuery (): IQueryOracle
+  makeOracleTx (): ITxOracle
   makeRnsQuery (): IQueryRns
   makeRnsTx (): ITxRns
   makeStorageQuery (): IQueryStorage

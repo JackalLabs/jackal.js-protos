@@ -3,6 +3,7 @@ import { genBroadcaster, IGenBroadcaster, TMasterBroadcaster } from '@/customBro
 import IProtoBuilder from '@/interfaces/classes/IProtoBuilder'
 import IQueryFileTree from '@/interfaces/classes/IQueryFileTree'
 import IQueryJklMint from '@/interfaces/classes/IQueryJklMint'
+import IQueryOracle from '@/interfaces/classes/IQueryOracle'
 import IQueryRns from '@/interfaces/classes/IQueryRns'
 import IQueryStorage from '@/interfaces/classes/IQueryStorage'
 import IQueryBank from '@/interfaces/classes/IQueryBank'
@@ -13,6 +14,7 @@ import {
   GrpcWebImpl,
   IFileTreeGrpc,
   IJklMintGrpc,
+  IOracleGrpc,
   IRnsGrpc,
   IStorageGrpc,
   IBankGrpc,
@@ -32,6 +34,7 @@ import QueryGov from '@/snackages/query/static/gov'
 import QueryStaking from '@/snackages/query/static/staking'
 
 import { ITxFileTree, TxFileTree } from '@/snackages/tx/custom/fileTree'
+import { ITxOracle, TxOracle } from '@/snackages/tx/custom/oracle'
 import { ITxRns, TxRns } from '@/snackages/tx/custom/rns'
 import { ITxStorage, TxStorage } from '@/snackages/tx/custom/storage'
 import { ITxBank, TxBank } from '@/snackages/tx/static/bank'
@@ -40,6 +43,7 @@ import { ITxGov, TxGov } from '@/snackages/tx/static/gov'
 import { ITxStaking, TxStaking } from '@/snackages/tx/static/staking'
 import IAllQuery from '@/interfaces/IAllQuery'
 import IAllTx from '@/interfaces/IAllTx'
+import QueryOracle from '@/snackages/query/custom/oracle'
 
 export default class ProtoBuilder implements IProtoBuilder {
   private readonly signer: OfflineSigner
@@ -62,6 +66,7 @@ export default class ProtoBuilder implements IProtoBuilder {
       /** Custom */
       fileTree: this.makeFileTreeQuery(),
       jklMint: this.makeJklMintQuery(),
+      oracle: this.makeOracleQuery(),
       rns: this.makeRnsQuery(),
       storage: this.makeStorageQuery(),
       /** Static */
@@ -76,6 +81,7 @@ export default class ProtoBuilder implements IProtoBuilder {
       /** Custom */
       fileTree: this.makeFileTreeTx(),
       jklMint: null,
+      oracle: this.makeOracleTx(),
       rns: this.makeRnsTx(),
       storage: this.makeStorageTx(),
       /** Static */
@@ -95,6 +101,12 @@ export default class ProtoBuilder implements IProtoBuilder {
   }
   makeJklMintQuery (): IQueryJklMint {
     return new QueryJklMint(this.GRpc as IJklMintGrpc)
+  }
+  makeOracleQuery (): IQueryOracle {
+    return new QueryOracle(this.GRpc as IOracleGrpc)
+  }
+  makeOracleTx (): ITxOracle {
+    return new TxOracle()
   }
   makeRnsQuery (): IQueryRns {
     return new QueryRns(this.GRpc as IRnsGrpc)
@@ -145,7 +157,11 @@ export {
   TMasterBroadcaster,
 
   /** Custom */
+  IQueryFileTree,
+  ITxFileTree,
   IQueryJklMint,
+  IQueryOracle,
+  ITxOracle,
   IQueryRns,
   ITxRns,
   IQueryStorage,

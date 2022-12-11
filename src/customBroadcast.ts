@@ -6,6 +6,7 @@ import { DeliverTxResponse, SigningStargateClient } from '@cosmjs/stargate'
  * Jackal Custom Protos
  */
 import fileTreeTypes from '@/snackages/tx/custom/fileTree'
+import oracleTypes from '@/snackages/tx/custom/oracle'
 import rnsTypes from '@/snackages/tx/custom/rns'
 import storageTypes from '@/snackages/tx/custom/storage'
 
@@ -37,6 +38,7 @@ export interface IGenBroadcaster {
  */
 const masterTypes = [
   ...Object.values(fileTreeTypes),
+  ...Object.values(oracleTypes),
   ...Object.values(rnsTypes),
   ...Object.values(storageTypes),
   ...Object.values(bankTypes),
