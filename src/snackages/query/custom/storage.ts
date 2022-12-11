@@ -37,7 +37,9 @@ import {
   QueryStoragePaymentInfoRequest,
   QueryStoragePaymentInfoResponse,
   QueryAllStoragePaymentInfoRequest,
-  QueryAllStoragePaymentInfoResponse
+  QueryAllStoragePaymentInfoResponse,
+  QueryFileUploadCheck,
+  QueryFileUploadCheckResponse
 } from '@/postgen/canine_chain/storage/query'
 import IQueryStorage from '@/interfaces/classes/IQueryStorage'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
@@ -457,6 +459,27 @@ export default class QueryStorage implements IQueryStorage {
           success: false,
           storagePaymentInfo: [],
           pagination: {nextKey: new Uint8Array(), total: 0}
+        }
+        return errRet
+      })
+  }
+
+  /** Queries whether user can upload a file based on size */
+  async queryFileUploadCheck (
+    request: DeepPartial<QueryFileUploadCheck>,
+    metadata?: grpc.Metadata
+  ): Promise<SuccessNoUndefined<QueryFileUploadCheckResponse>> {
+    return await this.queryClient.FileUploadCheck(request, metadata)
+      .then((resp: QueryFileUploadCheckResponse) => {
+        const thenRet = resp as SuccessNoUndefined<QueryFileUploadCheckResponse>
+        thenRet.success = true
+        return thenRet
+      })
+      .catch(err => {
+        console.warn(`jackal.js-protos - [Storage] queryStoragePaymentInfo: ${err}`)
+        const errRet: SuccessNoUndefined<QueryFileUploadCheckResponse> = {
+          success: false,
+          valid: false
         }
         return errRet
       })

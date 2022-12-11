@@ -34,7 +34,9 @@ import {
   QueryStoragePaymentInfoRequest,
   QueryStoragePaymentInfoResponse,
   QueryAllStoragePaymentInfoRequest,
-  QueryAllStoragePaymentInfoResponse
+  QueryAllStoragePaymentInfoResponse,
+  QueryFileUploadCheck,
+  QueryFileUploadCheckResponse
 } from '@/postgen/canine_chain/storage/query'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 
@@ -116,4 +118,10 @@ export default interface IQueryStorage {
     request: DeepPartial<QueryAllStoragePaymentInfoRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryAllStoragePaymentInfoResponse>>;
+
+  /** Queries whether user can upload a file based on size */
+  queryFileUploadCheck(
+    request: DeepPartial<QueryFileUploadCheck>,
+    metadata?: grpc.Metadata,
+  ): Promise<SuccessNoUndefined<QueryFileUploadCheckResponse>>;
 }
