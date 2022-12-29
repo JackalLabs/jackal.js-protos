@@ -8,7 +8,7 @@ import {
   MsgSetProviderIP,
   MsgSetProviderKeybase,
   MsgSetProviderTotalspace,
-  MsgSignContract
+  MsgSignContract, MsgUpgradeStorage
 } from '@/postgen/canine_chain/storage/tx'
 import { EncodeObject } from '@cosmjs/proto-signing'
 import ITypeTuple from '@/interfaces/ITypeTuple'
@@ -23,7 +23,8 @@ const storageTypes: ITypeTuple = {
   initProvider: ['/canine_chain.storage.MsgInitProvider', MsgInitProvider],
   cancelContract: ['/canine_chain.storage.MsgCancelContract', MsgCancelContract],
   buyStorage: ['/canine_chain.storage.MsgBuyStorage', MsgBuyStorage],
-  claimStray: ['/canine_chain.storage.MsgClaimStray', MsgClaimStray]
+  claimStray: ['/canine_chain.storage.MsgClaimStray', MsgClaimStray],
+  upgradeStorage: ['/canine_chain.storage.MsgUpgradeStorage', MsgUpgradeStorage]
 }
 
 export default storageTypes
@@ -39,6 +40,7 @@ export interface ITxStorage {
   msgCancelContract (data: MsgCancelContract): EncodeObject
   msgBuyStorage (data: MsgBuyStorage): EncodeObject
   msgClaimStray (data: MsgClaimStray): EncodeObject
+  msgUpgradeStorage (data: MsgUpgradeStorage): EncodeObject
 }
 
 export class TxStorage implements ITxStorage {
@@ -71,5 +73,8 @@ export class TxStorage implements ITxStorage {
   }
   msgClaimStray (data: MsgClaimStray): EncodeObject {
     return { typeUrl: storageTypes.claimStray[0], value: storageTypes.claimStray[1].fromPartial( data ) }
+  }
+  msgUpgradeStorage (data: MsgUpgradeStorage): EncodeObject {
+    return { typeUrl: storageTypes.upgradeStorage[0], value: storageTypes.upgradeStorage[1].fromPartial( data ) }
   }
 }

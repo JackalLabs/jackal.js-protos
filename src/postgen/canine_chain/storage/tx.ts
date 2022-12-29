@@ -96,6 +96,17 @@ export interface MsgClaimStray {
 export interface MsgClaimStrayResponse {
 }
 
+export interface MsgUpgradeStorage {
+  creator: string;
+  forAddress: string;
+  duration: string;
+  bytes: string;
+  paymentDenom: string;
+}
+
+export interface MsgUpgradeStorageResponse {
+}
+
 function createBaseMsgPostContract(): MsgPostContract {
   return { creator: "", merkle: "", signee: "", filesize: "", fid: "" };
 }
@@ -1166,6 +1177,130 @@ export const MsgClaimStrayResponse = {
   },
 };
 
+function createBaseMsgUpgradeStorage(): MsgUpgradeStorage {
+  return { creator: "", forAddress: "", duration: "", bytes: "", paymentDenom: "" };
+}
+
+export const MsgUpgradeStorage = {
+  encode(message: MsgUpgradeStorage, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.forAddress !== "") {
+      writer.uint32(18).string(message.forAddress);
+    }
+    if (message.duration !== "") {
+      writer.uint32(26).string(message.duration);
+    }
+    if (message.bytes !== "") {
+      writer.uint32(34).string(message.bytes);
+    }
+    if (message.paymentDenom !== "") {
+      writer.uint32(42).string(message.paymentDenom);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpgradeStorage {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgUpgradeStorage();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.forAddress = reader.string();
+          break;
+        case 3:
+          message.duration = reader.string();
+          break;
+        case 4:
+          message.bytes = reader.string();
+          break;
+        case 5:
+          message.paymentDenom = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgUpgradeStorage {
+    return {
+      creator: isSet(object.creator) ? String(object.creator) : "",
+      forAddress: isSet(object.forAddress) ? String(object.forAddress) : "",
+      duration: isSet(object.duration) ? String(object.duration) : "",
+      bytes: isSet(object.bytes) ? String(object.bytes) : "",
+      paymentDenom: isSet(object.paymentDenom) ? String(object.paymentDenom) : "",
+    };
+  },
+
+  toJSON(message: MsgUpgradeStorage): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.forAddress !== undefined && (obj.forAddress = message.forAddress);
+    message.duration !== undefined && (obj.duration = message.duration);
+    message.bytes !== undefined && (obj.bytes = message.bytes);
+    message.paymentDenom !== undefined && (obj.paymentDenom = message.paymentDenom);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgUpgradeStorage>, I>>(object: I): MsgUpgradeStorage {
+    const message = createBaseMsgUpgradeStorage();
+    message.creator = object.creator ?? "";
+    message.forAddress = object.forAddress ?? "";
+    message.duration = object.duration ?? "";
+    message.bytes = object.bytes ?? "";
+    message.paymentDenom = object.paymentDenom ?? "";
+    return message;
+  },
+};
+
+function createBaseMsgUpgradeStorageResponse(): MsgUpgradeStorageResponse {
+  return {};
+}
+
+export const MsgUpgradeStorageResponse = {
+  encode(_: MsgUpgradeStorageResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpgradeStorageResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgUpgradeStorageResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgUpgradeStorageResponse {
+    return {};
+  },
+
+  toJSON(_: MsgUpgradeStorageResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgUpgradeStorageResponse>, I>>(_: I): MsgUpgradeStorageResponse {
+    const message = createBaseMsgUpgradeStorageResponse();
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   PostContract(request: DeepPartial<MsgPostContract>, metadata?: grpc.Metadata): Promise<MsgPostContractResponse>;
@@ -1183,8 +1318,9 @@ export interface Msg {
   InitProvider(request: DeepPartial<MsgInitProvider>, metadata?: grpc.Metadata): Promise<MsgInitProviderResponse>;
   CancelContract(request: DeepPartial<MsgCancelContract>, metadata?: grpc.Metadata): Promise<MsgCancelContractResponse>;
   BuyStorage(request: DeepPartial<MsgBuyStorage>, metadata?: grpc.Metadata): Promise<MsgBuyStorageResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   ClaimStray(request: DeepPartial<MsgClaimStray>, metadata?: grpc.Metadata): Promise<MsgClaimStrayResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  UpgradeStorage(request: DeepPartial<MsgUpgradeStorage>, metadata?: grpc.Metadata): Promise<MsgUpgradeStorageResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -1202,6 +1338,7 @@ export class MsgClientImpl implements Msg {
     this.CancelContract = this.CancelContract.bind(this);
     this.BuyStorage = this.BuyStorage.bind(this);
     this.ClaimStray = this.ClaimStray.bind(this);
+    this.UpgradeStorage = this.UpgradeStorage.bind(this);
   }
 
   PostContract(request: DeepPartial<MsgPostContract>, metadata?: grpc.Metadata): Promise<MsgPostContractResponse> {
@@ -1251,6 +1388,13 @@ export class MsgClientImpl implements Msg {
 
   ClaimStray(request: DeepPartial<MsgClaimStray>, metadata?: grpc.Metadata): Promise<MsgClaimStrayResponse> {
     return this.rpc.unary(MsgClaimStrayDesc, MsgClaimStray.fromPartial(request), metadata);
+  }
+
+  UpgradeStorage(
+    request: DeepPartial<MsgUpgradeStorage>,
+    metadata?: grpc.Metadata,
+  ): Promise<MsgUpgradeStorageResponse> {
+    return this.rpc.unary(MsgUpgradeStorageDesc, MsgUpgradeStorage.fromPartial(request), metadata);
   }
 }
 
@@ -1468,6 +1612,28 @@ export const MsgClaimStrayDesc: UnaryMethodDefinitionish = {
     deserializeBinary(data: Uint8Array) {
       return {
         ...MsgClaimStrayResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const MsgUpgradeStorageDesc: UnaryMethodDefinitionish = {
+  methodName: "UpgradeStorage",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgUpgradeStorage.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgUpgradeStorageResponse.decode(data),
         toObject() {
           return this;
         },

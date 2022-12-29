@@ -38,7 +38,7 @@ import {
   QueryStoragePaymentInfoResponse,
   QueryAllStoragePaymentInfoRequest,
   QueryAllStoragePaymentInfoResponse,
-  QueryFileUploadCheck,
+  QueryFileUploadCheckRequest,
   QueryFileUploadCheckResponse
 } from '@/postgen/canine_chain/storage/query'
 import IQueryStorage from '@/interfaces/classes/IQueryStorage'
@@ -466,7 +466,7 @@ export default class QueryStorage implements IQueryStorage {
 
   /** Queries whether user can upload a file based on size */
   async queryFileUploadCheck (
-    request: DeepPartial<QueryFileUploadCheck>,
+    request: DeepPartial<QueryFileUploadCheckRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryFileUploadCheckResponse>> {
     return await this.queryClient.FileUploadCheck(request, metadata)
