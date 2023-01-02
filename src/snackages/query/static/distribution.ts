@@ -31,22 +31,26 @@ export default class QueryDistribution implements IQueryDistribution {
   ): Promise<SuccessNoUndefined<QueryParamsResponse>> {
     return await this.queryClient.Params(request, metadata)
       .then((resp: QueryParamsResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryParamsResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Distribution] queryParams: ${err}`)
-        const errRet: SuccessNoUndefined<QueryParamsResponse> = {
+        return {
+          message: '',
           success: false,
-          params: {
-            communityTax: '',
-            baseProposerReward: '',
-            bonusProposerReward: '',
-            withdrawAddrEnabled: false
+          value: {
+            params: {
+              communityTax: '',
+              baseProposerReward: '',
+              bonusProposerReward: '',
+              withdrawAddrEnabled: false
+            }
           }
         }
-        return errRet
       })
   }
 
@@ -57,19 +61,23 @@ export default class QueryDistribution implements IQueryDistribution {
   ): Promise<SuccessNoUndefined<QueryValidatorOutstandingRewardsResponse>> {
     return await this.queryClient.ValidatorOutstandingRewards(request, metadata)
       .then((resp: QueryValidatorOutstandingRewardsResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryValidatorOutstandingRewardsResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Distribution] queryValidatorOutstandingRewards: ${err}`)
-        const errRet: SuccessNoUndefined<QueryValidatorOutstandingRewardsResponse> = {
+        return {
+          message: '',
           success: false,
-          rewards: {
-            rewards: []
+          value: {
+            rewards: {
+              rewards: []
+            }
           }
         }
-        return errRet
       })
   }
 
@@ -80,19 +88,23 @@ export default class QueryDistribution implements IQueryDistribution {
   ): Promise<SuccessNoUndefined<QueryValidatorCommissionResponse>> {
     return await this.queryClient.ValidatorCommission(request, metadata)
       .then((resp: QueryValidatorCommissionResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryValidatorCommissionResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Distribution] queryValidatorCommission: ${err}`)
-        const errRet: SuccessNoUndefined<QueryValidatorCommissionResponse> = {
+        return {
+          message: '',
           success: false,
-          commission: {
-            commission: []
+          value: {
+            commission: {
+              commission: []
+            }
           }
         }
-        return errRet
       })
   }
 
@@ -103,19 +115,22 @@ export default class QueryDistribution implements IQueryDistribution {
   ): Promise<SuccessNoUndefined<QueryValidatorSlashesResponse>> {
     return await this.queryClient.ValidatorSlashes(request, metadata)
       .then((resp: QueryValidatorSlashesResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryValidatorSlashesResponse>
-        thenRet.success = true
-        thenRet.pagination = resp.pagination || {nextKey: new Uint8Array(), total: 0}
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Distribution] queryValidatorSlashes: ${err}`)
-        const errRet: SuccessNoUndefined<QueryValidatorSlashesResponse> = {
+        return {
+          message: '',
           success: false,
-          slashes: [],
-          pagination: {nextKey: new Uint8Array(), total: 0}
+          value: {
+            slashes: [],
+            pagination: {nextKey: new Uint8Array(), total: 0}
+          }
         }
-        return errRet
       })
   }
 
@@ -126,17 +141,21 @@ export default class QueryDistribution implements IQueryDistribution {
   ): Promise<SuccessNoUndefined<QueryDelegationRewardsResponse>> {
     return await this.queryClient.DelegationRewards(request, metadata)
       .then((resp: QueryDelegationRewardsResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryDelegationRewardsResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Distribution] queryDelegationRewards: ${err}`)
-        const errRet: SuccessNoUndefined<QueryDelegationRewardsResponse> = {
+        return {
+          message: '',
           success: false,
-          rewards: []
+          value: {
+            rewards: []
+          }
         }
-        return errRet
       })
   }
 
@@ -150,18 +169,22 @@ export default class QueryDistribution implements IQueryDistribution {
   ): Promise<SuccessNoUndefined<QueryDelegationTotalRewardsResponse>> {
     return await this.queryClient.DelegationTotalRewards(request, metadata)
       .then((resp: QueryDelegationTotalRewardsResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryDelegationTotalRewardsResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Distribution] queryDelegationTotalRewards: ${err}`)
-        const errRet: SuccessNoUndefined<QueryDelegationTotalRewardsResponse> = {
+        return {
+          message: '',
           success: false,
-          rewards: [],
-          total: []
+          value: {
+            rewards: [],
+            total: []
+          }
         }
-        return errRet
       })
   }
 
@@ -172,17 +195,21 @@ export default class QueryDistribution implements IQueryDistribution {
   ): Promise<SuccessNoUndefined<QueryDelegatorValidatorsResponse>> {
     return await this.queryClient.DelegatorValidators(request, metadata)
       .then((resp: QueryDelegatorValidatorsResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryDelegatorValidatorsResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Distribution] queryDelegatorValidators: ${err}`)
-        const errRet: SuccessNoUndefined<QueryDelegatorValidatorsResponse> = {
+        return {
+          message: '',
           success: false,
-          validators: []
+          value: {
+            validators: []
+          }
         }
-        return errRet
       })
   }
 
@@ -193,17 +220,21 @@ export default class QueryDistribution implements IQueryDistribution {
   ): Promise<SuccessNoUndefined<QueryDelegatorWithdrawAddressResponse>> {
     return await this.queryClient.DelegatorWithdrawAddress(request, metadata)
       .then((resp: QueryDelegatorWithdrawAddressResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryDelegatorWithdrawAddressResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Distribution] queryDelegatorWithdrawAddress: ${err}`)
-        const errRet: SuccessNoUndefined<QueryDelegatorWithdrawAddressResponse> = {
+        return {
+          message: '',
           success: false,
-          withdrawAddress: ''
+          value: {
+            withdrawAddress: ''
+          }
         }
-        return errRet
       })
   }
 
@@ -214,17 +245,21 @@ export default class QueryDistribution implements IQueryDistribution {
   ): Promise<SuccessNoUndefined<QueryCommunityPoolResponse>> {
     return await this.queryClient.CommunityPool(request, metadata)
       .then((resp: QueryCommunityPoolResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryCommunityPoolResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Distribution] queryCommunityPool: ${err}`)
-        const errRet: SuccessNoUndefined<QueryCommunityPoolResponse> = {
+        return {
+          message: '',
           success: false,
-          pool: []
+          value: {
+            pool: []
+          }
         }
-        return errRet
       })
   }
 }

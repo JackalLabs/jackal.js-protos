@@ -36,19 +36,22 @@ export default class QueryStaking implements IQueryStaking {
   ): Promise<SuccessNoUndefined<QueryValidatorsResponse>> {
     return await this.queryClient.Validators(request, metadata)
       .then((resp: QueryValidatorsResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryValidatorsResponse>
-        thenRet.success = true
-        thenRet.pagination = resp.pagination || {nextKey: new Uint8Array(), total: 0}
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Staking] queryValidators: ${err}`)
-        const errRet: SuccessNoUndefined<QueryValidatorsResponse> = {
+        return {
+          message: '',
           success: false,
-          validators: [],
-          pagination: {nextKey: new Uint8Array(), total: 0}
+          value: {
+            validators: [],
+            pagination: {nextKey: new Uint8Array(), total: 0}
+          }
         }
-        return errRet
       })
   }
 
@@ -59,45 +62,49 @@ export default class QueryStaking implements IQueryStaking {
   ): Promise<SuccessNoUndefined<QueryValidatorResponse>> {
     return await this.queryClient.Validator(request, metadata)
       .then((resp: QueryValidatorResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryValidatorResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Staking] queryValidator: ${err}`)
-        const errRet: SuccessNoUndefined<QueryValidatorResponse> = {
+        return {
+          message: '',
           success: false,
-          validator: {
-            operatorAddress: '',
-            consensusPubkey: {
-              typeUrl: '',
-              value: new Uint8Array()
-            },
-            jailed: false,
-            status: -1,
-            tokens: '',
-            delegatorShares: '',
-            description: {
-              moniker: '',
-              identity: '',
-              website: '',
-              securityContact: '',
-              details: ''
-            },
-            unbondingHeight: 0,
-            unbondingTime: new Date(),
-            commission: {
-              commissionRates: {
-                rate: '',
-                maxRate: '',
-                maxChangeRate: ''
+          value: {
+            validator: {
+              operatorAddress: '',
+              consensusPubkey: {
+                typeUrl: '',
+                value: new Uint8Array()
               },
-              updateTime: new Date()
-            },
-            minSelfDelegation: ''
+              jailed: false,
+              status: -1,
+              tokens: '',
+              delegatorShares: '',
+              description: {
+                moniker: '',
+                identity: '',
+                website: '',
+                securityContact: '',
+                details: ''
+              },
+              unbondingHeight: 0,
+              unbondingTime: new Date(),
+              commission: {
+                commissionRates: {
+                  rate: '',
+                  maxRate: '',
+                  maxChangeRate: ''
+                },
+                updateTime: new Date()
+              },
+              minSelfDelegation: ''
+            }
           }
         }
-        return errRet
       })
   }
 
@@ -108,19 +115,22 @@ export default class QueryStaking implements IQueryStaking {
   ): Promise<SuccessNoUndefined<QueryValidatorDelegationsResponse>> {
     return await this.queryClient.ValidatorDelegations(request, metadata)
       .then((resp: QueryValidatorDelegationsResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryValidatorDelegationsResponse>
-        thenRet.success = true
-        thenRet.pagination = resp.pagination || {nextKey: new Uint8Array(), total: 0}
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Staking] queryValidatorDelegations: ${err}`)
-        const errRet: SuccessNoUndefined<QueryValidatorDelegationsResponse> = {
+        return {
+          message: '',
           success: false,
-          delegationResponses: [],
-          pagination: {nextKey: new Uint8Array(), total: 0}
+          value: {
+            delegationResponses: [],
+            pagination: {nextKey: new Uint8Array(), total: 0}
+          }
         }
-        return errRet
       })
   }
 
@@ -131,19 +141,22 @@ export default class QueryStaking implements IQueryStaking {
   ): Promise<SuccessNoUndefined<QueryValidatorUnbondingDelegationsResponse>> {
     return await this.queryClient.ValidatorUnbondingDelegations(request, metadata)
       .then((resp: QueryValidatorUnbondingDelegationsResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryValidatorUnbondingDelegationsResponse>
-        thenRet.success = true
-        thenRet.pagination = resp.pagination || {nextKey: new Uint8Array(), total: 0}
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Staking] queryValidatorUnbondingDelegations: ${err}`)
-        const errRet: SuccessNoUndefined<QueryValidatorUnbondingDelegationsResponse> = {
+        return {
+          message: '',
           success: false,
-          unbondingResponses: [],
-          pagination: {nextKey: new Uint8Array(), total: 0}
+          value: {
+            unbondingResponses: [],
+            pagination: {nextKey: new Uint8Array(), total: 0}
+          }
         }
-        return errRet
       })
   }
 
@@ -154,27 +167,31 @@ export default class QueryStaking implements IQueryStaking {
   ): Promise<SuccessNoUndefined<QueryDelegationResponse>> {
     return await this.queryClient.Delegation(request, metadata)
       .then((resp: QueryDelegationResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryDelegationResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Staking] queryDelegation: ${err}`)
-        const errRet: SuccessNoUndefined<QueryDelegationResponse> = {
+        return {
+          message: '',
           success: false,
-          delegationResponse: {
-            delegation: {
-              delegatorAddress: '',
-              validatorAddress: '',
-              shares: ''
-            },
-            balance: {
-              denom: '',
-              amount: ''
+          value: {
+            delegationResponse: {
+              delegation: {
+                delegatorAddress: '',
+                validatorAddress: '',
+                shares: ''
+              },
+              balance: {
+                denom: '',
+                amount: ''
+              }
             }
           }
         }
-        return errRet
       })
   }
 
@@ -188,21 +205,25 @@ export default class QueryStaking implements IQueryStaking {
   ): Promise<SuccessNoUndefined<QueryUnbondingDelegationResponse>> {
     return await this.queryClient.UnbondingDelegation(request, metadata)
       .then((resp: QueryUnbondingDelegationResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryUnbondingDelegationResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Staking] queryUnbondingDelegation: ${err}`)
-        const errRet: SuccessNoUndefined<QueryUnbondingDelegationResponse> = {
+        return {
+          message: '',
           success: false,
-          unbond: {
-            delegatorAddress: '',
-            validatorAddress: '',
-            entries: []
+          value: {
+            unbond: {
+              delegatorAddress: '',
+              validatorAddress: '',
+              entries: []
+            }
           }
         }
-        return errRet
       })
   }
 
@@ -213,19 +234,22 @@ export default class QueryStaking implements IQueryStaking {
   ): Promise<SuccessNoUndefined<QueryDelegatorDelegationsResponse>> {
     return await this.queryClient.DelegatorDelegations(request, metadata)
       .then((resp: QueryDelegatorDelegationsResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryDelegatorDelegationsResponse>
-        thenRet.success = true
-        thenRet.pagination = resp.pagination || {nextKey: new Uint8Array(), total: 0}
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Staking] queryDelegatorDelegations: ${err}`)
-        const errRet: SuccessNoUndefined<QueryDelegatorDelegationsResponse> = {
+        return {
+          message: '',
           success: false,
-          delegationResponses: [],
-          pagination: {nextKey: new Uint8Array(), total: 0}
+          value: {
+            delegationResponses: [],
+            pagination: {nextKey: new Uint8Array(), total: 0}
+          }
         }
-        return errRet
       })
   }
 
@@ -239,19 +263,22 @@ export default class QueryStaking implements IQueryStaking {
   ): Promise<SuccessNoUndefined<QueryDelegatorUnbondingDelegationsResponse>> {
     return await this.queryClient.DelegatorUnbondingDelegations(request, metadata)
       .then((resp: QueryDelegatorUnbondingDelegationsResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryDelegatorUnbondingDelegationsResponse>
-        thenRet.success = true
-        thenRet.pagination = resp.pagination || {nextKey: new Uint8Array(), total: 0}
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Staking] queryDelegatorUnbondingDelegations: ${err}`)
-        const errRet: SuccessNoUndefined<QueryDelegatorUnbondingDelegationsResponse> = {
+        return {
+          message: '',
           success: false,
-          unbondingResponses: [],
-          pagination: {nextKey: new Uint8Array(), total: 0}
+          value: {
+            unbondingResponses: [],
+            pagination: {nextKey: new Uint8Array(), total: 0}
+          }
         }
-        return errRet
       })
   }
 
@@ -262,19 +289,22 @@ export default class QueryStaking implements IQueryStaking {
   ): Promise<SuccessNoUndefined<QueryRedelegationsResponse>> {
     return await this.queryClient.Redelegations(request, metadata)
       .then((resp: QueryRedelegationsResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryRedelegationsResponse>
-        thenRet.success = true
-        thenRet.pagination = resp.pagination || {nextKey: new Uint8Array(), total: 0}
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Staking] queryRedelegations: ${err}`)
-        const errRet: SuccessNoUndefined<QueryRedelegationsResponse> = {
+        return {
+          message: '',
           success: false,
-          redelegationResponses: [],
-          pagination: {nextKey: new Uint8Array(), total: 0}
+          value: {
+            redelegationResponses: [],
+            pagination: {nextKey: new Uint8Array(), total: 0}
+          }
         }
-        return errRet
       })
   }
 
@@ -288,19 +318,22 @@ export default class QueryStaking implements IQueryStaking {
   ): Promise<SuccessNoUndefined<QueryDelegatorValidatorsResponse>> {
     return await this.queryClient.DelegatorValidators(request, metadata)
       .then((resp: QueryDelegatorValidatorsResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryDelegatorValidatorsResponse>
-        thenRet.success = true
-        thenRet.pagination = resp.pagination || {nextKey: new Uint8Array(), total: 0}
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Staking] queryDelegatorValidators: ${err}`)
-        const errRet: SuccessNoUndefined<QueryDelegatorValidatorsResponse> = {
+        return {
+          message: '',
           success: false,
-          validators: [],
-          pagination: {nextKey: new Uint8Array(), total: 0}
+          value: {
+            validators: [],
+            pagination: {nextKey: new Uint8Array(), total: 0}
+          }
         }
-        return errRet
       })
   }
 
@@ -314,45 +347,49 @@ export default class QueryStaking implements IQueryStaking {
   ): Promise<SuccessNoUndefined<QueryDelegatorValidatorResponse>> {
     return await this.queryClient.DelegatorValidator(request, metadata)
       .then((resp: QueryDelegatorValidatorResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryDelegatorValidatorResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Staking] queryDelegatorValidator: ${err}`)
-        const errRet: SuccessNoUndefined<QueryDelegatorValidatorResponse> = {
+        return {
+          message: '',
           success: false,
-          validator: {
-            operatorAddress: '',
-            consensusPubkey: {
-              typeUrl: '',
-              value: new Uint8Array()
-            },
-            jailed: false,
-            status: -1,
-            tokens: '',
-            delegatorShares: '',
-            description: {
-              moniker: '',
-              identity: '',
-              website: '',
-              securityContact: '',
-              details: ''
-            },
-            unbondingHeight: 0,
-            unbondingTime: new Date(),
-            commission: {
-              commissionRates: {
-                rate: '',
-                maxRate: '',
-                maxChangeRate: ''
+          value: {
+            validator: {
+              operatorAddress: '',
+              consensusPubkey: {
+                typeUrl: '',
+                value: new Uint8Array()
               },
-              updateTime: new Date()
-            },
-            minSelfDelegation: ''
+              jailed: false,
+              status: -1,
+              tokens: '',
+              delegatorShares: '',
+              description: {
+                moniker: '',
+                identity: '',
+                website: '',
+                securityContact: '',
+                details: ''
+              },
+              unbondingHeight: 0,
+              unbondingTime: new Date(),
+              commission: {
+                commissionRates: {
+                  rate: '',
+                  maxRate: '',
+                  maxChangeRate: ''
+                },
+                updateTime: new Date()
+              },
+              minSelfDelegation: ''
+            }
           }
         }
-        return errRet
       })
   }
 
@@ -363,44 +400,48 @@ export default class QueryStaking implements IQueryStaking {
   ): Promise<SuccessNoUndefined<QueryHistoricalInfoResponse>> {
     return await this.queryClient.HistoricalInfo(request, metadata)
       .then((resp: QueryHistoricalInfoResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryHistoricalInfoResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Staking] queryHistoricalInfo: ${err}`)
-        const errRet: SuccessNoUndefined<QueryHistoricalInfoResponse> = {
+        return {
+          message: '',
           success: false,
-          hist: {
-            valset: [],
-            header: {
-              version: {
-                block: 0,
-                app: 0
-              },
-              chainId: '',
-              height: 0,
-              time: new Date(),
-              lastBlockId: {
-                hash: new Uint8Array(),
-                partSetHeader: {
-                  total: 0,
-                  hash: new Uint8Array()
-                }
-              },
-              lastCommitHash: new Uint8Array(),
-              dataHash: new Uint8Array(),
-              validatorsHash: new Uint8Array(),
-              nextValidatorsHash: new Uint8Array(),
-              consensusHash: new Uint8Array(),
-              appHash: new Uint8Array(),
-              lastResultsHash: new Uint8Array(),
-              evidenceHash: new Uint8Array(),
-              proposerAddress: new Uint8Array()
+          value: {
+            hist: {
+              valset: [],
+              header: {
+                version: {
+                  block: 0,
+                  app: 0
+                },
+                chainId: '',
+                height: 0,
+                time: new Date(),
+                lastBlockId: {
+                  hash: new Uint8Array(),
+                  partSetHeader: {
+                    total: 0,
+                    hash: new Uint8Array()
+                  }
+                },
+                lastCommitHash: new Uint8Array(),
+                dataHash: new Uint8Array(),
+                validatorsHash: new Uint8Array(),
+                nextValidatorsHash: new Uint8Array(),
+                consensusHash: new Uint8Array(),
+                appHash: new Uint8Array(),
+                lastResultsHash: new Uint8Array(),
+                evidenceHash: new Uint8Array(),
+                proposerAddress: new Uint8Array()
+              }
             }
           }
         }
-        return errRet
       })
   }
 
@@ -411,20 +452,24 @@ export default class QueryStaking implements IQueryStaking {
   ): Promise<SuccessNoUndefined<QueryPoolResponse>> {
     return await this.queryClient.Pool(request, metadata)
       .then((resp: QueryPoolResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryPoolResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Staking] queryPool: ${err}`)
-        const errRet: SuccessNoUndefined<QueryPoolResponse> = {
+        return {
+          message: '',
           success: false,
-          pool: {
-            notBondedTokens: '',
-            bondedTokens: ''
+          value: {
+            pool: {
+              notBondedTokens: '',
+              bondedTokens: ''
+            }
           }
         }
-        return errRet
       })
   }
 
@@ -435,26 +480,30 @@ export default class QueryStaking implements IQueryStaking {
   ): Promise<SuccessNoUndefined<QueryParamsResponse>> {
     return await this.queryClient.Params(request, metadata)
       .then((resp: QueryParamsResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryParamsResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Staking] queryParams: ${err}`)
-        const errRet: SuccessNoUndefined<QueryParamsResponse> = {
+        return {
+          message: '',
           success: false,
-          params: {
-            unbondingTime: {
-              seconds: 0,
-              nanos: 0
-            },
-            maxValidators: 0,
-            maxEntries: 0,
-            historicalEntries: 0,
-            bondDenom: ''
+          value: {
+            params: {
+              unbondingTime: {
+                seconds: 0,
+                nanos: 0
+              },
+              maxValidators: 0,
+              maxEntries: 0,
+              historicalEntries: 0,
+              bondDenom: ''
+            }
           }
         }
-        return errRet
       })
   }
 }

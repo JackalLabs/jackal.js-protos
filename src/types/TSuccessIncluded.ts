@@ -1,3 +1,7 @@
-type SuccessIncluded<T> = T & { success: boolean};
+type SuccessIncluded<T> = {
+  message: string,
+  success: boolean,
+  value: T
+};
 
 export default SuccessIncluded

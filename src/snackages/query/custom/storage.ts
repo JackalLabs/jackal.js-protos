@@ -60,19 +60,23 @@ export default class QueryStorage implements IQueryStorage {
   ): Promise<SuccessNoUndefined<QueryParamsResponse>> {
     return await this.queryClient.Params(request, metadata)
       .then((resp: QueryParamsResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryParamsResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Storage] queryParams: ${err}`)
-        const errRet: SuccessNoUndefined<QueryParamsResponse> = {
+        return {
+          message: '',
           success: false,
-          params: {
-            depositAccount: ''
+          value: {
+            params: {
+              depositAccount: ''
+            }
           }
         }
-        return errRet
       })
   }
 
@@ -83,27 +87,31 @@ export default class QueryStorage implements IQueryStorage {
   ): Promise<SuccessNoUndefined<QueryContractResponse>> {
     return await this.queryClient.Contracts(request, metadata)
       .then((resp: QueryContractResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryContractResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Storage] queryContracts: ${err}`)
-        const errRet: SuccessNoUndefined<QueryContractResponse> = {
+        return {
+          message: '',
           success: false,
-          contracts: {
-            cid: '',
-            priceamt: '',
-            pricedenom: '',
-            merkle: '',
-            signee: '',
-            duration: '',
-            filesize: '',
-            fid: '',
-            creator: ''
+          value: {
+            contracts: {
+              cid: '',
+              priceamt: '',
+              pricedenom: '',
+              merkle: '',
+              signee: '',
+              duration: '',
+              filesize: '',
+              fid: '',
+              creator: ''
+            }
           }
         }
-        return errRet
       })
   }
 
@@ -114,18 +122,22 @@ export default class QueryStorage implements IQueryStorage {
   ): Promise<SuccessNoUndefined<QueryAllContractsResponse>> {
     return await this.queryClient.ContractsAll(request, metadata)
       .then((resp: QueryAllContractsResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryAllContractsResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Storage] queryContractsAll: ${err}`)
-        const errRet: SuccessNoUndefined<QueryAllContractsResponse> = {
+        return {
+          message: '',
           success: false,
-          contracts: [],
-          pagination: {nextKey: new Uint8Array(), total: 0}
+          value: {
+            contracts: [],
+            pagination: {nextKey: new Uint8Array(), total: 0}
+          }
         }
-        return errRet
       })
   }
 
@@ -136,30 +148,34 @@ export default class QueryStorage implements IQueryStorage {
   ): Promise<SuccessNoUndefined<QueryActiveDealResponse>> {
     return await this.queryClient.ActiveDeals(request, metadata)
       .then((resp: QueryActiveDealResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryActiveDealResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Storage] queryActiveDeals: ${err}`)
-        const errRet: SuccessNoUndefined<QueryActiveDealResponse> = {
+        return {
+          message: '',
           success: false,
-          activeDeals: {
-            cid: '',
-            signee: '',
-            provider: '',
-            startblock: '',
-            endblock: '',
-            filesize: '',
-            proofverified: '',
-            proofsmissed: '',
-            blocktoprove: '',
-            creator: '',
-            merkle: '',
-            fid: ''
+          value: {
+            activeDeals: {
+              cid: '',
+              signee: '',
+              provider: '',
+              startblock: '',
+              endblock: '',
+              filesize: '',
+              proofverified: '',
+              proofsmissed: '',
+              blocktoprove: '',
+              creator: '',
+              merkle: '',
+              fid: ''
+            }
           }
         }
-        return errRet
       })
   }
 
@@ -170,18 +186,22 @@ export default class QueryStorage implements IQueryStorage {
   ): Promise<SuccessNoUndefined<QueryAllActiveDealsResponse>> {
     return await this.queryClient.ActiveDealsAll(request, metadata)
       .then((resp: QueryAllActiveDealsResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryAllActiveDealsResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Storage] queryActiveDealsAll: ${err}`)
-        const errRet: SuccessNoUndefined<QueryAllActiveDealsResponse> = {
+        return {
+          message: '',
           success: false,
-          activeDeals: [],
-          pagination: {nextKey: new Uint8Array(), total: 0}
+          value: {
+            activeDeals: [],
+            pagination: {nextKey: new Uint8Array(), total: 0}
+          }
         }
-        return errRet
       })
   }
 
@@ -192,24 +212,28 @@ export default class QueryStorage implements IQueryStorage {
   ): Promise<SuccessNoUndefined<QueryProviderResponse>> {
     return await this.queryClient.Providers(request, metadata)
       .then((resp: QueryProviderResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryProviderResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+            success: true,
+            value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Storage] queryProviders: ${err}`)
-        const errRet: SuccessNoUndefined<QueryProviderResponse> = {
+        return {
+          message: '',
           success: false,
-          providers: {
-            address: '',
-            ip: '',
-            totalspace: '',
-            burnedContracts: '',
-            creator: '',
-            keybaseIdentity: ''
+          value: {
+            providers: {
+              address: '',
+              ip: '',
+              totalspace: '',
+              burnedContracts: '',
+              creator: '',
+              keybaseIdentity: ''
+            }
           }
         }
-        return errRet
       })
   }
 
@@ -220,18 +244,22 @@ export default class QueryStorage implements IQueryStorage {
   ): Promise<SuccessNoUndefined<QueryAllProvidersResponse>> {
     return await this.queryClient.ProvidersAll(request, metadata)
       .then((resp: QueryAllProvidersResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryAllProvidersResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Storage] queryProvidersAll: ${err}`)
-        const errRet: SuccessNoUndefined<QueryAllProvidersResponse> = {
+        return {
+          message: '',
           success: false,
-          providers: [],
-          pagination: {nextKey: new Uint8Array(), total: 0}
+          value: {
+            providers: [],
+            pagination: {nextKey: new Uint8Array(), total: 0}
+          }
         }
-        return errRet
       })
   }
 
@@ -242,17 +270,21 @@ export default class QueryStorage implements IQueryStorage {
   ): Promise<SuccessNoUndefined<QueryFreespaceResponse>> {
     return await this.queryClient.Freespace(request, metadata)
       .then((resp: QueryFreespaceResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryFreespaceResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Storage] queryFreespace: ${err}`)
-        const errRet: SuccessNoUndefined<QueryFreespaceResponse> = {
+        return {
+          message: '',
           success: false,
-          space: ''
+          value: {
+            space: ''
+          }
         }
-        return errRet
       })
   }
 
@@ -263,17 +295,21 @@ export default class QueryStorage implements IQueryStorage {
   ): Promise<SuccessNoUndefined<QueryFindFileResponse>> {
     return await this.queryClient.FindFile(request, metadata)
       .then((resp: QueryFindFileResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryFindFileResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Storage] queryFindFile: ${err}`)
-        const errRet: SuccessNoUndefined<QueryFindFileResponse> = {
+        return {
+          message: '',
           success: false,
-          providerIps: ''
+          value: {
+            providerIps: ''
+          }
         }
-        return errRet
       })
   }
 
@@ -284,23 +320,27 @@ export default class QueryStorage implements IQueryStorage {
   ): Promise<SuccessNoUndefined<QueryStrayResponse>> {
     return await this.queryClient.Strays(request, metadata)
       .then((resp: QueryStrayResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryStrayResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Storage] queryStrays: ${err}`)
-        const errRet: SuccessNoUndefined<QueryStrayResponse> = {
+        return {
+          message: '',
           success: false,
-          strays: {
-            cid: '',
-            fid: '',
-            signee: '',
-            filesize: '',
-            merkle: ''
+          value: {
+            strays: {
+              cid: '',
+              fid: '',
+              signee: '',
+              filesize: '',
+              merkle: ''
+            }
           }
         }
-        return errRet
       })
   }
 
@@ -311,18 +351,22 @@ export default class QueryStorage implements IQueryStorage {
   ): Promise<SuccessNoUndefined<QueryAllStraysResponse>> {
     return await this.queryClient.StraysAll(request, metadata)
       .then((resp: QueryAllStraysResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryAllStraysResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Storage] queryStraysAll: ${err}`)
-        const errRet: SuccessNoUndefined<QueryAllStraysResponse> = {
+        return {
+          message: '',
           success: false,
-          strays: [],
-          pagination: {nextKey: new Uint8Array(), total: 0}
+          value: {
+            strays: [],
+            pagination: {nextKey: new Uint8Array(), total: 0}
+          }
         }
-        return errRet
       })
   }
 
@@ -333,17 +377,21 @@ export default class QueryStorage implements IQueryStorage {
   ): Promise<SuccessNoUndefined<QueryClientFreeSpaceResponse>> {
     return await this.queryClient.GetClientFreeSpace(request, metadata)
       .then((resp: QueryClientFreeSpaceResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryClientFreeSpaceResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Storage] queryGetClientFreeSpace: ${err}`)
-        const errRet: SuccessNoUndefined<QueryClientFreeSpaceResponse> = {
+        return {
+          message: '',
           success: false,
-          bytesfree: 0
+          value: {
+            bytesfree: 0
+          }
         }
-        return errRet
       })
   }
 
@@ -354,20 +402,24 @@ export default class QueryStorage implements IQueryStorage {
   ): Promise<SuccessNoUndefined<QueryFidCidResponse>> {
     return await this.queryClient.FidCid(request, metadata)
       .then((resp: QueryFidCidResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryFidCidResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Storage] queryFidCid: ${err}`)
-        const errRet: SuccessNoUndefined<QueryFidCidResponse> = {
+        return {
+          message: '',
           success: false,
-          fidCid: {
-            fid: '',
-            cids: ''
+          value: {
+            fidCid: {
+              fid: '',
+              cids: ''
+            }
           }
         }
-        return errRet
       })
   }
 
@@ -378,18 +430,22 @@ export default class QueryStorage implements IQueryStorage {
   ): Promise<SuccessNoUndefined<QueryAllFidCidResponse>> {
     return await this.queryClient.FidCidAll(request, metadata)
       .then((resp: QueryAllFidCidResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryAllFidCidResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Storage] queryFidCidAll: ${err}`)
-        const errRet: SuccessNoUndefined<QueryAllFidCidResponse> = {
+        return {
+          message: '',
           success: false,
-          fidCid: [],
-          pagination: {nextKey: new Uint8Array(), total: 0}
+          value: {
+            fidCid: [],
+            pagination: {nextKey: new Uint8Array(), total: 0}
+          }
         }
-        return errRet
       })
   }
 
@@ -400,18 +456,22 @@ export default class QueryStorage implements IQueryStorage {
   ): Promise<SuccessNoUndefined<QueryPayDataResponse>> {
     return await this.queryClient.GetPayData(request, metadata)
       .then((resp: QueryPayDataResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryPayDataResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Storage] queryGetPayData: ${err}`)
-        const errRet: SuccessNoUndefined<QueryPayDataResponse> = {
+        return {
+          message: '',
           success: false,
-          timeRemaining: 0,
-          bytes: 0
+          value: {
+            timeRemaining: 0,
+            bytes: 0
+          }
         }
-        return errRet
       })
   }
 
@@ -422,23 +482,27 @@ export default class QueryStorage implements IQueryStorage {
   ): Promise<SuccessNoUndefined<QueryStoragePaymentInfoResponse>> {
     return await this.queryClient.StoragePaymentInfo(request, metadata)
       .then((resp: QueryStoragePaymentInfoResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryStoragePaymentInfoResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Storage] queryStoragePaymentInfo: ${err}`)
-        const errRet: SuccessNoUndefined<QueryStoragePaymentInfoResponse> = {
+        return {
+          message: '',
           success: false,
-          storagePaymentInfo: {
-            start: new Date(),
-            end: new Date(),
-            spaceAvailable: 0,
-            spaceUsed: 0,
-            address: ''
+          value: {
+            storagePaymentInfo: {
+              start: new Date(),
+              end: new Date(),
+              spaceAvailable: 0,
+              spaceUsed: 0,
+              address: ''
+            }
           }
         }
-        return errRet
       })
   }
 
@@ -449,18 +513,22 @@ export default class QueryStorage implements IQueryStorage {
   ): Promise<SuccessNoUndefined<QueryAllStoragePaymentInfoResponse>> {
     return await this.queryClient.StoragePaymentInfoAll(request, metadata)
       .then((resp: QueryAllStoragePaymentInfoResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryAllStoragePaymentInfoResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Storage] queryStoragePaymentInfoAll: ${err}`)
-        const errRet: SuccessNoUndefined<QueryAllStoragePaymentInfoResponse> = {
+        return {
+          message: '',
           success: false,
-          storagePaymentInfo: [],
-          pagination: {nextKey: new Uint8Array(), total: 0}
+          value: {
+            storagePaymentInfo: [],
+            pagination: {nextKey: new Uint8Array(), total: 0}
+          }
         }
-        return errRet
       })
   }
 
@@ -471,17 +539,21 @@ export default class QueryStorage implements IQueryStorage {
   ): Promise<SuccessNoUndefined<QueryFileUploadCheckResponse>> {
     return await this.queryClient.FileUploadCheck(request, metadata)
       .then((resp: QueryFileUploadCheckResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryFileUploadCheckResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Storage] queryStoragePaymentInfo: ${err}`)
-        const errRet: SuccessNoUndefined<QueryFileUploadCheckResponse> = {
+        return {
+          message: '',
           success: false,
-          valid: false
+          value: {
+            valid: false
+          }
         }
-        return errRet
       })
   }
 }

@@ -32,17 +32,21 @@ export default class QueryRns implements IQueryRns {
   ): Promise<SuccessNoUndefined<QueryParamsResponse>> {
     return await this.queryClient.Params(request, metadata)
       .then((resp: QueryParamsResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryParamsResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [RNS] queryParams: ${err}`)
-        const errRet: SuccessNoUndefined<QueryParamsResponse> = {
+        return {
+          message: '',
           success: false,
-          params: {}
+          value: {
+            params: {}
+          }
         }
-        return errRet
       })
   }
 
@@ -53,25 +57,29 @@ export default class QueryRns implements IQueryRns {
   ): Promise<SuccessNoUndefined<QueryNameResponse>> {
     return await this.queryClient.Names(request, metadata)
       .then((resp: QueryNameResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryNameResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [RNS] queryNames: ${err}`)
-        const errRet: SuccessNoUndefined<QueryNameResponse> = {
+        return {
+          message: '',
           success: false,
-          names: {
-            name: '',
-            expires: 0,
-            value: '',
-            data: '',
-            subdomains: [],
-            tld: '',
-            locked: 0
+          value: {
+            names: {
+              name: '',
+              expires: 0,
+              value: '',
+              data: '',
+              subdomains: [],
+              tld: '',
+              locked: 0
+            }
           }
         }
-        return errRet
       })
   }
 
@@ -82,19 +90,22 @@ export default class QueryRns implements IQueryRns {
   ): Promise<SuccessNoUndefined<QueryAllNamesResponse>> {
     return await this.queryClient.NamesAll(request, metadata)
       .then((resp: QueryAllNamesResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryAllNamesResponse>
-        thenRet.success = true
-        thenRet.pagination = resp.pagination || {nextKey: new Uint8Array(), total: 0}
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [RNS] queryNamesAll: ${err}`)
-        const errRet: SuccessNoUndefined<QueryAllNamesResponse> = {
+        return {
+          message: '',
           success: false,
-          names: [],
-          pagination: {nextKey: new Uint8Array(), total: 0}
+          value: {
+            names: [],
+            pagination: {nextKey: new Uint8Array(), total: 0}
+          }
         }
-        return errRet
       })
   }
 
@@ -105,22 +116,26 @@ export default class QueryRns implements IQueryRns {
   ): Promise<SuccessNoUndefined<QueryBidResponse>> {
     return await this.queryClient.Bids(request, metadata)
       .then((resp: QueryBidResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryBidResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [RNS] queryBids: ${err}`)
-        const errRet: SuccessNoUndefined<QueryBidResponse> = {
+        return {
+          message: '',
           success: false,
-          bids: {
-            index: '',
-            name: '',
-            bidder: '',
-            price: ''
+          value: {
+            bids: {
+              index: '',
+              name: '',
+              bidder: '',
+              price: ''
+            }
           }
         }
-        return errRet
       })
   }
 
@@ -131,19 +146,22 @@ export default class QueryRns implements IQueryRns {
   ): Promise<SuccessNoUndefined<QueryAllBidsResponse>> {
     return await this.queryClient.BidsAll(request, metadata)
       .then((resp: QueryAllBidsResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryAllBidsResponse>
-        thenRet.success = true
-        thenRet.pagination = resp.pagination || {nextKey: new Uint8Array(), total: 0}
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [RNS] queryBidsAll: ${err}`)
-        const errRet: SuccessNoUndefined<QueryAllBidsResponse> = {
+        return {
+          message: '',
           success: false,
-          bids: [],
-          pagination: {nextKey: new Uint8Array(), total: 0}
+          value: {
+            bids: [],
+            pagination: {nextKey: new Uint8Array(), total: 0}
+          }
         }
-        return errRet
       })
   }
 
@@ -154,21 +172,25 @@ export default class QueryRns implements IQueryRns {
   ): Promise<SuccessNoUndefined<QueryForsaleResponse>> {
     return await this.queryClient.Forsale(request, metadata)
       .then((resp: QueryForsaleResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryForsaleResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [RNS] queryForsale: ${err}`)
-        const errRet: SuccessNoUndefined<QueryForsaleResponse> = {
+        return {
+          message: '',
           success: false,
-          forsale: {
-            name: '',
-            price: '',
-            owner: ''
+          value: {
+            forsale: {
+              name: '',
+              price: '',
+              owner: ''
+            }
           }
         }
-        return errRet
       })
   }
 
@@ -179,19 +201,22 @@ export default class QueryRns implements IQueryRns {
   ): Promise<SuccessNoUndefined<QueryAllForsalesResponse>> {
     return await this.queryClient.ForsaleAll(request, metadata)
       .then((resp: QueryAllForsalesResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryAllForsalesResponse>
-        thenRet.success = true
-        thenRet.pagination = resp.pagination || {nextKey: new Uint8Array(), total: 0}
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [RNS] queryForsaleAll: ${err}`)
-        const errRet: SuccessNoUndefined<QueryAllForsalesResponse> = {
+        return {
+          message: '',
           success: false,
-          forsale: [],
-          pagination: {nextKey: new Uint8Array(), total: 0}
+          value: {
+            forsale: [],
+            pagination: {nextKey: new Uint8Array(), total: 0}
+          }
         }
-        return errRet
       })
   }
 
@@ -202,17 +227,21 @@ export default class QueryRns implements IQueryRns {
   ): Promise<SuccessNoUndefined<QueryInitResponse>> {
     return await this.queryClient.Init(request, metadata)
       .then((resp: QueryInitResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryInitResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [RNS] queryInit: ${err}`)
-        const errRet: SuccessNoUndefined<QueryInitResponse> = {
+        return {
+          message: '',
           success: false,
-          init: false
+          value: {
+            init: false
+          }
         }
-        return errRet
       })
   }
 
@@ -223,19 +252,22 @@ export default class QueryRns implements IQueryRns {
   ): Promise<SuccessNoUndefined<QueryAllInitsResponse>> {
     return await this.queryClient.InitAll(request, metadata)
       .then((resp: QueryAllInitsResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryAllInitsResponse>
-        thenRet.success = true
-        thenRet.pagination = resp.pagination || {nextKey: new Uint8Array(), total: 0}
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [RNS] queryInitAll: ${err}`)
-        const errRet: SuccessNoUndefined<QueryAllInitsResponse> = {
+        return {
+          message: '',
           success: false,
-          init: [],
-          pagination: {nextKey: new Uint8Array(), total: 0}
+          value: {
+            init: [],
+            pagination: {nextKey: new Uint8Array(), total: 0}
+          }
         }
-        return errRet
       })
   }
 
@@ -246,18 +278,22 @@ export default class QueryRns implements IQueryRns {
   ): Promise<SuccessNoUndefined<QueryListOwnedNamesResponse>> {
     return await this.queryClient.ListOwnedNames(request, metadata)
       .then((resp: QueryListOwnedNamesResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryListOwnedNamesResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [RNS] queryListOwnedNames: ${err}`)
-        const errRet: SuccessNoUndefined<QueryListOwnedNamesResponse> = {
+        return {
+          message: '',
           success: false,
-          names: [],
-          pagination: {nextKey: new Uint8Array(), total: 0}
+          value: {
+            names: [],
+            pagination: {nextKey: new Uint8Array(), total: 0}
+          }
         }
-        return errRet
       })
   }
 }

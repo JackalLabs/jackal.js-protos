@@ -23,19 +23,23 @@ export default class QueryOracle implements IQueryOracle {
   ): Promise<SuccessNoUndefined<QueryParamsResponse>> {
     return await this.queryClient.Params(request, metadata)
       .then((resp: QueryParamsResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryParamsResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Oracle] queryParams: ${err}`)
-        const errRet: SuccessNoUndefined<QueryParamsResponse> = {
+        return {
+          message: '',
           success: false,
-          params: {
-            deposit: ''
+          value: {
+            params: {
+              deposit: ''
+            }
           }
         }
-        return errRet
       })
   }
 
@@ -45,22 +49,26 @@ export default class QueryOracle implements IQueryOracle {
   ): Promise<SuccessNoUndefined<QueryFeedResponse>> {
     return await this.queryClient.Feed(request, metadata)
       .then((resp: QueryFeedResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryFeedResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Oracle] queryFeed: ${err}`)
-        const errRet: SuccessNoUndefined<QueryFeedResponse> = {
+        return {
+          message: '',
           success: false,
-          feed: {
-            owner: '',
-            data: '',
-            lastUpdate: new Date(),
-            name: ''
+          value: {
+            feed: {
+              owner: '',
+              data: '',
+              lastUpdate: new Date(),
+              name: ''
+            }
           }
         }
-        return errRet
       })
   }
 
@@ -70,19 +78,22 @@ export default class QueryOracle implements IQueryOracle {
   ): Promise<SuccessNoUndefined<QueryAllFeedsResponse>> {
     return await this.queryClient.AllFeeds(request, metadata)
       .then((resp: QueryAllFeedsResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryAllFeedsResponse>
-        thenRet.success = true
-        thenRet.pagination = resp.pagination || {nextKey: new Uint8Array(), total: 0}
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Oracle] queryAllFeeds: ${err}`)
-        const errRet: SuccessNoUndefined<QueryAllFeedsResponse> = {
+        return {
+          message: '',
           success: false,
-          feed: [],
-          pagination: {nextKey: new Uint8Array(), total: 0}
+          value: {
+            feed: [],
+            pagination: {nextKey: new Uint8Array(), total: 0}
+          }
         }
-        return errRet
       })
   }
 }
