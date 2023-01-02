@@ -29,17 +29,21 @@ export default class QueryFileTree implements IQueryFileTree {
   ): Promise<SuccessNoUndefined<QueryParamsResponse>> {
     return await this.queryClient.Params(request, metadata)
       .then((resp: QueryParamsResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryParamsResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [FileTree] queryParams: ${err}`)
-        const errRet: SuccessNoUndefined<QueryParamsResponse> = {
+        return {
+          message: '',
           success: false,
-          params: {}
+          value: {
+            params: {}
+          }
         }
-        return errRet
       })
   }
 
@@ -50,17 +54,21 @@ export default class QueryFileTree implements IQueryFileTree {
   ): Promise<SuccessNoUndefined<QueryEncryptResponse>> {
     return await this.queryClient.Encrypt(request, metadata)
       .then((resp: QueryEncryptResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryEncryptResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [FileTree] queryEncrypt: ${err}`)
-        const errRet: SuccessNoUndefined<QueryEncryptResponse> = {
+        return {
+          message: '',
           success: false,
-          encryptionData: ''
+          value: {
+            encryptionData: ''
+          }
         }
-        return errRet
       })
   }
 
@@ -71,17 +79,21 @@ export default class QueryFileTree implements IQueryFileTree {
   ): Promise<SuccessNoUndefined<QueryDecryptResponse>> {
     return await this.queryClient.Decrypt(request, metadata)
       .then((resp: QueryDecryptResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryDecryptResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [FileTree] queryDecrypt: ${err}`)
-        const errRet: SuccessNoUndefined<QueryDecryptResponse> = {
+        return {
+          message: '',
           success: false,
-          data: ''
+          value: {
+            data: ''
+          }
         }
-        return errRet
       })
   }
 
@@ -92,24 +104,28 @@ export default class QueryFileTree implements IQueryFileTree {
   ): Promise<SuccessNoUndefined<QueryFileResponse>> {
     return await this.queryClient.Files(request, metadata)
       .then((resp: QueryFileResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryFileResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [FileTree] queryFiles: ${err}`)
-        const errRet: SuccessNoUndefined<QueryFileResponse> = {
+        return {
+          message: '',
           success: false,
-          files: {
-            address: '',
-            contents: '',
-            owner: '',
-            viewingAccess: '',
-            editAccess: '',
-            trackingNumber: ''
+          value: {
+            files: {
+              address: '',
+              contents: '',
+              owner: '',
+              viewingAccess: '',
+              editAccess: '',
+              trackingNumber: ''
+            }
           }
         }
-        return errRet
       })
   }
 
@@ -120,19 +136,22 @@ export default class QueryFileTree implements IQueryFileTree {
   ): Promise<SuccessNoUndefined<QueryAllFilesResponse>> {
     return await this.queryClient.FilesAll(request, metadata)
       .then((resp: QueryAllFilesResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryAllFilesResponse>
-        thenRet.success = true
-        thenRet.pagination = resp.pagination || {nextKey: new Uint8Array(), total: 0}
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [FileTree] queryFilesAll: ${err}`)
-        const errRet: SuccessNoUndefined<QueryAllFilesResponse> = {
+        return {
+          message: '',
           success: false,
-          files: [],
-          pagination: {nextKey: new Uint8Array(), total: 0}
+          value: {
+            files: [],
+            pagination: {nextKey: new Uint8Array(), total: 0}
+          }
         }
-        return errRet
       })
   }
 
@@ -143,20 +162,24 @@ export default class QueryFileTree implements IQueryFileTree {
   ): Promise<SuccessNoUndefined<QueryPubkeyResponse>> {
     return await this.queryClient.Pubkey(request, metadata)
       .then((resp: QueryPubkeyResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryPubkeyResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [FileTree] queryPubkey: ${err}`)
-        const errRet: SuccessNoUndefined<QueryPubkeyResponse> = {
+        return {
+          message: '',
           success: false,
-          pubkey: {
-            address: '',
-            key: ''
+          value: {
+            pubkey: {
+              address: '',
+              key: ''
+            }
           }
         }
-        return errRet
       })
   }
 
@@ -167,19 +190,22 @@ export default class QueryFileTree implements IQueryFileTree {
   ): Promise<SuccessNoUndefined<QueryAllPubkeysResponse>> {
     return await this.queryClient.PubkeyAll(request, metadata)
       .then((resp: QueryAllPubkeysResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryAllPubkeysResponse>
-        thenRet.success = true
-        thenRet.pagination = resp.pagination || {nextKey: new Uint8Array(), total: 0}
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [FileTree] queryPubkeyAll: ${err}`)
-        const errRet: SuccessNoUndefined<QueryAllPubkeysResponse> = {
+        return {
+          message: '',
           success: false,
-          pubkey: [],
-          pagination: {nextKey: new Uint8Array(), total: 0}
+          value: {
+            pubkey: [],
+            pagination: {nextKey: new Uint8Array(), total: 0}
+          }
         }
-        return errRet
       })
   }
 }

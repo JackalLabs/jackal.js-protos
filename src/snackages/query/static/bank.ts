@@ -34,20 +34,24 @@ export default class QueryBank implements IQueryBank {
   ): Promise<SuccessNoUndefined<QueryBalanceResponse>> {
     return await this.queryClient.Balance(request, metadata)
       .then((resp: QueryBalanceResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryBalanceResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Bank] queryBalance: ${err}`)
-        const errRet: SuccessNoUndefined<QueryBalanceResponse> = {
+        return {
+          message: '',
           success: false,
-          balance: {
-            denom: '',
-            amount: ''
+          value: {
+            balance: {
+              denom: '',
+              amount: ''
+            }
           }
         }
-        return errRet
       })
   }
 
@@ -58,19 +62,22 @@ export default class QueryBank implements IQueryBank {
   ): Promise<SuccessNoUndefined<QueryAllBalancesResponse>> {
     return await this.queryClient.AllBalances(request, metadata)
       .then((resp: QueryAllBalancesResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryAllBalancesResponse>
-        thenRet.success = true
-        thenRet.pagination = resp.pagination || {nextKey: new Uint8Array(), total: 0}
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Bank] queryAllBalances: ${err}`)
-        const errRet: SuccessNoUndefined<QueryAllBalancesResponse> = {
+        return {
+          message: '',
           success: false,
-          balances: [],
-          pagination: {nextKey: new Uint8Array(), total: 0}
+          value: {
+            balances: [],
+            pagination: {nextKey: new Uint8Array(), total: 0}
+          }
         }
-        return errRet
       })
   }
 
@@ -84,19 +91,22 @@ export default class QueryBank implements IQueryBank {
   ): Promise<SuccessNoUndefined<QuerySpendableBalancesResponse>> {
     return await this.queryClient.SpendableBalances(request, metadata)
       .then((resp: QuerySpendableBalancesResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QuerySpendableBalancesResponse>
-        thenRet.success = true
-        thenRet.pagination = resp.pagination || {nextKey: new Uint8Array(), total: 0}
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Bank] querySpendableBalances: ${err}`)
-        const errRet: SuccessNoUndefined<QuerySpendableBalancesResponse> = {
+        return {
+          message: '',
           success: false,
-          balances: [],
-          pagination: {nextKey: new Uint8Array(), total: 0}
+          value: {
+            balances: [],
+            pagination: {nextKey: new Uint8Array(), total: 0}
+          }
         }
-        return errRet
       })
   }
 
@@ -107,19 +117,22 @@ export default class QueryBank implements IQueryBank {
   ): Promise<SuccessNoUndefined<QueryTotalSupplyResponse>> {
     return await this.queryClient.TotalSupply(request, metadata)
       .then((resp: QueryTotalSupplyResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryTotalSupplyResponse>
-        thenRet.success = true
-        thenRet.pagination = resp.pagination || {nextKey: new Uint8Array(), total: 0}
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Bank] queryTotalSupply: ${err}`)
-        const errRet: SuccessNoUndefined<QueryTotalSupplyResponse> = {
+        return {
+          message: '',
           success: false,
-          supply: [],
-          pagination: {nextKey: new Uint8Array(), total: 0}
+          value: {
+            supply: [],
+            pagination: {nextKey: new Uint8Array(), total: 0}
+          }
         }
-        return errRet
       })
   }
 
@@ -130,20 +143,24 @@ export default class QueryBank implements IQueryBank {
   ): Promise<SuccessNoUndefined<QuerySupplyOfResponse>> {
     return await this.queryClient.SupplyOf(request, metadata)
       .then((resp: QuerySupplyOfResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QuerySupplyOfResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Bank] querySupplyOf: ${err}`)
-        const errRet: SuccessNoUndefined<QuerySupplyOfResponse> = {
+        return {
+          message: '',
           success: false,
-          amount: {
-            denom: '',
-            amount: ''
+          value: {
+            amount: {
+              denom: '',
+              amount: ''
+            }
           }
         }
-        return errRet
       })
   }
 
@@ -154,20 +171,24 @@ export default class QueryBank implements IQueryBank {
   ): Promise<SuccessNoUndefined<QueryParamsResponse>> {
     return await this.queryClient.Params(request, metadata)
       .then((resp: QueryParamsResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryParamsResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Bank] queryParams: ${err}`)
-        const errRet: SuccessNoUndefined<QueryParamsResponse> = {
+        return {
+          message: '',
           success: false,
-          params: {
-            sendEnabled: [],
-            defaultSendEnabled: false
+          value: {
+            params: {
+              sendEnabled: [],
+              defaultSendEnabled: false
+            }
           }
         }
-        return errRet
       })
   }
 
@@ -178,24 +199,28 @@ export default class QueryBank implements IQueryBank {
   ): Promise<SuccessNoUndefined<QueryDenomMetadataResponse>> {
     return await this.queryClient.DenomMetadata(request, metadata)
       .then((resp: QueryDenomMetadataResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryDenomMetadataResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Bank] queryDenomMetadata: ${err}`)
-        const errRet: SuccessNoUndefined<QueryDenomMetadataResponse> = {
+        return {
+          message: '',
           success: false,
-          metadata: {
-            description: '',
-            denomUnits: [],
-            base: '',
-            display: '',
-            name: '',
-            symbol: ''
+          value: {
+            metadata: {
+              description: '',
+              denomUnits: [],
+              base: '',
+              display: '',
+              name: '',
+              symbol: ''
+            }
           }
         }
-        return errRet
       })
   }
 
@@ -206,19 +231,22 @@ export default class QueryBank implements IQueryBank {
   ): Promise<SuccessNoUndefined<QueryDenomsMetadataResponse>> {
     return await this.queryClient.DenomsMetadata(request, metadata)
       .then((resp: QueryDenomsMetadataResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryDenomsMetadataResponse>
-        thenRet.success = true
-        thenRet.pagination = resp.pagination || {nextKey: new Uint8Array(), total: 0}
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [Bank] queryDenomsMetadata: ${err}`)
-        const errRet: SuccessNoUndefined<QueryDenomsMetadataResponse> = {
+        return {
+          message: '',
           success: false,
-          metadatas: [],
-          pagination: {nextKey: new Uint8Array(), total: 0}
+          value: {
+            metadatas: [],
+            pagination: {nextKey: new Uint8Array(), total: 0}
+          }
         }
-        return errRet
       })
   }
 }

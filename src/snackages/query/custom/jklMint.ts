@@ -24,19 +24,23 @@ export default class QueryJklMint implements IQueryJklMint {
   ): Promise<SuccessNoUndefined<QueryParamsResponse>> {
     return await this.queryClient.Params(request, metadata)
       .then((resp: QueryParamsResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryParamsResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [JklMint] queryParams: ${err}`)
-        const errRet: SuccessNoUndefined<QueryParamsResponse> = {
+        return {
+          message: '',
           success: false,
-          params: {
-            mintDenom: ''
+          value: {
+            params: {
+              mintDenom: ''
+            }
           }
         }
-        return errRet
       })
   }
 
@@ -47,17 +51,21 @@ export default class QueryJklMint implements IQueryJklMint {
   ): Promise<SuccessNoUndefined<QueryInflationResponse>> {
     return await this.queryClient.Inflation(request, metadata)
       .then((resp: QueryInflationResponse) => {
-        const thenRet = resp as SuccessNoUndefined<QueryInflationResponse>
-        thenRet.success = true
-        return thenRet
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
       })
       .catch(err => {
         console.warn(`jackal.js-protos - [JklMint] queryInflation: ${err}`)
-        const errRet: SuccessNoUndefined<QueryInflationResponse> = {
+        return {
+          message: '',
           success: false,
-          inflation: new Uint8Array()
+          value: {
+            inflation: new Uint8Array()
+          }
         }
-        return errRet
       })
   }
 }

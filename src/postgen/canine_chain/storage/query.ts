@@ -159,7 +159,7 @@ export interface QueryAllStoragePaymentInfoResponse {
   pagination: PageResponse | undefined;
 }
 
-export interface QueryFileUploadCheck {
+export interface QueryFileUploadCheckRequest {
   address: string;
   bytes: number;
 }
@@ -1930,12 +1930,12 @@ export const QueryAllStoragePaymentInfoResponse = {
   },
 };
 
-function createBaseQueryFileUploadCheck(): QueryFileUploadCheck {
+function createBaseQueryFileUploadCheckRequest(): QueryFileUploadCheckRequest {
   return { address: "", bytes: 0 };
 }
 
-export const QueryFileUploadCheck = {
-  encode(message: QueryFileUploadCheck, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const QueryFileUploadCheckRequest = {
+  encode(message: QueryFileUploadCheckRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
@@ -1945,10 +1945,10 @@ export const QueryFileUploadCheck = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryFileUploadCheck {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryFileUploadCheckRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryFileUploadCheck();
+    const message = createBaseQueryFileUploadCheckRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1966,22 +1966,22 @@ export const QueryFileUploadCheck = {
     return message;
   },
 
-  fromJSON(object: any): QueryFileUploadCheck {
+  fromJSON(object: any): QueryFileUploadCheckRequest {
     return {
       address: isSet(object.address) ? String(object.address) : "",
       bytes: isSet(object.bytes) ? Number(object.bytes) : 0,
     };
   },
 
-  toJSON(message: QueryFileUploadCheck): unknown {
+  toJSON(message: QueryFileUploadCheckRequest): unknown {
     const obj: any = {};
     message.address !== undefined && (obj.address = message.address);
     message.bytes !== undefined && (obj.bytes = Math.round(message.bytes));
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryFileUploadCheck>, I>>(object: I): QueryFileUploadCheck {
-    const message = createBaseQueryFileUploadCheck();
+  fromPartial<I extends Exact<DeepPartial<QueryFileUploadCheckRequest>, I>>(object: I): QueryFileUploadCheckRequest {
+    const message = createBaseQueryFileUploadCheckRequest();
     message.address = object.address ?? "";
     message.bytes = object.bytes ?? 0;
     return message;
@@ -2091,7 +2091,7 @@ export interface Query {
   ): Promise<QueryAllStoragePaymentInfoResponse>;
   /** Queries whether user can upload a file based on size */
   FileUploadCheck(
-    request: DeepPartial<QueryFileUploadCheck>,
+    request: DeepPartial<QueryFileUploadCheckRequest>,
     metadata?: grpc.Metadata,
   ): Promise<QueryFileUploadCheckResponse>;
 }
@@ -2215,10 +2215,10 @@ export class QueryClientImpl implements Query {
   }
 
   FileUploadCheck(
-    request: DeepPartial<QueryFileUploadCheck>,
+    request: DeepPartial<QueryFileUploadCheckRequest>,
     metadata?: grpc.Metadata,
   ): Promise<QueryFileUploadCheckResponse> {
-    return this.rpc.unary(QueryFileUploadCheckDesc, QueryFileUploadCheck.fromPartial(request), metadata);
+    return this.rpc.unary(QueryFileUploadCheckDesc, QueryFileUploadCheckRequest.fromPartial(request), metadata);
   }
 }
 
@@ -2605,7 +2605,7 @@ export const QueryFileUploadCheckDesc: UnaryMethodDefinitionish = {
   responseStream: false,
   requestType: {
     serializeBinary() {
-      return QueryFileUploadCheck.encode(this).finish();
+      return QueryFileUploadCheckRequest.encode(this).finish();
     },
   } as any,
   responseType: {
