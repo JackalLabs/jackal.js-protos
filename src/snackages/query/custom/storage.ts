@@ -416,7 +416,7 @@ export default class QueryStorage implements IQueryStorage {
           value: {
             fidCid: {
               fid: '',
-              cids: ''
+              cids: '[]'
             }
           }
         }
