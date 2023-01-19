@@ -118,10 +118,10 @@ export default class QueryFileTree implements IQueryFileTree {
           value: {
             files: {
               address: '',
-              contents: '',
+              contents: '{}',
               owner: '',
-              viewingAccess: '',
-              editAccess: '',
+              viewingAccess: '{}',
+              editAccess: '{}',
               trackingNumber: ''
             }
           }

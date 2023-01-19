@@ -4,6 +4,7 @@ import { ActiveDeals } from "./active_deals";
 import { Contracts } from "./contracts";
 import { FidCid } from "./fid_cid";
 import { Params } from "./params";
+import { StoragePaymentInfo } from "./payment_info";
 import { Providers } from "./providers";
 import { Strays } from "./strays";
 
@@ -16,8 +17,8 @@ export interface GenesisState {
   activeDealsList: ActiveDeals[];
   providersList: Providers[];
   straysList: Strays[];
-  /** this line is used by starport scaffolding # genesis/proto/state */
   fidCidList: FidCid[];
+  paymentInfoList: StoragePaymentInfo[];
 }
 
 function createBaseGenesisState(): GenesisState {
@@ -28,6 +29,7 @@ function createBaseGenesisState(): GenesisState {
     providersList: [],
     straysList: [],
     fidCidList: [],
+    paymentInfoList: [],
   };
 }
 
@@ -46,10 +48,13 @@ export const GenesisState = {
       Providers.encode(v!, writer.uint32(34).fork()).ldelim();
     }
     for (const v of message.straysList) {
-      Strays.encode(v!, writer.uint32(58).fork()).ldelim();
+      Strays.encode(v!, writer.uint32(50).fork()).ldelim();
     }
     for (const v of message.fidCidList) {
       FidCid.encode(v!, writer.uint32(42).fork()).ldelim();
+    }
+    for (const v of message.paymentInfoList) {
+      StoragePaymentInfo.encode(v!, writer.uint32(58).fork()).ldelim();
     }
     return writer;
   },
@@ -73,11 +78,14 @@ export const GenesisState = {
         case 4:
           message.providersList.push(Providers.decode(reader, reader.uint32()));
           break;
-        case 7:
+        case 6:
           message.straysList.push(Strays.decode(reader, reader.uint32()));
           break;
         case 5:
           message.fidCidList.push(FidCid.decode(reader, reader.uint32()));
+          break;
+        case 7:
+          message.paymentInfoList.push(StoragePaymentInfo.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -101,6 +109,9 @@ export const GenesisState = {
         : [],
       straysList: Array.isArray(object?.straysList) ? object.straysList.map((e: any) => Strays.fromJSON(e)) : [],
       fidCidList: Array.isArray(object?.fidCidList) ? object.fidCidList.map((e: any) => FidCid.fromJSON(e)) : [],
+      paymentInfoList: Array.isArray(object?.paymentInfoList)
+        ? object.paymentInfoList.map((e: any) => StoragePaymentInfo.fromJSON(e))
+        : [],
     };
   },
 
@@ -132,6 +143,11 @@ export const GenesisState = {
     } else {
       obj.fidCidList = [];
     }
+    if (message.paymentInfoList) {
+      obj.paymentInfoList = message.paymentInfoList.map((e) => e ? StoragePaymentInfo.toJSON(e) : undefined);
+    } else {
+      obj.paymentInfoList = [];
+    }
     return obj;
   },
 
@@ -145,6 +161,7 @@ export const GenesisState = {
     message.providersList = object.providersList?.map((e) => Providers.fromPartial(e)) || [];
     message.straysList = object.straysList?.map((e) => Strays.fromPartial(e)) || [];
     message.fidCidList = object.fidCidList?.map((e) => FidCid.fromPartial(e)) || [];
+    message.paymentInfoList = object.paymentInfoList?.map((e) => StoragePaymentInfo.fromPartial(e)) || [];
     return message;
   },
 };
