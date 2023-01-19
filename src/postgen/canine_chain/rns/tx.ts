@@ -15,6 +15,15 @@ export interface MsgRegister {
 export interface MsgRegisterResponse {
 }
 
+export interface MsgUpdate {
+  creator: string;
+  name: string;
+  data: string;
+}
+
+export interface MsgUpdateResponse {
+}
+
 export interface MsgBid {
   creator: string;
   name: string;
@@ -212,6 +221,112 @@ export const MsgRegisterResponse = {
 
   fromPartial<I extends Exact<DeepPartial<MsgRegisterResponse>, I>>(_: I): MsgRegisterResponse {
     const message = createBaseMsgRegisterResponse();
+    return message;
+  },
+};
+
+function createBaseMsgUpdate(): MsgUpdate {
+  return { creator: "", name: "", data: "" };
+}
+
+export const MsgUpdate = {
+  encode(message: MsgUpdate, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.name !== "") {
+      writer.uint32(18).string(message.name);
+    }
+    if (message.data !== "") {
+      writer.uint32(26).string(message.data);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpdate {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgUpdate();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.name = reader.string();
+          break;
+        case 3:
+          message.data = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgUpdate {
+    return {
+      creator: isSet(object.creator) ? String(object.creator) : "",
+      name: isSet(object.name) ? String(object.name) : "",
+      data: isSet(object.data) ? String(object.data) : "",
+    };
+  },
+
+  toJSON(message: MsgUpdate): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.name !== undefined && (obj.name = message.name);
+    message.data !== undefined && (obj.data = message.data);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgUpdate>, I>>(object: I): MsgUpdate {
+    const message = createBaseMsgUpdate();
+    message.creator = object.creator ?? "";
+    message.name = object.name ?? "";
+    message.data = object.data ?? "";
+    return message;
+  },
+};
+
+function createBaseMsgUpdateResponse(): MsgUpdateResponse {
+  return {};
+}
+
+export const MsgUpdateResponse = {
+  encode(_: MsgUpdateResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpdateResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgUpdateResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgUpdateResponse {
+    return {};
+  },
+
+  toJSON(_: MsgUpdateResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgUpdateResponse>, I>>(_: I): MsgUpdateResponse {
+    const message = createBaseMsgUpdateResponse();
     return message;
   },
 };
@@ -1251,6 +1366,7 @@ export interface Msg {
   AddRecord(request: DeepPartial<MsgAddRecord>, metadata?: grpc.Metadata): Promise<MsgAddRecordResponse>;
   DelRecord(request: DeepPartial<MsgDelRecord>, metadata?: grpc.Metadata): Promise<MsgDelRecordResponse>;
   Init(request: DeepPartial<MsgInit>, metadata?: grpc.Metadata): Promise<MsgInitResponse>;
+  Update(request: DeepPartial<MsgUpdate>, metadata?: grpc.Metadata): Promise<MsgUpdateResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -1269,6 +1385,7 @@ export class MsgClientImpl implements Msg {
     this.AddRecord = this.AddRecord.bind(this);
     this.DelRecord = this.DelRecord.bind(this);
     this.Init = this.Init.bind(this);
+    this.Update = this.Update.bind(this);
   }
 
   Register(request: DeepPartial<MsgRegister>, metadata?: grpc.Metadata): Promise<MsgRegisterResponse> {
@@ -1313,6 +1430,10 @@ export class MsgClientImpl implements Msg {
 
   Init(request: DeepPartial<MsgInit>, metadata?: grpc.Metadata): Promise<MsgInitResponse> {
     return this.rpc.unary(MsgInitDesc, MsgInit.fromPartial(request), metadata);
+  }
+
+  Update(request: DeepPartial<MsgUpdate>, metadata?: grpc.Metadata): Promise<MsgUpdateResponse> {
+    return this.rpc.unary(MsgUpdateDesc, MsgUpdate.fromPartial(request), metadata);
   }
 }
 
@@ -1552,6 +1673,28 @@ export const MsgInitDesc: UnaryMethodDefinitionish = {
     deserializeBinary(data: Uint8Array) {
       return {
         ...MsgInitResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const MsgUpdateDesc: UnaryMethodDefinitionish = {
+  methodName: "Update",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgUpdate.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgUpdateResponse.decode(data),
         toObject() {
           return this;
         },

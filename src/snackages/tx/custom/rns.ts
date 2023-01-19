@@ -9,7 +9,8 @@ import {
   MsgInit,
   MsgList,
   MsgRegister,
-  MsgTransfer
+  MsgTransfer,
+  MsgUpdate
 } from '@/postgen/canine_chain/rns/tx'
 import { EncodeObject } from '@cosmjs/proto-signing'
 import ITypeTuple from '@/interfaces/ITypeTuple'
@@ -25,7 +26,8 @@ const rnsTypes: ITypeTuple = {
   init: ['/canine_chain.rns.MsgInit', MsgInit],
   list: ['/canine_chain.rns.MsgList', MsgList],
   register: ['/canine_chain.rns.MsgRegister', MsgRegister],
-  transfer: ['/canine_chain.rns.MsgTransfer', MsgTransfer]
+  transfer: ['/canine_chain.rns.MsgTransfer', MsgTransfer],
+  update: ['/canine_chain.rns.MsgUpdate', MsgUpdate]
 }
 
 export default rnsTypes
@@ -42,6 +44,7 @@ export interface ITxRns {
   msgList (data: MsgList): EncodeObject
   msgRegister (data: MsgRegister): EncodeObject
   msgTransfer (data: MsgTransfer): EncodeObject
+  msgUpdate (data: MsgUpdate): EncodeObject
 }
 
 export class TxRns implements ITxRns {
@@ -77,5 +80,8 @@ export class TxRns implements ITxRns {
   }
   msgTransfer (data: MsgTransfer): EncodeObject {
     return { typeUrl: rnsTypes.transfer[0], value: rnsTypes.transfer[1].fromPartial( data ) }
+  }
+  msgUpdate (data: MsgUpdate): EncodeObject {
+    return { typeUrl: rnsTypes.update[0], value: rnsTypes.update[1].fromPartial( data ) }
   }
 }
