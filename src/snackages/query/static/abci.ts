@@ -164,7 +164,7 @@ export default class QueryABCI implements IQueryABCI {
     /** Returns Returns */
     async query (
 		request: DeepPartial<RequestQuery>,
-		metadata?: grpc.metadata
+		metadata?: grpc.Metadata
     ): Promise<SuccessNoUndefined<ResponseQuery>> {
         return await this.ABCIApplicationClient.Query(request, metadata)
             .then((resp: ResponseQuery) => {

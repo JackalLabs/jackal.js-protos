@@ -73,6 +73,7 @@ export default class ProtoBuilder implements IProtoBuilder {
       rns: this.makeRnsQuery(),
       storage: this.makeStorageQuery(),
       /** Static */
+      abci: this.makeABCIQuery(),
       bank: this.makeBankQuery(),
       distribution: this.makeDistributionQuery(),
       gov: this.makeGovQuery(),
@@ -125,7 +126,7 @@ export default class ProtoBuilder implements IProtoBuilder {
   }
 
   /** Static */
-  makeABCIApplication (): IQueryABCI {
+  makeABCIQuery (): IQueryABCI {
     return new QueryABCI(this.GRpc as IABCIGrpc)
   }
   makeBankQuery (): IQueryBank {

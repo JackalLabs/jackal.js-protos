@@ -36,7 +36,7 @@ export default interface IProtoBuilder {
   makeStorageTx (): ITxStorage
 
   /** Static */
-  makeABCIApplication (): IQueryABCI
+  makeABCIQuery (): IQueryABCI
   makeBankQuery (): IQueryBank
   makeBankTx (): ITxBank
   makeDistributionQuery (): IQueryDistribution
