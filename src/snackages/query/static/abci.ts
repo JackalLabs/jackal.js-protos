@@ -20,10 +20,10 @@ import {
     RequestApplySnapshotChunk, ResponseApplySnapshotChunk,
     ABCIApplicationClientImpl
 } from '@/postgen/tendermint/abci/types'
-import IABCIApplication from '@/interfaces/classes/IABCIApplication'
+import IQueryABCI from '@/interfaces/classes/IQueryABCI'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 
-export default class QueryABCI implements IABCIApplication {
+export default class QueryABCI implements IQueryABCI {
     private readonly ABCIApplicationClient: ABCIApplication
 
     constructor (rpc: GrpcWebImpl) {

@@ -1,6 +1,6 @@
 import { OfflineSigner } from '@cosmjs/proto-signing'
 import { genBroadcaster, IGenBroadcaster, TMasterBroadcaster } from '@/customBroadcast'
-import IABCIApplication from '@/interfaces/classes/IABCIApplication'
+import IQueryABCI from '@/interfaces/classes/IQueryABCI'
 import IProtoBuilder from '@/interfaces/classes/IProtoBuilder'
 import IQueryFileTree from '@/interfaces/classes/IQueryFileTree'
 import IQueryJklMint from '@/interfaces/classes/IQueryJklMint'
@@ -125,7 +125,7 @@ export default class ProtoBuilder implements IProtoBuilder {
   }
 
   /** Static */
-  makeABCIApplication (): IABCIApplication {
+  makeABCIApplication (): IQueryABCI {
     return new QueryABCI(this.GRpc as IABCIGrpc)
   }
   makeBankQuery (): IQueryBank {
@@ -174,7 +174,7 @@ export {
   ITxStorage,
 
   /** Static */
-  IABCIApplication,
+  IQueryABCI,
   IQueryBank,
   ITxBank,
   IQueryDistribution,

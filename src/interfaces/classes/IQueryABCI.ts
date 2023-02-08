@@ -19,7 +19,7 @@ import {
 } from '@/postgen/tendermint/abci/types'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 
-export default interface IABCIApplication {
+export default interface IQueryABCI {
     /** Returns a message (or echo) */
     echo (request: DeepPartial<RequestEcho>, metadata?: grpc.Metadata): Promise<SuccessNoUndefined<ResponseEcho>>;
 
