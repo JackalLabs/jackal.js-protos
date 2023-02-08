@@ -41,7 +41,7 @@ export interface ProofOps {
 }
 
 function createBaseProof(): Proof {
-  return { total: 0, index: 0, leafHash: new Uint8Array(), aunts: [] };
+  return { total: 0, index: 0, leafHash: new Uint8Array([]), aunts: [] };
 }
 
 export const Proof = {
@@ -92,7 +92,7 @@ export const Proof = {
     return {
       total: isSet(object.total) ? Number(object.total) : 0,
       index: isSet(object.index) ? Number(object.index) : 0,
-      leafHash: isSet(object.leafHash) ? bytesFromBase64(object.leafHash) : new Uint8Array(),
+      leafHash: isSet(object.leafHash) ? bytesFromBase64(object.leafHash) : new Uint8Array([]),
       aunts: Array.isArray(object?.aunts) ? object.aunts.map((e: any) => bytesFromBase64(e)) : [],
     };
   },
@@ -102,9 +102,9 @@ export const Proof = {
     message.total !== undefined && (obj.total = Math.round(message.total));
     message.index !== undefined && (obj.index = Math.round(message.index));
     message.leafHash !== undefined &&
-      (obj.leafHash = base64FromBytes(message.leafHash !== undefined ? message.leafHash : new Uint8Array()));
+      (obj.leafHash = base64FromBytes(message.leafHash !== undefined ? message.leafHash : new Uint8Array([])));
     if (message.aunts) {
-      obj.aunts = message.aunts.map((e) => base64FromBytes(e !== undefined ? e : new Uint8Array()));
+      obj.aunts = message.aunts.map((e) => base64FromBytes(e !== undefined ? e : new Uint8Array([])));
     } else {
       obj.aunts = [];
     }
@@ -115,14 +115,14 @@ export const Proof = {
     const message = createBaseProof();
     message.total = object.total ?? 0;
     message.index = object.index ?? 0;
-    message.leafHash = object.leafHash ?? new Uint8Array();
+    message.leafHash = object.leafHash ?? new Uint8Array([]);
     message.aunts = object.aunts?.map((e) => e) || [];
     return message;
   },
 };
 
 function createBaseValueOp(): ValueOp {
-  return { key: new Uint8Array(), proof: undefined };
+  return { key: new Uint8Array([]), proof: undefined };
 }
 
 export const ValueOp = {
@@ -159,7 +159,7 @@ export const ValueOp = {
 
   fromJSON(object: any): ValueOp {
     return {
-      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
+      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array([]),
       proof: isSet(object.proof) ? Proof.fromJSON(object.proof) : undefined,
     };
   },
@@ -167,14 +167,14 @@ export const ValueOp = {
   toJSON(message: ValueOp): unknown {
     const obj: any = {};
     message.key !== undefined &&
-      (obj.key = base64FromBytes(message.key !== undefined ? message.key : new Uint8Array()));
+      (obj.key = base64FromBytes(message.key !== undefined ? message.key : new Uint8Array([])));
     message.proof !== undefined && (obj.proof = message.proof ? Proof.toJSON(message.proof) : undefined);
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<ValueOp>, I>>(object: I): ValueOp {
     const message = createBaseValueOp();
-    message.key = object.key ?? new Uint8Array();
+    message.key = object.key ?? new Uint8Array([]);
     message.proof = (object.proof !== undefined && object.proof !== null) ? Proof.fromPartial(object.proof) : undefined;
     return message;
   },
@@ -248,7 +248,7 @@ export const DominoOp = {
 };
 
 function createBaseProofOp(): ProofOp {
-  return { type: "", key: new Uint8Array(), data: new Uint8Array() };
+  return { type: "", key: new Uint8Array([]), data: new Uint8Array([]) };
 }
 
 export const ProofOp = {
@@ -292,8 +292,8 @@ export const ProofOp = {
   fromJSON(object: any): ProofOp {
     return {
       type: isSet(object.type) ? String(object.type) : "",
-      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
-      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
+      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array([]),
+      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array([]),
     };
   },
 
@@ -301,17 +301,17 @@ export const ProofOp = {
     const obj: any = {};
     message.type !== undefined && (obj.type = message.type);
     message.key !== undefined &&
-      (obj.key = base64FromBytes(message.key !== undefined ? message.key : new Uint8Array()));
+      (obj.key = base64FromBytes(message.key !== undefined ? message.key : new Uint8Array([])));
     message.data !== undefined &&
-      (obj.data = base64FromBytes(message.data !== undefined ? message.data : new Uint8Array()));
+      (obj.data = base64FromBytes(message.data !== undefined ? message.data : new Uint8Array([])));
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<ProofOp>, I>>(object: I): ProofOp {
     const message = createBaseProofOp();
     message.type = object.type ?? "";
-    message.key = object.key ?? new Uint8Array();
-    message.data = object.data ?? new Uint8Array();
+    message.key = object.key ?? new Uint8Array([]);
+    message.data = object.data ?? new Uint8Array([]);
     return message;
   },
 };

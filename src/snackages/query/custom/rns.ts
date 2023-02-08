@@ -103,7 +103,7 @@ export default class QueryRns implements IQueryRns {
           success: false,
           value: {
             names: [],
-            pagination: {nextKey: new Uint8Array(), total: 0}
+            pagination: {nextKey: new Uint8Array([]), total: 0}
           }
         }
       })
@@ -159,7 +159,7 @@ export default class QueryRns implements IQueryRns {
           success: false,
           value: {
             bids: [],
-            pagination: {nextKey: new Uint8Array(), total: 0}
+            pagination: {nextKey: new Uint8Array([]), total: 0}
           }
         }
       })
@@ -214,7 +214,7 @@ export default class QueryRns implements IQueryRns {
           success: false,
           value: {
             forsale: [],
-            pagination: {nextKey: new Uint8Array(), total: 0}
+            pagination: {nextKey: new Uint8Array([]), total: 0}
           }
         }
       })
@@ -265,7 +265,7 @@ export default class QueryRns implements IQueryRns {
           success: false,
           value: {
             init: [],
-            pagination: {nextKey: new Uint8Array(), total: 0}
+            pagination: {nextKey: new Uint8Array([]), total: 0}
           }
         }
       })
@@ -291,7 +291,7 @@ export default class QueryRns implements IQueryRns {
           success: false,
           value: {
             names: [],
-            pagination: {nextKey: new Uint8Array(), total: 0}
+            pagination: {nextKey: new Uint8Array([]), total: 0}
           }
         }
       })

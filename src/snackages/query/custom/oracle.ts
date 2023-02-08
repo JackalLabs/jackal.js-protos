@@ -91,7 +91,7 @@ export default class QueryOracle implements IQueryOracle {
           success: false,
           value: {
             feed: [],
-            pagination: {nextKey: new Uint8Array(), total: 0}
+            pagination: {nextKey: new Uint8Array([]), total: 0}
           }
         }
       })

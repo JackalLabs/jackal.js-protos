@@ -75,7 +75,7 @@ export default class QueryBank implements IQueryBank {
           success: false,
           value: {
             balances: [],
-            pagination: {nextKey: new Uint8Array(), total: 0}
+            pagination: {nextKey: new Uint8Array([]), total: 0}
           }
         }
       })
@@ -104,7 +104,7 @@ export default class QueryBank implements IQueryBank {
           success: false,
           value: {
             balances: [],
-            pagination: {nextKey: new Uint8Array(), total: 0}
+            pagination: {nextKey: new Uint8Array([]), total: 0}
           }
         }
       })
@@ -130,7 +130,7 @@ export default class QueryBank implements IQueryBank {
           success: false,
           value: {
             supply: [],
-            pagination: {nextKey: new Uint8Array(), total: 0}
+            pagination: {nextKey: new Uint8Array([]), total: 0}
           }
         }
       })
@@ -244,7 +244,7 @@ export default class QueryBank implements IQueryBank {
           success: false,
           value: {
             metadatas: [],
-            pagination: {nextKey: new Uint8Array(), total: 0}
+            pagination: {nextKey: new Uint8Array([]), total: 0}
           }
         }
       })

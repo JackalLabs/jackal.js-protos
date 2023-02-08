@@ -149,7 +149,7 @@ export default class QueryFileTree implements IQueryFileTree {
           success: false,
           value: {
             files: [],
-            pagination: {nextKey: new Uint8Array(), total: 0}
+            pagination: {nextKey: new Uint8Array([]), total: 0}
           }
         }
       })
@@ -203,7 +203,7 @@ export default class QueryFileTree implements IQueryFileTree {
           success: false,
           value: {
             pubkey: [],
-            pagination: {nextKey: new Uint8Array(), total: 0}
+            pagination: {nextKey: new Uint8Array([]), total: 0}
           }
         }
       })

@@ -128,7 +128,7 @@ export default class QueryDistribution implements IQueryDistribution {
           success: false,
           value: {
             slashes: [],
-            pagination: {nextKey: new Uint8Array(), total: 0}
+            pagination: {nextKey: new Uint8Array([]), total: 0}
           }
         }
       })
