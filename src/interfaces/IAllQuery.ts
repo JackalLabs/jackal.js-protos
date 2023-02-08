@@ -3,6 +3,7 @@ import IQueryJklMint from '@/interfaces/classes/IQueryJklMint'
 import IQueryOracle from '@/interfaces/classes/IQueryOracle'
 import IQueryRns from '@/interfaces/classes/IQueryRns'
 import IQueryStorage from '@/interfaces/classes/IQueryStorage'
+import IABCIApplication from './classes/IABCIApplication'
 import IQueryBank from '@/interfaces/classes/IQueryBank'
 import IQueryDistribution from '@/interfaces/classes/IQueryDistribution'
 import IQueryGov from '@/interfaces/classes/IQueryGov'
@@ -16,6 +17,7 @@ export default interface IAllQuery {
   rns: IQueryRns,
   storage: IQueryStorage,
   /** Static */
+  abci: IABCIApplication,
   bank: IQueryBank,
   distribution: IQueryDistribution,
   gov: IQueryGov,
