@@ -26,7 +26,7 @@ import {
   TGrpc
 } from '@/interfaces/IGrpcWebImpl'
 
-import ABCIApp from '@/snackages/query/static/abci'
+import QueryABCI from '@/snackages/query/static/abci'
 import QueryFileTree from '@/snackages/query/custom/fileTree'
 import QueryJklMint from '@/snackages/query/custom/jklMint'
 import QueryRns from '@/snackages/query/custom/rns'
@@ -126,7 +126,7 @@ export default class ProtoBuilder implements IProtoBuilder {
 
   /** Static */
   makeABCIApplication (): IABCIApplication {
-    return new ABCIApp(this.GRpc as IABCIGrpc)
+    return new QueryABCI(this.GRpc as IABCIGrpc)
   }
   makeBankQuery (): IQueryBank {
     return new QueryBank(this.GRpc as IBankGrpc)

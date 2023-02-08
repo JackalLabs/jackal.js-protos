@@ -23,7 +23,7 @@ import {
 import IABCIApplication from '@/interfaces/classes/IABCIApplication'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 
-export default class ABCIApp implements IABCIApplication {
+export default class QueryABCI implements IABCIApplication {
     private readonly ABCIApplicationClient: ABCIApplication
 
     constructor (rpc: GrpcWebImpl) {
