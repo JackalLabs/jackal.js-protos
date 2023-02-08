@@ -3,6 +3,7 @@ import IQueryJklMint from '@/interfaces/classes/IQueryJklMint'
 import IQueryOracle from '@/interfaces/classes/IQueryOracle'
 import IQueryRns from '@/interfaces/classes/IQueryRns'
 import IQueryStorage from '@/interfaces/classes/IQueryStorage'
+import IABCIApplication from '@/interfaces/classes/IABCIApplication'
 import IQueryBank from '@/interfaces/classes/IQueryBank'
 import IQueryDistribution from '@/interfaces/classes/IQueryDistribution'
 import IQueryGov from '@/interfaces/classes/IQueryGov'
@@ -35,6 +36,7 @@ export default interface IProtoBuilder {
   makeStorageTx (): ITxStorage
 
   /** Static */
+  makeABCIApplication (): IABCIApplication
   makeBankQuery (): IQueryBank
   makeBankTx (): ITxBank
   makeDistributionQuery (): IQueryDistribution
