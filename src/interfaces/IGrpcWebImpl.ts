@@ -4,6 +4,7 @@ import { GrpcWebImpl as IOracleGrpc } from '@/postgen/canine_chain/oracle/query'
 import { GrpcWebImpl as IRnsGrpc } from '@/postgen/canine_chain/rns/query'
 import { GrpcWebImpl as IStorageGrpc } from '@/postgen/canine_chain/storage/query'
 
+import { GrpcWebImpl as IABCIGrpc } from '@/postgen/tendermint/abci/types'
 import { GrpcWebImpl as IBankGrpc } from '@/postgen/cosmos/bank/v1beta1/query'
 import { GrpcWebImpl as IDistributionGrpc } from '@/postgen/cosmos/distribution/v1beta1/query'
 import { GrpcWebImpl as IGovGrpc } from '@/postgen/cosmos/gov/v1beta1/query'
@@ -14,6 +15,7 @@ type TGrpc = IFileTreeGrpc
   | IOracleGrpc
   | IRnsGrpc
   | IStorageGrpc
+  | IABCIGrpc
   | IBankGrpc
   | IDistributionGrpc
   | IGovGrpc
@@ -29,6 +31,7 @@ export {
   IRnsGrpc,
   IStorageGrpc,
   /** Stock */
+  IABCIGrpc,
   IBankGrpc,
   IDistributionGrpc,
   IGovGrpc,

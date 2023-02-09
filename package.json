@@ -1,6 +1,6 @@
 {
   "name": "jackal.js-protos",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Package of all protos used by Jackal.js",
   "keywords": [
     "jackal",
@@ -25,6 +25,10 @@
     {
       "name": "Erin Rivas",
       "email": "erin@jackallabs.io"
+    },
+    {
+      "name": "Christopher Simanjuntak",
+      "email": "chris@jackallabs.io"
     }
   ],
   "license": "SEE LICENSE IN LICENSE",

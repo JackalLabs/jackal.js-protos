@@ -63,7 +63,7 @@ export default class QueryJklMint implements IQueryJklMint {
           message: '',
           success: false,
           value: {
-            inflation: new Uint8Array()
+            inflation: new Uint8Array([])
           }
         }
       })

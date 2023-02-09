@@ -49,7 +49,7 @@ export default class QueryStaking implements IQueryStaking {
           success: false,
           value: {
             validators: [],
-            pagination: {nextKey: new Uint8Array(), total: 0}
+            pagination: {nextKey: new Uint8Array([]), total: 0}
           }
         }
       })
@@ -78,7 +78,7 @@ export default class QueryStaking implements IQueryStaking {
               operatorAddress: '',
               consensusPubkey: {
                 typeUrl: '',
-                value: new Uint8Array()
+                value: new Uint8Array([])
               },
               jailed: false,
               status: -1,
@@ -128,7 +128,7 @@ export default class QueryStaking implements IQueryStaking {
           success: false,
           value: {
             delegationResponses: [],
-            pagination: {nextKey: new Uint8Array(), total: 0}
+            pagination: {nextKey: new Uint8Array([]), total: 0}
           }
         }
       })
@@ -154,7 +154,7 @@ export default class QueryStaking implements IQueryStaking {
           success: false,
           value: {
             unbondingResponses: [],
-            pagination: {nextKey: new Uint8Array(), total: 0}
+            pagination: {nextKey: new Uint8Array([]), total: 0}
           }
         }
       })
@@ -247,7 +247,7 @@ export default class QueryStaking implements IQueryStaking {
           success: false,
           value: {
             delegationResponses: [],
-            pagination: {nextKey: new Uint8Array(), total: 0}
+            pagination: {nextKey: new Uint8Array([]), total: 0}
           }
         }
       })
@@ -276,7 +276,7 @@ export default class QueryStaking implements IQueryStaking {
           success: false,
           value: {
             unbondingResponses: [],
-            pagination: {nextKey: new Uint8Array(), total: 0}
+            pagination: {nextKey: new Uint8Array([]), total: 0}
           }
         }
       })
@@ -302,7 +302,7 @@ export default class QueryStaking implements IQueryStaking {
           success: false,
           value: {
             redelegationResponses: [],
-            pagination: {nextKey: new Uint8Array(), total: 0}
+            pagination: {nextKey: new Uint8Array([]), total: 0}
           }
         }
       })
@@ -331,7 +331,7 @@ export default class QueryStaking implements IQueryStaking {
           success: false,
           value: {
             validators: [],
-            pagination: {nextKey: new Uint8Array(), total: 0}
+            pagination: {nextKey: new Uint8Array([]), total: 0}
           }
         }
       })
@@ -363,7 +363,7 @@ export default class QueryStaking implements IQueryStaking {
               operatorAddress: '',
               consensusPubkey: {
                 typeUrl: '',
-                value: new Uint8Array()
+                value: new Uint8Array([])
               },
               jailed: false,
               status: -1,
@@ -423,21 +423,21 @@ export default class QueryStaking implements IQueryStaking {
                 height: 0,
                 time: new Date(),
                 lastBlockId: {
-                  hash: new Uint8Array(),
+                  hash: new Uint8Array([]),
                   partSetHeader: {
                     total: 0,
-                    hash: new Uint8Array()
+                    hash: new Uint8Array([])
                   }
                 },
-                lastCommitHash: new Uint8Array(),
-                dataHash: new Uint8Array(),
-                validatorsHash: new Uint8Array(),
-                nextValidatorsHash: new Uint8Array(),
-                consensusHash: new Uint8Array(),
-                appHash: new Uint8Array(),
-                lastResultsHash: new Uint8Array(),
-                evidenceHash: new Uint8Array(),
-                proposerAddress: new Uint8Array()
+                lastCommitHash: new Uint8Array([]),
+                dataHash: new Uint8Array([]),
+                validatorsHash: new Uint8Array([]),
+                nextValidatorsHash: new Uint8Array([]),
+                consensusHash: new Uint8Array([]),
+                appHash: new Uint8Array([]),
+                lastResultsHash: new Uint8Array([]),
+                evidenceHash: new Uint8Array([]),
+                proposerAddress: new Uint8Array([])
               }
             }
           }
