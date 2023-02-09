@@ -46,7 +46,7 @@ export default class QueryGov implements IQueryGov {
               proposalId: 0,
               content: {
                 typeUrl: '',
-                value: new Uint8Array()
+                value: new Uint8Array([])
               },
               status: -1,
               finalTallyResult: {
@@ -86,7 +86,7 @@ export default class QueryGov implements IQueryGov {
           success: false,
           value: {
             proposals: [],
-            pagination: {nextKey: new Uint8Array(), total: 0}
+            pagination: {nextKey: new Uint8Array([]), total: 0}
           }
         }
       })
@@ -142,7 +142,7 @@ export default class QueryGov implements IQueryGov {
           success: false,
           value: {
             votes: [],
-            pagination: {nextKey: new Uint8Array(), total: 0}
+            pagination: {nextKey: new Uint8Array([]), total: 0}
           }
         }
       })
@@ -175,9 +175,9 @@ export default class QueryGov implements IQueryGov {
               }
             },
             tallyParams: {
-              quorum: new Uint8Array(),
-              threshold: new Uint8Array(),
-              vetoThreshold: new Uint8Array()
+              quorum: new Uint8Array([]),
+              threshold: new Uint8Array([]),
+              vetoThreshold: new Uint8Array([])
             },
             votingParams: {
               votingPeriod: {
@@ -239,7 +239,7 @@ export default class QueryGov implements IQueryGov {
           success: false,
           value: {
             deposits: [],
-            pagination: {nextKey: new Uint8Array(), total: 0}
+            pagination: {nextKey: new Uint8Array([]), total: 0}
           }
         }
       })

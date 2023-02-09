@@ -135,7 +135,7 @@ export default class QueryStorage implements IQueryStorage {
           success: false,
           value: {
             contracts: [],
-            pagination: {nextKey: new Uint8Array(), total: 0}
+            pagination: {nextKey: new Uint8Array([]), total: 0}
           }
         }
       })
@@ -199,7 +199,7 @@ export default class QueryStorage implements IQueryStorage {
           success: false,
           value: {
             activeDeals: [],
-            pagination: {nextKey: new Uint8Array(), total: 0}
+            pagination: {nextKey: new Uint8Array([]), total: 0}
           }
         }
       })
@@ -257,7 +257,7 @@ export default class QueryStorage implements IQueryStorage {
           success: false,
           value: {
             providers: [],
-            pagination: {nextKey: new Uint8Array(), total: 0}
+            pagination: {nextKey: new Uint8Array([]), total: 0}
           }
         }
       })
@@ -364,7 +364,7 @@ export default class QueryStorage implements IQueryStorage {
           success: false,
           value: {
             strays: [],
-            pagination: {nextKey: new Uint8Array(), total: 0}
+            pagination: {nextKey: new Uint8Array([]), total: 0}
           }
         }
       })
@@ -443,7 +443,7 @@ export default class QueryStorage implements IQueryStorage {
           success: false,
           value: {
             fidCid: [],
-            pagination: {nextKey: new Uint8Array(), total: 0}
+            pagination: {nextKey: new Uint8Array([]), total: 0}
           }
         }
       })
@@ -526,7 +526,7 @@ export default class QueryStorage implements IQueryStorage {
           success: false,
           value: {
             storagePaymentInfo: [],
-            pagination: {nextKey: new Uint8Array(), total: 0}
+            pagination: {nextKey: new Uint8Array([]), total: 0}
           }
         }
       })

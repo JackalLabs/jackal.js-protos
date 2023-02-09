@@ -157,7 +157,7 @@ export const QueryInflationRequest = {
 };
 
 function createBaseQueryInflationResponse(): QueryInflationResponse {
-  return { inflation: new Uint8Array() };
+  return { inflation: new Uint8Array([]) };
 }
 
 export const QueryInflationResponse = {
@@ -187,19 +187,19 @@ export const QueryInflationResponse = {
   },
 
   fromJSON(object: any): QueryInflationResponse {
-    return { inflation: isSet(object.inflation) ? bytesFromBase64(object.inflation) : new Uint8Array() };
+    return { inflation: isSet(object.inflation) ? bytesFromBase64(object.inflation) : new Uint8Array([]) };
   },
 
   toJSON(message: QueryInflationResponse): unknown {
     const obj: any = {};
     message.inflation !== undefined &&
-      (obj.inflation = base64FromBytes(message.inflation !== undefined ? message.inflation : new Uint8Array()));
+      (obj.inflation = base64FromBytes(message.inflation !== undefined ? message.inflation : new Uint8Array([])));
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryInflationResponse>, I>>(object: I): QueryInflationResponse {
     const message = createBaseQueryInflationResponse();
-    message.inflation = object.inflation ?? new Uint8Array();
+    message.inflation = object.inflation ?? new Uint8Array([]);
     return message;
   },
 };
