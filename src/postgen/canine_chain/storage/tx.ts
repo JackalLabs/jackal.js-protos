@@ -24,12 +24,14 @@ export interface MsgPostproof {
 }
 
 export interface MsgPostproofResponse {
-  merkle: string;
+  success: boolean;
+  errorMessage: string;
 }
 
 export interface MsgSignContract {
   creator: string;
   cid: string;
+  payOnce: boolean;
 }
 
 export interface MsgSignContractResponse {
@@ -57,6 +59,22 @@ export interface MsgSetProviderTotalspace {
 }
 
 export interface MsgSetProviderTotalspaceResponse {
+}
+
+export interface MsgAddClaimer {
+  creator: string;
+  claimAddress: string;
+}
+
+export interface MsgAddClaimerResponse {
+}
+
+export interface MsgRemoveClaimer {
+  creator: string;
+  claimAddress: string;
+}
+
+export interface MsgRemoveClaimerResponse {
 }
 
 export interface MsgInitProvider {
@@ -91,6 +109,7 @@ export interface MsgBuyStorageResponse {
 export interface MsgClaimStray {
   creator: string;
   cid: string;
+  forAddress: string;
 }
 
 export interface MsgClaimStrayResponse {
@@ -308,13 +327,16 @@ export const MsgPostproof = {
 };
 
 function createBaseMsgPostproofResponse(): MsgPostproofResponse {
-  return { merkle: "" };
+  return { success: false, errorMessage: "" };
 }
 
 export const MsgPostproofResponse = {
   encode(message: MsgPostproofResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.merkle !== "") {
-      writer.uint32(10).string(message.merkle);
+    if (message.success === true) {
+      writer.uint32(8).bool(message.success);
+    }
+    if (message.errorMessage !== "") {
+      writer.uint32(18).string(message.errorMessage);
     }
     return writer;
   },
@@ -327,7 +349,10 @@ export const MsgPostproofResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.merkle = reader.string();
+          message.success = reader.bool();
+          break;
+        case 2:
+          message.errorMessage = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -338,24 +363,29 @@ export const MsgPostproofResponse = {
   },
 
   fromJSON(object: any): MsgPostproofResponse {
-    return { merkle: isSet(object.merkle) ? String(object.merkle) : "" };
+    return {
+      success: isSet(object.success) ? Boolean(object.success) : false,
+      errorMessage: isSet(object.errorMessage) ? String(object.errorMessage) : "",
+    };
   },
 
   toJSON(message: MsgPostproofResponse): unknown {
     const obj: any = {};
-    message.merkle !== undefined && (obj.merkle = message.merkle);
+    message.success !== undefined && (obj.success = message.success);
+    message.errorMessage !== undefined && (obj.errorMessage = message.errorMessage);
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgPostproofResponse>, I>>(object: I): MsgPostproofResponse {
     const message = createBaseMsgPostproofResponse();
-    message.merkle = object.merkle ?? "";
+    message.success = object.success ?? false;
+    message.errorMessage = object.errorMessage ?? "";
     return message;
   },
 };
 
 function createBaseMsgSignContract(): MsgSignContract {
-  return { creator: "", cid: "" };
+  return { creator: "", cid: "", payOnce: false };
 }
 
 export const MsgSignContract = {
@@ -365,6 +395,9 @@ export const MsgSignContract = {
     }
     if (message.cid !== "") {
       writer.uint32(18).string(message.cid);
+    }
+    if (message.payOnce === true) {
+      writer.uint32(24).bool(message.payOnce);
     }
     return writer;
   },
@@ -382,6 +415,9 @@ export const MsgSignContract = {
         case 2:
           message.cid = reader.string();
           break;
+        case 3:
+          message.payOnce = reader.bool();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -394,6 +430,7 @@ export const MsgSignContract = {
     return {
       creator: isSet(object.creator) ? String(object.creator) : "",
       cid: isSet(object.cid) ? String(object.cid) : "",
+      payOnce: isSet(object.payOnce) ? Boolean(object.payOnce) : false,
     };
   },
 
@@ -401,6 +438,7 @@ export const MsgSignContract = {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
     message.cid !== undefined && (obj.cid = message.cid);
+    message.payOnce !== undefined && (obj.payOnce = message.payOnce);
     return obj;
   },
 
@@ -408,6 +446,7 @@ export const MsgSignContract = {
     const message = createBaseMsgSignContract();
     message.creator = object.creator ?? "";
     message.cid = object.cid ?? "";
+    message.payOnce = object.payOnce ?? false;
     return message;
   },
 };
@@ -740,6 +779,200 @@ export const MsgSetProviderTotalspaceResponse = {
     _: I,
   ): MsgSetProviderTotalspaceResponse {
     const message = createBaseMsgSetProviderTotalspaceResponse();
+    return message;
+  },
+};
+
+function createBaseMsgAddClaimer(): MsgAddClaimer {
+  return { creator: "", claimAddress: "" };
+}
+
+export const MsgAddClaimer = {
+  encode(message: MsgAddClaimer, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.claimAddress !== "") {
+      writer.uint32(18).string(message.claimAddress);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgAddClaimer {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgAddClaimer();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.claimAddress = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgAddClaimer {
+    return {
+      creator: isSet(object.creator) ? String(object.creator) : "",
+      claimAddress: isSet(object.claimAddress) ? String(object.claimAddress) : "",
+    };
+  },
+
+  toJSON(message: MsgAddClaimer): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.claimAddress !== undefined && (obj.claimAddress = message.claimAddress);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgAddClaimer>, I>>(object: I): MsgAddClaimer {
+    const message = createBaseMsgAddClaimer();
+    message.creator = object.creator ?? "";
+    message.claimAddress = object.claimAddress ?? "";
+    return message;
+  },
+};
+
+function createBaseMsgAddClaimerResponse(): MsgAddClaimerResponse {
+  return {};
+}
+
+export const MsgAddClaimerResponse = {
+  encode(_: MsgAddClaimerResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgAddClaimerResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgAddClaimerResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgAddClaimerResponse {
+    return {};
+  },
+
+  toJSON(_: MsgAddClaimerResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgAddClaimerResponse>, I>>(_: I): MsgAddClaimerResponse {
+    const message = createBaseMsgAddClaimerResponse();
+    return message;
+  },
+};
+
+function createBaseMsgRemoveClaimer(): MsgRemoveClaimer {
+  return { creator: "", claimAddress: "" };
+}
+
+export const MsgRemoveClaimer = {
+  encode(message: MsgRemoveClaimer, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.claimAddress !== "") {
+      writer.uint32(18).string(message.claimAddress);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgRemoveClaimer {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgRemoveClaimer();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.claimAddress = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgRemoveClaimer {
+    return {
+      creator: isSet(object.creator) ? String(object.creator) : "",
+      claimAddress: isSet(object.claimAddress) ? String(object.claimAddress) : "",
+    };
+  },
+
+  toJSON(message: MsgRemoveClaimer): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.claimAddress !== undefined && (obj.claimAddress = message.claimAddress);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgRemoveClaimer>, I>>(object: I): MsgRemoveClaimer {
+    const message = createBaseMsgRemoveClaimer();
+    message.creator = object.creator ?? "";
+    message.claimAddress = object.claimAddress ?? "";
+    return message;
+  },
+};
+
+function createBaseMsgRemoveClaimerResponse(): MsgRemoveClaimerResponse {
+  return {};
+}
+
+export const MsgRemoveClaimerResponse = {
+  encode(_: MsgRemoveClaimerResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgRemoveClaimerResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgRemoveClaimerResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgRemoveClaimerResponse {
+    return {};
+  },
+
+  toJSON(_: MsgRemoveClaimerResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgRemoveClaimerResponse>, I>>(_: I): MsgRemoveClaimerResponse {
+    const message = createBaseMsgRemoveClaimerResponse();
     return message;
   },
 };
@@ -1081,7 +1314,7 @@ export const MsgBuyStorageResponse = {
 };
 
 function createBaseMsgClaimStray(): MsgClaimStray {
-  return { creator: "", cid: "" };
+  return { creator: "", cid: "", forAddress: "" };
 }
 
 export const MsgClaimStray = {
@@ -1091,6 +1324,9 @@ export const MsgClaimStray = {
     }
     if (message.cid !== "") {
       writer.uint32(18).string(message.cid);
+    }
+    if (message.forAddress !== "") {
+      writer.uint32(26).string(message.forAddress);
     }
     return writer;
   },
@@ -1108,6 +1344,9 @@ export const MsgClaimStray = {
         case 2:
           message.cid = reader.string();
           break;
+        case 3:
+          message.forAddress = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1120,6 +1359,7 @@ export const MsgClaimStray = {
     return {
       creator: isSet(object.creator) ? String(object.creator) : "",
       cid: isSet(object.cid) ? String(object.cid) : "",
+      forAddress: isSet(object.forAddress) ? String(object.forAddress) : "",
     };
   },
 
@@ -1127,6 +1367,7 @@ export const MsgClaimStray = {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
     message.cid !== undefined && (obj.cid = message.cid);
+    message.forAddress !== undefined && (obj.forAddress = message.forAddress);
     return obj;
   },
 
@@ -1134,6 +1375,7 @@ export const MsgClaimStray = {
     const message = createBaseMsgClaimStray();
     message.creator = object.creator ?? "";
     message.cid = object.cid ?? "";
+    message.forAddress = object.forAddress ?? "";
     return message;
   },
 };
@@ -1319,8 +1561,12 @@ export interface Msg {
   CancelContract(request: DeepPartial<MsgCancelContract>, metadata?: grpc.Metadata): Promise<MsgCancelContractResponse>;
   BuyStorage(request: DeepPartial<MsgBuyStorage>, metadata?: grpc.Metadata): Promise<MsgBuyStorageResponse>;
   ClaimStray(request: DeepPartial<MsgClaimStray>, metadata?: grpc.Metadata): Promise<MsgClaimStrayResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   UpgradeStorage(request: DeepPartial<MsgUpgradeStorage>, metadata?: grpc.Metadata): Promise<MsgUpgradeStorageResponse>;
+  AddProviderClaimer(request: DeepPartial<MsgAddClaimer>, metadata?: grpc.Metadata): Promise<MsgAddClaimerResponse>;
+  RemoveProviderClaimer(
+    request: DeepPartial<MsgRemoveClaimer>,
+    metadata?: grpc.Metadata,
+  ): Promise<MsgRemoveClaimerResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -1339,6 +1585,8 @@ export class MsgClientImpl implements Msg {
     this.BuyStorage = this.BuyStorage.bind(this);
     this.ClaimStray = this.ClaimStray.bind(this);
     this.UpgradeStorage = this.UpgradeStorage.bind(this);
+    this.AddProviderClaimer = this.AddProviderClaimer.bind(this);
+    this.RemoveProviderClaimer = this.RemoveProviderClaimer.bind(this);
   }
 
   PostContract(request: DeepPartial<MsgPostContract>, metadata?: grpc.Metadata): Promise<MsgPostContractResponse> {
@@ -1395,6 +1643,17 @@ export class MsgClientImpl implements Msg {
     metadata?: grpc.Metadata,
   ): Promise<MsgUpgradeStorageResponse> {
     return this.rpc.unary(MsgUpgradeStorageDesc, MsgUpgradeStorage.fromPartial(request), metadata);
+  }
+
+  AddProviderClaimer(request: DeepPartial<MsgAddClaimer>, metadata?: grpc.Metadata): Promise<MsgAddClaimerResponse> {
+    return this.rpc.unary(MsgAddProviderClaimerDesc, MsgAddClaimer.fromPartial(request), metadata);
+  }
+
+  RemoveProviderClaimer(
+    request: DeepPartial<MsgRemoveClaimer>,
+    metadata?: grpc.Metadata,
+  ): Promise<MsgRemoveClaimerResponse> {
+    return this.rpc.unary(MsgRemoveProviderClaimerDesc, MsgRemoveClaimer.fromPartial(request), metadata);
   }
 }
 
@@ -1634,6 +1893,50 @@ export const MsgUpgradeStorageDesc: UnaryMethodDefinitionish = {
     deserializeBinary(data: Uint8Array) {
       return {
         ...MsgUpgradeStorageResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const MsgAddProviderClaimerDesc: UnaryMethodDefinitionish = {
+  methodName: "AddProviderClaimer",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgAddClaimer.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgAddClaimerResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const MsgRemoveProviderClaimerDesc: UnaryMethodDefinitionish = {
+  methodName: "RemoveProviderClaimer",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgRemoveClaimer.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgRemoveClaimerResponse.decode(data),
         toObject() {
           return this;
         },

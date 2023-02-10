@@ -1,4 +1,5 @@
 /* eslint-disable */
+import Long from "long";
 import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "canine_chain.storage";
@@ -6,16 +7,20 @@ export const protobufPackage = "canine_chain.storage";
 /** Params defines the parameters for the module. */
 export interface Params {
   depositAccount: string;
+  proofWindow: number;
 }
 
 function createBaseParams(): Params {
-  return { depositAccount: "" };
+  return { depositAccount: "", proofWindow: 0 };
 }
 
 export const Params = {
   encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.depositAccount !== "") {
       writer.uint32(10).string(message.depositAccount);
+    }
+    if (message.proofWindow !== 0) {
+      writer.uint32(16).int64(message.proofWindow);
     }
     return writer;
   },
@@ -30,6 +35,9 @@ export const Params = {
         case 1:
           message.depositAccount = reader.string();
           break;
+        case 2:
+          message.proofWindow = longToNumber(reader.int64() as Long);
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -39,21 +47,45 @@ export const Params = {
   },
 
   fromJSON(object: any): Params {
-    return { depositAccount: isSet(object.depositAccount) ? String(object.depositAccount) : "" };
+    return {
+      depositAccount: isSet(object.depositAccount) ? String(object.depositAccount) : "",
+      proofWindow: isSet(object.proofWindow) ? Number(object.proofWindow) : 0,
+    };
   },
 
   toJSON(message: Params): unknown {
     const obj: any = {};
     message.depositAccount !== undefined && (obj.depositAccount = message.depositAccount);
+    message.proofWindow !== undefined && (obj.proofWindow = Math.round(message.proofWindow));
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
     const message = createBaseParams();
     message.depositAccount = object.depositAccount ?? "";
+    message.proofWindow = object.proofWindow ?? 0;
     return message;
   },
 };
+
+declare var self: any | undefined;
+declare var window: any | undefined;
+declare var global: any | undefined;
+var globalThis: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
@@ -65,6 +97,18 @@ export type DeepPartial<T> = T extends Builtin ? T
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+
+function longToNumber(long: Long): number {
+  if (long.gt(Number.MAX_SAFE_INTEGER)) {
+    throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+  }
+  return long.toNumber();
+}
+
+if (_m0.util.Long !== Long) {
+  _m0.util.Long = Long as any;
+  _m0.configure();
+}
 
 function isSet(value: any): boolean {
   return value !== null && value !== undefined;
