@@ -43,7 +43,7 @@ export interface LastValidatorPower {
 function createBaseGenesisState(): GenesisState {
   return {
     params: undefined,
-    lastTotalPower: new Uint8Array([]),
+    lastTotalPower: new Uint8Array(),
     lastValidatorPowers: [],
     validators: [],
     delegations: [],
@@ -124,7 +124,7 @@ export const GenesisState = {
   fromJSON(object: any): GenesisState {
     return {
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-      lastTotalPower: isSet(object.lastTotalPower) ? bytesFromBase64(object.lastTotalPower) : new Uint8Array([]),
+      lastTotalPower: isSet(object.lastTotalPower) ? bytesFromBase64(object.lastTotalPower) : new Uint8Array(),
       lastValidatorPowers: Array.isArray(object?.lastValidatorPowers)
         ? object.lastValidatorPowers.map((e: any) => LastValidatorPower.fromJSON(e))
         : [],
@@ -145,7 +145,7 @@ export const GenesisState = {
     message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined);
     message.lastTotalPower !== undefined &&
       (obj.lastTotalPower = base64FromBytes(
-        message.lastTotalPower !== undefined ? message.lastTotalPower : new Uint8Array([]),
+        message.lastTotalPower !== undefined ? message.lastTotalPower : new Uint8Array(),
       ));
     if (message.lastValidatorPowers) {
       obj.lastValidatorPowers = message.lastValidatorPowers.map((e) => e ? LastValidatorPower.toJSON(e) : undefined);
@@ -181,7 +181,7 @@ export const GenesisState = {
     message.params = (object.params !== undefined && object.params !== null)
       ? Params.fromPartial(object.params)
       : undefined;
-    message.lastTotalPower = object.lastTotalPower ?? new Uint8Array([]);
+    message.lastTotalPower = object.lastTotalPower ?? new Uint8Array();
     message.lastValidatorPowers = object.lastValidatorPowers?.map((e) => LastValidatorPower.fromPartial(e)) || [];
     message.validators = object.validators?.map((e) => Validator.fromPartial(e)) || [];
     message.delegations = object.delegations?.map((e) => Delegation.fromPartial(e)) || [];

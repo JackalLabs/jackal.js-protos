@@ -10,10 +10,19 @@ export interface Providers {
   burnedContracts: string;
   creator: string;
   keybaseIdentity: string;
+  authClaimers: string[];
 }
 
 function createBaseProviders(): Providers {
-  return { address: "", ip: "", totalspace: "", burnedContracts: "", creator: "", keybaseIdentity: "" };
+  return {
+    address: "",
+    ip: "",
+    totalspace: "",
+    burnedContracts: "",
+    creator: "",
+    keybaseIdentity: "",
+    authClaimers: [],
+  };
 }
 
 export const Providers = {
@@ -35,6 +44,9 @@ export const Providers = {
     }
     if (message.keybaseIdentity !== "") {
       writer.uint32(50).string(message.keybaseIdentity);
+    }
+    for (const v of message.authClaimers) {
+      writer.uint32(58).string(v!);
     }
     return writer;
   },
@@ -64,6 +76,9 @@ export const Providers = {
         case 6:
           message.keybaseIdentity = reader.string();
           break;
+        case 7:
+          message.authClaimers.push(reader.string());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -80,6 +95,7 @@ export const Providers = {
       burnedContracts: isSet(object.burnedContracts) ? String(object.burnedContracts) : "",
       creator: isSet(object.creator) ? String(object.creator) : "",
       keybaseIdentity: isSet(object.keybaseIdentity) ? String(object.keybaseIdentity) : "",
+      authClaimers: Array.isArray(object?.authClaimers) ? object.authClaimers.map((e: any) => String(e)) : [],
     };
   },
 
@@ -91,6 +107,11 @@ export const Providers = {
     message.burnedContracts !== undefined && (obj.burnedContracts = message.burnedContracts);
     message.creator !== undefined && (obj.creator = message.creator);
     message.keybaseIdentity !== undefined && (obj.keybaseIdentity = message.keybaseIdentity);
+    if (message.authClaimers) {
+      obj.authClaimers = message.authClaimers.map((e) => e);
+    } else {
+      obj.authClaimers = [];
+    }
     return obj;
   },
 
@@ -102,6 +123,7 @@ export const Providers = {
     message.burnedContracts = object.burnedContracts ?? "";
     message.creator = object.creator ?? "";
     message.keybaseIdentity = object.keybaseIdentity ?? "";
+    message.authClaimers = object.authClaimers?.map((e) => e) || [];
     return message;
   },
 };

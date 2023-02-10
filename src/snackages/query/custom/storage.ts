@@ -73,7 +73,8 @@ export default class QueryStorage implements IQueryStorage {
           success: false,
           value: {
             params: {
-              depositAccount: ''
+              depositAccount: '',
+              proofWindow: 0
             }
           }
         }
@@ -103,12 +104,13 @@ export default class QueryStorage implements IQueryStorage {
               cid: '',
               priceamt: '',
               pricedenom: '',
+              creator: '',
               merkle: '',
               signee: '',
               duration: '',
               filesize: '',
               fid: '',
-              creator: ''
+              age: 0
             }
           }
         }
@@ -165,7 +167,7 @@ export default class QueryStorage implements IQueryStorage {
               signee: '',
               provider: '',
               startblock: '',
-              endblock: '',
+              endblock: 0,
               filesize: '',
               proofverified: '',
               proofsmissed: '',
@@ -230,7 +232,8 @@ export default class QueryStorage implements IQueryStorage {
               totalspace: '',
               burnedContracts: '',
               creator: '',
-              keybaseIdentity: ''
+              keybaseIdentity: '',
+              authClaimers: []
             }
           }
         }
@@ -337,7 +340,8 @@ export default class QueryStorage implements IQueryStorage {
               fid: '',
               signee: '',
               filesize: '',
-              merkle: ''
+              merkle: '',
+              end: 0
             }
           }
         }
