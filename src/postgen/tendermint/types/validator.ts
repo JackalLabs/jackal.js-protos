@@ -98,7 +98,7 @@ export const ValidatorSet = {
 };
 
 function createBaseValidator(): Validator {
-  return { address: new Uint8Array([]), pubKey: undefined, votingPower: 0, proposerPriority: 0 };
+  return { address: new Uint8Array(), pubKey: undefined, votingPower: 0, proposerPriority: 0 };
 }
 
 export const Validator = {
@@ -147,7 +147,7 @@ export const Validator = {
 
   fromJSON(object: any): Validator {
     return {
-      address: isSet(object.address) ? bytesFromBase64(object.address) : new Uint8Array([]),
+      address: isSet(object.address) ? bytesFromBase64(object.address) : new Uint8Array(),
       pubKey: isSet(object.pubKey) ? PublicKey.fromJSON(object.pubKey) : undefined,
       votingPower: isSet(object.votingPower) ? Number(object.votingPower) : 0,
       proposerPriority: isSet(object.proposerPriority) ? Number(object.proposerPriority) : 0,
@@ -157,7 +157,7 @@ export const Validator = {
   toJSON(message: Validator): unknown {
     const obj: any = {};
     message.address !== undefined &&
-      (obj.address = base64FromBytes(message.address !== undefined ? message.address : new Uint8Array([])));
+      (obj.address = base64FromBytes(message.address !== undefined ? message.address : new Uint8Array()));
     message.pubKey !== undefined && (obj.pubKey = message.pubKey ? PublicKey.toJSON(message.pubKey) : undefined);
     message.votingPower !== undefined && (obj.votingPower = Math.round(message.votingPower));
     message.proposerPriority !== undefined && (obj.proposerPriority = Math.round(message.proposerPriority));
@@ -166,7 +166,7 @@ export const Validator = {
 
   fromPartial<I extends Exact<DeepPartial<Validator>, I>>(object: I): Validator {
     const message = createBaseValidator();
-    message.address = object.address ?? new Uint8Array([]);
+    message.address = object.address ?? new Uint8Array();
     message.pubKey = (object.pubKey !== undefined && object.pubKey !== null)
       ? PublicKey.fromPartial(object.pubKey)
       : undefined;

@@ -845,7 +845,7 @@ export const VotingParams = {
 };
 
 function createBaseTallyParams(): TallyParams {
-  return { quorum: new Uint8Array([]), threshold: new Uint8Array([]), vetoThreshold: new Uint8Array([]) };
+  return { quorum: new Uint8Array(), threshold: new Uint8Array(), vetoThreshold: new Uint8Array() };
 }
 
 export const TallyParams = {
@@ -888,30 +888,30 @@ export const TallyParams = {
 
   fromJSON(object: any): TallyParams {
     return {
-      quorum: isSet(object.quorum) ? bytesFromBase64(object.quorum) : new Uint8Array([]),
-      threshold: isSet(object.threshold) ? bytesFromBase64(object.threshold) : new Uint8Array([]),
-      vetoThreshold: isSet(object.vetoThreshold) ? bytesFromBase64(object.vetoThreshold) : new Uint8Array([]),
+      quorum: isSet(object.quorum) ? bytesFromBase64(object.quorum) : new Uint8Array(),
+      threshold: isSet(object.threshold) ? bytesFromBase64(object.threshold) : new Uint8Array(),
+      vetoThreshold: isSet(object.vetoThreshold) ? bytesFromBase64(object.vetoThreshold) : new Uint8Array(),
     };
   },
 
   toJSON(message: TallyParams): unknown {
     const obj: any = {};
     message.quorum !== undefined &&
-      (obj.quorum = base64FromBytes(message.quorum !== undefined ? message.quorum : new Uint8Array([])));
+      (obj.quorum = base64FromBytes(message.quorum !== undefined ? message.quorum : new Uint8Array()));
     message.threshold !== undefined &&
-      (obj.threshold = base64FromBytes(message.threshold !== undefined ? message.threshold : new Uint8Array([])));
+      (obj.threshold = base64FromBytes(message.threshold !== undefined ? message.threshold : new Uint8Array()));
     message.vetoThreshold !== undefined &&
       (obj.vetoThreshold = base64FromBytes(
-        message.vetoThreshold !== undefined ? message.vetoThreshold : new Uint8Array([]),
+        message.vetoThreshold !== undefined ? message.vetoThreshold : new Uint8Array(),
       ));
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<TallyParams>, I>>(object: I): TallyParams {
     const message = createBaseTallyParams();
-    message.quorum = object.quorum ?? new Uint8Array([]);
-    message.threshold = object.threshold ?? new Uint8Array([]);
-    message.vetoThreshold = object.vetoThreshold ?? new Uint8Array([]);
+    message.quorum = object.quorum ?? new Uint8Array();
+    message.threshold = object.threshold ?? new Uint8Array();
+    message.vetoThreshold = object.vetoThreshold ?? new Uint8Array();
     return message;
   },
 };
