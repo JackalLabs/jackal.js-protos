@@ -1,14 +1,17 @@
 import {
+  MsgAddClaimer,
   MsgBuyStorage,
   MsgCancelContract,
   MsgClaimStray,
   MsgInitProvider,
   MsgPostContract,
   MsgPostproof,
+  MsgRemoveClaimer,
   MsgSetProviderIP,
   MsgSetProviderKeybase,
   MsgSetProviderTotalspace,
-  MsgSignContract, MsgUpgradeStorage
+  MsgSignContract,
+  MsgUpgradeStorage
 } from '@/postgen/canine_chain/storage/tx'
 import { EncodeObject } from '@cosmjs/proto-signing'
 import ITypeTuple from '@/interfaces/ITypeTuple'
@@ -21,6 +24,8 @@ const storageTypes: ITypeTuple = {
   setProviderKeybase: ['/canine_chain.storage.MsgSetProviderKeybase', MsgSetProviderKeybase],
   setProviderTotalspace: ['/canine_chain.storage.MsgSetProviderTotalspace', MsgSetProviderTotalspace],
   initProvider: ['/canine_chain.storage.MsgInitProvider', MsgInitProvider],
+  addClaimer: ['/canine_chain.storage.MsgAddClaimer', MsgAddClaimer],
+  removeClaimer: ['/canine_chain.storage.MsgRemoveClaimer', MsgRemoveClaimer],
   cancelContract: ['/canine_chain.storage.MsgCancelContract', MsgCancelContract],
   buyStorage: ['/canine_chain.storage.MsgBuyStorage', MsgBuyStorage],
   claimStray: ['/canine_chain.storage.MsgClaimStray', MsgClaimStray],
@@ -37,6 +42,8 @@ export interface ITxStorage {
   msgSetProviderKeybase (data: MsgSetProviderKeybase): EncodeObject
   msgSetProviderTotalspace (data: MsgSetProviderTotalspace): EncodeObject
   msgInitProvider (data: MsgInitProvider): EncodeObject
+  msgAddClaimer (data: MsgAddClaimer): EncodeObject
+  msgRemoveClaimer (data: MsgRemoveClaimer): EncodeObject
   msgCancelContract (data: MsgCancelContract): EncodeObject
   msgBuyStorage (data: MsgBuyStorage): EncodeObject
   msgClaimStray (data: MsgClaimStray): EncodeObject
@@ -64,6 +71,12 @@ export class TxStorage implements ITxStorage {
   }
   msgInitProvider (data: MsgInitProvider): EncodeObject {
     return { typeUrl: storageTypes.initProvider[0], value: storageTypes.initProvider[1].fromPartial( data ) }
+  }
+  msgAddClaimer (data: MsgAddClaimer): EncodeObject {
+    return { typeUrl: storageTypes.addClaimer[0], value: storageTypes.addClaimer[1].fromPartial( data ) }
+  }
+  msgRemoveClaimer (data: MsgRemoveClaimer): EncodeObject {
+    return { typeUrl: storageTypes.removeClaimer[0], value: storageTypes.removeClaimer[1].fromPartial( data ) }
   }
   msgCancelContract (data: MsgCancelContract): EncodeObject {
     return { typeUrl: storageTypes.cancelContract[0], value: storageTypes.cancelContract[1].fromPartial( data ) }
