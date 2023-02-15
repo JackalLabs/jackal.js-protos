@@ -36,7 +36,7 @@ import {
   QueryAllStoragePaymentInfoRequest,
   QueryAllStoragePaymentInfoResponse,
   QueryFileUploadCheckRequest,
-  QueryFileUploadCheckResponse
+  QueryFileUploadCheckResponse, QueryPriceCheckResponse, QueryPriceCheckRequest
 } from '@/postgen/canine_chain/storage/query'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 
@@ -124,4 +124,10 @@ export default interface IQueryStorage {
     request: DeepPartial<QueryFileUploadCheckRequest>,
     metadata?: grpc.Metadata,
   ): Promise<SuccessNoUndefined<QueryFileUploadCheckResponse>>;
+
+  /** TODO - Update with correct desc */
+  queryPriceCheck(
+    request: DeepPartial<QueryPriceCheckRequest>,
+    metadata?: grpc.Metadata
+  ): Promise<SuccessNoUndefined<QueryPriceCheckResponse>>;
 }

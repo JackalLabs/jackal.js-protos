@@ -168,6 +168,15 @@ export interface QueryFileUploadCheckResponse {
   valid: boolean;
 }
 
+export interface QueryPriceCheckRequest {
+  duration: string;
+  bytes: number;
+}
+
+export interface QueryPriceCheckResponse {
+  price: number;
+}
+
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
@@ -2035,6 +2044,111 @@ export const QueryFileUploadCheckResponse = {
   },
 };
 
+function createBaseQueryPriceCheckRequest(): QueryPriceCheckRequest {
+  return { duration: "", bytes: 0 };
+}
+
+export const QueryPriceCheckRequest = {
+  encode(message: QueryPriceCheckRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.duration !== "") {
+      writer.uint32(10).string(message.duration);
+    }
+    if (message.bytes !== 0) {
+      writer.uint32(16).int64(message.bytes);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryPriceCheckRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryPriceCheckRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.duration = reader.string();
+          break;
+        case 2:
+          message.bytes = longToNumber(reader.int64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryPriceCheckRequest {
+    return {
+      duration: isSet(object.duration) ? String(object.duration) : "",
+      bytes: isSet(object.bytes) ? Number(object.bytes) : 0,
+    };
+  },
+
+  toJSON(message: QueryPriceCheckRequest): unknown {
+    const obj: any = {};
+    message.duration !== undefined && (obj.duration = message.duration);
+    message.bytes !== undefined && (obj.bytes = Math.round(message.bytes));
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryPriceCheckRequest>, I>>(object: I): QueryPriceCheckRequest {
+    const message = createBaseQueryPriceCheckRequest();
+    message.duration = object.duration ?? "";
+    message.bytes = object.bytes ?? 0;
+    return message;
+  },
+};
+
+function createBaseQueryPriceCheckResponse(): QueryPriceCheckResponse {
+  return { price: 0 };
+}
+
+export const QueryPriceCheckResponse = {
+  encode(message: QueryPriceCheckResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.price !== 0) {
+      writer.uint32(8).int64(message.price);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryPriceCheckResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryPriceCheckResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.price = longToNumber(reader.int64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryPriceCheckResponse {
+    return { price: isSet(object.price) ? Number(object.price) : 0 };
+  },
+
+  toJSON(message: QueryPriceCheckResponse): unknown {
+    const obj: any = {};
+    message.price !== undefined && (obj.price = Math.round(message.price));
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryPriceCheckResponse>, I>>(object: I): QueryPriceCheckResponse {
+    const message = createBaseQueryPriceCheckResponse();
+    message.price = object.price ?? 0;
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -2094,6 +2208,8 @@ export interface Query {
     request: DeepPartial<QueryFileUploadCheckRequest>,
     metadata?: grpc.Metadata,
   ): Promise<QueryFileUploadCheckResponse>;
+  /** Queries whether user can upload a file based on size */
+  PriceCheck(request: DeepPartial<QueryPriceCheckRequest>, metadata?: grpc.Metadata): Promise<QueryPriceCheckResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -2119,6 +2235,7 @@ export class QueryClientImpl implements Query {
     this.StoragePaymentInfo = this.StoragePaymentInfo.bind(this);
     this.StoragePaymentInfoAll = this.StoragePaymentInfoAll.bind(this);
     this.FileUploadCheck = this.FileUploadCheck.bind(this);
+    this.PriceCheck = this.PriceCheck.bind(this);
   }
 
   Params(request: DeepPartial<QueryParamsRequest>, metadata?: grpc.Metadata): Promise<QueryParamsResponse> {
@@ -2219,6 +2336,10 @@ export class QueryClientImpl implements Query {
     metadata?: grpc.Metadata,
   ): Promise<QueryFileUploadCheckResponse> {
     return this.rpc.unary(QueryFileUploadCheckDesc, QueryFileUploadCheckRequest.fromPartial(request), metadata);
+  }
+
+  PriceCheck(request: DeepPartial<QueryPriceCheckRequest>, metadata?: grpc.Metadata): Promise<QueryPriceCheckResponse> {
+    return this.rpc.unary(QueryPriceCheckDesc, QueryPriceCheckRequest.fromPartial(request), metadata);
   }
 }
 
@@ -2612,6 +2733,28 @@ export const QueryFileUploadCheckDesc: UnaryMethodDefinitionish = {
     deserializeBinary(data: Uint8Array) {
       return {
         ...QueryFileUploadCheckResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const QueryPriceCheckDesc: UnaryMethodDefinitionish = {
+  methodName: "PriceCheck",
+  service: QueryDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return QueryPriceCheckRequest.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...QueryPriceCheckResponse.decode(data),
         toObject() {
           return this;
         },
