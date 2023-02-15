@@ -39,7 +39,7 @@ import {
   QueryAllStoragePaymentInfoRequest,
   QueryAllStoragePaymentInfoResponse,
   QueryFileUploadCheckRequest,
-  QueryFileUploadCheckResponse
+  QueryFileUploadCheckResponse, QueryPriceCheckRequest, QueryPriceCheckResponse
 } from '@/postgen/canine_chain/storage/query'
 import IQueryStorage from '@/interfaces/classes/IQueryStorage'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
@@ -556,6 +556,31 @@ export default class QueryStorage implements IQueryStorage {
           success: false,
           value: {
             valid: false
+          }
+        }
+      })
+  }
+
+  /** TODO - Update with correct desc */
+  async queryPriceCheck(
+    request: DeepPartial<QueryPriceCheckRequest>,
+    metadata?: grpc.Metadata
+  ): Promise<SuccessNoUndefined<QueryPriceCheckResponse>> {
+    return await this.queryClient.PriceCheck(request, metadata)
+      .then((resp: QueryPriceCheckResponse) => {
+        return {
+          message: '',
+          success: true,
+          value: resp
+        }
+      })
+      .catch(err => {
+        console.warn(`jackal.js-protos - [Storage] queryPriceCheck: ${err}`)
+        return {
+          message: '',
+          success: false,
+          value: {
+            price: 0
           }
         }
       })
