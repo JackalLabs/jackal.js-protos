@@ -63,6 +63,9 @@ export default class ProtoBuilder implements IProtoBuilder {
   /** General */
   makeMasterBroadcaster (): Promise<IGenBroadcaster> {
     return genBroadcaster(this.signer, { addr: this.txUrl })
+      .catch(err => {
+        throw err
+      })
   }
   makeAllQuery (): IAllQuery {
     return {
