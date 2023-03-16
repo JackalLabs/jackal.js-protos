@@ -44,7 +44,9 @@ export default class QueryRns implements IQueryRns {
           message: '',
           success: false,
           value: {
-            params: {}
+            params: {
+              depositAccount: ''
+            }
           }
         }
       })
