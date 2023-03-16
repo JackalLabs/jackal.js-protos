@@ -1,6 +1,12 @@
 import { StdFee } from '@cosmjs/launchpad'
 import { EncodeObject, OfflineSigner, Registry } from '@cosmjs/proto-signing'
-import { DeliverTxResponse, SigningStargateClient } from '@cosmjs/stargate'
+import {
+  AminoConverters,
+  AminoTypes,
+  createDefaultAminoConverters,
+  DeliverTxResponse,
+  SigningStargateClient
+} from '@cosmjs/stargate'
 
 /**
  * Jackal Custom Protos
@@ -17,6 +23,16 @@ import bankTypes from '@/snackages/tx/static/bank'
 import distributionTypes from '@/snackages/tx/static/distribution'
 import govTypes from '@/snackages/tx/static/gov'
 import stakingTypes from '@/snackages/tx/static/staking'
+
+/**
+ * Jackal Custom Aminos
+ */
+import {
+  createFileTreeAminoConverters,
+  createOracleAminoConverters,
+  createRnsAminoConverters,
+  createStorageAminoConverters
+} from '@/snackages/tx/custom/amino'
 
 /**
  * Interfaces
@@ -46,19 +62,41 @@ const masterTypes = [
   ...Object.values(govTypes),
   ...Object.values(stakingTypes)
 ]
+
+const masterAminos: AminoConverters = {
+  ...createDefaultAminoConverters(),
+  ...createFileTreeAminoConverters(),
+  ...createOracleAminoConverters(),
+  ...createRnsAminoConverters(),
+  ...createStorageAminoConverters()
+}
+
 const registry = new Registry(<any>masterTypes)
 const defaultFee = {
   amount: [],
   gas: '200000',
 }
 
-const genBroadcaster = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions = { addr: 'http://localhost:26657' }): Promise<IGenBroadcaster> => {
+const genBroadcaster = async (
+  wallet: OfflineSigner,
+  { addr: addr }: TxClientOptions = { addr: 'http://localhost:26657' }
+): Promise<IGenBroadcaster> => {
   if (!wallet) throw new Error('wallet is required')
-  const client = await SigningStargateClient.connectWithSigner(addr, wallet, { registry })
+  const client = await SigningStargateClient.connectWithSigner(
+    addr,
+    wallet,
+    {
+      registry,
+      aminoTypes: new AminoTypes(masterAminos)
+    }
+  )
   const { address } = (await wallet.getAccounts())[0]
 
   return {
-    masterBroadcaster: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ''}) => client.signAndBroadcast(address, msgs, fee,memo)
+    masterBroadcaster: (
+      msgs: EncodeObject[],
+      { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ''}
+    ) => client.signAndBroadcast(address, msgs, fee, memo)
   }
 }
 
