@@ -29,6 +29,7 @@ import stakingTypes from '@/snackages/tx/static/staking'
  */
 import {
   createFileTreeAminoConverters,
+  createNotificationsAminoConverters,
   createOracleAminoConverters,
   createRnsAminoConverters,
   createStorageAminoConverters
@@ -66,6 +67,7 @@ const masterTypes = [
 const masterAminos: AminoConverters = {
   ...createDefaultAminoConverters(),
   ...createFileTreeAminoConverters(),
+  ...createNotificationsAminoConverters(),
   ...createOracleAminoConverters(),
   ...createRnsAminoConverters(),
   ...createStorageAminoConverters()

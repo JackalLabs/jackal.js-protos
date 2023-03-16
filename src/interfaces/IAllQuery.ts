@@ -1,5 +1,6 @@
 import IQueryFileTree from '@/interfaces/classes/IQueryFileTree'
 import IQueryJklMint from '@/interfaces/classes/IQueryJklMint'
+import IQueryNotifications from '@/interfaces/classes/IQueryNotifications'
 import IQueryOracle from '@/interfaces/classes/IQueryOracle'
 import IQueryRns from '@/interfaces/classes/IQueryRns'
 import IQueryStorage from '@/interfaces/classes/IQueryStorage'
@@ -13,6 +14,7 @@ export default interface IAllQuery {
   /** Custom */
   fileTree: IQueryFileTree,
   jklMint: IQueryJklMint,
+  notifications: IQueryNotifications,
   oracle: IQueryOracle,
   rns: IQueryRns,
   storage: IQueryStorage,

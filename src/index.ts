@@ -1,9 +1,11 @@
 import { OfflineSigner } from '@cosmjs/proto-signing'
 import { genBroadcaster, IGenBroadcaster, TMasterBroadcaster } from '@/customBroadcast'
+
 import IQueryABCI from '@/interfaces/classes/IQueryABCI'
 import IProtoBuilder from '@/interfaces/classes/IProtoBuilder'
 import IQueryFileTree from '@/interfaces/classes/IQueryFileTree'
 import IQueryJklMint from '@/interfaces/classes/IQueryJklMint'
+import IQueryNotifications from '@/interfaces/classes/IQueryNotifications'
 import IQueryOracle from '@/interfaces/classes/IQueryOracle'
 import IQueryRns from '@/interfaces/classes/IQueryRns'
 import IQueryStorage from '@/interfaces/classes/IQueryStorage'
@@ -11,11 +13,13 @@ import IQueryBank from '@/interfaces/classes/IQueryBank'
 import IQueryDistribution from '@/interfaces/classes/IQueryDistribution'
 import IQueryGov from '@/interfaces/classes/IQueryGov'
 import IQueryStaking from '@/interfaces/classes/IQueryStaking'
+
 import {
   GrpcWebImpl,
   IABCIGrpc,
   IFileTreeGrpc,
   IJklMintGrpc,
+  INotificationsGrpc,
   IOracleGrpc,
   IRnsGrpc,
   IStorageGrpc,
@@ -29,15 +33,17 @@ import {
 import QueryABCI from '@/snackages/query/static/abci'
 import QueryFileTree from '@/snackages/query/custom/fileTree'
 import QueryJklMint from '@/snackages/query/custom/jklMint'
+import QueryNotifications from '@/snackages/query/custom/notifications'
+import QueryOracle from '@/snackages/query/custom/oracle'
 import QueryRns from '@/snackages/query/custom/rns'
 import QueryStorage from '@/snackages/query/custom/storage'
 import QueryBank from '@/snackages/query/static/bank'
 import QueryDistribution from '@/snackages/query/static/distribution'
 import QueryGov from '@/snackages/query/static/gov'
-import QueryOracle from '@/snackages/query/custom/oracle'
 import QueryStaking from '@/snackages/query/static/staking'
 
 import { ITxFileTree, TxFileTree } from '@/snackages/tx/custom/fileTree'
+import { ITxNotifications, TxNotifications } from '@/snackages/tx/custom/notifications'
 import { ITxOracle, TxOracle } from '@/snackages/tx/custom/oracle'
 import { ITxRns, TxRns } from '@/snackages/tx/custom/rns'
 import { ITxStorage, TxStorage } from '@/snackages/tx/custom/storage'
@@ -72,6 +78,7 @@ export default class ProtoBuilder implements IProtoBuilder {
       /** Custom */
       fileTree: this.makeFileTreeQuery(),
       jklMint: this.makeJklMintQuery(),
+      notifications: this.makeNotificationsQuery(),
       oracle: this.makeOracleQuery(),
       rns: this.makeRnsQuery(),
       storage: this.makeStorageQuery(),
@@ -88,6 +95,7 @@ export default class ProtoBuilder implements IProtoBuilder {
       /** Custom */
       fileTree: this.makeFileTreeTx(),
       jklMint: null,
+      notifications: this.makeNotificationsTx(),
       oracle: this.makeOracleTx(),
       rns: this.makeRnsTx(),
       storage: this.makeStorageTx(),
@@ -108,6 +116,12 @@ export default class ProtoBuilder implements IProtoBuilder {
   }
   makeJklMintQuery (): IQueryJklMint {
     return new QueryJklMint(this.GRpc as IJklMintGrpc)
+  }
+  makeNotificationsQuery (): IQueryNotifications {
+    return new QueryNotifications(this.GRpc as INotificationsGrpc)
+  }
+  makeNotificationsTx (): ITxNotifications {
+    return new TxNotifications()
   }
   makeOracleQuery (): IQueryOracle {
     return new QueryOracle(this.GRpc as IOracleGrpc)
@@ -170,6 +184,8 @@ export {
   IQueryFileTree,
   ITxFileTree,
   IQueryJklMint,
+  IQueryNotifications,
+  ITxNotifications,
   IQueryOracle,
   ITxOracle,
   IQueryRns,
