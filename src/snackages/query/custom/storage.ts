@@ -39,7 +39,9 @@ import {
   QueryAllStoragePaymentInfoRequest,
   QueryAllStoragePaymentInfoResponse,
   QueryFileUploadCheckRequest,
-  QueryFileUploadCheckResponse, QueryPriceCheckRequest, QueryPriceCheckResponse
+  QueryFileUploadCheckResponse,
+  QueryPriceCheckRequest,
+  QueryPriceCheckResponse
 } from '@/postgen/canine_chain/storage/query'
 import IQueryStorage from '@/interfaces/classes/IQueryStorage'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
@@ -74,7 +76,12 @@ export default class QueryStorage implements IQueryStorage {
           value: {
             params: {
               depositAccount: '',
-              proofWindow: 0
+              proofWindow: 0,
+              chunkSize: 0,
+              missesToBurn: 0,
+              priceFeed: '',
+              maxContractAgeInBlocks: 0,
+              pricePerTbPerMonth: 0
             }
           }
         }
@@ -167,7 +174,7 @@ export default class QueryStorage implements IQueryStorage {
               signee: '',
               provider: '',
               startblock: '',
-              endblock: 0,
+              endblock: '',
               filesize: '',
               proofverified: '',
               proofsmissed: '',
