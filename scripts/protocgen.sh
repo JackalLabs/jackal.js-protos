@@ -11,7 +11,7 @@ cd 'src' || exit
 echo "Generating proto code"
 
 # Generate Static Protos
-static_cosmos_dirs_regex='(bank|distribution|gov|staking)'
+static_cosmos_dirs_regex='(bank|distribution|gov|slashing|staking)'
 static_cosmos_proto_dirs=$(find -E . -iregex ".*\/staticProto\/cosmos\/$static_cosmos_dirs_regex.*\.proto")
 for file in $static_cosmos_proto_dirs; do
   buf generate --template ./cfg/buf.gen.yaml "$file"
