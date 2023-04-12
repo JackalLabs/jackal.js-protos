@@ -6,6 +6,7 @@ import { ITxStorage } from '@/snackages/tx/custom/storage'
 import { ITxBank } from '@/snackages/tx/static/bank'
 import { ITxDistribution } from '@/snackages/tx/static/distribution'
 import { ITxGov } from '@/snackages/tx/static/gov'
+import { ITxSlashing } from '@/snackages/tx/static/slashing'
 import { ITxStaking } from '@/snackages/tx/static/staking'
 
 export default interface IAllTx {
@@ -20,5 +21,6 @@ export default interface IAllTx {
   bank: ITxBank,
   distribution: ITxDistribution,
   gov: ITxGov,
+  slashing: ITxSlashing,
   staking: ITxStaking
 }

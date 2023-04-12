@@ -8,6 +8,7 @@ import IQueryABCI from '@/interfaces/classes/IQueryABCI'
 import IQueryBank from '@/interfaces/classes/IQueryBank'
 import IQueryDistribution from '@/interfaces/classes/IQueryDistribution'
 import IQueryGov from '@/interfaces/classes/IQueryGov'
+import IQuerySlashing from '@/interfaces/classes/IQuerySlashing'
 import IQueryStaking from '@/interfaces/classes/IQueryStaking'
 
 export default interface IAllQuery {
@@ -23,5 +24,6 @@ export default interface IAllQuery {
   bank: IQueryBank,
   distribution: IQueryDistribution,
   gov: IQueryGov,
+  slashing: IQuerySlashing,
   staking: IQueryStaking
 }

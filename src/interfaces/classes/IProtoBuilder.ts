@@ -7,6 +7,7 @@ import IQueryABCI from '@/interfaces/classes/IQueryABCI'
 import IQueryBank from '@/interfaces/classes/IQueryBank'
 import IQueryDistribution from '@/interfaces/classes/IQueryDistribution'
 import IQueryGov from '@/interfaces/classes/IQueryGov'
+import IQuerySlashing from '@/interfaces/classes/IQuerySlashing'
 import IQueryStaking from '@/interfaces/classes/IQueryStaking'
 import { ITxFileTree } from '@/snackages/tx/custom/fileTree'
 import { ITxOracle } from '@/snackages/tx/custom/oracle'
@@ -15,6 +16,7 @@ import { ITxStorage } from '@/snackages/tx/custom/storage'
 import { ITxBank } from '@/snackages/tx/static/bank'
 import { ITxDistribution } from '@/snackages/tx/static/distribution'
 import { ITxGov } from '@/snackages/tx/static/gov'
+import { ITxSlashing } from '@/snackages/tx/static/slashing'
 import { ITxStaking } from '@/snackages/tx/static/staking'
 import IAllQuery from '@/interfaces/IAllQuery'
 import IAllTx from '@/interfaces/IAllTx'
@@ -43,6 +45,8 @@ export default interface IProtoBuilder {
   makeDistributionTx (): ITxDistribution
   makeGovQuery (): IQueryGov
   makeGovTx (): ITxGov
+  makeSlashingQuery (): IQuerySlashing
+  makeSlashingTx (): ITxSlashing
   makeStakingQuery (): IQueryStaking
   makeStakingTx (): ITxStaking
 
