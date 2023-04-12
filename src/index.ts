@@ -12,6 +12,7 @@ import IQueryStorage from '@/interfaces/classes/IQueryStorage'
 import IQueryBank from '@/interfaces/classes/IQueryBank'
 import IQueryDistribution from '@/interfaces/classes/IQueryDistribution'
 import IQueryGov from '@/interfaces/classes/IQueryGov'
+import IQuerySlashing from '@/interfaces/classes/IQuerySlashing'
 import IQueryStaking from '@/interfaces/classes/IQueryStaking'
 
 import {
@@ -26,6 +27,7 @@ import {
   IBankGrpc,
   IDistributionGrpc,
   IGovGrpc,
+  ISlashingGrpc,
   IStakingGrpc,
   TGrpc
 } from '@/interfaces/IGrpcWebImpl'
@@ -40,6 +42,7 @@ import QueryStorage from '@/snackages/query/custom/storage'
 import QueryBank from '@/snackages/query/static/bank'
 import QueryDistribution from '@/snackages/query/static/distribution'
 import QueryGov from '@/snackages/query/static/gov'
+import QuerySlashing from '@/snackages/query/static/slashing'
 import QueryStaking from '@/snackages/query/static/staking'
 
 import { ITxFileTree, TxFileTree } from '@/snackages/tx/custom/fileTree'
@@ -50,6 +53,7 @@ import { ITxStorage, TxStorage } from '@/snackages/tx/custom/storage'
 import { ITxBank, TxBank } from '@/snackages/tx/static/bank'
 import { ITxDistribution, TxDistribution } from '@/snackages/tx/static/distribution'
 import { ITxGov, TxGov } from '@/snackages/tx/static/gov'
+import { ITxSlashing, TxSlashing } from '@/snackages/tx/static/slashing'
 import { ITxStaking, TxStaking } from '@/snackages/tx/static/staking'
 import IAllQuery from '@/interfaces/IAllQuery'
 import IAllTx from '@/interfaces/IAllTx'
@@ -87,6 +91,7 @@ export default class ProtoBuilder implements IProtoBuilder {
       bank: this.makeBankQuery(),
       distribution: this.makeDistributionQuery(),
       gov: this.makeGovQuery(),
+      slashing: this.makeSlashingQuery(),
       staking: this.makeStakingQuery()
     }
   }
@@ -103,6 +108,7 @@ export default class ProtoBuilder implements IProtoBuilder {
       bank: this.makeBankTx(),
       distribution: this.makeDistributionTx(),
       gov: this.makeGovTx(),
+      slashing: this.makeSlashingTx(),
       staking: this.makeStakingTx()
     }
   }
@@ -164,6 +170,12 @@ export default class ProtoBuilder implements IProtoBuilder {
   makeGovTx (): ITxGov {
     return new TxGov()
   }
+  makeSlashingQuery (): IQuerySlashing {
+    return new QuerySlashing(this.GRpc as ISlashingGrpc)
+  }
+  makeSlashingTx (): ITxSlashing {
+    return new TxSlashing()
+  }
   makeStakingQuery (): IQueryStaking {
     return new QueryStaking(this.GRpc as IStakingGrpc)
   }
@@ -201,6 +213,8 @@ export {
   ITxDistribution,
   IQueryGov,
   ITxGov,
+  IQuerySlashing,
+  ITxSlashing,
   IQueryStaking,
   ITxStaking
 }

@@ -22,6 +22,7 @@ import storageTypes from '@/snackages/tx/custom/storage'
 import bankTypes from '@/snackages/tx/static/bank'
 import distributionTypes from '@/snackages/tx/static/distribution'
 import govTypes from '@/snackages/tx/static/gov'
+import slashingTypes from '@/snackages/tx/static/slashing'
 import stakingTypes from '@/snackages/tx/static/staking'
 
 /**
@@ -61,6 +62,7 @@ const masterTypes = [
   ...Object.values(bankTypes),
   ...Object.values(distributionTypes),
   ...Object.values(govTypes),
+  ...Object.values(slashingTypes),
   ...Object.values(stakingTypes)
 ]
 

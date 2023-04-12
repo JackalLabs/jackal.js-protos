@@ -9,6 +9,7 @@ import { GrpcWebImpl as IABCIGrpc } from '@/postgen/tendermint/abci/types'
 import { GrpcWebImpl as IBankGrpc } from '@/postgen/cosmos/bank/v1beta1/query'
 import { GrpcWebImpl as IDistributionGrpc } from '@/postgen/cosmos/distribution/v1beta1/query'
 import { GrpcWebImpl as IGovGrpc } from '@/postgen/cosmos/gov/v1beta1/query'
+import { GrpcWebImpl as ISlashingGrpc } from '@/postgen/cosmos/slashing/v1beta1/query'
 import { GrpcWebImpl as IStakingGrpc } from '@/postgen/cosmos/staking/v1beta1/query'
 
 type TGrpc = IFileTreeGrpc
@@ -21,6 +22,7 @@ type TGrpc = IFileTreeGrpc
   | IBankGrpc
   | IDistributionGrpc
   | IGovGrpc
+  | ISlashingGrpc
   | IStakingGrpc
 
 export {
@@ -38,5 +40,6 @@ export {
   IBankGrpc,
   IDistributionGrpc,
   IGovGrpc,
+  ISlashingGrpc,
   IStakingGrpc
 }
