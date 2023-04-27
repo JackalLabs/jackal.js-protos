@@ -65,6 +65,16 @@ export interface AminoMsgMakeRoot extends AminoMsg {
   };
 }
 
+export interface AminoMsgMakeRootV2 extends AminoMsg {
+  readonly type: "filetree/MakeRootV2";
+  readonly value: {
+    readonly creator: string;
+    readonly editors: string;
+    readonly viewers: string;
+    readonly trackingNumber: string;
+  };
+}
+
 export interface AminoMsgAddEditors extends AminoMsg {
   readonly type: "filetree/AddEditors";
   readonly value: {

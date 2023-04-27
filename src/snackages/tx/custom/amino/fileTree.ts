@@ -3,7 +3,7 @@ import {
   MsgAddViewers,
   MsgChangeOwner,
   MsgDeleteFile,
-  MsgMakeRoot,
+  MsgMakeRoot, MsgMakeRootV2,
   MsgPostFile,
   MsgPostkey,
   MsgRemoveEditors,
@@ -16,7 +16,7 @@ import {
   AminoMsgAddViewers,
   AminoMsgChangeOwner,
   AminoMsgDeleteFile,
-  AminoMsgMakeRoot,
+  AminoMsgMakeRoot, AminoMsgMakeRootV2,
   AminoMsgPostFile,
   AminoMsgPostkey,
   AminoMsgRemoveEditors,
@@ -123,6 +123,21 @@ export function createFileTreeAminoConverters (): AminoConverters {
         account: value.account,
         rootHashPath: value.rootHashPath,
         contents: value.contents,
+        editors: value.editors,
+        viewers: value.viewers,
+        trackingNumber: value.trackingNumber
+      })
+    },
+    "/canine_chain.filetree.MsgMakeRootV2": {
+      aminoType: "filetree/MakeRoot",
+      toAmino: (value: MsgMakeRootV2): AminoMsgMakeRootV2["value"] => ({
+        creator: value.creator,
+        editors: value.editors,
+        viewers: value.viewers,
+        trackingNumber: value.trackingNumber
+      }),
+      fromAmino: (value: AminoMsgMakeRootV2["value"]): MsgMakeRootV2 => ({
+        creator: value.creator,
         editors: value.editors,
         viewers: value.viewers,
         trackingNumber: value.trackingNumber

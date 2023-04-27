@@ -3,7 +3,7 @@ import {
   MsgAddViewers,
   MsgChangeOwner,
   MsgDeleteFile,
-  MsgMakeRoot,
+  MsgMakeRoot, MsgMakeRootV2,
   MsgPostFile,
   MsgPostkey,
   MsgRemoveEditors,
@@ -13,6 +13,7 @@ import {
 } from '@/postgen/canine_chain/filetree/tx'
 import { EncodeObject } from '@cosmjs/proto-signing'
 import ITypeTuple from '@/interfaces/ITypeTuple'
+import { deprecated } from '@/utils/misc'
 
 const fileTreeTypes: ITypeTuple = {
   postFile: ['/canine_chain.filetree.MsgPostFile', MsgPostFile],
@@ -21,6 +22,7 @@ const fileTreeTypes: ITypeTuple = {
   deleteFile: ['/canine_chain.filetree.MsgDeleteFile', MsgDeleteFile],
   removeViewers: ['/canine_chain.filetree.MsgRemoveViewers', MsgRemoveViewers],
   makeRoot: ['/canine_chain.filetree.MsgMakeRoot', MsgMakeRoot],
+  makeRootV2: ['/canine_chain.filetree.MsgMakeRootV2', MsgMakeRootV2],
   addEditors: ['/canine_chain.filetree.MsgAddEditors', MsgAddEditors],
   removeEditors: ['/canine_chain.filetree.MsgRemoveEditors', MsgRemoveEditors],
   resetEditors: ['/canine_chain.filetree.MsgResetEditors', MsgResetEditors],
@@ -37,6 +39,7 @@ export interface ITxFileTree {
   msgDeleteFile (data: MsgDeleteFile): EncodeObject
   msgRemoveViewers (data: MsgRemoveViewers): EncodeObject
   msgMakeRoot (data: MsgMakeRoot): EncodeObject
+  msgMakeRootV2 (data: MsgMakeRootV2): EncodeObject
   msgAddEditors (data: MsgAddEditors): EncodeObject
   msgRemoveEditors (data: MsgRemoveEditors): EncodeObject
   msgResetEditors (data: MsgResetEditors): EncodeObject
@@ -61,7 +64,11 @@ export class TxFileTree implements ITxFileTree {
     return { typeUrl: fileTreeTypes.removeViewers[0], value: fileTreeTypes.removeViewers[1].fromPartial( data ) }
   }
   msgMakeRoot (data: MsgMakeRoot): EncodeObject {
+    deprecated('[FileTree] msgMakeRoot', 'v1.3.0', { replacement: 'msgMakeRootV2' })
     return { typeUrl: fileTreeTypes.makeRoot[0], value: fileTreeTypes.makeRoot[1].fromPartial( data ) }
+  }
+  msgMakeRootV2 (data: MsgMakeRootV2): EncodeObject {
+    return { typeUrl: fileTreeTypes.makeRootV2[0], value: fileTreeTypes.makeRootV2[1].fromPartial( data ) }
   }
   msgAddEditors (data: MsgAddEditors): EncodeObject {
     return { typeUrl: fileTreeTypes.addEditors[0], value: fileTreeTypes.addEditors[1].fromPartial( data ) }
