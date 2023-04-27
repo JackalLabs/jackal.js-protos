@@ -28,18 +28,18 @@ export interface ITxNotifications {
 
 export class TxNotifications implements ITxNotifications {
   msgCreateNotifications (data: MsgCreateNotifications): EncodeObject {
-    return { typeUrl: notificationsTypes.postFile[0], value: notificationsTypes.postFile[1].fromPartial( data ) }
+    return { typeUrl: notificationsTypes.createNotifications[0], value: notificationsTypes.createNotifications[1].fromPartial( data ) }
   }
   msgUpdateNotifications (data: MsgUpdateNotifications): EncodeObject {
-    return { typeUrl: notificationsTypes.addViewers[0], value: notificationsTypes.addViewers[1].fromPartial( data ) }
+    return { typeUrl: notificationsTypes.updateNotifications[0], value: notificationsTypes.updateNotifications[1].fromPartial( data ) }
   }
   msgDeleteNotifications (data: MsgDeleteNotifications): EncodeObject {
-    return { typeUrl: notificationsTypes.postkey[0], value: notificationsTypes.postkey[1].fromPartial( data ) }
+    return { typeUrl: notificationsTypes.deleteNotifications[0], value: notificationsTypes.deleteNotifications[1].fromPartial( data ) }
   }
   msgSetCounter (data: MsgSetCounter): EncodeObject {
-    return { typeUrl: notificationsTypes.deleteFile[0], value: notificationsTypes.deleteFile[1].fromPartial( data ) }
+    return { typeUrl: notificationsTypes.setCounter[0], value: notificationsTypes.setCounter[1].fromPartial( data ) }
   }
   msgBlockSenders (data: MsgBlockSenders): EncodeObject {
-    return { typeUrl: notificationsTypes.removeViewers[0], value: notificationsTypes.removeViewers[1].fromPartial( data ) }
+    return { typeUrl: notificationsTypes.blockSenders[0], value: notificationsTypes.blockSenders[1].fromPartial( data ) }
   }
 }

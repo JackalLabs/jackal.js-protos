@@ -79,8 +79,16 @@ export interface QueryFreespaceRequest {
   address: string;
 }
 
+export interface QueryStoreCountRequest {
+  address: string;
+}
+
 export interface QueryFreespaceResponse {
   space: string;
+}
+
+export interface QueryStoreCountResponse {
+  count: string;
 }
 
 export interface QueryFindFileRequest {
@@ -950,6 +958,53 @@ export const QueryFreespaceRequest = {
   },
 };
 
+function createBaseQueryStoreCountRequest(): QueryStoreCountRequest {
+  return { address: "" };
+}
+
+export const QueryStoreCountRequest = {
+  encode(message: QueryStoreCountRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.address !== "") {
+      writer.uint32(10).string(message.address);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryStoreCountRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryStoreCountRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.address = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryStoreCountRequest {
+    return { address: isSet(object.address) ? String(object.address) : "" };
+  },
+
+  toJSON(message: QueryStoreCountRequest): unknown {
+    const obj: any = {};
+    message.address !== undefined && (obj.address = message.address);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryStoreCountRequest>, I>>(object: I): QueryStoreCountRequest {
+    const message = createBaseQueryStoreCountRequest();
+    message.address = object.address ?? "";
+    return message;
+  },
+};
+
 function createBaseQueryFreespaceResponse(): QueryFreespaceResponse {
   return { space: "" };
 }
@@ -993,6 +1048,53 @@ export const QueryFreespaceResponse = {
   fromPartial<I extends Exact<DeepPartial<QueryFreespaceResponse>, I>>(object: I): QueryFreespaceResponse {
     const message = createBaseQueryFreespaceResponse();
     message.space = object.space ?? "";
+    return message;
+  },
+};
+
+function createBaseQueryStoreCountResponse(): QueryStoreCountResponse {
+  return { count: "" };
+}
+
+export const QueryStoreCountResponse = {
+  encode(message: QueryStoreCountResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.count !== "") {
+      writer.uint32(10).string(message.count);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryStoreCountResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryStoreCountResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.count = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryStoreCountResponse {
+    return { count: isSet(object.count) ? String(object.count) : "" };
+  },
+
+  toJSON(message: QueryStoreCountResponse): unknown {
+    const obj: any = {};
+    message.count !== undefined && (obj.count = message.count);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryStoreCountResponse>, I>>(object: I): QueryStoreCountResponse {
+    const message = createBaseQueryStoreCountResponse();
+    message.count = object.count ?? "";
     return message;
   },
 };
@@ -2176,6 +2278,8 @@ export interface Query {
   ): Promise<QueryAllProvidersResponse>;
   /** Queries a list of Freespace items. */
   Freespace(request: DeepPartial<QueryFreespaceRequest>, metadata?: grpc.Metadata): Promise<QueryFreespaceResponse>;
+  /** Queries a list of Freespace items. */
+  StoreCount(request: DeepPartial<QueryStoreCountRequest>, metadata?: grpc.Metadata): Promise<QueryStoreCountResponse>;
   /** Queries a list of FindFile items. */
   FindFile(request: DeepPartial<QueryFindFileRequest>, metadata?: grpc.Metadata): Promise<QueryFindFileResponse>;
   /** Queries a Strays by index. */
@@ -2225,6 +2329,7 @@ export class QueryClientImpl implements Query {
     this.Providers = this.Providers.bind(this);
     this.ProvidersAll = this.ProvidersAll.bind(this);
     this.Freespace = this.Freespace.bind(this);
+    this.StoreCount = this.StoreCount.bind(this);
     this.FindFile = this.FindFile.bind(this);
     this.Strays = this.Strays.bind(this);
     this.StraysAll = this.StraysAll.bind(this);
@@ -2280,6 +2385,10 @@ export class QueryClientImpl implements Query {
 
   Freespace(request: DeepPartial<QueryFreespaceRequest>, metadata?: grpc.Metadata): Promise<QueryFreespaceResponse> {
     return this.rpc.unary(QueryFreespaceDesc, QueryFreespaceRequest.fromPartial(request), metadata);
+  }
+
+  StoreCount(request: DeepPartial<QueryStoreCountRequest>, metadata?: grpc.Metadata): Promise<QueryStoreCountResponse> {
+    return this.rpc.unary(QueryStoreCountDesc, QueryStoreCountRequest.fromPartial(request), metadata);
   }
 
   FindFile(request: DeepPartial<QueryFindFileRequest>, metadata?: grpc.Metadata): Promise<QueryFindFileResponse> {
@@ -2513,6 +2622,28 @@ export const QueryFreespaceDesc: UnaryMethodDefinitionish = {
     deserializeBinary(data: Uint8Array) {
       return {
         ...QueryFreespaceResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const QueryStoreCountDesc: UnaryMethodDefinitionish = {
+  methodName: "StoreCount",
+  service: QueryDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return QueryStoreCountRequest.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...QueryStoreCountResponse.decode(data),
         toObject() {
           return this;
         },

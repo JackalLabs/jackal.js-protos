@@ -71,6 +71,13 @@ export interface MsgMakeRoot {
 export interface MsgMakeRootResponse {
 }
 
+export interface MsgMakeRootV2 {
+  creator: string;
+  editors: string;
+  viewers: string;
+  trackingNumber: string;
+}
+
 export interface MsgAddEditors {
   creator: string;
   editorIds: string;
@@ -872,6 +879,82 @@ export const MsgMakeRootResponse = {
   },
 };
 
+function createBaseMsgMakeRootV2(): MsgMakeRootV2 {
+  return { creator: "", editors: "", viewers: "", trackingNumber: "" };
+}
+
+export const MsgMakeRootV2 = {
+  encode(message: MsgMakeRootV2, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.editors !== "") {
+      writer.uint32(18).string(message.editors);
+    }
+    if (message.viewers !== "") {
+      writer.uint32(26).string(message.viewers);
+    }
+    if (message.trackingNumber !== "") {
+      writer.uint32(34).string(message.trackingNumber);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgMakeRootV2 {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgMakeRootV2();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.editors = reader.string();
+          break;
+        case 3:
+          message.viewers = reader.string();
+          break;
+        case 4:
+          message.trackingNumber = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgMakeRootV2 {
+    return {
+      creator: isSet(object.creator) ? String(object.creator) : "",
+      editors: isSet(object.editors) ? String(object.editors) : "",
+      viewers: isSet(object.viewers) ? String(object.viewers) : "",
+      trackingNumber: isSet(object.trackingNumber) ? String(object.trackingNumber) : "",
+    };
+  },
+
+  toJSON(message: MsgMakeRootV2): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.editors !== undefined && (obj.editors = message.editors);
+    message.viewers !== undefined && (obj.viewers = message.viewers);
+    message.trackingNumber !== undefined && (obj.trackingNumber = message.trackingNumber);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgMakeRootV2>, I>>(object: I): MsgMakeRootV2 {
+    const message = createBaseMsgMakeRootV2();
+    message.creator = object.creator ?? "";
+    message.editors = object.editors ?? "";
+    message.viewers = object.viewers ?? "";
+    message.trackingNumber = object.trackingNumber ?? "";
+    return message;
+  },
+};
+
 function createBaseMsgAddEditors(): MsgAddEditors {
   return { creator: "", editorIds: "", editorKeys: "", address: "", fileowner: "" };
 }
@@ -1446,6 +1529,7 @@ export interface Msg {
   DeleteFile(request: DeepPartial<MsgDeleteFile>, metadata?: grpc.Metadata): Promise<MsgDeleteFileResponse>;
   RemoveViewers(request: DeepPartial<MsgRemoveViewers>, metadata?: grpc.Metadata): Promise<MsgRemoveViewersResponse>;
   MakeRoot(request: DeepPartial<MsgMakeRoot>, metadata?: grpc.Metadata): Promise<MsgMakeRootResponse>;
+  MakeRootV2(request: DeepPartial<MsgMakeRootV2>, metadata?: grpc.Metadata): Promise<MsgMakeRootResponse>;
   AddEditors(request: DeepPartial<MsgAddEditors>, metadata?: grpc.Metadata): Promise<MsgAddEditorsResponse>;
   RemoveEditors(request: DeepPartial<MsgRemoveEditors>, metadata?: grpc.Metadata): Promise<MsgRemoveEditorsResponse>;
   ResetEditors(request: DeepPartial<MsgResetEditors>, metadata?: grpc.Metadata): Promise<MsgResetEditorsResponse>;
@@ -1464,6 +1548,7 @@ export class MsgClientImpl implements Msg {
     this.DeleteFile = this.DeleteFile.bind(this);
     this.RemoveViewers = this.RemoveViewers.bind(this);
     this.MakeRoot = this.MakeRoot.bind(this);
+    this.MakeRootV2 = this.MakeRootV2.bind(this);
     this.AddEditors = this.AddEditors.bind(this);
     this.RemoveEditors = this.RemoveEditors.bind(this);
     this.ResetEditors = this.ResetEditors.bind(this);
@@ -1493,6 +1578,10 @@ export class MsgClientImpl implements Msg {
 
   MakeRoot(request: DeepPartial<MsgMakeRoot>, metadata?: grpc.Metadata): Promise<MsgMakeRootResponse> {
     return this.rpc.unary(MsgMakeRootDesc, MsgMakeRoot.fromPartial(request), metadata);
+  }
+
+  MakeRootV2(request: DeepPartial<MsgMakeRootV2>, metadata?: grpc.Metadata): Promise<MsgMakeRootResponse> {
+    return this.rpc.unary(MsgMakeRootV2Desc, MsgMakeRootV2.fromPartial(request), metadata);
   }
 
   AddEditors(request: DeepPartial<MsgAddEditors>, metadata?: grpc.Metadata): Promise<MsgAddEditorsResponse> {
@@ -1636,6 +1725,28 @@ export const MsgMakeRootDesc: UnaryMethodDefinitionish = {
   requestType: {
     serializeBinary() {
       return MsgMakeRoot.encode(this).finish();
+    },
+  } as any,
+  responseType: {
+    deserializeBinary(data: Uint8Array) {
+      return {
+        ...MsgMakeRootResponse.decode(data),
+        toObject() {
+          return this;
+        },
+      };
+    },
+  } as any,
+};
+
+export const MsgMakeRootV2Desc: UnaryMethodDefinitionish = {
+  methodName: "MakeRootV2",
+  service: MsgDesc,
+  requestStream: false,
+  responseStream: false,
+  requestType: {
+    serializeBinary() {
+      return MsgMakeRootV2.encode(this).finish();
     },
   } as any,
   responseType: {
