@@ -12,6 +12,7 @@ import {
  * Jackal Custom Protos
  */
 import fileTreeTypes from '@/snackages/tx/custom/fileTree'
+import notificationsTypes from '@/snackages/tx/custom/notifications'
 import oracleTypes from '@/snackages/tx/custom/oracle'
 import rnsTypes from '@/snackages/tx/custom/rns'
 import storageTypes from '@/snackages/tx/custom/storage'
@@ -56,6 +57,7 @@ export interface IGenBroadcaster {
  */
 const masterTypes = [
   ...Object.values(fileTreeTypes),
+  ...Object.values(notificationsTypes),
   ...Object.values(oracleTypes),
   ...Object.values(rnsTypes),
   ...Object.values(storageTypes),
