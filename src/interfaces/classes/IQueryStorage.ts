@@ -36,98 +36,124 @@ import {
   QueryAllStoragePaymentInfoRequest,
   QueryAllStoragePaymentInfoResponse,
   QueryFileUploadCheckRequest,
-  QueryFileUploadCheckResponse, QueryPriceCheckResponse, QueryPriceCheckRequest
+  QueryFileUploadCheckResponse,
+  QueryPriceCheckResponse,
+  QueryPriceCheckRequest
 } from '@/postgen/canine_chain/storage/query'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 
 export default interface IQueryStorage {
   /** Parameters queries the parameters of the module. */
-  queryParams (request: DeepPartial<QueryParamsRequest>, metadata?: grpc.Metadata): Promise<SuccessNoUndefined<QueryParamsResponse>>;
+  queryParams(
+    request: DeepPartial<QueryParamsRequest>,
+    metadata?: grpc.Metadata
+  ): Promise<SuccessNoUndefined<QueryParamsResponse>>
 
   /** Queries a Contracts by index. */
-  queryContracts (
+  queryContracts(
     request: DeepPartial<QueryContractRequest>,
     metadata?: grpc.Metadata
-  ): Promise<SuccessNoUndefined<QueryContractResponse>>;
+  ): Promise<SuccessNoUndefined<QueryContractResponse>>
 
   /** Queries a list of Contracts items. */
-  queryContractsAll (
+  queryContractsAll(
     request: DeepPartial<QueryAllContractsRequest>,
     metadata?: grpc.Metadata
-  ): Promise<SuccessNoUndefined<QueryAllContractsResponse>>;
+  ): Promise<SuccessNoUndefined<QueryAllContractsResponse>>
 
   /** Queries a ActiveDeals by index. */
-  queryActiveDeals (
+  queryActiveDeals(
     request: DeepPartial<QueryActiveDealRequest>,
     metadata?: grpc.Metadata
-  ): Promise<SuccessNoUndefined<QueryActiveDealResponse>>;
+  ): Promise<SuccessNoUndefined<QueryActiveDealResponse>>
 
   /** Queries a list of ActiveDeals items. */
-  queryActiveDealsAll (
+  queryActiveDealsAll(
     request: DeepPartial<QueryAllActiveDealsRequest>,
     metadata?: grpc.Metadata
-  ): Promise<SuccessNoUndefined<QueryAllActiveDealsResponse>>;
+  ): Promise<SuccessNoUndefined<QueryAllActiveDealsResponse>>
 
   /** Queries a Providers by index. */
-  queryProviders (
+  queryProviders(
     request: DeepPartial<QueryProviderRequest>,
     metadata?: grpc.Metadata
-  ): Promise<SuccessNoUndefined<QueryProviderResponse>>;
+  ): Promise<SuccessNoUndefined<QueryProviderResponse>>
 
   /** Queries a list of Providers items. */
-  queryProvidersAll (
+  queryProvidersAll(
     request: DeepPartial<QueryAllProvidersRequest>,
     metadata?: grpc.Metadata
-  ): Promise<SuccessNoUndefined<QueryAllProvidersResponse>>;
+  ): Promise<SuccessNoUndefined<QueryAllProvidersResponse>>
 
   /** Queries a list of Freespace items. */
-  queryFreespace (request: DeepPartial<QueryFreespaceRequest>, metadata?: grpc.Metadata): Promise<SuccessNoUndefined<QueryFreespaceResponse>>;
+  queryFreespace(
+    request: DeepPartial<QueryFreespaceRequest>,
+    metadata?: grpc.Metadata
+  ): Promise<SuccessNoUndefined<QueryFreespaceResponse>>
 
   /** Queries a list of FindFile items. */
-  queryFindFile (request: DeepPartial<QueryFindFileRequest>, metadata?: grpc.Metadata): Promise<SuccessNoUndefined<QueryFindFileResponse>>;
+  queryFindFile(
+    request: DeepPartial<QueryFindFileRequest>,
+    metadata?: grpc.Metadata
+  ): Promise<SuccessNoUndefined<QueryFindFileResponse>>
 
   /** Queries a Strays by index. */
-  queryStrays (request: DeepPartial<QueryStrayRequest>, metadata?: grpc.Metadata): Promise<SuccessNoUndefined<QueryStrayResponse>>;
+  queryStrays(
+    request: DeepPartial<QueryStrayRequest>,
+    metadata?: grpc.Metadata
+  ): Promise<SuccessNoUndefined<QueryStrayResponse>>
 
   /** Queries a list of Strays items. */
-  queryStraysAll (request: DeepPartial<QueryAllStraysRequest>, metadata?: grpc.Metadata): Promise<SuccessNoUndefined<QueryAllStraysResponse>>;
+  queryStraysAll(
+    request: DeepPartial<QueryAllStraysRequest>,
+    metadata?: grpc.Metadata
+  ): Promise<SuccessNoUndefined<QueryAllStraysResponse>>
 
   /** Queries a list of GetClientFreeSpace items. */
-  queryGetClientFreeSpace (
+  queryGetClientFreeSpace(
     request: DeepPartial<QueryClientFreeSpaceRequest>,
     metadata?: grpc.Metadata
-  ): Promise<SuccessNoUndefined<QueryClientFreeSpaceResponse>>;
+  ): Promise<SuccessNoUndefined<QueryClientFreeSpaceResponse>>
 
   /** Queries a FidCid by index. */
-  queryFidCid (request: DeepPartial<QueryFidCidRequest>, metadata?: grpc.Metadata): Promise<SuccessNoUndefined<QueryFidCidResponse>>;
+  queryFidCid(
+    request: DeepPartial<QueryFidCidRequest>,
+    metadata?: grpc.Metadata
+  ): Promise<SuccessNoUndefined<QueryFidCidResponse>>
 
   /** Queries a list of FidCid items. */
-  queryFidCidAll (request: DeepPartial<QueryAllFidCidRequest>, metadata?: grpc.Metadata): Promise<SuccessNoUndefined<QueryAllFidCidResponse>>;
+  queryFidCidAll(
+    request: DeepPartial<QueryAllFidCidRequest>,
+    metadata?: grpc.Metadata
+  ): Promise<SuccessNoUndefined<QueryAllFidCidResponse>>
 
   /** Queries a list of GetPayData items. */
-  queryGetPayData (request: DeepPartial<QueryPayDataRequest>, metadata?: grpc.Metadata): Promise<SuccessNoUndefined<QueryPayDataResponse>>;
+  queryGetPayData(
+    request: DeepPartial<QueryPayDataRequest>,
+    metadata?: grpc.Metadata
+  ): Promise<SuccessNoUndefined<QueryPayDataResponse>>
 
   /** Queries a StoragePaymentInfo by address. */
-  queryStoragePaymentInfo (
+  queryStoragePaymentInfo(
     request: DeepPartial<QueryStoragePaymentInfoRequest>,
     metadata?: grpc.Metadata
-  ): Promise<SuccessNoUndefined<QueryStoragePaymentInfoResponse>>;
+  ): Promise<SuccessNoUndefined<QueryStoragePaymentInfoResponse>>
 
   /** Queries a list of StoragePaymentInfo items. */
-  queryStoragePaymentInfoAll (
+  queryStoragePaymentInfoAll(
     request: DeepPartial<QueryAllStoragePaymentInfoRequest>,
     metadata?: grpc.Metadata
-  ): Promise<SuccessNoUndefined<QueryAllStoragePaymentInfoResponse>>;
+  ): Promise<SuccessNoUndefined<QueryAllStoragePaymentInfoResponse>>
 
   /** Queries whether user can upload a file based on size */
   queryFileUploadCheck(
     request: DeepPartial<QueryFileUploadCheckRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<SuccessNoUndefined<QueryFileUploadCheckResponse>>;
+    metadata?: grpc.Metadata
+  ): Promise<SuccessNoUndefined<QueryFileUploadCheckResponse>>
 
   /** TODO - Update with correct desc */
   queryPriceCheck(
     request: DeepPartial<QueryPriceCheckRequest>,
     metadata?: grpc.Metadata
-  ): Promise<SuccessNoUndefined<QueryPriceCheckResponse>>;
+  ): Promise<SuccessNoUndefined<QueryPriceCheckResponse>>
 }

@@ -1,5 +1,8 @@
 import { GrpcWebImpl as IFileTreeGrpc } from '@/postgen/canine_chain/filetree/query'
-import { GrpcWebImpl, GrpcWebImpl as IJklMintGrpc } from '@/postgen/canine_chain/jklmint/query'
+import {
+  GrpcWebImpl,
+  GrpcWebImpl as IJklMintGrpc
+} from '@/postgen/canine_chain/jklmint/query'
 import { GrpcWebImpl as INotificationsGrpc } from '@/postgen/canine_chain/notifications/query'
 import { GrpcWebImpl as IOracleGrpc } from '@/postgen/canine_chain/oracle/query'
 import { GrpcWebImpl as IRnsGrpc } from '@/postgen/canine_chain/rns/query'
@@ -12,7 +15,8 @@ import { GrpcWebImpl as IGovGrpc } from '@/postgen/cosmos/gov/v1beta1/query'
 import { GrpcWebImpl as ISlashingGrpc } from '@/postgen/cosmos/slashing/v1beta1/query'
 import { GrpcWebImpl as IStakingGrpc } from '@/postgen/cosmos/staking/v1beta1/query'
 
-type TGrpc = IFileTreeGrpc
+type TGrpc =
+  | IFileTreeGrpc
   | IJklMintGrpc
   | INotificationsGrpc
   | IOracleGrpc

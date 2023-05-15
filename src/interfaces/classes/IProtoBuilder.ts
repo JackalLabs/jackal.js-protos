@@ -21,36 +21,27 @@ import { ITxStaking } from '@/snackages/tx/static/staking'
 import IAllQuery from '@/interfaces/IAllQuery'
 import IAllTx from '@/interfaces/IAllTx'
 import { IGenBroadcaster } from '@/customBroadcast'
+import IQueryBuilder from '@/interfaces/classes/IQueryBuilder'
+import { ITxNotifications } from '@/snackages/tx/custom/notifications'
 
-export default interface IProtoBuilder {
+export default interface IProtoBuilder extends IQueryBuilder {
   /** General */
-  makeMasterBroadcaster (): Promise<IGenBroadcaster>
+  makeMasterBroadcaster(): Promise<IGenBroadcaster>
 
   /** Custom */
-  makeFileTreeQuery (): IQueryFileTree
-  makeFileTreeTx (): ITxFileTree
-  makeJklMintQuery (): IQueryJklMint
-  makeOracleQuery (): IQueryOracle
-  makeOracleTx (): ITxOracle
-  makeRnsQuery (): IQueryRns
-  makeRnsTx (): ITxRns
-  makeStorageQuery (): IQueryStorage
-  makeStorageTx (): ITxStorage
+  makeFileTreeTx(): ITxFileTree
+  makeNotificationsTx(): ITxNotifications
+  makeOracleTx(): ITxOracle
+  makeRnsTx(): ITxRns
+  makeStorageTx(): ITxStorage
 
   /** Static */
-  makeABCIQuery (): IQueryABCI
-  makeBankQuery (): IQueryBank
-  makeBankTx (): ITxBank
-  makeDistributionQuery (): IQueryDistribution
-  makeDistributionTx (): ITxDistribution
-  makeGovQuery (): IQueryGov
-  makeGovTx (): ITxGov
-  makeSlashingQuery (): IQuerySlashing
-  makeSlashingTx (): ITxSlashing
-  makeStakingQuery (): IQueryStaking
-  makeStakingTx (): ITxStaking
+  makeBankTx(): ITxBank
+  makeDistributionTx(): ITxDistribution
+  makeGovTx(): ITxGov
+  makeSlashingTx(): ITxSlashing
+  makeStakingTx(): ITxStaking
 
   /** Bundles */
-  makeAllQuery (): IAllQuery
-  makeAllTx (): IAllTx
+  makeAllTx(): IAllTx
 }

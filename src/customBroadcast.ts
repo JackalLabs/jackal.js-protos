@@ -12,6 +12,7 @@ import {
  * Jackal Custom Protos
  */
 import fileTreeTypes from '@/snackages/tx/custom/fileTree'
+import notificationsTypes from '@/snackages/tx/custom/notifications'
 import oracleTypes from '@/snackages/tx/custom/oracle'
 import rnsTypes from '@/snackages/tx/custom/rns'
 import storageTypes from '@/snackages/tx/custom/storage'
@@ -43,10 +44,13 @@ interface TxClientOptions {
   addr: string
 }
 export interface SignAndBroadcastOptions {
-  fee: StdFee,
+  fee: StdFee
   memo?: string
 }
-export type TMasterBroadcaster = (msgs: EncodeObject[], options: SignAndBroadcastOptions) => Promise<DeliverTxResponse>
+export type TMasterBroadcaster = (
+  msgs: EncodeObject[],
+  options: SignAndBroadcastOptions
+) => Promise<DeliverTxResponse>
 export interface IGenBroadcaster {
   masterBroadcaster: TMasterBroadcaster
 }
@@ -56,6 +60,7 @@ export interface IGenBroadcaster {
  */
 const masterTypes = [
   ...Object.values(fileTreeTypes),
+  ...Object.values(notificationsTypes),
   ...Object.values(oracleTypes),
   ...Object.values(rnsTypes),
   ...Object.values(storageTypes),
@@ -78,7 +83,7 @@ const masterAminos: AminoConverters = {
 const registry = new Registry(<any>masterTypes)
 const defaultFee = {
   amount: [],
-  gas: '200000',
+  gas: '200000'
 }
 
 const genBroadcaster = async (
@@ -86,24 +91,18 @@ const genBroadcaster = async (
   { addr: addr }: TxClientOptions = { addr: 'http://localhost:26657' }
 ): Promise<IGenBroadcaster> => {
   if (!wallet) throw new Error('wallet is required')
-  const client = await SigningStargateClient.connectWithSigner(
-    addr,
-    wallet,
-    {
-      registry,
-      aminoTypes: new AminoTypes(masterAminos)
-    }
-  )
+  const client = await SigningStargateClient.connectWithSigner(addr, wallet, {
+    registry,
+    aminoTypes: new AminoTypes(masterAminos)
+  })
   const { address } = (await wallet.getAccounts())[0]
 
   return {
     masterBroadcaster: (
       msgs: EncodeObject[],
-      { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ''}
+      { fee, memo }: SignAndBroadcastOptions = { fee: defaultFee, memo: '' }
     ) => client.signAndBroadcast(address, msgs, fee, memo)
   }
 }
 
-export {
-  genBroadcaster
-}
+export { genBroadcaster }

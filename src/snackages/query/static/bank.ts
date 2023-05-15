@@ -1,13 +1,17 @@
 import { grpc } from '@improbable-eng/grpc-web'
 import {
-  DeepPartial, GrpcWebImpl, Query,
+  DeepPartial,
+  GrpcWebImpl,
+  Query,
   QueryAllBalancesRequest,
   QueryAllBalancesResponse,
   QueryBalanceRequest,
-  QueryBalanceResponse, QueryClientImpl,
+  QueryBalanceResponse,
+  QueryClientImpl,
   QueryDenomMetadataRequest,
   QueryDenomMetadataResponse,
-  QueryDenomsMetadataRequest, QueryDenomsMetadataResponse,
+  QueryDenomsMetadataRequest,
+  QueryDenomsMetadataResponse,
   QueryParamsRequest,
   QueryParamsResponse,
   QuerySpendableBalancesRequest,
@@ -23,16 +27,17 @@ import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 export default class QueryBank implements IQueryBank {
   private readonly queryClient: Query
 
-  constructor (rpc: GrpcWebImpl) {
+  constructor(rpc: GrpcWebImpl) {
     this.queryClient = new QueryClientImpl(rpc)
   }
 
   /** Balance queries the balance of a single coin for a single account. */
-  async queryBalance (
+  async queryBalance(
     request: DeepPartial<QueryBalanceRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryBalanceResponse>> {
-    return await this.queryClient.Balance(request, metadata)
+    return await this.queryClient
+      .Balance(request, metadata)
       .then((resp: QueryBalanceResponse) => {
         return {
           message: '',
@@ -40,7 +45,7 @@ export default class QueryBank implements IQueryBank {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Bank] queryBalance: ${err}`)
         return {
           message: '',
@@ -56,11 +61,12 @@ export default class QueryBank implements IQueryBank {
   }
 
   /** AllBalances queries the balance of all coins for a single account. */
-  async queryAllBalances (
+  async queryAllBalances(
     request: DeepPartial<QueryAllBalancesRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryAllBalancesResponse>> {
-    return await this.queryClient.AllBalances(request, metadata)
+    return await this.queryClient
+      .AllBalances(request, metadata)
       .then((resp: QueryAllBalancesResponse) => {
         return {
           message: '',
@@ -68,14 +74,14 @@ export default class QueryBank implements IQueryBank {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Bank] queryAllBalances: ${err}`)
         return {
           message: '',
           success: false,
           value: {
             balances: [],
-            pagination: {nextKey: new Uint8Array([]), total: 0}
+            pagination: { nextKey: new Uint8Array([]), total: 0 }
           }
         }
       })
@@ -85,11 +91,12 @@ export default class QueryBank implements IQueryBank {
    * SpendableBalances queries the spenable balance of all coins for a single
    * account.
    */
-  async querySpendableBalances (
+  async querySpendableBalances(
     request: DeepPartial<QuerySpendableBalancesRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QuerySpendableBalancesResponse>> {
-    return await this.queryClient.SpendableBalances(request, metadata)
+    return await this.queryClient
+      .SpendableBalances(request, metadata)
       .then((resp: QuerySpendableBalancesResponse) => {
         return {
           message: '',
@@ -97,25 +104,26 @@ export default class QueryBank implements IQueryBank {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Bank] querySpendableBalances: ${err}`)
         return {
           message: '',
           success: false,
           value: {
             balances: [],
-            pagination: {nextKey: new Uint8Array([]), total: 0}
+            pagination: { nextKey: new Uint8Array([]), total: 0 }
           }
         }
       })
   }
 
   /** TotalSupply queries the total supply of all coins. */
-  async queryTotalSupply (
+  async queryTotalSupply(
     request: DeepPartial<QueryTotalSupplyRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryTotalSupplyResponse>> {
-    return await this.queryClient.TotalSupply(request, metadata)
+    return await this.queryClient
+      .TotalSupply(request, metadata)
       .then((resp: QueryTotalSupplyResponse) => {
         return {
           message: '',
@@ -123,25 +131,26 @@ export default class QueryBank implements IQueryBank {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Bank] queryTotalSupply: ${err}`)
         return {
           message: '',
           success: false,
           value: {
             supply: [],
-            pagination: {nextKey: new Uint8Array([]), total: 0}
+            pagination: { nextKey: new Uint8Array([]), total: 0 }
           }
         }
       })
   }
 
   /** SupplyOf queries the supply of a single coin. */
-  async querySupplyOf (
+  async querySupplyOf(
     request: DeepPartial<QuerySupplyOfRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QuerySupplyOfResponse>> {
-    return await this.queryClient.SupplyOf(request, metadata)
+    return await this.queryClient
+      .SupplyOf(request, metadata)
       .then((resp: QuerySupplyOfResponse) => {
         return {
           message: '',
@@ -149,7 +158,7 @@ export default class QueryBank implements IQueryBank {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Bank] querySupplyOf: ${err}`)
         return {
           message: '',
@@ -165,11 +174,12 @@ export default class QueryBank implements IQueryBank {
   }
 
   /** Params queries the parameters of x/bank module. */
-  async queryParams (
+  async queryParams(
     request: DeepPartial<QueryParamsRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryParamsResponse>> {
-    return await this.queryClient.Params(request, metadata)
+    return await this.queryClient
+      .Params(request, metadata)
       .then((resp: QueryParamsResponse) => {
         return {
           message: '',
@@ -177,7 +187,7 @@ export default class QueryBank implements IQueryBank {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Bank] queryParams: ${err}`)
         return {
           message: '',
@@ -193,11 +203,12 @@ export default class QueryBank implements IQueryBank {
   }
 
   /** DenomsMetadata queries the client metadata of a given coin denomination. */
-  async queryDenomMetadata (
+  async queryDenomMetadata(
     request: DeepPartial<QueryDenomMetadataRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryDenomMetadataResponse>> {
-    return await this.queryClient.DenomMetadata(request, metadata)
+    return await this.queryClient
+      .DenomMetadata(request, metadata)
       .then((resp: QueryDenomMetadataResponse) => {
         return {
           message: '',
@@ -205,7 +216,7 @@ export default class QueryBank implements IQueryBank {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Bank] queryDenomMetadata: ${err}`)
         return {
           message: '',
@@ -225,11 +236,12 @@ export default class QueryBank implements IQueryBank {
   }
 
   /** DenomsMetadata queries the client metadata for all registered coin denominations. */
-  async queryDenomsMetadata (
+  async queryDenomsMetadata(
     request: DeepPartial<QueryDenomsMetadataRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryDenomsMetadataResponse>> {
-    return await this.queryClient.DenomsMetadata(request, metadata)
+    return await this.queryClient
+      .DenomsMetadata(request, metadata)
       .then((resp: QueryDenomsMetadataResponse) => {
         return {
           message: '',
@@ -237,14 +249,14 @@ export default class QueryBank implements IQueryBank {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Bank] queryDenomsMetadata: ${err}`)
         return {
           message: '',
           success: false,
           value: {
             metadatas: [],
-            pagination: {nextKey: new Uint8Array([]), total: 0}
+            pagination: { nextKey: new Uint8Array([]), total: 0 }
           }
         }
       })

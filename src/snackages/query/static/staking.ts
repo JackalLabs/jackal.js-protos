@@ -4,20 +4,34 @@ import {
   GrpcWebImpl,
   Query,
   QueryClientImpl,
-  QueryDelegationRequest, QueryDelegationResponse,
-  QueryDelegatorDelegationsRequest, QueryDelegatorDelegationsResponse,
-  QueryDelegatorUnbondingDelegationsRequest, QueryDelegatorUnbondingDelegationsResponse,
-  QueryDelegatorValidatorRequest, QueryDelegatorValidatorResponse,
-  QueryDelegatorValidatorsRequest, QueryDelegatorValidatorsResponse,
-  QueryHistoricalInfoRequest, QueryHistoricalInfoResponse,
-  QueryParamsRequest, QueryParamsResponse,
-  QueryPoolRequest, QueryPoolResponse,
-  QueryRedelegationsRequest, QueryRedelegationsResponse,
-  QueryUnbondingDelegationRequest, QueryUnbondingDelegationResponse,
-  QueryValidatorDelegationsRequest, QueryValidatorDelegationsResponse,
-  QueryValidatorRequest, QueryValidatorResponse,
-  QueryValidatorsRequest, QueryValidatorsResponse,
-  QueryValidatorUnbondingDelegationsRequest, QueryValidatorUnbondingDelegationsResponse
+  QueryDelegationRequest,
+  QueryDelegationResponse,
+  QueryDelegatorDelegationsRequest,
+  QueryDelegatorDelegationsResponse,
+  QueryDelegatorUnbondingDelegationsRequest,
+  QueryDelegatorUnbondingDelegationsResponse,
+  QueryDelegatorValidatorRequest,
+  QueryDelegatorValidatorResponse,
+  QueryDelegatorValidatorsRequest,
+  QueryDelegatorValidatorsResponse,
+  QueryHistoricalInfoRequest,
+  QueryHistoricalInfoResponse,
+  QueryParamsRequest,
+  QueryParamsResponse,
+  QueryPoolRequest,
+  QueryPoolResponse,
+  QueryRedelegationsRequest,
+  QueryRedelegationsResponse,
+  QueryUnbondingDelegationRequest,
+  QueryUnbondingDelegationResponse,
+  QueryValidatorDelegationsRequest,
+  QueryValidatorDelegationsResponse,
+  QueryValidatorRequest,
+  QueryValidatorResponse,
+  QueryValidatorsRequest,
+  QueryValidatorsResponse,
+  QueryValidatorUnbondingDelegationsRequest,
+  QueryValidatorUnbondingDelegationsResponse
 } from '@/postgen/cosmos/staking/v1beta1/query'
 import IQueryStaking from '@/interfaces/classes/IQueryStaking'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
@@ -25,16 +39,17 @@ import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 export default class QueryStaking implements IQueryStaking {
   private readonly queryClient: Query
 
-  constructor (rpc: GrpcWebImpl) {
+  constructor(rpc: GrpcWebImpl) {
     this.queryClient = new QueryClientImpl(rpc)
   }
 
   /** Validators queries all validators that match the given status. */
-  async queryValidators (
+  async queryValidators(
     request: DeepPartial<QueryValidatorsRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryValidatorsResponse>> {
-    return await this.queryClient.Validators(request, metadata)
+    return await this.queryClient
+      .Validators(request, metadata)
       .then((resp: QueryValidatorsResponse) => {
         return {
           message: '',
@@ -42,25 +57,26 @@ export default class QueryStaking implements IQueryStaking {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Staking] queryValidators: ${err}`)
         return {
           message: '',
           success: false,
           value: {
             validators: [],
-            pagination: {nextKey: new Uint8Array([]), total: 0}
+            pagination: { nextKey: new Uint8Array([]), total: 0 }
           }
         }
       })
   }
 
   /** Validator queries validator info for given validator address. */
-  async queryValidator (
+  async queryValidator(
     request: DeepPartial<QueryValidatorRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryValidatorResponse>> {
-    return await this.queryClient.Validator(request, metadata)
+    return await this.queryClient
+      .Validator(request, metadata)
       .then((resp: QueryValidatorResponse) => {
         return {
           message: '',
@@ -68,7 +84,7 @@ export default class QueryStaking implements IQueryStaking {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Staking] queryValidator: ${err}`)
         return {
           message: '',
@@ -109,11 +125,12 @@ export default class QueryStaking implements IQueryStaking {
   }
 
   /** ValidatorDelegations queries delegate info for given validator. */
-  async queryValidatorDelegations (
+  async queryValidatorDelegations(
     request: DeepPartial<QueryValidatorDelegationsRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryValidatorDelegationsResponse>> {
-    return await this.queryClient.ValidatorDelegations(request, metadata)
+    return await this.queryClient
+      .ValidatorDelegations(request, metadata)
       .then((resp: QueryValidatorDelegationsResponse) => {
         return {
           message: '',
@@ -121,25 +138,28 @@ export default class QueryStaking implements IQueryStaking {
           value: resp
         }
       })
-      .catch(err => {
-        console.warn(`jackal.js-protos - [Staking] queryValidatorDelegations: ${err}`)
+      .catch((err) => {
+        console.warn(
+          `jackal.js-protos - [Staking] queryValidatorDelegations: ${err}`
+        )
         return {
           message: '',
           success: false,
           value: {
             delegationResponses: [],
-            pagination: {nextKey: new Uint8Array([]), total: 0}
+            pagination: { nextKey: new Uint8Array([]), total: 0 }
           }
         }
       })
   }
 
   /** ValidatorUnbondingDelegations queries unbonding delegations of a validator. */
-  async queryValidatorUnbondingDelegations (
+  async queryValidatorUnbondingDelegations(
     request: DeepPartial<QueryValidatorUnbondingDelegationsRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryValidatorUnbondingDelegationsResponse>> {
-    return await this.queryClient.ValidatorUnbondingDelegations(request, metadata)
+    return await this.queryClient
+      .ValidatorUnbondingDelegations(request, metadata)
       .then((resp: QueryValidatorUnbondingDelegationsResponse) => {
         return {
           message: '',
@@ -147,25 +167,28 @@ export default class QueryStaking implements IQueryStaking {
           value: resp
         }
       })
-      .catch(err => {
-        console.warn(`jackal.js-protos - [Staking] queryValidatorUnbondingDelegations: ${err}`)
+      .catch((err) => {
+        console.warn(
+          `jackal.js-protos - [Staking] queryValidatorUnbondingDelegations: ${err}`
+        )
         return {
           message: '',
           success: false,
           value: {
             unbondingResponses: [],
-            pagination: {nextKey: new Uint8Array([]), total: 0}
+            pagination: { nextKey: new Uint8Array([]), total: 0 }
           }
         }
       })
   }
 
   /** Delegation queries delegate info for given validator delegator pair. */
-  async queryDelegation (
+  async queryDelegation(
     request: DeepPartial<QueryDelegationRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryDelegationResponse>> {
-    return await this.queryClient.Delegation(request, metadata)
+    return await this.queryClient
+      .Delegation(request, metadata)
       .then((resp: QueryDelegationResponse) => {
         return {
           message: '',
@@ -173,7 +196,7 @@ export default class QueryStaking implements IQueryStaking {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Staking] queryDelegation: ${err}`)
         return {
           message: '',
@@ -199,11 +222,12 @@ export default class QueryStaking implements IQueryStaking {
    * UnbondingDelegation queries unbonding info for given validator delegator
    * pair.
    */
-  async queryUnbondingDelegation (
+  async queryUnbondingDelegation(
     request: DeepPartial<QueryUnbondingDelegationRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryUnbondingDelegationResponse>> {
-    return await this.queryClient.UnbondingDelegation(request, metadata)
+    return await this.queryClient
+      .UnbondingDelegation(request, metadata)
       .then((resp: QueryUnbondingDelegationResponse) => {
         return {
           message: '',
@@ -211,8 +235,10 @@ export default class QueryStaking implements IQueryStaking {
           value: resp
         }
       })
-      .catch(err => {
-        console.warn(`jackal.js-protos - [Staking] queryUnbondingDelegation: ${err}`)
+      .catch((err) => {
+        console.warn(
+          `jackal.js-protos - [Staking] queryUnbondingDelegation: ${err}`
+        )
         return {
           message: '',
           success: false,
@@ -228,11 +254,12 @@ export default class QueryStaking implements IQueryStaking {
   }
 
   /** DelegatorDelegations queries all delegations of a given delegator address. */
-  async queryDelegatorDelegations (
+  async queryDelegatorDelegations(
     request: DeepPartial<QueryDelegatorDelegationsRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryDelegatorDelegationsResponse>> {
-    return await this.queryClient.DelegatorDelegations(request, metadata)
+    return await this.queryClient
+      .DelegatorDelegations(request, metadata)
       .then((resp: QueryDelegatorDelegationsResponse) => {
         return {
           message: '',
@@ -240,14 +267,16 @@ export default class QueryStaking implements IQueryStaking {
           value: resp
         }
       })
-      .catch(err => {
-        console.warn(`jackal.js-protos - [Staking] queryDelegatorDelegations: ${err}`)
+      .catch((err) => {
+        console.warn(
+          `jackal.js-protos - [Staking] queryDelegatorDelegations: ${err}`
+        )
         return {
           message: '',
           success: false,
           value: {
             delegationResponses: [],
-            pagination: {nextKey: new Uint8Array([]), total: 0}
+            pagination: { nextKey: new Uint8Array([]), total: 0 }
           }
         }
       })
@@ -257,11 +286,12 @@ export default class QueryStaking implements IQueryStaking {
    * DelegatorUnbondingDelegations queries all unbonding delegations of a given
    * delegator address.
    */
-  async queryDelegatorUnbondingDelegations (
+  async queryDelegatorUnbondingDelegations(
     request: DeepPartial<QueryDelegatorUnbondingDelegationsRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryDelegatorUnbondingDelegationsResponse>> {
-    return await this.queryClient.DelegatorUnbondingDelegations(request, metadata)
+    return await this.queryClient
+      .DelegatorUnbondingDelegations(request, metadata)
       .then((resp: QueryDelegatorUnbondingDelegationsResponse) => {
         return {
           message: '',
@@ -269,25 +299,28 @@ export default class QueryStaking implements IQueryStaking {
           value: resp
         }
       })
-      .catch(err => {
-        console.warn(`jackal.js-protos - [Staking] queryDelegatorUnbondingDelegations: ${err}`)
+      .catch((err) => {
+        console.warn(
+          `jackal.js-protos - [Staking] queryDelegatorUnbondingDelegations: ${err}`
+        )
         return {
           message: '',
           success: false,
           value: {
             unbondingResponses: [],
-            pagination: {nextKey: new Uint8Array([]), total: 0}
+            pagination: { nextKey: new Uint8Array([]), total: 0 }
           }
         }
       })
   }
 
   /** Redelegations queries redelegations of given address. */
-  async queryRedelegations (
+  async queryRedelegations(
     request: DeepPartial<QueryRedelegationsRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryRedelegationsResponse>> {
-    return await this.queryClient.Redelegations(request, metadata)
+    return await this.queryClient
+      .Redelegations(request, metadata)
       .then((resp: QueryRedelegationsResponse) => {
         return {
           message: '',
@@ -295,14 +328,14 @@ export default class QueryStaking implements IQueryStaking {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Staking] queryRedelegations: ${err}`)
         return {
           message: '',
           success: false,
           value: {
             redelegationResponses: [],
-            pagination: {nextKey: new Uint8Array([]), total: 0}
+            pagination: { nextKey: new Uint8Array([]), total: 0 }
           }
         }
       })
@@ -312,11 +345,12 @@ export default class QueryStaking implements IQueryStaking {
    * DelegatorValidators queries all validators info for given delegator
    * address.
    */
-  async queryDelegatorValidators (
+  async queryDelegatorValidators(
     request: DeepPartial<QueryDelegatorValidatorsRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryDelegatorValidatorsResponse>> {
-    return await this.queryClient.DelegatorValidators(request, metadata)
+    return await this.queryClient
+      .DelegatorValidators(request, metadata)
       .then((resp: QueryDelegatorValidatorsResponse) => {
         return {
           message: '',
@@ -324,14 +358,16 @@ export default class QueryStaking implements IQueryStaking {
           value: resp
         }
       })
-      .catch(err => {
-        console.warn(`jackal.js-protos - [Staking] queryDelegatorValidators: ${err}`)
+      .catch((err) => {
+        console.warn(
+          `jackal.js-protos - [Staking] queryDelegatorValidators: ${err}`
+        )
         return {
           message: '',
           success: false,
           value: {
             validators: [],
-            pagination: {nextKey: new Uint8Array([]), total: 0}
+            pagination: { nextKey: new Uint8Array([]), total: 0 }
           }
         }
       })
@@ -341,11 +377,12 @@ export default class QueryStaking implements IQueryStaking {
    * DelegatorValidator queries validator info for given delegator validator
    * pair.
    */
-  async queryDelegatorValidator (
+  async queryDelegatorValidator(
     request: DeepPartial<QueryDelegatorValidatorRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryDelegatorValidatorResponse>> {
-    return await this.queryClient.DelegatorValidator(request, metadata)
+    return await this.queryClient
+      .DelegatorValidator(request, metadata)
       .then((resp: QueryDelegatorValidatorResponse) => {
         return {
           message: '',
@@ -353,8 +390,10 @@ export default class QueryStaking implements IQueryStaking {
           value: resp
         }
       })
-      .catch(err => {
-        console.warn(`jackal.js-protos - [Staking] queryDelegatorValidator: ${err}`)
+      .catch((err) => {
+        console.warn(
+          `jackal.js-protos - [Staking] queryDelegatorValidator: ${err}`
+        )
         return {
           message: '',
           success: false,
@@ -394,11 +433,12 @@ export default class QueryStaking implements IQueryStaking {
   }
 
   /** HistoricalInfo queries the historical info for given height. */
-  async queryHistoricalInfo (
+  async queryHistoricalInfo(
     request: DeepPartial<QueryHistoricalInfoRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryHistoricalInfoResponse>> {
-    return await this.queryClient.HistoricalInfo(request, metadata)
+    return await this.queryClient
+      .HistoricalInfo(request, metadata)
       .then((resp: QueryHistoricalInfoResponse) => {
         return {
           message: '',
@@ -406,7 +446,7 @@ export default class QueryStaking implements IQueryStaking {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Staking] queryHistoricalInfo: ${err}`)
         return {
           message: '',
@@ -446,11 +486,12 @@ export default class QueryStaking implements IQueryStaking {
   }
 
   /** Pool queries the pool info. */
-  async queryPool (
+  async queryPool(
     request: DeepPartial<QueryPoolRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryPoolResponse>> {
-    return await this.queryClient.Pool(request, metadata)
+    return await this.queryClient
+      .Pool(request, metadata)
       .then((resp: QueryPoolResponse) => {
         return {
           message: '',
@@ -458,7 +499,7 @@ export default class QueryStaking implements IQueryStaking {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Staking] queryPool: ${err}`)
         return {
           message: '',
@@ -474,11 +515,12 @@ export default class QueryStaking implements IQueryStaking {
   }
 
   /** Parameters queries the staking parameters. */
-  async queryParams (
+  async queryParams(
     request: DeepPartial<QueryParamsRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryParamsResponse>> {
-    return await this.queryClient.Params(request, metadata)
+    return await this.queryClient
+      .Params(request, metadata)
       .then((resp: QueryParamsResponse) => {
         return {
           message: '',
@@ -486,7 +528,7 @@ export default class QueryStaking implements IQueryStaking {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Staking] queryParams: ${err}`)
         return {
           message: '',

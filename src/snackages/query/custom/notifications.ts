@@ -23,16 +23,17 @@ import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 export default class QueryNotifications implements IQueryNotifications {
   private readonly queryClient: Query
 
-  constructor (rpc: GrpcWebImpl) {
+  constructor(rpc: GrpcWebImpl) {
     this.queryClient = new QueryClientImpl(rpc)
   }
 
   /** Parameters queries the parameters of the module. */
-  async queryParams (
+  async queryParams(
     request: DeepPartial<QueryParamsRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryParamsResponse>> {
-    return await this.queryClient.Params(request, metadata)
+    return await this.queryClient
+      .Params(request, metadata)
       .then((resp: QueryParamsResponse) => {
         return {
           message: '',
@@ -40,7 +41,7 @@ export default class QueryNotifications implements IQueryNotifications {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Notifications] queryParams: ${err}`)
         return {
           message: '',
@@ -52,11 +53,12 @@ export default class QueryNotifications implements IQueryNotifications {
       })
   }
 
-  async queryNotifications (
+  async queryNotifications(
     request: DeepPartial<QueryGetNotificationsRequest>,
-    metadata?: grpc.Metadata,
+    metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryGetNotificationsResponse>> {
-    return await this.queryClient.Notifications(request, metadata)
+    return await this.queryClient
+      .Notifications(request, metadata)
       .then((resp: QueryGetNotificationsResponse) => {
         return {
           message: '',
@@ -64,8 +66,10 @@ export default class QueryNotifications implements IQueryNotifications {
           value: resp
         }
       })
-      .catch(err => {
-        console.warn(`jackal.js-protos - [Notifications] queryNotifications: ${err}`)
+      .catch((err) => {
+        console.warn(
+          `jackal.js-protos - [Notifications] queryNotifications: ${err}`
+        )
         return {
           message: '',
           success: false,
@@ -82,11 +86,12 @@ export default class QueryNotifications implements IQueryNotifications {
   }
 
   /** Queries a list of Notifications items. */
-  async queryNotificationsAll (
+  async queryNotificationsAll(
     request: DeepPartial<QueryAllNotificationsRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<SuccessNoUndefined<QueryAllNotificationsResponse>>{
-    return await this.queryClient.NotificationsAll(request, metadata)
+    metadata?: grpc.Metadata
+  ): Promise<SuccessNoUndefined<QueryAllNotificationsResponse>> {
+    return await this.queryClient
+      .NotificationsAll(request, metadata)
       .then((resp: QueryAllNotificationsResponse) => {
         return {
           message: '',
@@ -94,25 +99,28 @@ export default class QueryNotifications implements IQueryNotifications {
           value: resp
         }
       })
-      .catch(err => {
-        console.warn(`jackal.js-protos - [Notifications] queryNotificationsAll: ${err}`)
+      .catch((err) => {
+        console.warn(
+          `jackal.js-protos - [Notifications] queryNotificationsAll: ${err}`
+        )
         return {
           message: '',
           success: false,
           value: {
             notifications: [],
-            pagination: {nextKey: new Uint8Array([]), total: 0}
+            pagination: { nextKey: new Uint8Array([]), total: 0 }
           }
         }
       })
   }
 
   /** Queries a list of Notifications items by address. */
-  async queryNotificationsByAddress (
+  async queryNotificationsByAddress(
     request: DeepPartial<QueryAllNotificationsByAddressRequest>,
-    metadata?: grpc.Metadata,
+    metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryAllNotificationsByAddressResponse>> {
-    return await this.queryClient.NotificationsByAddress(request, metadata)
+    return await this.queryClient
+      .NotificationsByAddress(request, metadata)
       .then((resp: QueryAllNotificationsByAddressResponse) => {
         return {
           message: '',
@@ -120,25 +128,28 @@ export default class QueryNotifications implements IQueryNotifications {
           value: resp
         }
       })
-      .catch(err => {
-        console.warn(`jackal.js-protos - [Notifications] queryNotificationsByAddress: ${err}`)
+      .catch((err) => {
+        console.warn(
+          `jackal.js-protos - [Notifications] queryNotificationsByAddress: ${err}`
+        )
         return {
           message: '',
           success: false,
           value: {
             notifications: [],
-            pagination: {nextKey: new Uint8Array([]), total: 0}
+            pagination: { nextKey: new Uint8Array([]), total: 0 }
           }
         }
       })
   }
 
   /** Queries a NotiCounter by index. */
-  async queryNotiCounter (
+  async queryNotiCounter(
     request: DeepPartial<QueryGetNotiCounterRequest>,
-    metadata?: grpc.Metadata,
+    metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryGetNotiCounterResponse>> {
-    return await this.queryClient.NotiCounter(request, metadata)
+    return await this.queryClient
+      .NotiCounter(request, metadata)
       .then((resp: QueryGetNotiCounterResponse) => {
         return {
           message: '',
@@ -146,8 +157,10 @@ export default class QueryNotifications implements IQueryNotifications {
           value: resp
         }
       })
-      .catch(err => {
-        console.warn(`jackal.js-protos - [Notifications] queryNotiCounter: ${err}`)
+      .catch((err) => {
+        console.warn(
+          `jackal.js-protos - [Notifications] queryNotiCounter: ${err}`
+        )
         return {
           message: '',
           success: false,
@@ -163,11 +176,12 @@ export default class QueryNotifications implements IQueryNotifications {
   }
 
   /** Queries a list of NotiCounter items. */
-  async queryNotiCounterAll (
+  async queryNotiCounterAll(
     request: DeepPartial<QueryAllNotiCounterRequest>,
-    metadata?: grpc.Metadata,
+    metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryAllNotiCounterResponse>> {
-    return await this.queryClient.NotiCounterAll(request, metadata)
+    return await this.queryClient
+      .NotiCounterAll(request, metadata)
       .then((resp: QueryAllNotiCounterResponse) => {
         return {
           message: '',
@@ -175,14 +189,14 @@ export default class QueryNotifications implements IQueryNotifications {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Notifications] queryEncrypt: ${err}`)
         return {
           message: '',
           success: false,
           value: {
             notiCounter: [],
-            pagination: {nextKey: new Uint8Array([]), total: 0}
+            pagination: { nextKey: new Uint8Array([]), total: 0 }
           }
         }
       })

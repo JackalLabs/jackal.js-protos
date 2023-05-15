@@ -1,6 +1,5 @@
 import IQueryFileTree from '@/interfaces/classes/IQueryFileTree'
 import IQueryJklMint from '@/interfaces/classes/IQueryJklMint'
-import IQueryNotifications from '@/interfaces/classes/IQueryNotifications'
 import IQueryOracle from '@/interfaces/classes/IQueryOracle'
 import IQueryRns from '@/interfaces/classes/IQueryRns'
 import IQueryStorage from '@/interfaces/classes/IQueryStorage'
@@ -10,20 +9,24 @@ import IQueryDistribution from '@/interfaces/classes/IQueryDistribution'
 import IQueryGov from '@/interfaces/classes/IQueryGov'
 import IQuerySlashing from '@/interfaces/classes/IQuerySlashing'
 import IQueryStaking from '@/interfaces/classes/IQueryStaking'
+import IAllQuery from '@/interfaces/IAllQuery'
 
-export default interface IAllQuery {
+export default interface IQueryBuilder {
   /** Custom */
-  fileTree: IQueryFileTree
-  jklMint: IQueryJklMint
-  notifications: IQueryNotifications
-  oracle: IQueryOracle
-  rns: IQueryRns
-  storage: IQueryStorage
+  makeFileTreeQuery(): IQueryFileTree
+  makeJklMintQuery(): IQueryJklMint
+  makeOracleQuery(): IQueryOracle
+  makeRnsQuery(): IQueryRns
+  makeStorageQuery(): IQueryStorage
+
   /** Static */
-  abci: IQueryABCI
-  bank: IQueryBank
-  distribution: IQueryDistribution
-  gov: IQueryGov
-  slashing: IQuerySlashing
-  staking: IQueryStaking
+  makeABCIQuery(): IQueryABCI
+  makeBankQuery(): IQueryBank
+  makeDistributionQuery(): IQueryDistribution
+  makeGovQuery(): IQueryGov
+  makeSlashingQuery(): IQuerySlashing
+  makeStakingQuery(): IQueryStaking
+
+  /** Bundles */
+  makeAllQuery(): IAllQuery
 }
