@@ -129,7 +129,7 @@ export function createFileTreeAminoConverters (): AminoConverters {
       })
     },
     "/canine_chain.filetree.MsgMakeRootV2": {
-      aminoType: "filetree/MakeRoot",
+      aminoType: "filetree/MakeRootV2",
       toAmino: (value: MsgMakeRootV2): AminoMsgMakeRootV2["value"] => ({
         creator: value.creator,
         editors: value.editors,
