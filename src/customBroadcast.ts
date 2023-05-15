@@ -44,10 +44,13 @@ interface TxClientOptions {
   addr: string
 }
 export interface SignAndBroadcastOptions {
-  fee: StdFee,
+  fee: StdFee
   memo?: string
 }
-export type TMasterBroadcaster = (msgs: EncodeObject[], options: SignAndBroadcastOptions) => Promise<DeliverTxResponse>
+export type TMasterBroadcaster = (
+  msgs: EncodeObject[],
+  options: SignAndBroadcastOptions
+) => Promise<DeliverTxResponse>
 export interface IGenBroadcaster {
   masterBroadcaster: TMasterBroadcaster
 }
@@ -80,7 +83,7 @@ const masterAminos: AminoConverters = {
 const registry = new Registry(<any>masterTypes)
 const defaultFee = {
   amount: [],
-  gas: '200000',
+  gas: '200000'
 }
 
 const genBroadcaster = async (
@@ -88,24 +91,18 @@ const genBroadcaster = async (
   { addr: addr }: TxClientOptions = { addr: 'http://localhost:26657' }
 ): Promise<IGenBroadcaster> => {
   if (!wallet) throw new Error('wallet is required')
-  const client = await SigningStargateClient.connectWithSigner(
-    addr,
-    wallet,
-    {
-      registry,
-      aminoTypes: new AminoTypes(masterAminos)
-    }
-  )
+  const client = await SigningStargateClient.connectWithSigner(addr, wallet, {
+    registry,
+    aminoTypes: new AminoTypes(masterAminos)
+  })
   const { address } = (await wallet.getAccounts())[0]
 
   return {
     masterBroadcaster: (
       msgs: EncodeObject[],
-      { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ''}
+      { fee, memo }: SignAndBroadcastOptions = { fee: defaultFee, memo: '' }
     ) => client.signAndBroadcast(address, msgs, fee, memo)
   }
 }
 
-export {
-  genBroadcaster
-}
+export { genBroadcaster }

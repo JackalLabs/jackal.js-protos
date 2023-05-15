@@ -4,10 +4,12 @@ import {
   GrpcWebImpl,
   Query,
   QueryClientImpl,
-  QueryParamsRequest, QueryParamsResponse,
+  QueryParamsRequest,
+  QueryParamsResponse,
   QuerySigningInfoRequest,
   QuerySigningInfoResponse,
-  QuerySigningInfosRequest, QuerySigningInfosResponse
+  QuerySigningInfosRequest,
+  QuerySigningInfosResponse
 } from '@/postgen/cosmos/slashing/v1beta1/query'
 import IQuerySlashing from '@/interfaces/classes/IQuerySlashing'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
@@ -15,7 +17,7 @@ import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 export default class QuerySlashing implements IQuerySlashing {
   private readonly queryClient: Query
 
-  constructor (rpc: GrpcWebImpl) {
+  constructor(rpc: GrpcWebImpl) {
     this.queryClient = new QueryClientImpl(rpc)
   }
 
@@ -24,7 +26,8 @@ export default class QuerySlashing implements IQuerySlashing {
     request: DeepPartial<QueryParamsRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryParamsResponse>> {
-    return await this.queryClient.Params(request, metadata)
+    return await this.queryClient
+      .Params(request, metadata)
       .then((resp: QueryParamsResponse) => {
         return {
           message: '',
@@ -32,7 +35,7 @@ export default class QuerySlashing implements IQuerySlashing {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Slashing] queryParams: ${err}`)
         return {
           message: '',
@@ -56,9 +59,10 @@ export default class QuerySlashing implements IQuerySlashing {
   /** SigningInfo queries the signing info of given cons address */
   async querySigningInfo(
     request: DeepPartial<QuerySigningInfoRequest>,
-    metadata?: grpc.Metadata,
+    metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QuerySigningInfoResponse>> {
-    return await this.queryClient.SigningInfo(request, metadata)
+    return await this.queryClient
+      .SigningInfo(request, metadata)
       .then((resp: QuerySigningInfoResponse) => {
         return {
           message: '',
@@ -66,7 +70,7 @@ export default class QuerySlashing implements IQuerySlashing {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Slashing] querySigningInfo: ${err}`)
         return {
           message: '',
@@ -88,9 +92,10 @@ export default class QuerySlashing implements IQuerySlashing {
   /** SigningInfos queries signing info of all validators */
   async querySigningInfos(
     request: DeepPartial<QuerySigningInfosRequest>,
-    metadata?: grpc.Metadata,
+    metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QuerySigningInfosResponse>> {
-    return await this.queryClient.SigningInfos(request, metadata)
+    return await this.queryClient
+      .SigningInfos(request, metadata)
       .then((resp: QuerySigningInfosResponse) => {
         return {
           message: '',
@@ -98,14 +103,14 @@ export default class QuerySlashing implements IQuerySlashing {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Slashing] querySigningInfos: ${err}`)
         return {
           message: '',
           success: false,
           value: {
             info: [],
-            pagination: {nextKey: new Uint8Array([]), total: 0}
+            pagination: { nextKey: new Uint8Array([]), total: 0 }
           }
         }
       })

@@ -26,7 +26,10 @@ import IQueryJklMint from '@/interfaces/classes/IQueryJklMint'
 import QueryJklMint from '@/snackages/query/custom/jklMint'
 import IQueryNotifications from '@/interfaces/classes/IQueryNotifications'
 import QueryNotifications from '@/snackages/query/custom/notifications'
-import { ITxNotifications, TxNotifications } from '@/snackages/tx/custom/notifications'
+import {
+  ITxNotifications,
+  TxNotifications
+} from '@/snackages/tx/custom/notifications'
 import IQueryOracle from '@/interfaces/classes/IQueryOracle'
 import QueryOracle from '@/snackages/query/custom/oracle'
 import { ITxOracle, TxOracle } from '@/snackages/tx/custom/oracle'
@@ -43,7 +46,10 @@ import QueryBank from '@/snackages/query/static/bank'
 import { ITxBank, TxBank } from '@/snackages/tx/static/bank'
 import IQueryDistribution from '@/interfaces/classes/IQueryDistribution'
 import QueryDistribution from '@/snackages/query/static/distribution'
-import { ITxDistribution, TxDistribution } from '@/snackages/tx/static/distribution'
+import {
+  ITxDistribution,
+  TxDistribution
+} from '@/snackages/tx/static/distribution'
 import IQueryGov from '@/interfaces/classes/IQueryGov'
 import QueryGov from '@/snackages/query/static/gov'
 import { ITxGov, TxGov } from '@/snackages/tx/static/gov'
@@ -55,19 +61,17 @@ import QueryStaking from '@/snackages/query/static/staking'
 import { ITxStaking, TxStaking } from '@/snackages/tx/static/staking'
 import IQueryBuilder from '@/interfaces/classes/IQueryBuilder'
 
-
 export class QueryBuilder implements IQueryBuilder {
   protected readonly GRpc: TGrpc
 
-  constructor (queryUrl?: string) {
+  constructor(queryUrl?: string) {
     const qUrl = queryUrl || 'http://localhost:9091'
     this.GRpc = new GrpcWebImpl(qUrl, {})
   }
 
   /** General */
 
-
-  makeAllQuery (): IAllQuery {
+  makeAllQuery(): IAllQuery {
     return {
       /** Custom */
       fileTree: this.makeFileTreeQuery(),
@@ -86,91 +90,75 @@ export class QueryBuilder implements IQueryBuilder {
     }
   }
 
-
-
   /** Custom */
-  makeFileTreeQuery (): IQueryFileTree {
+  makeFileTreeQuery(): IQueryFileTree {
     return new QueryFileTree(this.GRpc as IFileTreeGrpc)
   }
 
-  makeJklMintQuery (): IQueryJklMint {
+  makeJklMintQuery(): IQueryJklMint {
     return new QueryJklMint(this.GRpc as IJklMintGrpc)
   }
 
-  makeNotificationsQuery (): IQueryNotifications {
+  makeNotificationsQuery(): IQueryNotifications {
     return new QueryNotifications(this.GRpc as INotificationsGrpc)
   }
 
-  makeOracleQuery (): IQueryOracle {
+  makeOracleQuery(): IQueryOracle {
     return new QueryOracle(this.GRpc as IOracleGrpc)
   }
 
-  makeRnsQuery (): IQueryRns {
+  makeRnsQuery(): IQueryRns {
     return new QueryRns(this.GRpc as IRnsGrpc)
   }
 
-
-
-  makeStorageQuery (): IQueryStorage {
+  makeStorageQuery(): IQueryStorage {
     return new QueryStorage(this.GRpc as IStorageGrpc)
   }
 
-
-
   /** Static */
-  makeABCIQuery (): IQueryABCI {
+  makeABCIQuery(): IQueryABCI {
     return new QueryABCI(this.GRpc as IABCIGrpc)
   }
 
-  makeBankQuery (): IQueryBank {
+  makeBankQuery(): IQueryBank {
     return new QueryBank(this.GRpc as IBankGrpc)
   }
 
-
-
-  makeDistributionQuery (): IQueryDistribution {
+  makeDistributionQuery(): IQueryDistribution {
     return new QueryDistribution(this.GRpc as IDistributionGrpc)
   }
 
-
-
-  makeGovQuery (): IQueryGov {
+  makeGovQuery(): IQueryGov {
     return new QueryGov(this.GRpc as IGovGrpc)
   }
 
-
-
-  makeSlashingQuery (): IQuerySlashing {
+  makeSlashingQuery(): IQuerySlashing {
     return new QuerySlashing(this.GRpc as ISlashingGrpc)
   }
 
-
-  makeStakingQuery (): IQueryStaking {
+  makeStakingQuery(): IQueryStaking {
     return new QueryStaking(this.GRpc as IStakingGrpc)
   }
-
 }
-
 
 export class ProtoBuilder extends QueryBuilder implements IProtoBuilder {
   private readonly signer: OfflineSigner
   private readonly txUrl: string
 
-  constructor (signer: OfflineSigner, txUrl?: string, queryUrl?: string) {
+  constructor(signer: OfflineSigner, txUrl?: string, queryUrl?: string) {
     super(queryUrl)
     this.signer = signer
     this.txUrl = txUrl || 'http://localhost:26657'
   }
 
   /** General */
-  makeMasterBroadcaster (): Promise<IGenBroadcaster> {
-    return genBroadcaster(this.signer, {addr: this.txUrl})
-      .catch(err => {
-        throw err
-      })
+  makeMasterBroadcaster(): Promise<IGenBroadcaster> {
+    return genBroadcaster(this.signer, { addr: this.txUrl }).catch((err) => {
+      throw err
+    })
   }
 
-  makeAllTx (): IAllTx {
+  makeAllTx(): IAllTx {
     return {
       /** Custom */
       fileTree: this.makeFileTreeTx(),
@@ -190,65 +178,45 @@ export class ProtoBuilder extends QueryBuilder implements IProtoBuilder {
 
   /** Custom */
 
-
-  makeFileTreeTx (): ITxFileTree {
+  makeFileTreeTx(): ITxFileTree {
     return new TxFileTree()
   }
 
-
-
-  makeNotificationsTx (): ITxNotifications {
+  makeNotificationsTx(): ITxNotifications {
     return new TxNotifications()
   }
 
-
-
-  makeOracleTx (): ITxOracle {
+  makeOracleTx(): ITxOracle {
     return new TxOracle()
   }
 
-
-
-  makeRnsTx (): ITxRns {
+  makeRnsTx(): ITxRns {
     return new TxRns()
   }
 
-
-
-  makeStorageTx (): ITxStorage {
+  makeStorageTx(): ITxStorage {
     return new TxStorage()
   }
 
   /** Static */
 
-
-
-
-  makeBankTx (): ITxBank {
+  makeBankTx(): ITxBank {
     return new TxBank()
   }
 
-
-
-  makeDistributionTx (): ITxDistribution {
+  makeDistributionTx(): ITxDistribution {
     return new TxDistribution()
   }
 
-
-
-  makeGovTx (): ITxGov {
+  makeGovTx(): ITxGov {
     return new TxGov()
   }
 
-
-
-  makeSlashingTx (): ITxSlashing {
+  makeSlashingTx(): ITxSlashing {
     return new TxSlashing()
   }
 
-
-
-  makeStakingTx (): ITxStaking {
+  makeStakingTx(): ITxStaking {
     return new TxStaking()
   }
 }

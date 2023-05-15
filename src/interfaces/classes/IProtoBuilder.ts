@@ -26,22 +26,22 @@ import { ITxNotifications } from '@/snackages/tx/custom/notifications'
 
 export default interface IProtoBuilder extends IQueryBuilder {
   /** General */
-  makeMasterBroadcaster (): Promise<IGenBroadcaster>
+  makeMasterBroadcaster(): Promise<IGenBroadcaster>
 
   /** Custom */
-  makeFileTreeTx (): ITxFileTree
-  makeNotificationsTx (): ITxNotifications
-  makeOracleTx (): ITxOracle
-  makeRnsTx (): ITxRns
-  makeStorageTx (): ITxStorage
+  makeFileTreeTx(): ITxFileTree
+  makeNotificationsTx(): ITxNotifications
+  makeOracleTx(): ITxOracle
+  makeRnsTx(): ITxRns
+  makeStorageTx(): ITxStorage
 
   /** Static */
-  makeBankTx (): ITxBank
-  makeDistributionTx (): ITxDistribution
-  makeGovTx (): ITxGov
-  makeSlashingTx (): ITxSlashing
-  makeStakingTx (): ITxStaking
+  makeBankTx(): ITxBank
+  makeDistributionTx(): ITxDistribution
+  makeGovTx(): ITxGov
+  makeSlashingTx(): ITxSlashing
+  makeStakingTx(): ITxStaking
 
   /** Bundles */
-  makeAllTx (): IAllTx
+  makeAllTx(): IAllTx
 }

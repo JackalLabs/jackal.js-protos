@@ -3,17 +3,27 @@ import {
   DeepPartial,
   GrpcWebImpl,
   Query,
-  QueryAllBidsRequest, QueryAllBidsResponse,
-  QueryAllForsalesRequest, QueryAllForsalesResponse,
-  QueryAllInitsRequest, QueryAllInitsResponse,
-  QueryAllNamesRequest, QueryAllNamesResponse,
+  QueryAllBidsRequest,
+  QueryAllBidsResponse,
+  QueryAllForsalesRequest,
+  QueryAllForsalesResponse,
+  QueryAllInitsRequest,
+  QueryAllInitsResponse,
+  QueryAllNamesRequest,
+  QueryAllNamesResponse,
   QueryClientImpl,
-  QueryBidRequest, QueryBidResponse,
-  QueryForsaleRequest, QueryForsaleResponse,
-  QueryInitRequest, QueryInitResponse,
-  QueryNameRequest, QueryNameResponse,
-  QueryListOwnedNamesRequest, QueryListOwnedNamesResponse,
-  QueryParamsRequest, QueryParamsResponse
+  QueryBidRequest,
+  QueryBidResponse,
+  QueryForsaleRequest,
+  QueryForsaleResponse,
+  QueryInitRequest,
+  QueryInitResponse,
+  QueryNameRequest,
+  QueryNameResponse,
+  QueryListOwnedNamesRequest,
+  QueryListOwnedNamesResponse,
+  QueryParamsRequest,
+  QueryParamsResponse
 } from '@/postgen/canine_chain/rns/query'
 import IQueryRns from '@/interfaces/classes/IQueryRns'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
@@ -21,16 +31,17 @@ import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 export default class QueryRns implements IQueryRns {
   private readonly queryClient: Query
 
-  constructor (rpc: GrpcWebImpl) {
+  constructor(rpc: GrpcWebImpl) {
     this.queryClient = new QueryClientImpl(rpc)
   }
 
   /** Parameters queries the parameters of the module. */
-  async queryParams (
+  async queryParams(
     request: DeepPartial<QueryParamsRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryParamsResponse>> {
-    return await this.queryClient.Params(request, metadata)
+    return await this.queryClient
+      .Params(request, metadata)
       .then((resp: QueryParamsResponse) => {
         return {
           message: '',
@@ -38,7 +49,7 @@ export default class QueryRns implements IQueryRns {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [RNS] queryParams: ${err}`)
         return {
           message: '',
@@ -53,11 +64,12 @@ export default class QueryRns implements IQueryRns {
   }
 
   /** Queries a Name by index. */
-  async queryNames (
+  async queryNames(
     request: DeepPartial<QueryNameRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryNameResponse>> {
-    return await this.queryClient.Names(request, metadata)
+    return await this.queryClient
+      .Names(request, metadata)
       .then((resp: QueryNameResponse) => {
         return {
           message: '',
@@ -65,7 +77,7 @@ export default class QueryRns implements IQueryRns {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [RNS] queryNames: ${err}`)
         return {
           message: '',
@@ -86,11 +98,12 @@ export default class QueryRns implements IQueryRns {
   }
 
   /** Queries a list of Names. */
-  async queryNamesAll (
+  async queryNamesAll(
     request: DeepPartial<QueryAllNamesRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryAllNamesResponse>> {
-    return await this.queryClient.NamesAll(request, metadata)
+    return await this.queryClient
+      .NamesAll(request, metadata)
       .then((resp: QueryAllNamesResponse) => {
         return {
           message: '',
@@ -98,25 +111,26 @@ export default class QueryRns implements IQueryRns {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [RNS] queryNamesAll: ${err}`)
         return {
           message: '',
           success: false,
           value: {
             names: [],
-            pagination: {nextKey: new Uint8Array([]), total: 0}
+            pagination: { nextKey: new Uint8Array([]), total: 0 }
           }
         }
       })
   }
 
   /** Queries a Bid by index. */
-  async queryBids (
+  async queryBids(
     request: DeepPartial<QueryBidRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryBidResponse>> {
-    return await this.queryClient.Bids(request, metadata)
+    return await this.queryClient
+      .Bids(request, metadata)
       .then((resp: QueryBidResponse) => {
         return {
           message: '',
@@ -124,7 +138,7 @@ export default class QueryRns implements IQueryRns {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [RNS] queryBids: ${err}`)
         return {
           message: '',
@@ -142,11 +156,12 @@ export default class QueryRns implements IQueryRns {
   }
 
   /** Queries a list of Bids. */
-  async queryBidsAll (
+  async queryBidsAll(
     request: DeepPartial<QueryAllBidsRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryAllBidsResponse>> {
-    return await this.queryClient.BidsAll(request, metadata)
+    return await this.queryClient
+      .BidsAll(request, metadata)
       .then((resp: QueryAllBidsResponse) => {
         return {
           message: '',
@@ -154,25 +169,26 @@ export default class QueryRns implements IQueryRns {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [RNS] queryBidsAll: ${err}`)
         return {
           message: '',
           success: false,
           value: {
             bids: [],
-            pagination: {nextKey: new Uint8Array([]), total: 0}
+            pagination: { nextKey: new Uint8Array([]), total: 0 }
           }
         }
       })
   }
 
   /** Queries a Listing by index. */
-  async queryForsale (
+  async queryForsale(
     request: DeepPartial<QueryForsaleRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryForsaleResponse>> {
-    return await this.queryClient.Forsale(request, metadata)
+    return await this.queryClient
+      .Forsale(request, metadata)
       .then((resp: QueryForsaleResponse) => {
         return {
           message: '',
@@ -180,7 +196,7 @@ export default class QueryRns implements IQueryRns {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [RNS] queryForsale: ${err}`)
         return {
           message: '',
@@ -197,11 +213,12 @@ export default class QueryRns implements IQueryRns {
   }
 
   /** Queries all Listings. */
-  async queryForsaleAll (
+  async queryForsaleAll(
     request: DeepPartial<QueryAllForsalesRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryAllForsalesResponse>> {
-    return await this.queryClient.ForsaleAll(request, metadata)
+    return await this.queryClient
+      .ForsaleAll(request, metadata)
       .then((resp: QueryAllForsalesResponse) => {
         return {
           message: '',
@@ -209,25 +226,26 @@ export default class QueryRns implements IQueryRns {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [RNS] queryForsaleAll: ${err}`)
         return {
           message: '',
           success: false,
           value: {
             forsale: [],
-            pagination: {nextKey: new Uint8Array([]), total: 0}
+            pagination: { nextKey: new Uint8Array([]), total: 0 }
           }
         }
       })
   }
 
   /** Queries a Init by index. */
-  async queryInit (
+  async queryInit(
     request: DeepPartial<QueryInitRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryInitResponse>> {
-    return await this.queryClient.Init(request, metadata)
+    return await this.queryClient
+      .Init(request, metadata)
       .then((resp: QueryInitResponse) => {
         return {
           message: '',
@@ -235,7 +253,7 @@ export default class QueryRns implements IQueryRns {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [RNS] queryInit: ${err}`)
         return {
           message: '',
@@ -248,11 +266,12 @@ export default class QueryRns implements IQueryRns {
   }
 
   /** Queries a list of Init items. */
-  async queryInitAll (
+  async queryInitAll(
     request: DeepPartial<QueryAllInitsRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryAllInitsResponse>> {
-    return await this.queryClient.InitAll(request, metadata)
+    return await this.queryClient
+      .InitAll(request, metadata)
       .then((resp: QueryAllInitsResponse) => {
         return {
           message: '',
@@ -260,25 +279,26 @@ export default class QueryRns implements IQueryRns {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [RNS] queryInitAll: ${err}`)
         return {
           message: '',
           success: false,
           value: {
             init: [],
-            pagination: {nextKey: new Uint8Array([]), total: 0}
+            pagination: { nextKey: new Uint8Array([]), total: 0 }
           }
         }
       })
   }
 
   /** Queries a list of ListOwnedNames items. */
-  async queryListOwnedNames (
+  async queryListOwnedNames(
     request: DeepPartial<QueryListOwnedNamesRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryListOwnedNamesResponse>> {
-    return await this.queryClient.ListOwnedNames(request, metadata)
+    return await this.queryClient
+      .ListOwnedNames(request, metadata)
       .then((resp: QueryListOwnedNamesResponse) => {
         return {
           message: '',
@@ -286,14 +306,14 @@ export default class QueryRns implements IQueryRns {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [RNS] queryListOwnedNames: ${err}`)
         return {
           message: '',
           success: false,
           value: {
             names: [],
-            pagination: {nextKey: new Uint8Array([]), total: 0}
+            pagination: { nextKey: new Uint8Array([]), total: 0 }
           }
         }
       })

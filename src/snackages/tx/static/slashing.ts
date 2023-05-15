@@ -9,11 +9,14 @@ const slashingTypes: ITypeTuple = {
 export default slashingTypes
 
 export interface ITxSlashing {
-  msgUnjail (data: MsgUnjail): EncodeObject
+  msgUnjail(data: MsgUnjail): EncodeObject
 }
 
 export class TxSlashing implements ITxSlashing {
-  msgUnjail (data: MsgUnjail): EncodeObject {
-    return { typeUrl: slashingTypes.unjail[0], value: slashingTypes.unjail[1].fromPartial( data ) }
+  msgUnjail(data: MsgUnjail): EncodeObject {
+    return {
+      typeUrl: slashingTypes.unjail[0],
+      value: slashingTypes.unjail[1].fromPartial(data)
+    }
   }
 }

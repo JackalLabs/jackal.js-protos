@@ -21,30 +21,30 @@ export default interface IQueryNotifications {
   queryParams(
     request: DeepPartial<QueryParamsRequest>,
     metadata?: grpc.Metadata
-  ): Promise<SuccessNoUndefined<QueryParamsResponse>>;
+  ): Promise<SuccessNoUndefined<QueryParamsResponse>>
   /** Queries a Notifications by index. */
   queryNotifications(
     request: DeepPartial<QueryGetNotificationsRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<SuccessNoUndefined<QueryGetNotificationsResponse>>;
+    metadata?: grpc.Metadata
+  ): Promise<SuccessNoUndefined<QueryGetNotificationsResponse>>
   /** Queries a list of Notifications items. */
   queryNotificationsAll(
     request: DeepPartial<QueryAllNotificationsRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<SuccessNoUndefined<QueryAllNotificationsResponse>>;
+    metadata?: grpc.Metadata
+  ): Promise<SuccessNoUndefined<QueryAllNotificationsResponse>>
   /** Queries a list of Notifications items by address. */
   queryNotificationsByAddress(
     request: DeepPartial<QueryAllNotificationsByAddressRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<SuccessNoUndefined<QueryAllNotificationsByAddressResponse>>;
+    metadata?: grpc.Metadata
+  ): Promise<SuccessNoUndefined<QueryAllNotificationsByAddressResponse>>
   /** Queries a NotiCounter by index. */
   queryNotiCounter(
     request: DeepPartial<QueryGetNotiCounterRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<SuccessNoUndefined<QueryGetNotiCounterResponse>>;
+    metadata?: grpc.Metadata
+  ): Promise<SuccessNoUndefined<QueryGetNotiCounterResponse>>
   /** Queries a list of NotiCounter items. */
   queryNotiCounterAll(
     request: DeepPartial<QueryAllNotiCounterRequest>,
-    metadata?: grpc.Metadata,
-  ): Promise<SuccessNoUndefined<QueryAllNotiCounterResponse>>;
+    metadata?: grpc.Metadata
+  ): Promise<SuccessNoUndefined<QueryAllNotiCounterResponse>>
 }

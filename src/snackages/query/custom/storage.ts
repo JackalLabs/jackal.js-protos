@@ -51,16 +51,17 @@ import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 export default class QueryStorage implements IQueryStorage {
   private readonly queryClient: Query
 
-  constructor (rpc: GrpcWebImpl) {
+  constructor(rpc: GrpcWebImpl) {
     this.queryClient = new QueryClientImpl(rpc)
   }
 
   /** Parameters queries the parameters of the module. */
-  async queryParams (
+  async queryParams(
     request: DeepPartial<QueryParamsRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryParamsResponse>> {
-    return await this.queryClient.Params(request, metadata)
+    return await this.queryClient
+      .Params(request, metadata)
       .then((resp: QueryParamsResponse) => {
         return {
           message: '',
@@ -68,7 +69,7 @@ export default class QueryStorage implements IQueryStorage {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Storage] queryParams: ${err}`)
         return {
           message: '',
@@ -89,11 +90,12 @@ export default class QueryStorage implements IQueryStorage {
   }
 
   /** Queries a Contracts by index. */
-  async queryContracts (
+  async queryContracts(
     request: DeepPartial<QueryContractRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryContractResponse>> {
-    return await this.queryClient.Contracts(request, metadata)
+    return await this.queryClient
+      .Contracts(request, metadata)
       .then((resp: QueryContractResponse) => {
         return {
           message: '',
@@ -101,7 +103,7 @@ export default class QueryStorage implements IQueryStorage {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Storage] queryContracts: ${err}`)
         return {
           message: '',
@@ -125,11 +127,12 @@ export default class QueryStorage implements IQueryStorage {
   }
 
   /** Queries a list of Contracts items. */
-  async queryContractsAll (
+  async queryContractsAll(
     request: DeepPartial<QueryAllContractsRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryAllContractsResponse>> {
-    return await this.queryClient.ContractsAll(request, metadata)
+    return await this.queryClient
+      .ContractsAll(request, metadata)
       .then((resp: QueryAllContractsResponse) => {
         return {
           message: '',
@@ -137,25 +140,26 @@ export default class QueryStorage implements IQueryStorage {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Storage] queryContractsAll: ${err}`)
         return {
           message: '',
           success: false,
           value: {
             contracts: [],
-            pagination: {nextKey: new Uint8Array([]), total: 0}
+            pagination: { nextKey: new Uint8Array([]), total: 0 }
           }
         }
       })
   }
 
   /** Queries a ActiveDeals by index. */
-  async queryActiveDeals (
+  async queryActiveDeals(
     request: DeepPartial<QueryActiveDealRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryActiveDealResponse>> {
-    return await this.queryClient.ActiveDeals(request, metadata)
+    return await this.queryClient
+      .ActiveDeals(request, metadata)
       .then((resp: QueryActiveDealResponse) => {
         return {
           message: '',
@@ -163,7 +167,7 @@ export default class QueryStorage implements IQueryStorage {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Storage] queryActiveDeals: ${err}`)
         return {
           message: '',
@@ -189,11 +193,12 @@ export default class QueryStorage implements IQueryStorage {
   }
 
   /** Queries a list of ActiveDeals items. */
-  async queryActiveDealsAll (
+  async queryActiveDealsAll(
     request: DeepPartial<QueryAllActiveDealsRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryAllActiveDealsResponse>> {
-    return await this.queryClient.ActiveDealsAll(request, metadata)
+    return await this.queryClient
+      .ActiveDealsAll(request, metadata)
       .then((resp: QueryAllActiveDealsResponse) => {
         return {
           message: '',
@@ -201,33 +206,34 @@ export default class QueryStorage implements IQueryStorage {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Storage] queryActiveDealsAll: ${err}`)
         return {
           message: '',
           success: false,
           value: {
             activeDeals: [],
-            pagination: {nextKey: new Uint8Array([]), total: 0}
+            pagination: { nextKey: new Uint8Array([]), total: 0 }
           }
         }
       })
   }
 
   /** Queries a Providers by index. */
-  async queryProviders (
+  async queryProviders(
     request: DeepPartial<QueryProviderRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryProviderResponse>> {
-    return await this.queryClient.Providers(request, metadata)
+    return await this.queryClient
+      .Providers(request, metadata)
       .then((resp: QueryProviderResponse) => {
         return {
           message: '',
-            success: true,
-            value: resp
+          success: true,
+          value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Storage] queryProviders: ${err}`)
         return {
           message: '',
@@ -248,11 +254,12 @@ export default class QueryStorage implements IQueryStorage {
   }
 
   /** Queries a list of Providers items. */
-  async queryProvidersAll (
+  async queryProvidersAll(
     request: DeepPartial<QueryAllProvidersRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryAllProvidersResponse>> {
-    return await this.queryClient.ProvidersAll(request, metadata)
+    return await this.queryClient
+      .ProvidersAll(request, metadata)
       .then((resp: QueryAllProvidersResponse) => {
         return {
           message: '',
@@ -260,25 +267,26 @@ export default class QueryStorage implements IQueryStorage {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Storage] queryProvidersAll: ${err}`)
         return {
           message: '',
           success: false,
           value: {
             providers: [],
-            pagination: {nextKey: new Uint8Array([]), total: 0}
+            pagination: { nextKey: new Uint8Array([]), total: 0 }
           }
         }
       })
   }
 
   /** Queries a list of Freespace items. */
-  async queryFreespace (
+  async queryFreespace(
     request: DeepPartial<QueryFreespaceRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryFreespaceResponse>> {
-    return await this.queryClient.Freespace(request, metadata)
+    return await this.queryClient
+      .Freespace(request, metadata)
       .then((resp: QueryFreespaceResponse) => {
         return {
           message: '',
@@ -286,7 +294,7 @@ export default class QueryStorage implements IQueryStorage {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Storage] queryFreespace: ${err}`)
         return {
           message: '',
@@ -299,11 +307,12 @@ export default class QueryStorage implements IQueryStorage {
   }
 
   /** Queries a list of FindFile items. */
-  async queryFindFile (
+  async queryFindFile(
     request: DeepPartial<QueryFindFileRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryFindFileResponse>> {
-    return await this.queryClient.FindFile(request, metadata)
+    return await this.queryClient
+      .FindFile(request, metadata)
       .then((resp: QueryFindFileResponse) => {
         return {
           message: '',
@@ -311,7 +320,7 @@ export default class QueryStorage implements IQueryStorage {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Storage] queryFindFile: ${err}`)
         return {
           message: '',
@@ -324,11 +333,12 @@ export default class QueryStorage implements IQueryStorage {
   }
 
   /** Queries a Strays by index. */
-  async queryStrays (
+  async queryStrays(
     request: DeepPartial<QueryStrayRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryStrayResponse>> {
-    return await this.queryClient.Strays(request, metadata)
+    return await this.queryClient
+      .Strays(request, metadata)
       .then((resp: QueryStrayResponse) => {
         return {
           message: '',
@@ -336,7 +346,7 @@ export default class QueryStorage implements IQueryStorage {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Storage] queryStrays: ${err}`)
         return {
           message: '',
@@ -356,11 +366,12 @@ export default class QueryStorage implements IQueryStorage {
   }
 
   /** Queries a list of Strays items. */
-  async queryStraysAll (
+  async queryStraysAll(
     request: DeepPartial<QueryAllStraysRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryAllStraysResponse>> {
-    return await this.queryClient.StraysAll(request, metadata)
+    return await this.queryClient
+      .StraysAll(request, metadata)
       .then((resp: QueryAllStraysResponse) => {
         return {
           message: '',
@@ -368,25 +379,26 @@ export default class QueryStorage implements IQueryStorage {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Storage] queryStraysAll: ${err}`)
         return {
           message: '',
           success: false,
           value: {
             strays: [],
-            pagination: {nextKey: new Uint8Array([]), total: 0}
+            pagination: { nextKey: new Uint8Array([]), total: 0 }
           }
         }
       })
   }
 
   /** Queries a list of GetClientFreeSpace items. */
-  async queryGetClientFreeSpace (
+  async queryGetClientFreeSpace(
     request: DeepPartial<QueryClientFreeSpaceRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryClientFreeSpaceResponse>> {
-    return await this.queryClient.GetClientFreeSpace(request, metadata)
+    return await this.queryClient
+      .GetClientFreeSpace(request, metadata)
       .then((resp: QueryClientFreeSpaceResponse) => {
         return {
           message: '',
@@ -394,8 +406,10 @@ export default class QueryStorage implements IQueryStorage {
           value: resp
         }
       })
-      .catch(err => {
-        console.warn(`jackal.js-protos - [Storage] queryGetClientFreeSpace: ${err}`)
+      .catch((err) => {
+        console.warn(
+          `jackal.js-protos - [Storage] queryGetClientFreeSpace: ${err}`
+        )
         return {
           message: '',
           success: false,
@@ -407,11 +421,12 @@ export default class QueryStorage implements IQueryStorage {
   }
 
   /** Queries a FidCid by index. */
-  async queryFidCid (
+  async queryFidCid(
     request: DeepPartial<QueryFidCidRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryFidCidResponse>> {
-    return await this.queryClient.FidCid(request, metadata)
+    return await this.queryClient
+      .FidCid(request, metadata)
       .then((resp: QueryFidCidResponse) => {
         return {
           message: '',
@@ -419,7 +434,7 @@ export default class QueryStorage implements IQueryStorage {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Storage] queryFidCid: ${err}`)
         return {
           message: '',
@@ -435,11 +450,12 @@ export default class QueryStorage implements IQueryStorage {
   }
 
   /** Queries a list of FidCid items. */
-  async queryFidCidAll (
+  async queryFidCidAll(
     request: DeepPartial<QueryAllFidCidRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryAllFidCidResponse>> {
-    return await this.queryClient.FidCidAll(request, metadata)
+    return await this.queryClient
+      .FidCidAll(request, metadata)
       .then((resp: QueryAllFidCidResponse) => {
         return {
           message: '',
@@ -447,25 +463,26 @@ export default class QueryStorage implements IQueryStorage {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Storage] queryFidCidAll: ${err}`)
         return {
           message: '',
           success: false,
           value: {
             fidCid: [],
-            pagination: {nextKey: new Uint8Array([]), total: 0}
+            pagination: { nextKey: new Uint8Array([]), total: 0 }
           }
         }
       })
   }
 
   /** Queries a list of GetPayData items. */
-  async queryGetPayData (
+  async queryGetPayData(
     request: DeepPartial<QueryPayDataRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryPayDataResponse>> {
-    return await this.queryClient.GetPayData(request, metadata)
+    return await this.queryClient
+      .GetPayData(request, metadata)
       .then((resp: QueryPayDataResponse) => {
         return {
           message: '',
@@ -473,7 +490,7 @@ export default class QueryStorage implements IQueryStorage {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Storage] queryGetPayData: ${err}`)
         return {
           message: '',
@@ -487,11 +504,12 @@ export default class QueryStorage implements IQueryStorage {
   }
 
   /** Queries a StoragePaymentInfo by address. */
-  async queryStoragePaymentInfo (
+  async queryStoragePaymentInfo(
     request: DeepPartial<QueryStoragePaymentInfoRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryStoragePaymentInfoResponse>> {
-    return await this.queryClient.StoragePaymentInfo(request, metadata)
+    return await this.queryClient
+      .StoragePaymentInfo(request, metadata)
       .then((resp: QueryStoragePaymentInfoResponse) => {
         return {
           message: '',
@@ -499,8 +517,10 @@ export default class QueryStorage implements IQueryStorage {
           value: resp
         }
       })
-      .catch(err => {
-        console.warn(`jackal.js-protos - [Storage] queryStoragePaymentInfo: ${err}`)
+      .catch((err) => {
+        console.warn(
+          `jackal.js-protos - [Storage] queryStoragePaymentInfo: ${err}`
+        )
         return {
           message: '',
           success: false,
@@ -518,11 +538,12 @@ export default class QueryStorage implements IQueryStorage {
   }
 
   /** Queries a list of StoragePaymentInfo items. */
-  async queryStoragePaymentInfoAll (
+  async queryStoragePaymentInfoAll(
     request: DeepPartial<QueryAllStoragePaymentInfoRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryAllStoragePaymentInfoResponse>> {
-    return await this.queryClient.StoragePaymentInfoAll(request, metadata)
+    return await this.queryClient
+      .StoragePaymentInfoAll(request, metadata)
       .then((resp: QueryAllStoragePaymentInfoResponse) => {
         return {
           message: '',
@@ -530,25 +551,28 @@ export default class QueryStorage implements IQueryStorage {
           value: resp
         }
       })
-      .catch(err => {
-        console.warn(`jackal.js-protos - [Storage] queryStoragePaymentInfoAll: ${err}`)
+      .catch((err) => {
+        console.warn(
+          `jackal.js-protos - [Storage] queryStoragePaymentInfoAll: ${err}`
+        )
         return {
           message: '',
           success: false,
           value: {
             storagePaymentInfo: [],
-            pagination: {nextKey: new Uint8Array([]), total: 0}
+            pagination: { nextKey: new Uint8Array([]), total: 0 }
           }
         }
       })
   }
 
   /** Queries whether user can upload a file based on size */
-  async queryFileUploadCheck (
+  async queryFileUploadCheck(
     request: DeepPartial<QueryFileUploadCheckRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryFileUploadCheckResponse>> {
-    return await this.queryClient.FileUploadCheck(request, metadata)
+    return await this.queryClient
+      .FileUploadCheck(request, metadata)
       .then((resp: QueryFileUploadCheckResponse) => {
         return {
           message: '',
@@ -556,8 +580,10 @@ export default class QueryStorage implements IQueryStorage {
           value: resp
         }
       })
-      .catch(err => {
-        console.warn(`jackal.js-protos - [Storage] queryStoragePaymentInfo: ${err}`)
+      .catch((err) => {
+        console.warn(
+          `jackal.js-protos - [Storage] queryStoragePaymentInfo: ${err}`
+        )
         return {
           message: '',
           success: false,
@@ -573,7 +599,8 @@ export default class QueryStorage implements IQueryStorage {
     request: DeepPartial<QueryPriceCheckRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryPriceCheckResponse>> {
-    return await this.queryClient.PriceCheck(request, metadata)
+    return await this.queryClient
+      .PriceCheck(request, metadata)
       .then((resp: QueryPriceCheckResponse) => {
         return {
           message: '',
@@ -581,7 +608,7 @@ export default class QueryStorage implements IQueryStorage {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Storage] queryPriceCheck: ${err}`)
         return {
           message: '',

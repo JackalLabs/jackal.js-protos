@@ -13,17 +13,17 @@ import IQueryStaking from '@/interfaces/classes/IQueryStaking'
 
 export default interface IAllQuery {
   /** Custom */
-  fileTree: IQueryFileTree,
-  jklMint: IQueryJklMint,
-  notifications: IQueryNotifications,
-  oracle: IQueryOracle,
-  rns: IQueryRns,
-  storage: IQueryStorage,
+  fileTree: IQueryFileTree
+  jklMint: IQueryJklMint
+  notifications: IQueryNotifications
+  oracle: IQueryOracle
+  rns: IQueryRns
+  storage: IQueryStorage
   /** Static */
-  abci: IQueryABCI,
-  bank: IQueryBank,
-  distribution: IQueryDistribution,
-  gov: IQueryGov,
-  slashing: IQuerySlashing,
+  abci: IQueryABCI
+  bank: IQueryBank
+  distribution: IQueryDistribution
+  gov: IQueryGov
+  slashing: IQuerySlashing
   staking: IQueryStaking
 }

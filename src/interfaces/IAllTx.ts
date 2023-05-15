@@ -11,16 +11,16 @@ import { ITxStaking } from '@/snackages/tx/static/staking'
 
 export default interface IAllTx {
   /** Custom */
-  fileTree: ITxFileTree,
-  jklMint: null,
-  notifications: ITxNotifications,
-  oracle: ITxOracle,
-  rns: ITxRns,
-  storage: ITxStorage,
+  fileTree: ITxFileTree
+  jklMint: null
+  notifications: ITxNotifications
+  oracle: ITxOracle
+  rns: ITxRns
+  storage: ITxStorage
   /** Static */
-  bank: ITxBank,
-  distribution: ITxDistribution,
-  gov: ITxGov,
-  slashing: ITxSlashing,
+  bank: ITxBank
+  distribution: ITxDistribution
+  gov: ITxGov
+  slashing: ITxSlashing
   staking: ITxStaking
 }

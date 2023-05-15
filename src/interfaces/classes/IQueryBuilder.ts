@@ -13,20 +13,20 @@ import IAllQuery from '@/interfaces/IAllQuery'
 
 export default interface IQueryBuilder {
   /** Custom */
-  makeFileTreeQuery (): IQueryFileTree
-  makeJklMintQuery (): IQueryJklMint
-  makeOracleQuery (): IQueryOracle
-  makeRnsQuery (): IQueryRns
-  makeStorageQuery (): IQueryStorage
+  makeFileTreeQuery(): IQueryFileTree
+  makeJklMintQuery(): IQueryJklMint
+  makeOracleQuery(): IQueryOracle
+  makeRnsQuery(): IQueryRns
+  makeStorageQuery(): IQueryStorage
 
   /** Static */
-  makeABCIQuery (): IQueryABCI
-  makeBankQuery (): IQueryBank
-  makeDistributionQuery (): IQueryDistribution
-  makeGovQuery (): IQueryGov
-  makeSlashingQuery (): IQuerySlashing
-  makeStakingQuery (): IQueryStaking
+  makeABCIQuery(): IQueryABCI
+  makeBankQuery(): IQueryBank
+  makeDistributionQuery(): IQueryDistribution
+  makeGovQuery(): IQueryGov
+  makeSlashingQuery(): IQuerySlashing
+  makeStakingQuery(): IQueryStaking
 
   /** Bundles */
-  makeAllQuery (): IAllQuery
+  makeAllQuery(): IAllQuery
 }

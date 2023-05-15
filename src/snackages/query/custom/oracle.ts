@@ -2,9 +2,14 @@ import { grpc } from '@improbable-eng/grpc-web'
 import {
   DeepPartial,
   GrpcWebImpl,
-  Query, QueryAllFeedsRequest, QueryAllFeedsResponse,
-  QueryClientImpl, QueryFeedRequest, QueryFeedResponse,
-  QueryParamsRequest, QueryParamsResponse
+  Query,
+  QueryAllFeedsRequest,
+  QueryAllFeedsResponse,
+  QueryClientImpl,
+  QueryFeedRequest,
+  QueryFeedResponse,
+  QueryParamsRequest,
+  QueryParamsResponse
 } from '@/postgen/canine_chain/oracle/query'
 import IQueryOracle from '@/interfaces/classes/IQueryOracle'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
@@ -12,16 +17,17 @@ import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 export default class QueryOracle implements IQueryOracle {
   private readonly queryClient: Query
 
-  constructor (rpc: GrpcWebImpl) {
+  constructor(rpc: GrpcWebImpl) {
     this.queryClient = new QueryClientImpl(rpc)
   }
 
   /** Parameters queries the parameters of the module. */
-  async queryParams (
+  async queryParams(
     request: DeepPartial<QueryParamsRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryParamsResponse>> {
-    return await this.queryClient.Params(request, metadata)
+    return await this.queryClient
+      .Params(request, metadata)
       .then((resp: QueryParamsResponse) => {
         return {
           message: '',
@@ -29,7 +35,7 @@ export default class QueryOracle implements IQueryOracle {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Oracle] queryParams: ${err}`)
         return {
           message: '',
@@ -43,11 +49,12 @@ export default class QueryOracle implements IQueryOracle {
       })
   }
 
-  async queryFeed (
+  async queryFeed(
     request: DeepPartial<QueryFeedRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryFeedResponse>> {
-    return await this.queryClient.Feed(request, metadata)
+    return await this.queryClient
+      .Feed(request, metadata)
       .then((resp: QueryFeedResponse) => {
         return {
           message: '',
@@ -55,7 +62,7 @@ export default class QueryOracle implements IQueryOracle {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Oracle] queryFeed: ${err}`)
         return {
           message: '',
@@ -72,11 +79,12 @@ export default class QueryOracle implements IQueryOracle {
       })
   }
 
-  async queryAllFeeds (
+  async queryAllFeeds(
     request: DeepPartial<QueryAllFeedsRequest>,
     metadata?: grpc.Metadata
   ): Promise<SuccessNoUndefined<QueryAllFeedsResponse>> {
-    return await this.queryClient.AllFeeds(request, metadata)
+    return await this.queryClient
+      .AllFeeds(request, metadata)
       .then((resp: QueryAllFeedsResponse) => {
         return {
           message: '',
@@ -84,14 +92,14 @@ export default class QueryOracle implements IQueryOracle {
           value: resp
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn(`jackal.js-protos - [Oracle] queryAllFeeds: ${err}`)
         return {
           message: '',
           success: false,
           value: {
             feed: [],
-            pagination: {nextKey: new Uint8Array([]), total: 0}
+            pagination: { nextKey: new Uint8Array([]), total: 0 }
           }
         }
       })
