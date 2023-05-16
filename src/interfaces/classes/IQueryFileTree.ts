@@ -18,7 +18,7 @@ import {
 } from '@/postgen/canine_chain/filetree/query'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 
-export default interface IQueryFileTree {
+export interface IQueryFileTree {
   /** Parameters queries the parameters of the module. */
   queryParams(
     request: DeepPartial<QueryParamsRequest>,

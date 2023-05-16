@@ -1,12 +1,12 @@
 /* eslint-disable */
-import _m0 from "protobufjs/minimal";
-import { ActiveDeals } from "./active_deals";
-import { Contracts } from "./contracts";
-import { FidCid } from "./fid_cid";
-import { Params } from "./params";
-import { StoragePaymentInfo } from "./payment_info";
-import { Providers } from "./providers";
-import { Strays } from "./strays";
+import _m0 from 'protobufjs/minimal'
+import { ActiveDeals } from './active_deals'
+import { Contracts } from './contracts'
+import { FidCid } from './fid_cid'
+import { Params } from './params'
+import { StoragePaymentInfo } from './payment_info'
+import { Providers } from './providers'
+import { Strays } from './strays'
 
 export const protobufPackage = "canine_chain.storage";
 

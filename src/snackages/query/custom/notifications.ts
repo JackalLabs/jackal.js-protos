@@ -1,15 +1,15 @@
-import IQueryNotifications from '@/interfaces/classes/IQueryNotifications'
+import { IQueryNotifications } from '@/interfaces/classes/IQueryNotifications'
 import {
   DeepPartial,
   GrpcWebImpl,
   Query,
-  QueryClientImpl,
   QueryAllNotiCounterRequest,
   QueryAllNotiCounterResponse,
   QueryAllNotificationsByAddressRequest,
   QueryAllNotificationsByAddressResponse,
   QueryAllNotificationsRequest,
   QueryAllNotificationsResponse,
+  QueryClientImpl,
   QueryGetNotiCounterRequest,
   QueryGetNotiCounterResponse,
   QueryGetNotificationsRequest,

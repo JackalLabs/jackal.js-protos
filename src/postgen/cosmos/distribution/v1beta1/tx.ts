@@ -1,8 +1,8 @@
 /* eslint-disable */
-import { grpc } from "@improbable-eng/grpc-web";
-import { BrowserHeaders } from "browser-headers";
-import _m0 from "protobufjs/minimal";
-import { Coin } from "../../base/v1beta1/coin";
+import { grpc } from '@improbable-eng/grpc-web'
+import { BrowserHeaders } from 'browser-headers'
+import _m0 from 'protobufjs/minimal'
+import { Coin } from '../../base/v1beta1/coin'
 
 export const protobufPackage = "cosmos.distribution.v1beta1";
 

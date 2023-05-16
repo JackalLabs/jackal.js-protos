@@ -1,16 +1,16 @@
 /* eslint-disable */
-import { grpc } from "@improbable-eng/grpc-web";
-import { BrowserHeaders } from "browser-headers";
-import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { PageRequest, PageResponse } from "../../cosmos/base/query/v1beta1/pagination";
-import { ActiveDeals } from "./active_deals";
-import { Contracts } from "./contracts";
-import { FidCid } from "./fid_cid";
-import { Params } from "./params";
-import { StoragePaymentInfo } from "./payment_info";
-import { Providers } from "./providers";
-import { Strays } from "./strays";
+import { grpc } from '@improbable-eng/grpc-web'
+import { BrowserHeaders } from 'browser-headers'
+import Long from 'long'
+import _m0 from 'protobufjs/minimal'
+import { PageRequest, PageResponse } from '../../cosmos/base/query/v1beta1/pagination'
+import { ActiveDeals } from './active_deals'
+import { Contracts } from './contracts'
+import { FidCid } from './fid_cid'
+import { Params } from './params'
+import { StoragePaymentInfo } from './payment_info'
+import { Providers } from './providers'
+import { Strays } from './strays'
 
 export const protobufPackage = "canine_chain.storage";
 

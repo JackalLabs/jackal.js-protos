@@ -11,7 +11,7 @@ import {
   QuerySigningInfosRequest,
   QuerySigningInfosResponse
 } from '@/postgen/cosmos/slashing/v1beta1/query'
-import IQuerySlashing from '@/interfaces/classes/IQuerySlashing'
+import { IQuerySlashing } from '@/interfaces/classes/IQuerySlashing'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 
 export default class QuerySlashing implements IQuerySlashing {

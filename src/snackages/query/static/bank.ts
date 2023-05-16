@@ -21,7 +21,7 @@ import {
   QueryTotalSupplyRequest,
   QueryTotalSupplyResponse
 } from '@/postgen/cosmos/bank/v1beta1/query'
-import IQueryBank from '@/interfaces/classes/IQueryBank'
+import { IQueryBank } from '@/interfaces/classes/IQueryBank'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 
 export default class QueryBank implements IQueryBank {

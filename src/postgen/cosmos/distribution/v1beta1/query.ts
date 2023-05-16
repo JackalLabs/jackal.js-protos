@@ -1,17 +1,17 @@
 /* eslint-disable */
-import { grpc } from "@improbable-eng/grpc-web";
-import { BrowserHeaders } from "browser-headers";
-import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
-import { DecCoin } from "../../base/v1beta1/coin";
+import { grpc } from '@improbable-eng/grpc-web'
+import { BrowserHeaders } from 'browser-headers'
+import Long from 'long'
+import _m0 from 'protobufjs/minimal'
+import { PageRequest, PageResponse } from '../../base/query/v1beta1/pagination'
+import { DecCoin } from '../../base/v1beta1/coin'
 import {
   DelegationDelegatorReward,
   Params,
   ValidatorAccumulatedCommission,
   ValidatorOutstandingRewards,
-  ValidatorSlashEvent,
-} from "./distribution";
+  ValidatorSlashEvent
+} from './distribution'
 
 export const protobufPackage = "cosmos.distribution.v1beta1";
 

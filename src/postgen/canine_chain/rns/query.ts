@@ -1,14 +1,14 @@
 /* eslint-disable */
-import { grpc } from "@improbable-eng/grpc-web";
-import { BrowserHeaders } from "browser-headers";
-import _m0 from "protobufjs/minimal";
-import { PageRequest, PageResponse } from "../../cosmos/base/query/v1beta1/pagination";
-import { Bids } from "./bids";
-import { Forsale } from "./forsale";
-import { Init } from "./init";
-import { Names } from "./names";
-import { Params } from "./params";
-import { Whois } from "./whois";
+import { grpc } from '@improbable-eng/grpc-web'
+import { BrowserHeaders } from 'browser-headers'
+import _m0 from 'protobufjs/minimal'
+import { PageRequest, PageResponse } from '../../cosmos/base/query/v1beta1/pagination'
+import { Bids } from './bids'
+import { Forsale } from './forsale'
+import { Init } from './init'
+import { Names } from './names'
+import { Params } from './params'
+import { Whois } from './whois'
 
 export const protobufPackage = "canine_chain.rns";
 

@@ -1,12 +1,12 @@
 /* eslint-disable */
-import { grpc } from "@improbable-eng/grpc-web";
-import { BrowserHeaders } from "browser-headers";
-import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { PageRequest, PageResponse } from "../../cosmos/base/query/v1beta1/pagination";
-import { NotiCounter } from "./noti_counter";
-import { Notifications } from "./notifications";
-import { Params } from "./params";
+import { grpc } from '@improbable-eng/grpc-web'
+import { BrowserHeaders } from 'browser-headers'
+import Long from 'long'
+import _m0 from 'protobufjs/minimal'
+import { PageRequest, PageResponse } from '../../cosmos/base/query/v1beta1/pagination'
+import { NotiCounter } from './noti_counter'
+import { Notifications } from './notifications'
+import { Params } from './params'
 
 export const protobufPackage = "canine_chain.notifications";
 

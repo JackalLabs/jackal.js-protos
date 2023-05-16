@@ -1,9 +1,9 @@
 /* eslint-disable */
-import { grpc } from "@improbable-eng/grpc-web";
-import { BrowserHeaders } from "browser-headers";
-import _m0 from "protobufjs/minimal";
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
-import { Params, ValidatorSigningInfo } from "./slashing";
+import { grpc } from '@improbable-eng/grpc-web'
+import { BrowserHeaders } from 'browser-headers'
+import _m0 from 'protobufjs/minimal'
+import { PageRequest, PageResponse } from '../../base/query/v1beta1/pagination'
+import { Params, ValidatorSigningInfo } from './slashing'
 
 export const protobufPackage = "cosmos.slashing.v1beta1";
 

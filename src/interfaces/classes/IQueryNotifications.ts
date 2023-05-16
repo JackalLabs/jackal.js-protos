@@ -16,7 +16,7 @@ import {
 } from '@/postgen/canine_chain/notifications/query'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 
-export default interface IQueryNotifications {
+export interface IQueryNotifications {
   /** Parameters queries the parameters of the module. */
   queryParams(
     request: DeepPartial<QueryParamsRequest>,

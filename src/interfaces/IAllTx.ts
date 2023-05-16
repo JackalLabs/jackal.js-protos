@@ -9,7 +9,7 @@ import { ITxGov } from '@/snackages/tx/static/gov'
 import { ITxSlashing } from '@/snackages/tx/static/slashing'
 import { ITxStaking } from '@/snackages/tx/static/staking'
 
-export default interface IAllTx {
+export interface IAllTx {
   /** Custom */
   fileTree: ITxFileTree
   jklMint: null

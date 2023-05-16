@@ -1,5 +1,5 @@
 /* eslint-disable */
-import _m0 from "protobufjs/minimal";
+import _m0 from 'protobufjs/minimal'
 
 export const protobufPackage = "canine_chain.notifications";
 

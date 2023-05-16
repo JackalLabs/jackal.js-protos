@@ -1,6 +1,6 @@
 /* eslint-disable */
-import _m0 from "protobufjs/minimal";
-import { Params } from "./params";
+import _m0 from 'protobufjs/minimal'
+import { Params } from './params'
 
 export const protobufPackage = "canine_chain.jklmint";
 

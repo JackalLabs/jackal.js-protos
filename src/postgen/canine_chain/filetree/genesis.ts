@@ -1,8 +1,8 @@
 /* eslint-disable */
-import _m0 from "protobufjs/minimal";
-import { Files } from "./files";
-import { Params } from "./params";
-import { Pubkey } from "./pubkey";
+import _m0 from 'protobufjs/minimal'
+import { Files } from './files'
+import { Params } from './params'
+import { Pubkey } from './pubkey'
 
 export const protobufPackage = "canine_chain.filetree";
 

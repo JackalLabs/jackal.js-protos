@@ -32,7 +32,7 @@ import {
 } from '@/postgen/cosmos/staking/v1beta1/query'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 
-export default interface IQueryStaking {
+export interface IQueryStaking {
   /** Validators queries all validators that match the given status. */
   queryValidators(
     request: DeepPartial<QueryValidatorsRequest>,

@@ -10,7 +10,7 @@ import {
 } from '@/postgen/cosmos/slashing/v1beta1/query'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 
-export default interface IQuerySlashing {
+export interface IQuerySlashing {
   /** Params queries the parameters of slashing module */
   queryParams(
     request: DeepPartial<QueryParamsRequest>,

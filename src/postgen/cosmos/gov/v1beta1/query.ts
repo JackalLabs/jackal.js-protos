@@ -1,9 +1,9 @@
 /* eslint-disable */
-import { grpc } from "@improbable-eng/grpc-web";
-import { BrowserHeaders } from "browser-headers";
-import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
+import { grpc } from '@improbable-eng/grpc-web'
+import { BrowserHeaders } from 'browser-headers'
+import Long from 'long'
+import _m0 from 'protobufjs/minimal'
+import { PageRequest, PageResponse } from '../../base/query/v1beta1/pagination'
 import {
   Deposit,
   DepositParams,
@@ -14,8 +14,8 @@ import {
   TallyParams,
   TallyResult,
   Vote,
-  VotingParams,
-} from "./gov";
+  VotingParams
+} from './gov'
 
 export const protobufPackage = "cosmos.gov.v1beta1";
 

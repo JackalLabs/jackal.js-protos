@@ -23,7 +23,7 @@ import {
   QueryValidatorSlashesRequest,
   QueryValidatorSlashesResponse
 } from '@/postgen/cosmos/distribution/v1beta1/query'
-import IQueryDistribution from '@/interfaces/classes/IQueryDistribution'
+import { IQueryDistribution } from '@/interfaces/classes/IQueryDistribution'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 
 export default class QueryDistribution implements IQueryDistribution {

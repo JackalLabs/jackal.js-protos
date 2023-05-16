@@ -1,11 +1,11 @@
 /* eslint-disable */
-import _m0 from "protobufjs/minimal";
-import { Bids } from "./bids";
-import { Forsale } from "./forsale";
-import { Init } from "./init";
-import { Names } from "./names";
-import { Params } from "./params";
-import { Whois } from "./whois";
+import _m0 from 'protobufjs/minimal'
+import { Bids } from './bids'
+import { Forsale } from './forsale'
+import { Init } from './init'
+import { Names } from './names'
+import { Params } from './params'
+import { Whois } from './whois'
 
 export const protobufPackage = "canine_chain.rns";
 

@@ -20,7 +20,7 @@ import {
 } from '@/postgen/cosmos/bank/v1beta1/query'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 
-export default interface IQueryBank {
+export interface IQueryBank {
   /** Balance queries the balance of a single coin for a single account. */
   queryBalance(
     request: DeepPartial<QueryBalanceRequest>,
