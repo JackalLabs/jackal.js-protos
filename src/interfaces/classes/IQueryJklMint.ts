@@ -8,7 +8,7 @@ import {
 } from '@/postgen/canine_chain/jklmint/query'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 
-export default interface IQueryJklMint {
+export interface IQueryJklMint {
   /** Parameters queries the parameters of the module. */
   queryParams(
     request: DeepPartial<QueryParamsRequest>,

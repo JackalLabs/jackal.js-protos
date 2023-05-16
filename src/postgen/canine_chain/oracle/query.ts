@@ -1,10 +1,10 @@
 /* eslint-disable */
-import { grpc } from "@improbable-eng/grpc-web";
-import { BrowserHeaders } from "browser-headers";
-import _m0 from "protobufjs/minimal";
-import { PageResponse } from "../../cosmos/base/query/v1beta1/pagination";
-import { Feed } from "./feed";
-import { Params } from "./params";
+import { grpc } from '@improbable-eng/grpc-web'
+import { BrowserHeaders } from 'browser-headers'
+import _m0 from 'protobufjs/minimal'
+import { PageResponse } from '../../cosmos/base/query/v1beta1/pagination'
+import { Feed } from './feed'
+import { Params } from './params'
 
 export const protobufPackage = "canine_chain.oracle";
 

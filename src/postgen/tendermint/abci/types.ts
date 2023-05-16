@@ -1,13 +1,13 @@
 /* eslint-disable */
-import { grpc } from "@improbable-eng/grpc-web";
-import { BrowserHeaders } from "browser-headers";
-import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { Timestamp } from "../../google/protobuf/timestamp";
-import { PublicKey } from "../crypto/keys";
-import { ProofOps } from "../crypto/proof";
-import { EvidenceParams, ValidatorParams, VersionParams } from "../types/params";
-import { Header } from "../types/types";
+import { grpc } from '@improbable-eng/grpc-web'
+import { BrowserHeaders } from 'browser-headers'
+import Long from 'long'
+import _m0 from 'protobufjs/minimal'
+import { Timestamp } from '../../google/protobuf/timestamp'
+import { PublicKey } from '../crypto/keys'
+import { ProofOps } from '../crypto/proof'
+import { EvidenceParams, ValidatorParams, VersionParams } from '../types/params'
+import { Header } from '../types/types'
 
 export const protobufPackage = "tendermint.abci";
 

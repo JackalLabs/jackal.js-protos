@@ -1,6 +1,6 @@
 /* eslint-disable */
-import { grpc } from "@improbable-eng/grpc-web";
-import { BrowserHeaders } from "browser-headers";
+import { grpc } from '@improbable-eng/grpc-web'
+import { BrowserHeaders } from 'browser-headers'
 
 export const protobufPackage = "canine_chain.jklmint";
 
@@ -9,6 +9,7 @@ export interface Msg {
 }
 
 export class MsgClientImpl implements Msg {
+  // @ts-ignore
   private readonly rpc: Rpc;
 
   constructor(rpc: Rpc) {

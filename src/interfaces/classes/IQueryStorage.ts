@@ -1,8 +1,8 @@
 import { grpc } from '@improbable-eng/grpc-web'
 import {
   DeepPartial,
-  QueryParamsRequest,
-  QueryParamsResponse,
+  QueryActiveDealRequest,
+  QueryActiveDealResponse,
   QueryAllActiveDealsRequest,
   QueryAllActiveDealsResponse,
   QueryAllContractsRequest,
@@ -11,38 +11,38 @@ import {
   QueryAllFidCidResponse,
   QueryAllProvidersRequest,
   QueryAllProvidersResponse,
+  QueryAllStoragePaymentInfoRequest,
+  QueryAllStoragePaymentInfoResponse,
   QueryAllStraysRequest,
   QueryAllStraysResponse,
-  QueryFindFileRequest,
-  QueryFindFileResponse,
-  QueryFreespaceRequest,
-  QueryFreespaceResponse,
-  QueryActiveDealRequest,
-  QueryActiveDealResponse,
   QueryClientFreeSpaceRequest,
   QueryClientFreeSpaceResponse,
   QueryContractRequest,
   QueryContractResponse,
   QueryFidCidRequest,
   QueryFidCidResponse,
-  QueryPayDataRequest,
-  QueryPayDataResponse,
-  QueryProviderRequest,
-  QueryProviderResponse,
-  QueryStrayRequest,
-  QueryStrayResponse,
-  QueryStoragePaymentInfoRequest,
-  QueryStoragePaymentInfoResponse,
-  QueryAllStoragePaymentInfoRequest,
-  QueryAllStoragePaymentInfoResponse,
   QueryFileUploadCheckRequest,
   QueryFileUploadCheckResponse,
+  QueryFindFileRequest,
+  QueryFindFileResponse,
+  QueryFreespaceRequest,
+  QueryFreespaceResponse,
+  QueryParamsRequest,
+  QueryParamsResponse,
+  QueryPayDataRequest,
+  QueryPayDataResponse,
+  QueryPriceCheckRequest,
   QueryPriceCheckResponse,
-  QueryPriceCheckRequest
+  QueryProviderRequest,
+  QueryProviderResponse,
+  QueryStoragePaymentInfoRequest,
+  QueryStoragePaymentInfoResponse,
+  QueryStrayRequest,
+  QueryStrayResponse
 } from '@/postgen/canine_chain/storage/query'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 
-export default interface IQueryStorage {
+export interface IQueryStorage {
   /** Parameters queries the parameters of the module. */
   queryParams(
     request: DeepPartial<QueryParamsRequest>,

@@ -1,11 +1,11 @@
 /* eslint-disable */
-import { grpc } from "@improbable-eng/grpc-web";
-import { BrowserHeaders } from "browser-headers";
-import _m0 from "protobufjs/minimal";
-import { PageRequest, PageResponse } from "../../cosmos/base/query/v1beta1/pagination";
-import { Files } from "./files";
-import { Params } from "./params";
-import { Pubkey } from "./pubkey";
+import { grpc } from '@improbable-eng/grpc-web'
+import { BrowserHeaders } from 'browser-headers'
+import _m0 from 'protobufjs/minimal'
+import { PageRequest, PageResponse } from '../../cosmos/base/query/v1beta1/pagination'
+import { Files } from './files'
+import { Params } from './params'
+import { Pubkey } from './pubkey'
 
 export const protobufPackage = "canine_chain.filetree";
 

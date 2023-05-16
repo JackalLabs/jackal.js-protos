@@ -9,7 +9,7 @@ import {
   QueryParamsRequest,
   QueryParamsResponse
 } from '@/postgen/canine_chain/jklmint/query'
-import IQueryJklMint from '@/interfaces/classes/IQueryJklMint'
+import { IQueryJklMint } from '@/interfaces/classes/IQueryJklMint'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 
 export default class QueryJklMint implements IQueryJklMint {

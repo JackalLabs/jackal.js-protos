@@ -15,16 +15,16 @@ import {
   QueryForsaleResponse,
   QueryInitRequest,
   QueryInitResponse,
-  QueryNameRequest,
-  QueryNameResponse,
   QueryListOwnedNamesRequest,
   QueryListOwnedNamesResponse,
+  QueryNameRequest,
+  QueryNameResponse,
   QueryParamsRequest,
   QueryParamsResponse
 } from '@/postgen/canine_chain/rns/query'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 
-export default interface IQueryRns {
+export interface IQueryRns {
   /** Parameters queries the parameters of the module. */
   queryParams(
     request: DeepPartial<QueryParamsRequest>,

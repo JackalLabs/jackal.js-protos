@@ -1,11 +1,11 @@
 /* eslint-disable */
-import { grpc } from "@improbable-eng/grpc-web";
-import { BrowserHeaders } from "browser-headers";
-import _m0 from "protobufjs/minimal";
-import { Any } from "../../../google/protobuf/any";
-import { Timestamp } from "../../../google/protobuf/timestamp";
-import { Coin } from "../../base/v1beta1/coin";
-import { CommissionRates, Description } from "./staking";
+import { grpc } from '@improbable-eng/grpc-web'
+import { BrowserHeaders } from 'browser-headers'
+import _m0 from 'protobufjs/minimal'
+import { Any } from '../../../google/protobuf/any'
+import { Timestamp } from '../../../google/protobuf/timestamp'
+import { Coin } from '../../base/v1beta1/coin'
+import { CommissionRates, Description } from './staking'
 
 export const protobufPackage = "cosmos.staking.v1beta1";
 

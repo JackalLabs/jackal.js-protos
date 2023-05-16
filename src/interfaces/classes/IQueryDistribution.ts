@@ -22,7 +22,7 @@ import {
 } from '@/postgen/cosmos/distribution/v1beta1/query'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 
-export default interface IQueryDistribution {
+export interface IQueryDistribution {
   /** Params queries params of the distribution module. */
   queryParams(
     request: DeepPartial<QueryParamsRequest>,

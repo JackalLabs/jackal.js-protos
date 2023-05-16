@@ -1,7 +1,7 @@
 /* eslint-disable */
-import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { DecCoin } from "../../base/v1beta1/coin";
+import Long from 'long'
+import _m0 from 'protobufjs/minimal'
+import { DecCoin } from '../../base/v1beta1/coin'
 import {
   DelegatorStartingInfo,
   FeePool,
@@ -9,8 +9,8 @@ import {
   ValidatorAccumulatedCommission,
   ValidatorCurrentRewards,
   ValidatorHistoricalRewards,
-  ValidatorSlashEvent,
-} from "./distribution";
+  ValidatorSlashEvent
+} from './distribution'
 
 export const protobufPackage = "cosmos.distribution.v1beta1";
 

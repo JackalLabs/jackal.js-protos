@@ -21,7 +21,7 @@ import {
   QueryVotesRequest,
   QueryVotesResponse
 } from '@/postgen/cosmos/gov/v1beta1/query'
-import IQueryGov from '@/interfaces/classes/IQueryGov'
+import { IQueryGov } from '@/interfaces/classes/IQueryGov'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 
 export default class QueryGov implements IQueryGov {

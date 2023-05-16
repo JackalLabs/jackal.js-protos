@@ -11,21 +11,21 @@ import {
   QueryAllInitsResponse,
   QueryAllNamesRequest,
   QueryAllNamesResponse,
-  QueryClientImpl,
   QueryBidRequest,
   QueryBidResponse,
+  QueryClientImpl,
   QueryForsaleRequest,
   QueryForsaleResponse,
   QueryInitRequest,
   QueryInitResponse,
-  QueryNameRequest,
-  QueryNameResponse,
   QueryListOwnedNamesRequest,
   QueryListOwnedNamesResponse,
+  QueryNameRequest,
+  QueryNameResponse,
   QueryParamsRequest,
   QueryParamsResponse
 } from '@/postgen/canine_chain/rns/query'
-import IQueryRns from '@/interfaces/classes/IQueryRns'
+import { IQueryRns } from '@/interfaces/classes/IQueryRns'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 
 export default class QueryRns implements IQueryRns {

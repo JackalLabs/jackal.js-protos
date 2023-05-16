@@ -1,7 +1,7 @@
 /* eslint-disable */
-import _m0 from "protobufjs/minimal";
-import { Feed } from "./feed";
-import { Params } from "./params";
+import _m0 from 'protobufjs/minimal'
+import { Feed } from './feed'
+import { Params } from './params'
 
 export const protobufPackage = "canine_chain.oracle";
 

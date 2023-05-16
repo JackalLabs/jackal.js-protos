@@ -10,7 +10,7 @@ import {
 } from '@/postgen/canine_chain/oracle/query'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 
-export default interface IQueryOracle {
+export interface IQueryOracle {
   /** Parameters queries the parameters of the module. */
   queryParams(
     request: DeepPartial<QueryParamsRequest>,

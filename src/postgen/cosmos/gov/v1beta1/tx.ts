@@ -1,11 +1,11 @@
 /* eslint-disable */
-import { grpc } from "@improbable-eng/grpc-web";
-import { BrowserHeaders } from "browser-headers";
-import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { Any } from "../../../google/protobuf/any";
-import { Coin } from "../../base/v1beta1/coin";
-import { VoteOption, voteOptionFromJSON, voteOptionToJSON, WeightedVoteOption } from "./gov";
+import { grpc } from '@improbable-eng/grpc-web'
+import { BrowserHeaders } from 'browser-headers'
+import Long from 'long'
+import _m0 from 'protobufjs/minimal'
+import { Any } from '../../../google/protobuf/any'
+import { Coin } from '../../base/v1beta1/coin'
+import { VoteOption, voteOptionFromJSON, voteOptionToJSON, WeightedVoteOption } from './gov'
 
 export const protobufPackage = "cosmos.gov.v1beta1";
 

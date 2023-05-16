@@ -1,8 +1,8 @@
 /* eslint-disable */
-import _m0 from "protobufjs/minimal";
-import { NotiCounter } from "./noti_counter";
-import { Notifications } from "./notifications";
-import { Params } from "./params";
+import _m0 from 'protobufjs/minimal'
+import { NotiCounter } from './noti_counter'
+import { Notifications } from './notifications'
+import { Params } from './params'
 
 export const protobufPackage = "canine_chain.notifications";
 

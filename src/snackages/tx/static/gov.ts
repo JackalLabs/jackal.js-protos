@@ -1,9 +1,4 @@
-import {
-  MsgDeposit,
-  MsgSubmitProposal,
-  MsgVote,
-  MsgVoteWeighted
-} from '@/postgen/cosmos/gov/v1beta1/tx'
+import { MsgDeposit, MsgSubmitProposal, MsgVote, MsgVoteWeighted } from '@/postgen/cosmos/gov/v1beta1/tx'
 import { EncodeObject } from '@cosmjs/proto-signing'
 import ITypeTuple from '@/interfaces/ITypeTuple'
 

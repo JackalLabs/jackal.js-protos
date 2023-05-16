@@ -33,7 +33,7 @@ import {
   QueryValidatorUnbondingDelegationsRequest,
   QueryValidatorUnbondingDelegationsResponse
 } from '@/postgen/cosmos/staking/v1beta1/query'
-import IQueryStaking from '@/interfaces/classes/IQueryStaking'
+import { IQueryStaking } from '@/interfaces/classes/IQueryStaking'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 
 export default class QueryStaking implements IQueryStaking {

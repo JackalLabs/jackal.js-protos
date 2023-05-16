@@ -1,4 +1,4 @@
-import IQueryFileTree from '@/interfaces/classes/IQueryFileTree'
+import { IQueryFileTree } from '@/interfaces/classes/IQueryFileTree'
 import {
   DeepPartial,
   GrpcWebImpl,

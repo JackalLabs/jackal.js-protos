@@ -1,10 +1,10 @@
 /* eslint-disable */
-import { grpc } from "@improbable-eng/grpc-web";
-import { BrowserHeaders } from "browser-headers";
-import _m0 from "protobufjs/minimal";
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
-import { Coin } from "../../base/v1beta1/coin";
-import { Metadata, Params } from "./bank";
+import { grpc } from '@improbable-eng/grpc-web'
+import { BrowserHeaders } from 'browser-headers'
+import _m0 from 'protobufjs/minimal'
+import { PageRequest, PageResponse } from '../../base/query/v1beta1/pagination'
+import { Coin } from '../../base/v1beta1/coin'
+import { Metadata, Params } from './bank'
 
 export const protobufPackage = "cosmos.bank.v1beta1";
 

@@ -11,7 +11,7 @@ import {
   QueryParamsRequest,
   QueryParamsResponse
 } from '@/postgen/canine_chain/oracle/query'
-import IQueryOracle from '@/interfaces/classes/IQueryOracle'
+import { IQueryOracle } from '@/interfaces/classes/IQueryOracle'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 
 export default class QueryOracle implements IQueryOracle {

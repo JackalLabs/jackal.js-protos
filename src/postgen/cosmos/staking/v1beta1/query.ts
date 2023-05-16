@@ -1,9 +1,9 @@
 /* eslint-disable */
-import { grpc } from "@improbable-eng/grpc-web";
-import { BrowserHeaders } from "browser-headers";
-import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
+import { grpc } from '@improbable-eng/grpc-web'
+import { BrowserHeaders } from 'browser-headers'
+import Long from 'long'
+import _m0 from 'protobufjs/minimal'
+import { PageRequest, PageResponse } from '../../base/query/v1beta1/pagination'
 import {
   DelegationResponse,
   HistoricalInfo,
@@ -11,8 +11,8 @@ import {
   Pool,
   RedelegationResponse,
   UnbondingDelegation,
-  Validator,
-} from "./staking";
+  Validator
+} from './staking'
 
 export const protobufPackage = "cosmos.staking.v1beta1";
 

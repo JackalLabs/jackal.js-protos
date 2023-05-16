@@ -20,7 +20,7 @@ import {
 } from '@/postgen/cosmos/gov/v1beta1/query'
 import SuccessNoUndefined from '@/types/TSuccessNoUndefined'
 
-export default interface IQueryGov {
+export interface IQueryGov {
   /** Proposal queries proposal details based on ProposalID. */
   queryProposal(
     request: DeepPartial<QueryProposalRequest>,
