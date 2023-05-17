@@ -26,7 +26,10 @@ import { IQueryJklMint } from '@/interfaces/classes/IQueryJklMint'
 import QueryJklMint from '@/snackages/query/custom/jklMint'
 import { IQueryNotifications } from '@/interfaces/classes/IQueryNotifications'
 import QueryNotifications from '@/snackages/query/custom/notifications'
-import { ITxNotifications, TxNotifications } from '@/snackages/tx/custom/notifications'
+import {
+  ITxNotifications,
+  TxNotifications
+} from '@/snackages/tx/custom/notifications'
 import { IQueryOracle } from '@/interfaces/classes/IQueryOracle'
 import QueryOracle from '@/snackages/query/custom/oracle'
 import { ITxOracle, TxOracle } from '@/snackages/tx/custom/oracle'
@@ -43,7 +46,10 @@ import QueryBank from '@/snackages/query/static/bank'
 import { ITxBank, TxBank } from '@/snackages/tx/static/bank'
 import { IQueryDistribution } from '@/interfaces/classes/IQueryDistribution'
 import QueryDistribution from '@/snackages/query/static/distribution'
-import { ITxDistribution, TxDistribution } from '@/snackages/tx/static/distribution'
+import {
+  ITxDistribution,
+  TxDistribution
+} from '@/snackages/tx/static/distribution'
 import { IQueryGov } from '@/interfaces/classes/IQueryGov'
 import QueryGov from '@/snackages/query/static/gov'
 import { ITxGov, TxGov } from '@/snackages/tx/static/gov'

@@ -19,7 +19,6 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": false,
-    "noEmit": true,
 
     /* Linting */
     "strict": true,
