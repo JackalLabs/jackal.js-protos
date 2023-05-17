@@ -28,8 +28,9 @@ export default defineConfig({
     reportCompressedSize: true,
     lib: {
       entry: resolve(__dirname, "src/index.ts"),
-      fileName: "index",
-      formats: ["es", "cjs"],
+      fileName: (format) => `index.${format}.js`,
+      name: 'Jackal.js-protos'
+      // formats: ["es", "cjs"],
     },
     rollupOptions: {
       external: [
