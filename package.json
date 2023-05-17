@@ -23,8 +23,7 @@
   "scripts": {
     "build": "tsc && vite build",
     "compile": "./scripts/protocgen.sh",
-    "packit": "npm run build && npm pack --pack-destination packs",
-    "fixdec": "node completeDeclaration"
+    "packit": "npm run build && npm pack --pack-destination packs"
   },
   "contributors": [
     {
