@@ -49,7 +49,4 @@ export {
   QueryGetNotificationsResponse
 } from '@/postgen/canine_chain/notifications/query'
 
-export {
-  IProtoBuilder,
-  IQueryBuilder
-}
+export { IProtoBuilder, IQueryBuilder }
