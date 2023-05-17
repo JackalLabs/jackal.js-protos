@@ -14,7 +14,7 @@
     "outDir": "dist",
     "sourceMap": true,
     "declaration": true,
-    "declarationDir": "dist/dts",
+    "declarationDir": "dist",
     "declarationMap": true,
     "moduleResolution": "Node",
     "resolveJsonModule": true,
