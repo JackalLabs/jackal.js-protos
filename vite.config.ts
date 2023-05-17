@@ -30,18 +30,19 @@ export default defineConfig({
       entry: resolve(__dirname, "src/index.ts"),
       fileName: (format) => `index.${format}.js`,
       name: 'Jackal.js-protos'
-      // formats: ["es", "cjs"],
     },
     rollupOptions: {
       external: [
         /.*node_modules\/has(h(es)?)?/,
         /.*node_modules\/function-bind/,
         'protobufjs/minimal',
+        'hash.js',
+        'has-property-descriptors',
       ],
       plugins: [
         typescriptPaths({
           absolute: false,
-          nonRelative: true,
+          // nonRelative: true,
         }),
         typescript({ tsconfig: './tsconfig.json' }),
       ],
