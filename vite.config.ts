@@ -33,16 +33,14 @@ export default defineConfig({
     },
     rollupOptions: {
       external: [
-        /.*node_modules\/has(h(es)?)?/,
-        /.*node_modules\/function-bind/,
         'protobufjs/minimal',
-        'hash.js',
-        'has-property-descriptors',
+        /@cosmjs.*/,
+        '@improbable-eng/grpc-web',
+        'ts-proto',
       ],
       plugins: [
         typescriptPaths({
           absolute: false,
-          // nonRelative: true,
         }),
         typescript({ tsconfig: './tsconfig.json' }),
       ],
