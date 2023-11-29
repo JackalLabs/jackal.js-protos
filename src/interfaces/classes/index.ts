@@ -1,1 +1,2 @@
-export * from '@/interfaces/classes/ISampleHandler'
+export * from '@/interfaces/classes/IQueryClient'
+export * from '@/interfaces/classes/ISignerClient'
