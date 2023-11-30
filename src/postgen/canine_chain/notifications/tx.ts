@@ -4,76 +4,65 @@ import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "canine_chain.notifications";
 
-export interface MsgCreateNotifications {
+export interface MsgCreateNotification {
+  /** who the notification is from */
   creator: string;
-  notification: string;
-  address: string;
+  /** address receiving the notification */
+  to: string;
+  /** must be valid json */
+  contents: string;
+  /** private contents can be any byte array (meant to be encrypted data) */
+  privateContents: Uint8Array;
 }
 
-export interface MsgCreateNotificationsResponse {
-  /** TODO: fix casing */
-  notiCounter: number;
+export interface MsgCreateNotificationResponse {
 }
 
-export interface MsgUpdateNotifications {
+export interface MsgDeleteNotification {
+  /** the address deleting the notification */
   creator: string;
-  count: number;
-  notification: string;
-  address: string;
+  /** the address receiving the notification */
+  from: string;
+  /** time of notification creation in microseconds */
+  time: number;
 }
 
-export interface MsgUpdateNotificationsResponse {
-}
-
-export interface MsgDeleteNotifications {
-  creator: string;
-}
-
-export interface MsgDeleteNotificationsResponse {
-  /** TODO: fix casing */
-  notiCounter: number;
-}
-
-export interface MsgSetCounter {
-  creator: string;
-}
-
-export interface MsgSetCounterResponse {
-  /** TODO: fix casing */
-  notiCounter: number;
+export interface MsgDeleteNotificationResponse {
 }
 
 export interface MsgBlockSenders {
   creator: string;
-  /** TODO: fix casing */
-  senderIds: string;
+  toBlock: string[];
 }
 
 export interface MsgBlockSendersResponse {
 }
 
-function createBaseMsgCreateNotifications(): MsgCreateNotifications {
-  return { creator: "", notification: "", address: "" };
+function createBaseMsgCreateNotification(): MsgCreateNotification {
+  return { creator: "", to: "", contents: "", privateContents: new Uint8Array(0) };
 }
 
-export const MsgCreateNotifications = {
-  encode(message: MsgCreateNotifications, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const MsgCreateNotification = {
+  encode(message: MsgCreateNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
     }
-    if (message.notification !== "") {
-      writer.uint32(18).string(message.notification);
+    if (message.to !== "") {
+      writer.uint32(18).string(message.to);
     }
-    if (message.address !== "") {
-      writer.uint32(26).string(message.address);
+    if (message.contents !== "") {
+      writer.uint32(26).string(message.contents);
+    }
+    if (message.privateContents.length !== 0) {
+      writer.uint32(34).bytes(message.privateContents);
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreateNotifications {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreateNotification {
     const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgCreateNotifications();
+    const message = createBaseMsgCreateNotification();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -89,14 +78,21 @@ export const MsgCreateNotifications = {
             break;
           }
 
-          message.notification = reader.string();
+          message.to = reader.string();
           continue;
         case 3:
           if (tag !== 26) {
             break;
           }
 
-          message.address = reader.string();
+          message.contents = reader.string();
+          continue;
+        case 4:
+          if (tag !== 34) {
+            break;
+          }
+
+          message.privateContents = reader.bytes();
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -107,66 +103,61 @@ export const MsgCreateNotifications = {
     return message;
   },
 
-  fromJSON(object: any): MsgCreateNotifications {
+  fromJSON(object: any): MsgCreateNotification {
     return {
       creator: isSet(object.creator) ? gt.String(object.creator) : "",
-      notification: isSet(object.notification) ? gt.String(object.notification) : "",
-      address: isSet(object.address) ? gt.String(object.address) : "",
+      to: isSet(object.to) ? gt.String(object.to) : "",
+      contents: isSet(object.contents) ? gt.String(object.contents) : "",
+      privateContents: isSet(object.privateContents) ? bytesFromBase64(object.privateContents) : new Uint8Array(0),
     };
   },
 
-  toJSON(message: MsgCreateNotifications): unknown {
+  toJSON(message: MsgCreateNotification): unknown {
     const obj: any = {};
     if (message.creator !== "") {
       obj.creator = message.creator;
     }
-    if (message.notification !== "") {
-      obj.notification = message.notification;
+    if (message.to !== "") {
+      obj.to = message.to;
     }
-    if (message.address !== "") {
-      obj.address = message.address;
+    if (message.contents !== "") {
+      obj.contents = message.contents;
+    }
+    if (message.privateContents.length !== 0) {
+      obj.privateContents = base64FromBytes(message.privateContents);
     }
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<MsgCreateNotifications>, I>>(base?: I): MsgCreateNotifications {
-    return MsgCreateNotifications.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<MsgCreateNotification>, I>>(base?: I): MsgCreateNotification {
+    return MsgCreateNotification.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<MsgCreateNotifications>, I>>(object: I): MsgCreateNotifications {
-    const message = createBaseMsgCreateNotifications();
+  fromPartial<I extends Exact<DeepPartial<MsgCreateNotification>, I>>(object: I): MsgCreateNotification {
+    const message = createBaseMsgCreateNotification();
     message.creator = object.creator ?? "";
-    message.notification = object.notification ?? "";
-    message.address = object.address ?? "";
+    message.to = object.to ?? "";
+    message.contents = object.contents ?? "";
+    message.privateContents = object.privateContents ?? new Uint8Array(0);
     return message;
   },
 };
 
-function createBaseMsgCreateNotificationsResponse(): MsgCreateNotificationsResponse {
-  return { notiCounter: 0 };
+function createBaseMsgCreateNotificationResponse(): MsgCreateNotificationResponse {
+  return {};
 }
 
-export const MsgCreateNotificationsResponse = {
-  encode(message: MsgCreateNotificationsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.notiCounter !== 0) {
-      writer.uint32(8).uint64(message.notiCounter);
-    }
+export const MsgCreateNotificationResponse = {
+  encode(_: MsgCreateNotificationResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreateNotificationsResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreateNotificationResponse {
     const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgCreateNotificationsResponse();
+    const message = createBaseMsgCreateNotificationResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          if (tag !== 8) {
-            break;
-          }
-
-          message.notiCounter = longToNumber(reader.uint64() as Long);
-          continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -176,55 +167,46 @@ export const MsgCreateNotificationsResponse = {
     return message;
   },
 
-  fromJSON(object: any): MsgCreateNotificationsResponse {
-    return { notiCounter: isSet(object.notiCounter) ? gt.Number(object.notiCounter) : 0 };
+  fromJSON(_: any): MsgCreateNotificationResponse {
+    return {};
   },
 
-  toJSON(message: MsgCreateNotificationsResponse): unknown {
+  toJSON(_: MsgCreateNotificationResponse): unknown {
     const obj: any = {};
-    if (message.notiCounter !== 0) {
-      obj.notiCounter = Math.round(message.notiCounter);
-    }
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<MsgCreateNotificationsResponse>, I>>(base?: I): MsgCreateNotificationsResponse {
-    return MsgCreateNotificationsResponse.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<MsgCreateNotificationResponse>, I>>(base?: I): MsgCreateNotificationResponse {
+    return MsgCreateNotificationResponse.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<MsgCreateNotificationsResponse>, I>>(
-    object: I,
-  ): MsgCreateNotificationsResponse {
-    const message = createBaseMsgCreateNotificationsResponse();
-    message.notiCounter = object.notiCounter ?? 0;
+  fromPartial<I extends Exact<DeepPartial<MsgCreateNotificationResponse>, I>>(_: I): MsgCreateNotificationResponse {
+    const message = createBaseMsgCreateNotificationResponse();
     return message;
   },
 };
 
-function createBaseMsgUpdateNotifications(): MsgUpdateNotifications {
-  return { creator: "", count: 0, notification: "", address: "" };
+function createBaseMsgDeleteNotification(): MsgDeleteNotification {
+  return { creator: "", from: "", time: 0 };
 }
 
-export const MsgUpdateNotifications = {
-  encode(message: MsgUpdateNotifications, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const MsgDeleteNotification = {
+  encode(message: MsgDeleteNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
     }
-    if (message.count !== 0) {
-      writer.uint32(16).uint64(message.count);
+    if (message.from !== "") {
+      writer.uint32(18).string(message.from);
     }
-    if (message.notification !== "") {
-      writer.uint32(26).string(message.notification);
-    }
-    if (message.address !== "") {
-      writer.uint32(34).string(message.address);
+    if (message.time !== 0) {
+      writer.uint32(24).int64(message.time);
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpdateNotifications {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgDeleteNotification {
     const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgUpdateNotifications();
+    const message = createBaseMsgDeleteNotification();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -236,25 +218,18 @@ export const MsgUpdateNotifications = {
           message.creator = reader.string();
           continue;
         case 2:
-          if (tag !== 16) {
+          if (tag !== 18) {
             break;
           }
 
-          message.count = longToNumber(reader.uint64() as Long);
+          message.from = reader.string();
           continue;
         case 3:
-          if (tag !== 26) {
+          if (tag !== 24) {
             break;
           }
 
-          message.notification = reader.string();
-          continue;
-        case 4:
-          if (tag !== 34) {
-            break;
-          }
-
-          message.address = reader.string();
+          message.time = longToNumber(reader.int64() as Long);
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -265,58 +240,53 @@ export const MsgUpdateNotifications = {
     return message;
   },
 
-  fromJSON(object: any): MsgUpdateNotifications {
+  fromJSON(object: any): MsgDeleteNotification {
     return {
       creator: isSet(object.creator) ? gt.String(object.creator) : "",
-      count: isSet(object.count) ? gt.Number(object.count) : 0,
-      notification: isSet(object.notification) ? gt.String(object.notification) : "",
-      address: isSet(object.address) ? gt.String(object.address) : "",
+      from: isSet(object.from) ? gt.String(object.from) : "",
+      time: isSet(object.time) ? gt.Number(object.time) : 0,
     };
   },
 
-  toJSON(message: MsgUpdateNotifications): unknown {
+  toJSON(message: MsgDeleteNotification): unknown {
     const obj: any = {};
     if (message.creator !== "") {
       obj.creator = message.creator;
     }
-    if (message.count !== 0) {
-      obj.count = Math.round(message.count);
+    if (message.from !== "") {
+      obj.from = message.from;
     }
-    if (message.notification !== "") {
-      obj.notification = message.notification;
-    }
-    if (message.address !== "") {
-      obj.address = message.address;
+    if (message.time !== 0) {
+      obj.time = Math.round(message.time);
     }
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<MsgUpdateNotifications>, I>>(base?: I): MsgUpdateNotifications {
-    return MsgUpdateNotifications.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<MsgDeleteNotification>, I>>(base?: I): MsgDeleteNotification {
+    return MsgDeleteNotification.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<MsgUpdateNotifications>, I>>(object: I): MsgUpdateNotifications {
-    const message = createBaseMsgUpdateNotifications();
+  fromPartial<I extends Exact<DeepPartial<MsgDeleteNotification>, I>>(object: I): MsgDeleteNotification {
+    const message = createBaseMsgDeleteNotification();
     message.creator = object.creator ?? "";
-    message.count = object.count ?? 0;
-    message.notification = object.notification ?? "";
-    message.address = object.address ?? "";
+    message.from = object.from ?? "";
+    message.time = object.time ?? 0;
     return message;
   },
 };
 
-function createBaseMsgUpdateNotificationsResponse(): MsgUpdateNotificationsResponse {
+function createBaseMsgDeleteNotificationResponse(): MsgDeleteNotificationResponse {
   return {};
 }
 
-export const MsgUpdateNotificationsResponse = {
-  encode(_: MsgUpdateNotificationsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const MsgDeleteNotificationResponse = {
+  encode(_: MsgDeleteNotificationResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpdateNotificationsResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgDeleteNotificationResponse {
     const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgUpdateNotificationsResponse();
+    const message = createBaseMsgDeleteNotificationResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -329,256 +299,26 @@ export const MsgUpdateNotificationsResponse = {
     return message;
   },
 
-  fromJSON(_: any): MsgUpdateNotificationsResponse {
+  fromJSON(_: any): MsgDeleteNotificationResponse {
     return {};
   },
 
-  toJSON(_: MsgUpdateNotificationsResponse): unknown {
+  toJSON(_: MsgDeleteNotificationResponse): unknown {
     const obj: any = {};
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<MsgUpdateNotificationsResponse>, I>>(base?: I): MsgUpdateNotificationsResponse {
-    return MsgUpdateNotificationsResponse.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<MsgDeleteNotificationResponse>, I>>(base?: I): MsgDeleteNotificationResponse {
+    return MsgDeleteNotificationResponse.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<MsgUpdateNotificationsResponse>, I>>(_: I): MsgUpdateNotificationsResponse {
-    const message = createBaseMsgUpdateNotificationsResponse();
-    return message;
-  },
-};
-
-function createBaseMsgDeleteNotifications(): MsgDeleteNotifications {
-  return { creator: "" };
-}
-
-export const MsgDeleteNotifications = {
-  encode(message: MsgDeleteNotifications, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.creator !== "") {
-      writer.uint32(10).string(message.creator);
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgDeleteNotifications {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgDeleteNotifications();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          if (tag !== 10) {
-            break;
-          }
-
-          message.creator = reader.string();
-          continue;
-      }
-      if ((tag & 7) === 4 || tag === 0) {
-        break;
-      }
-      reader.skipType(tag & 7);
-    }
-    return message;
-  },
-
-  fromJSON(object: any): MsgDeleteNotifications {
-    return { creator: isSet(object.creator) ? gt.String(object.creator) : "" };
-  },
-
-  toJSON(message: MsgDeleteNotifications): unknown {
-    const obj: any = {};
-    if (message.creator !== "") {
-      obj.creator = message.creator;
-    }
-    return obj;
-  },
-
-  create<I extends Exact<DeepPartial<MsgDeleteNotifications>, I>>(base?: I): MsgDeleteNotifications {
-    return MsgDeleteNotifications.fromPartial(base ?? ({} as any));
-  },
-  fromPartial<I extends Exact<DeepPartial<MsgDeleteNotifications>, I>>(object: I): MsgDeleteNotifications {
-    const message = createBaseMsgDeleteNotifications();
-    message.creator = object.creator ?? "";
-    return message;
-  },
-};
-
-function createBaseMsgDeleteNotificationsResponse(): MsgDeleteNotificationsResponse {
-  return { notiCounter: 0 };
-}
-
-export const MsgDeleteNotificationsResponse = {
-  encode(message: MsgDeleteNotificationsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.notiCounter !== 0) {
-      writer.uint32(8).uint64(message.notiCounter);
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgDeleteNotificationsResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgDeleteNotificationsResponse();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          if (tag !== 8) {
-            break;
-          }
-
-          message.notiCounter = longToNumber(reader.uint64() as Long);
-          continue;
-      }
-      if ((tag & 7) === 4 || tag === 0) {
-        break;
-      }
-      reader.skipType(tag & 7);
-    }
-    return message;
-  },
-
-  fromJSON(object: any): MsgDeleteNotificationsResponse {
-    return { notiCounter: isSet(object.notiCounter) ? gt.Number(object.notiCounter) : 0 };
-  },
-
-  toJSON(message: MsgDeleteNotificationsResponse): unknown {
-    const obj: any = {};
-    if (message.notiCounter !== 0) {
-      obj.notiCounter = Math.round(message.notiCounter);
-    }
-    return obj;
-  },
-
-  create<I extends Exact<DeepPartial<MsgDeleteNotificationsResponse>, I>>(base?: I): MsgDeleteNotificationsResponse {
-    return MsgDeleteNotificationsResponse.fromPartial(base ?? ({} as any));
-  },
-  fromPartial<I extends Exact<DeepPartial<MsgDeleteNotificationsResponse>, I>>(
-    object: I,
-  ): MsgDeleteNotificationsResponse {
-    const message = createBaseMsgDeleteNotificationsResponse();
-    message.notiCounter = object.notiCounter ?? 0;
-    return message;
-  },
-};
-
-function createBaseMsgSetCounter(): MsgSetCounter {
-  return { creator: "" };
-}
-
-export const MsgSetCounter = {
-  encode(message: MsgSetCounter, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.creator !== "") {
-      writer.uint32(10).string(message.creator);
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgSetCounter {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgSetCounter();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          if (tag !== 10) {
-            break;
-          }
-
-          message.creator = reader.string();
-          continue;
-      }
-      if ((tag & 7) === 4 || tag === 0) {
-        break;
-      }
-      reader.skipType(tag & 7);
-    }
-    return message;
-  },
-
-  fromJSON(object: any): MsgSetCounter {
-    return { creator: isSet(object.creator) ? gt.String(object.creator) : "" };
-  },
-
-  toJSON(message: MsgSetCounter): unknown {
-    const obj: any = {};
-    if (message.creator !== "") {
-      obj.creator = message.creator;
-    }
-    return obj;
-  },
-
-  create<I extends Exact<DeepPartial<MsgSetCounter>, I>>(base?: I): MsgSetCounter {
-    return MsgSetCounter.fromPartial(base ?? ({} as any));
-  },
-  fromPartial<I extends Exact<DeepPartial<MsgSetCounter>, I>>(object: I): MsgSetCounter {
-    const message = createBaseMsgSetCounter();
-    message.creator = object.creator ?? "";
-    return message;
-  },
-};
-
-function createBaseMsgSetCounterResponse(): MsgSetCounterResponse {
-  return { notiCounter: 0 };
-}
-
-export const MsgSetCounterResponse = {
-  encode(message: MsgSetCounterResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.notiCounter !== 0) {
-      writer.uint32(8).uint64(message.notiCounter);
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgSetCounterResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgSetCounterResponse();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          if (tag !== 8) {
-            break;
-          }
-
-          message.notiCounter = longToNumber(reader.uint64() as Long);
-          continue;
-      }
-      if ((tag & 7) === 4 || tag === 0) {
-        break;
-      }
-      reader.skipType(tag & 7);
-    }
-    return message;
-  },
-
-  fromJSON(object: any): MsgSetCounterResponse {
-    return { notiCounter: isSet(object.notiCounter) ? gt.Number(object.notiCounter) : 0 };
-  },
-
-  toJSON(message: MsgSetCounterResponse): unknown {
-    const obj: any = {};
-    if (message.notiCounter !== 0) {
-      obj.notiCounter = Math.round(message.notiCounter);
-    }
-    return obj;
-  },
-
-  create<I extends Exact<DeepPartial<MsgSetCounterResponse>, I>>(base?: I): MsgSetCounterResponse {
-    return MsgSetCounterResponse.fromPartial(base ?? ({} as any));
-  },
-  fromPartial<I extends Exact<DeepPartial<MsgSetCounterResponse>, I>>(object: I): MsgSetCounterResponse {
-    const message = createBaseMsgSetCounterResponse();
-    message.notiCounter = object.notiCounter ?? 0;
+  fromPartial<I extends Exact<DeepPartial<MsgDeleteNotificationResponse>, I>>(_: I): MsgDeleteNotificationResponse {
+    const message = createBaseMsgDeleteNotificationResponse();
     return message;
   },
 };
 
 function createBaseMsgBlockSenders(): MsgBlockSenders {
-  return { creator: "", senderIds: "" };
+  return { creator: "", toBlock: [] };
 }
 
 export const MsgBlockSenders = {
@@ -586,8 +326,8 @@ export const MsgBlockSenders = {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
     }
-    if (message.senderIds !== "") {
-      writer.uint32(18).string(message.senderIds);
+    for (const v of message.toBlock) {
+      writer.uint32(18).string(v!);
     }
     return writer;
   },
@@ -611,7 +351,7 @@ export const MsgBlockSenders = {
             break;
           }
 
-          message.senderIds = reader.string();
+          message.toBlock.push(reader.string());
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -625,7 +365,7 @@ export const MsgBlockSenders = {
   fromJSON(object: any): MsgBlockSenders {
     return {
       creator: isSet(object.creator) ? gt.String(object.creator) : "",
-      senderIds: isSet(object.senderIds) ? gt.String(object.senderIds) : "",
+      toBlock: gt.Array.isArray(object?.toBlock) ? object.toBlock.map((e: any) => gt.String(e)) : [],
     };
   },
 
@@ -634,8 +374,8 @@ export const MsgBlockSenders = {
     if (message.creator !== "") {
       obj.creator = message.creator;
     }
-    if (message.senderIds !== "") {
-      obj.senderIds = message.senderIds;
+    if (message.toBlock?.length) {
+      obj.toBlock = message.toBlock;
     }
     return obj;
   },
@@ -646,7 +386,7 @@ export const MsgBlockSenders = {
   fromPartial<I extends Exact<DeepPartial<MsgBlockSenders>, I>>(object: I): MsgBlockSenders {
     const message = createBaseMsgBlockSenders();
     message.creator = object.creator ?? "";
-    message.senderIds = object.senderIds ?? "";
+    message.toBlock = object.toBlock?.map((e) => e) || [];
     return message;
   },
 };
@@ -695,10 +435,8 @@ export const MsgBlockSendersResponse = {
 };
 
 export interface Msg {
-  CreateNotifications(request: MsgCreateNotifications): Promise<MsgCreateNotificationsResponse>;
-  UpdateNotifications(request: MsgUpdateNotifications): Promise<MsgUpdateNotificationsResponse>;
-  DeleteNotifications(request: MsgDeleteNotifications): Promise<MsgDeleteNotificationsResponse>;
-  SetCounter(request: MsgSetCounter): Promise<MsgSetCounterResponse>;
+  CreateNotification(request: MsgCreateNotification): Promise<MsgCreateNotificationResponse>;
+  DeleteNotification(request: MsgDeleteNotification): Promise<MsgDeleteNotificationResponse>;
   BlockSenders(request: MsgBlockSenders): Promise<MsgBlockSendersResponse>;
 }
 
@@ -709,34 +447,20 @@ export class MsgClientImpl implements Msg {
   constructor(rpc: Rpc, opts?: { service?: string }) {
     this.service = opts?.service || MsgServiceName;
     this.rpc = rpc;
-    this.CreateNotifications = this.CreateNotifications.bind(this);
-    this.UpdateNotifications = this.UpdateNotifications.bind(this);
-    this.DeleteNotifications = this.DeleteNotifications.bind(this);
-    this.SetCounter = this.SetCounter.bind(this);
+    this.CreateNotification = this.CreateNotification.bind(this);
+    this.DeleteNotification = this.DeleteNotification.bind(this);
     this.BlockSenders = this.BlockSenders.bind(this);
   }
-  CreateNotifications(request: MsgCreateNotifications): Promise<MsgCreateNotificationsResponse> {
-    const data = MsgCreateNotifications.encode(request).finish();
-    const promise = this.rpc.request(this.service, "CreateNotifications", data);
-    return promise.then((data) => MsgCreateNotificationsResponse.decode(_m0.Reader.create(data)));
+  CreateNotification(request: MsgCreateNotification): Promise<MsgCreateNotificationResponse> {
+    const data = MsgCreateNotification.encode(request).finish();
+    const promise = this.rpc.request(this.service, "CreateNotification", data);
+    return promise.then((data) => MsgCreateNotificationResponse.decode(_m0.Reader.create(data)));
   }
 
-  UpdateNotifications(request: MsgUpdateNotifications): Promise<MsgUpdateNotificationsResponse> {
-    const data = MsgUpdateNotifications.encode(request).finish();
-    const promise = this.rpc.request(this.service, "UpdateNotifications", data);
-    return promise.then((data) => MsgUpdateNotificationsResponse.decode(_m0.Reader.create(data)));
-  }
-
-  DeleteNotifications(request: MsgDeleteNotifications): Promise<MsgDeleteNotificationsResponse> {
-    const data = MsgDeleteNotifications.encode(request).finish();
-    const promise = this.rpc.request(this.service, "DeleteNotifications", data);
-    return promise.then((data) => MsgDeleteNotificationsResponse.decode(_m0.Reader.create(data)));
-  }
-
-  SetCounter(request: MsgSetCounter): Promise<MsgSetCounterResponse> {
-    const data = MsgSetCounter.encode(request).finish();
-    const promise = this.rpc.request(this.service, "SetCounter", data);
-    return promise.then((data) => MsgSetCounterResponse.decode(_m0.Reader.create(data)));
+  DeleteNotification(request: MsgDeleteNotification): Promise<MsgDeleteNotificationResponse> {
+    const data = MsgDeleteNotification.encode(request).finish();
+    const promise = this.rpc.request(this.service, "DeleteNotification", data);
+    return promise.then((data) => MsgDeleteNotificationResponse.decode(_m0.Reader.create(data)));
   }
 
   BlockSenders(request: MsgBlockSenders): Promise<MsgBlockSendersResponse> {
@@ -768,6 +492,31 @@ const gt: any = (() => {
   }
   throw "Unable to locate global object";
 })();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  if (gt.Buffer) {
+    return Uint8Array.from(gt.Buffer.from(b64, "base64"));
+  } else {
+    const bin = gt.atob(b64);
+    const arr = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; ++i) {
+      arr[i] = bin.charCodeAt(i);
+    }
+    return arr;
+  }
+}
+
+function base64FromBytes(arr: Uint8Array): string {
+  if (gt.Buffer) {
+    return gt.Buffer.from(arr).toString("base64");
+  } else {
+    const bin: string[] = [];
+    arr.forEach((byte) => {
+      bin.push(gt.String.fromCharCode(byte));
+    });
+    return gt.btoa(bin.join(""));
+  }
+}
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 

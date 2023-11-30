@@ -14,6 +14,7 @@ import {
 } from '@/postgen/canine_chain/filetree/tx'
 import { deprecated } from '@/utils/misc'
 import type {
+  DEncodeObject,
   DMsgAddEditors,
   DMsgAddViewers,
   DMsgChangeOwner,
@@ -25,11 +26,10 @@ import type {
   DMsgRemoveViewers,
   DMsgResetEditors,
   DMsgResetViewers
-} from '@/types/msgs/fileTree'
-import type { IJackalModuleTypeMap } from '@/interfaces/IJackalModuleTypeMap'
-import { DEncodeObject } from '@/types/msgs'
+} from '@/types/msgs'
+import type { TJackalModuleTypeMap } from '@/types'
 
-export const fileTreeTypes: IJackalModuleTypeMap = {
+export const fileTreeTypes: TJackalModuleTypeMap = {
   addEditors: [`/${protobufPackage}.MsgAddEditors`, MsgAddEditors],
   addViewers: [`/${protobufPackage}.MsgAddViewers`, MsgAddViewers],
   changeOwner: [`/${protobufPackage}.MsgChangeOwner`, MsgChangeOwner],
@@ -133,20 +133,26 @@ export const TxFileTree: ITxFileTree = {
   /* Deprecated */
   msgPostkey(_?: any): void {
     deprecated('[FileTree] msgPostkey', 'v2.0.0', {
+      abort: true,
       replacement: 'msgPostKey'
+    }).catch((err) => {
+      throw err
     })
-    throw new Error("[FileTree] msgPostkey deprecated, please use msgPostKey")
   },
   msgMakeRoot(_?: any): void {
     deprecated('[FileTree] msgMakeRoot', 'v1.3.0', {
-      replacement: 'msgProvisionFileTree'
+      abort: true,
+      replacement: 'msgProvisionFileTree',
+    }).catch((err) => {
+      throw err
     })
-    throw new Error("[FileTree] msgMakeRoot deprecated, please use msgProvisionFileTree")
   },
   msgMakeRootV2(_?: any): void {
     deprecated('[FileTree] msgMakeRootV2', 'v2.0.0', {
+      abort: true,
       replacement: 'msgProvisionFileTree'
+    }).catch((err) => {
+      throw err
     })
-    throw new Error("[FileTree] msgMakeRootV2 deprecated, please use msgProvisionFileTree")
   }
 }

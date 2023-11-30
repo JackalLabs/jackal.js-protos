@@ -8,17 +8,31 @@ const oneSecondMs = 1000
  * - Aggressive: TRUE to trigger alert.
  * - Replacement: the function name that should be used instead. Example: "replacementFunction()".
  */
-export function deprecated(
+export async function deprecated(
   thing: string,
   version: string,
-  opts?: { aggressive?: boolean; replacement?: string }
+  opts?: { abort?: boolean; aggressive?: boolean; replacement?: string }
 ) {
-  let notice = `SAMPLE | ${thing} is deprecated as of: ${version}`
+  let notice = `Jackal.js-protos | ${thing} is deprecated as of: ${version}`
   if (opts?.replacement) {
     notice += ` - Please use ${opts.replacement} instead`
   }
   console.error(notice)
   if (opts?.aggressive) alert(notice)
+  if (opts?.abort) throw new Error(notice)
+}
+
+/**
+ * Notify that function is deprecated and should no longer be used.
+ * @param {string} thing - Name of code block with error. Example: "[ParentContext] functionName()".
+ * @param {any} err - Error to warn.
+ */
+export function warnError(
+  thing: string,
+  err: any
+) {
+  const notice = `Jackal.js-protos | ${thing}: ${err}`
+  console.warn(notice)
 }
 
 /**

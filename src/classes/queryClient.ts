@@ -11,6 +11,7 @@ import {
 import {
   createFileTreeExtension,
   createJklMintExtension,
+  createNotificationsExtension,
   createOracleExtension,
   createRnsExtension,
   createStorageExtension
@@ -39,6 +40,7 @@ export class JackalStargateClient extends StargateClient implements IJackalStarg
       /* Jackal Extensions */
       createFileTreeExtension,
       createJklMintExtension,
+      createNotificationsExtension,
       createOracleExtension,
       createRnsExtension,
       createStorageExtension,

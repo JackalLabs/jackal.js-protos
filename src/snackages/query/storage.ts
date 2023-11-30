@@ -1,6 +1,7 @@
 import { createProtobufRpcClient, QueryClient } from '@cosmjs/stargate'
 import { assertDefined } from '@cosmjs/utils'
 import { QueryClientImpl } from '@/postgen/canine_chain/storage/query'
+import { warnError } from '@/utils/misc'
 import type { IStorageExtension } from '@/interfaces/snackages'
 import type {
   DQueryActiveProviders,
@@ -64,7 +65,7 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         const resp = await queryService
           .ActiveProviders(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [Storage] activeProviders: ${err}`)
+            warnError('[Storage] activeProviders', err)
             throw err
           })
         assertDefined(resp.providers)
@@ -74,7 +75,7 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         const resp = await queryService
           .AllAttestations(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [Storage] allAttestations: ${err}`)
+            warnError('[Storage] allAttestations', err)
             throw err
           })
         assertDefined(resp.pagination)
@@ -84,7 +85,7 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         const resp = await queryService
           .AllFiles(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [Storage] allFiles: ${err}`)
+            warnError('[Storage] allFiles', err)
             throw err
           })
         assertDefined(resp.pagination)
@@ -94,7 +95,7 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         const resp = await queryService
           .AllProofs(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [Storage] allProofs: ${err}`)
+            warnError('[Storage] allProofs', err)
             throw err
           })
         assertDefined(resp.pagination)
@@ -104,7 +105,7 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         const resp = await queryService
           .AllProviders(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [Storage] allProviders: ${err}`)
+            warnError('[Storage] allProviders', err)
             throw err
           })
         assertDefined(resp.pagination)
@@ -114,7 +115,7 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         const resp = await queryService
           .AllReports(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [Storage] allReports: ${err}`)
+            warnError('[Storage] allReports', err)
             throw err
           })
         assertDefined(resp.pagination)
@@ -124,7 +125,7 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         const resp = await queryService
           .AllStoragePaymentInfo(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [Storage] allStoragePaymentInfo: ${err}`)
+            warnError('[Storage] allStoragePaymentInfo', err)
             throw err
           })
         assertDefined(resp.pagination)
@@ -134,7 +135,7 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         const resp = await queryService
           .Attestation(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [Storage] attestation: ${err}`)
+            warnError('[Storage] attestation', err)
             throw err
           })
         assertDefined(resp.attestation)
@@ -144,7 +145,7 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         const resp = await queryService
           .GetClientFreeSpace(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [Storage] clientFreeSpace: ${err}`)
+            warnError('[Storage] clientFreeSpace', err)
             throw err
           })
         assertDefined(resp.bytesFree)
@@ -154,7 +155,7 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         const resp = await queryService
           .File(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [Storage] file: ${err}`)
+            warnError('[Storage] file', err)
             throw err
           })
         assertDefined(resp.file)
@@ -164,7 +165,7 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         const resp = await queryService
           .FileUploadCheck(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [Storage] fileUploadCheck: ${err}`)
+            warnError('[Storage] fileUploadCheck', err)
             throw err
           })
         assertDefined(resp.valid)
@@ -174,7 +175,7 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         const resp = await queryService
           .FindFile(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [Storage] findFile: ${err}`)
+            warnError('[Storage] findFile', err)
             throw err
           })
         assertDefined(resp.providerIps)
@@ -184,7 +185,7 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         const resp = await queryService
           .FreeSpace(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [Storage] freeSpace: ${err}`)
+            warnError('[Storage] freeSpace', err)
             throw err
           })
         assertDefined(resp.space)
@@ -194,7 +195,7 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         const resp = await queryService
           .OpenFiles(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [Storage] openFiles: ${err}`)
+            warnError('[Storage] openFiles', err)
             throw err
           })
         assertDefined(resp.pagination)
@@ -204,7 +205,7 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         const resp = await queryService
           .GetPayData(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [Storage] payData: ${err}`)
+            warnError('[Storage] payData', err)
             throw err
           })
         assertDefined(resp.bytes)
@@ -214,7 +215,7 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         const resp = await queryService
           .PriceCheck(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [Storage] priceCheck: ${err}`)
+            warnError('[Storage] priceCheck', err)
             throw err
           })
         assertDefined(resp.price)
@@ -224,7 +225,7 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         const resp = await queryService
           .Proof(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [Storage] proof: ${err}`)
+            warnError('[Storage] proof', err)
             throw err
           })
         assertDefined(resp.proof)
@@ -234,7 +235,7 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         const resp = await queryService
           .ProofsByAddress(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [Storage] proofsByAddress: ${err}`)
+            warnError('[Storage] proofsByAddress', err)
             throw err
           })
         assertDefined(resp.pagination)
@@ -244,7 +245,7 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         const resp = await queryService
           .Provider(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [Storage] provider: ${err}`)
+            warnError('[Storage] provider', err)
             throw err
           })
         assertDefined(resp.provider)
@@ -254,7 +255,7 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         const resp = await queryService
           .Report(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [Storage] report: ${err}`)
+            warnError('[Storage] report', err)
             throw err
           })
         assertDefined(resp.report)
@@ -264,7 +265,7 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         const resp = await queryService
           .StoragePaymentInfo(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [Storage] storagePaymentInfo: ${err}`)
+            warnError('[Storage] storagePaymentInfo', err)
             throw err
           })
         assertDefined(resp.storagePaymentInfo)
@@ -274,7 +275,7 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         const resp = await queryService
           .StorageStats(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [Storage] storageStats: ${err}`)
+            warnError('[Storage] storageStats', err)
             throw err
           })
         assertDefined(resp.purchased)
@@ -284,7 +285,7 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         const resp = await queryService
           .StoreCount(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [Storage] storeCount: ${err}`)
+            warnError('[Storage] storeCount', err)
             throw err
           })
         assertDefined(resp.count)
@@ -294,7 +295,7 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         const resp = await queryService
           .Params(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [Storage] params: ${err}`)
+            warnError('[Storage] params', err)
             throw err
           })
         assertDefined(resp.params)

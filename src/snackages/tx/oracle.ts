@@ -1,8 +1,8 @@
 import { MsgCreateFeed, MsgUpdateFeed, protobufPackage } from '@/postgen/canine_chain/oracle/tx'
 import type { DEncodeObject, DMsgCreateFeed, DMsgUpdateFeed } from '@/types/msgs'
-import type { IJackalModuleTypeMap } from '@/interfaces/IJackalModuleTypeMap'
+import type { TJackalModuleTypeMap } from '@/types'
 
-export const oracleTypes: IJackalModuleTypeMap = {
+export const oracleTypes: TJackalModuleTypeMap = {
   createFeed: [`/${protobufPackage}.MsgCreateFeed`, MsgCreateFeed],
   updateFeed: [`/${protobufPackage}.MsgUpdateFeed`, MsgUpdateFeed]
 }

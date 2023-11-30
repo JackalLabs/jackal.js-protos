@@ -1,28 +1,39 @@
 import type { Params } from '@/postgen/canine_chain/oracle/params'
 import type { PageResponse } from '@/postgen/cosmos/base/query/v1beta1/pagination'
-import { QueryAllFeedsResponse, QueryFeedResponse, QueryParamsResponse } from '@/postgen/canine_chain/oracle/query'
-import { DFeed } from '@/types/oracle'
+import type { QueryAllFeedsResponse, QueryFeedResponse, QueryParamsResponse } from '@/postgen/canine_chain/oracle/query'
+import type { DFeed } from '@/types/oracle'
 
 /**
- * This is the response for the [Oracle] Query/Params RPC method
+ * This is the response for the [Oracle] Query/AllFeeds RPC method.
  *
- * @prop {Params} params - Currently none
+ * @prop {DFeed[]} feed - Array of Feed items.
+ * @prop {PageResponse} pagination - Pagination details.
  */
 export type TQueryAllFeedsResponseStrict
   = ModifyDeep<QueryAllFeedsResponse, { pagination: PageResponse }>
 
 /**
- * This is the response for the [Oracle] Query/Params RPC method
+ * This is the response for the [Oracle] Query/Feed RPC method.
  *
- * @prop {Params} params - Currently none
+ * @prop {DFeed} feed - Single Feed item.
  */
 export type TQueryFeedResponseStrict
   = ModifyDeep<QueryFeedResponse, { feed: DFeed }>
 
 /**
- * This is the response for the [Oracle] Query/Params RPC method
+ * This is the response for the [Oracle] Query/Params RPC method.
  *
- * @prop {Params} params - Currently none
+ * @prop {DOracleParams} params - Current parameters of the Oracle module.
  */
 export type TQueryOracleParamsResponseStrict
   = ModifyDeep<QueryParamsResponse, { params: Params }>
+
+/**
+ * OracleParams Documentation
+ *
+ * OracleParams defines current parameters of the Oracle module.
+ * @prop {string} deposit - Required deposit total to create a new oracle instance.
+ */
+export type DOracleParams = {
+  deposit: string;
+}

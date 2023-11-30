@@ -1,15 +1,18 @@
 import { createProtobufRpcClient, QueryClient } from '@cosmjs/stargate'
 import { assertDefined } from '@cosmjs/utils'
 import { QueryClientImpl } from '@/postgen/canine_chain/oracle/query'
+import { warnError } from '@/utils/misc'
 import type { IOracleExtension } from '@/interfaces/snackages'
-import {
+import type {
   DQueryAllFeeds,
   DQueryFeed,
-  DQueryOracleParams,
+  DQueryOracleParams
+} from '@/types/queries'
+import type {
   TQueryAllFeedsResponseStrict,
   TQueryFeedResponseStrict,
   TQueryOracleParamsResponseStrict
-} from '@/types/queries'
+} from '@/types/queries/responses'
 
 export function createOracleExtension(base: QueryClient): IOracleExtension {
   const rpc = createProtobufRpcClient(base)
@@ -21,7 +24,7 @@ export function createOracleExtension(base: QueryClient): IOracleExtension {
         const resp = await queryService
           .AllFeeds(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [Oracle] allFeeds: ${err}`)
+            warnError('[Oracle] allFeeds', err)
             throw err
           })
         assertDefined(resp.pagination)
@@ -31,7 +34,7 @@ export function createOracleExtension(base: QueryClient): IOracleExtension {
         const resp = await queryService
           .Feed(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [Oracle] feed: ${err}`)
+            warnError('[Oracle] feed', err)
             throw err
           })
         assertDefined(resp.feed)
@@ -41,7 +44,7 @@ export function createOracleExtension(base: QueryClient): IOracleExtension {
         const resp = await queryService
           .Params(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [Oracle] params: ${err}`)
+            warnError('[Oracle] params', err)
             throw err
           })
         assertDefined(resp.params)

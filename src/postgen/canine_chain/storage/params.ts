@@ -20,6 +20,7 @@ export interface Params {
   attestMinToPass: number;
   /** TODO: fix casing */
   collateralPrice: number;
+  checkWindow: number;
 }
 
 function createBaseParams(): Params {
@@ -34,6 +35,7 @@ function createBaseParams(): Params {
     attestFormSize: 0,
     attestMinToPass: 0,
     collateralPrice: 0,
+    checkWindow: 0,
   };
 }
 
@@ -68,6 +70,9 @@ export const Params = {
     }
     if (message.collateralPrice !== 0) {
       writer.uint32(80).int64(message.collateralPrice);
+    }
+    if (message.checkWindow !== 0) {
+      writer.uint32(88).int64(message.checkWindow);
     }
     return writer;
   },
@@ -149,6 +154,13 @@ export const Params = {
 
           message.collateralPrice = longToNumber(reader.int64() as Long);
           continue;
+        case 11:
+          if (tag !== 88) {
+            break;
+          }
+
+          message.checkWindow = longToNumber(reader.int64() as Long);
+          continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -170,6 +182,7 @@ export const Params = {
       attestFormSize: isSet(object.attestFormSize) ? gt.Number(object.attestFormSize) : 0,
       attestMinToPass: isSet(object.attestMinToPass) ? gt.Number(object.attestMinToPass) : 0,
       collateralPrice: isSet(object.collateralPrice) ? gt.Number(object.collateralPrice) : 0,
+      checkWindow: isSet(object.checkWindow) ? gt.Number(object.checkWindow) : 0,
     };
   },
 
@@ -205,6 +218,9 @@ export const Params = {
     if (message.collateralPrice !== 0) {
       obj.collateralPrice = Math.round(message.collateralPrice);
     }
+    if (message.checkWindow !== 0) {
+      obj.checkWindow = Math.round(message.checkWindow);
+    }
     return obj;
   },
 
@@ -223,6 +239,7 @@ export const Params = {
     message.attestFormSize = object.attestFormSize ?? 0;
     message.attestMinToPass = object.attestMinToPass ?? 0;
     message.collateralPrice = object.collateralPrice ?? 0;
+    message.checkWindow = object.checkWindow ?? 0;
     return message;
   },
 };

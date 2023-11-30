@@ -1,23 +1,17 @@
 /* eslint-disable */
 import _m0 from "protobufjs/minimal";
-import { NotiCounter } from "./noti_counter";
-import { Notifications } from "./notifications";
+import { Notification } from "./notification";
 import { Params } from "./params";
 
 export const protobufPackage = "canine_chain.notifications";
 
 export interface GenesisState {
-  params:
-    | Params
-    | undefined;
-  /** TODO: fix casing */
-  notificationsList: Notifications[];
-  /** TODO: fix casing */
-  notiCounterList: NotiCounter[];
+  params: Params | undefined;
+  notifications: Notification[];
 }
 
 function createBaseGenesisState(): GenesisState {
-  return { params: undefined, notificationsList: [], notiCounterList: [] };
+  return { params: undefined, notifications: [] };
 }
 
 export const GenesisState = {
@@ -25,11 +19,8 @@ export const GenesisState = {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
-    for (const v of message.notificationsList) {
-      Notifications.encode(v!, writer.uint32(18).fork()).ldelim();
-    }
-    for (const v of message.notiCounterList) {
-      NotiCounter.encode(v!, writer.uint32(26).fork()).ldelim();
+    for (const v of message.notifications) {
+      Notification.encode(v!, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
@@ -53,14 +44,7 @@ export const GenesisState = {
             break;
           }
 
-          message.notificationsList.push(Notifications.decode(reader, reader.uint32()));
-          continue;
-        case 3:
-          if (tag !== 26) {
-            break;
-          }
-
-          message.notiCounterList.push(NotiCounter.decode(reader, reader.uint32()));
+          message.notifications.push(Notification.decode(reader, reader.uint32()));
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -74,11 +58,8 @@ export const GenesisState = {
   fromJSON(object: any): GenesisState {
     return {
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-      notificationsList: gt.Array.isArray(object?.notificationsList)
-        ? object.notificationsList.map((e: any) => Notifications.fromJSON(e))
-        : [],
-      notiCounterList: gt.Array.isArray(object?.notiCounterList)
-        ? object.notiCounterList.map((e: any) => NotiCounter.fromJSON(e))
+      notifications: gt.Array.isArray(object?.notifications)
+        ? object.notifications.map((e: any) => Notification.fromJSON(e))
         : [],
     };
   },
@@ -88,11 +69,8 @@ export const GenesisState = {
     if (message.params !== undefined) {
       obj.params = Params.toJSON(message.params);
     }
-    if (message.notificationsList?.length) {
-      obj.notificationsList = message.notificationsList.map((e) => Notifications.toJSON(e));
-    }
-    if (message.notiCounterList?.length) {
-      obj.notiCounterList = message.notiCounterList.map((e) => NotiCounter.toJSON(e));
+    if (message.notifications?.length) {
+      obj.notifications = message.notifications.map((e) => Notification.toJSON(e));
     }
     return obj;
   },
@@ -105,8 +83,7 @@ export const GenesisState = {
     message.params = (object.params !== undefined && object.params !== null)
       ? Params.fromPartial(object.params)
       : undefined;
-    message.notificationsList = object.notificationsList?.map((e) => Notifications.fromPartial(e)) || [];
-    message.notiCounterList = object.notiCounterList?.map((e) => NotiCounter.fromPartial(e)) || [];
+    message.notifications = object.notifications?.map((e) => Notification.fromPartial(e)) || [];
     return message;
   },
 };

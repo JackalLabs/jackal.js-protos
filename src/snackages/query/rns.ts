@@ -1,6 +1,8 @@
 import { createProtobufRpcClient, QueryClient } from '@cosmjs/stargate'
 import { assertDefined } from '@cosmjs/utils'
 import { QueryClientImpl } from '@/postgen/canine_chain/rns/query'
+import { warnError } from '@/utils/misc'
+import type { IRnsExtension } from '@/interfaces/snackages/IRnsExtension'
 import type {
   DQueryAllBids,
   DQueryAllForSale,
@@ -25,7 +27,6 @@ import type {
   TQueryNameResponseStrict,
   TQueryRnsParamsResponseStrict
 } from '@/types/queries/responses'
-import { IRnsExtension } from '@/interfaces/snackages/IRnsExtension'
 
 export function createRnsExtension(base: QueryClient): IRnsExtension {
   const rpc = createProtobufRpcClient(base)
@@ -37,7 +38,7 @@ export function createRnsExtension(base: QueryClient): IRnsExtension {
         const resp = await queryService
           .AllBids(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [RNS] allBids: ${err}`)
+            warnError('[RNS] allBids', err)
             throw err
           })
         assertDefined(resp.pagination)
@@ -47,7 +48,7 @@ export function createRnsExtension(base: QueryClient): IRnsExtension {
         const resp = await queryService
           .AllForSale(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [RNS] allForSale: ${err}`)
+            warnError('[RNS] allForSale', err)
             throw err
           })
         assertDefined(resp.pagination)
@@ -57,7 +58,7 @@ export function createRnsExtension(base: QueryClient): IRnsExtension {
         const resp = await queryService
           .AllInits(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [RNS] allInits: ${err}`)
+            warnError('[RNS] allInits', err)
             throw err
           })
         assertDefined(resp.pagination)
@@ -67,7 +68,7 @@ export function createRnsExtension(base: QueryClient): IRnsExtension {
         const resp = await queryService
           .AllNames(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [RNS] allNames: ${err}`)
+            warnError('[RNS] allNames', err)
             throw err
           })
         assertDefined(resp.pagination)
@@ -77,7 +78,7 @@ export function createRnsExtension(base: QueryClient): IRnsExtension {
         const resp = await queryService
           .Bid(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [RNS] bid: ${err}`)
+            warnError('[RNS] bid', err)
             throw err
           })
         assertDefined(resp.bids)
@@ -87,7 +88,7 @@ export function createRnsExtension(base: QueryClient): IRnsExtension {
         const resp = await queryService
           .ForSale(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [RNS] forSale: ${err}`)
+            warnError('[RNS] forSale', err)
             throw err
           })
         assertDefined(resp.forSale)
@@ -97,7 +98,7 @@ export function createRnsExtension(base: QueryClient): IRnsExtension {
         const resp = await queryService
           .Init(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [RNS] init: ${err}`)
+            warnError('[RNS] init', err)
             throw err
           })
         assertDefined(resp.init)
@@ -107,7 +108,7 @@ export function createRnsExtension(base: QueryClient): IRnsExtension {
         const resp = await queryService
           .ListOwnedNames(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [RNS] listOwnedNames: ${err}`)
+            warnError('[RNS] listOwnedNames', err)
             throw err
           })
         assertDefined(resp.pagination)
@@ -117,7 +118,7 @@ export function createRnsExtension(base: QueryClient): IRnsExtension {
         const resp = await queryService
           .Name(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [RNS] name: ${err}`)
+            warnError('[RNS] name', err)
             throw err
           })
         assertDefined(resp.name)
@@ -127,7 +128,7 @@ export function createRnsExtension(base: QueryClient): IRnsExtension {
         const resp = await queryService
           .Params(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [RNS] params: ${err}`)
+            warnError('[RNS] params', err)
             throw err
           })
         assertDefined(resp.params)

@@ -1,13 +1,16 @@
 import { createProtobufRpcClient, QueryClient } from '@cosmjs/stargate'
 import { assertDefined } from '@cosmjs/utils'
 import { QueryClientImpl } from '@/postgen/canine_chain/jklmint/query'
+import { warnError } from '@/utils/misc'
 import type { IJklMintExtension } from '@/interfaces/snackages'
-import {
+import type {
   DQueryInflation,
-  DQueryJklMintParams,
+  DQueryJklMintParams
+} from '@/types/queries'
+import type {
   TQueryInflationResponseStrict,
   TQueryJklMintParamsResponseStrict
-} from '@/types/queries'
+} from '@/types/queries/responses'
 
 export function createJklMintExtension(base: QueryClient): IJklMintExtension {
   const rpc = createProtobufRpcClient(base)
@@ -19,7 +22,7 @@ export function createJklMintExtension(base: QueryClient): IJklMintExtension {
         const resp = await queryService
           .Inflation(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [jklMint] inflation: ${err}`)
+            warnError('[jklMint] inflation', err)
             throw err
           })
         assertDefined(resp.inflation)
@@ -29,7 +32,7 @@ export function createJklMintExtension(base: QueryClient): IJklMintExtension {
         const resp = await queryService
           .Params(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [jklMint] params: ${err}`)
+            warnError('[jklMint] params', err)
             throw err
           })
         assertDefined(resp.params)

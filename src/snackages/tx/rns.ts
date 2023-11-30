@@ -1,19 +1,3 @@
-import type { IJackalModuleTypeMap } from '@/interfaces/IJackalModuleTypeMap'
-import type {
-  DEncodeObject,
-  DMsgAcceptBid,
-  DMsgAddRecord,
-  DMsgBid,
-  DMsgBuy,
-  DMsgCancelBid,
-  DMsgDelist,
-  DMsgDelRecord,
-  DMsgInit,
-  DMsgList,
-  DMsgRegister,
-  DMsgTransfer,
-  DMsgUpdate
-} from '@/types/msgs'
 import {
   MsgAcceptBid,
   MsgAddRecord,
@@ -29,8 +13,24 @@ import {
   MsgUpdate,
   protobufPackage
 } from '@/postgen/canine_chain/rns/tx'
+import type {
+  DEncodeObject,
+  DMsgAcceptBid,
+  DMsgAddRecord,
+  DMsgBid,
+  DMsgBuy,
+  DMsgCancelBid,
+  DMsgDelist,
+  DMsgDelRecord,
+  DMsgInit,
+  DMsgList,
+  DMsgRegister,
+  DMsgTransfer,
+  DMsgUpdate
+} from '@/types/msgs'
+import type { TJackalModuleTypeMap } from '@/types'
 
-export const rnsTypes: IJackalModuleTypeMap = {
+export const rnsTypes: TJackalModuleTypeMap = {
   acceptBid: [`/${protobufPackage}.MsgAcceptBid`, MsgAcceptBid],
   addRecord: [`/${protobufPackage}.MsgAddRecord`, MsgAddRecord],
   bid: [`/${protobufPackage}.MsgBid`, MsgBid],

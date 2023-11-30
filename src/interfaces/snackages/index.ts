@@ -1,5 +1,6 @@
 export * from '@/interfaces/snackages/IFileTreeExtension'
 export * from '@/interfaces/snackages/IJklMintExtension'
+export * from '@/interfaces/snackages/INotificationsExtension'
 export * from '@/interfaces/snackages/IOracleExtension'
 export * from '@/interfaces/snackages/IRnsExtension'
 export * from '@/interfaces/snackages/IStorageExtension'

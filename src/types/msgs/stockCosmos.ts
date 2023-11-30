@@ -1,8 +1,23 @@
 import type { Event } from '@cosmjs/stargate/build/events'
 import type { Coin, DeliverTxResponse } from '@cosmjs/stargate'
 import type { EncodeObject } from '@cosmjs/proto-signing'
-import { IMsgData } from '@/interfaces'
+import type { IMsgData } from '@/interfaces'
 
+/**
+ * DeliverTxResponse Documentation
+ *
+ * DeliverTxResponse define the response after successfully broadcasting a transaction.
+ * @prop {number} height - Block height of the transaction.
+ * @prop {number} txIndex - 0-based index of the transaction within the block.
+ * @prop {number} code - Error code, success is always 0.
+ * @prop {string} transactionHash - Hash of transaction.
+ * @prop {Event[]} events - Tendermint34 events in response.
+ * @prop {string} [rawLog] - A string-based log document.
+ * @prop {IMsgData[]} [data] - Message responses of included Msgs.
+ * @prop {DTxMsgData[]} msgResponses - Always empty list for Jackal, typed for compatibility.
+ * @prop {number} gasUsed - Total gas used as calculated by chain.
+ * @prop {number} gasWanted - Maximum gas allowed as submitted in transaction.
+ */
 export type DDeliverTxResponse = Documentation<{
   readonly height: number;
   readonly txIndex: number;
@@ -11,73 +26,43 @@ export type DDeliverTxResponse = Documentation<{
   readonly events: readonly Event[];
   readonly rawLog?: string;
   readonly data?: readonly IMsgData[];
-  readonly msgResponses: Array<{
-    readonly typeUrl: string;
-    readonly value: Uint8Array;
-  }>;
+  readonly msgResponses: readonly DTxMsgData[];
   readonly gasUsed: number;
   readonly gasWanted: number;
 }, DeliverTxResponse>
 
+/**
+ * TxMsgData Documentation
+ *
+ * TxMsgData defines a msg object returned from the chain.
+ * @prop {string} typeUrl - Identifier composed of msg type's package and its name.
+ * @prop {Uint8Array} value - Object created from msg parameters.
+ */
+export type DTxMsgData = {
+  typeUrl: string
+  value: Uint8Array
+}
+
+/**
+ * EncodeObject Documentation
+ *
+ * EncodeObject defines a msg object ready to be sent to chain.
+ * @prop {string} typeUrl - Identifier composed of msg type's package and its name.
+ * @prop {any} value - Object created from msg parameters.
+ */
 export type DEncodeObject = Documentation<{
   readonly typeUrl: string;
   readonly value: any;
 }, EncodeObject>
 
+/**
+ * Coin Documentation
+ *
+ * Coin defines a token with a denomination and an amount.
+ * @prop {string} denom - Denom of token, should be ujkl for Jackal.
+ * @prop {string} amount - String of value parsable to number.
+ */
 export type DCoin = Documentation<{
   denom: string;
   amount: string;
 }, Coin>
-
-
-
-
-/*
-
-/**
- * Coin defines a token with a denomination and an amount.
- *
- * NOTE: The amount field is an Int which implements the custom method
- * signatures required by gogoproto.
-export interface Coin {
-  denom: string;
-  amount: string;
-}
-
-
- */
-
-
-
-
-
-// export interface DeliverTxResponse {
-//   readonly height: number;
-//   /** The position of the transaction within the block. This is a 0-based index. */
-//   readonly txIndex: number;
-//   /** Error code. The transaction suceeded iff code is 0. */
-//   readonly code: number;
-//   readonly transactionHash: string;
-//   readonly events: readonly Event[];
-//   /**
-//    * A string-based log document.
-//    *
-//    * This currently seems to merge attributes of multiple events into one event per type
-//    * (https://github.com/tendermint/tendermint/issues/9595). You might want to use the `events`
-//    * field instead.
-//    */
-//   readonly rawLog?: string;
-//   /** @deprecated Use `msgResponses` instead. */
-//   readonly data?: readonly MsgData[];
-//   /**
-//    * The message responses of the [TxMsgData](https://github.com/cosmos/cosmos-sdk/blob/v0.46.3/proto/cosmos/base/abci/v1beta1/abci.proto#L128-L140)
-//    * as `Any`s.
-//    * This field is an empty list for chains running Cosmos SDK < 0.46.
-//    */
-//   readonly msgResponses: Array<{
-//     readonly typeUrl: string;
-//     readonly value: Uint8Array;
-//   }>;
-//   readonly gasUsed: number;
-//   readonly gasWanted: number;
-// }

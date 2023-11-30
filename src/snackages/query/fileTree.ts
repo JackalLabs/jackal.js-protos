@@ -1,6 +1,7 @@
 import { createProtobufRpcClient, QueryClient } from '@cosmjs/stargate'
 import { assertDefined } from '@cosmjs/utils'
 import { QueryClientImpl } from '@/postgen/canine_chain/filetree/query'
+import { warnError } from '@/utils/misc'
 import type { IFileTreeExtension } from '@/interfaces/snackages'
 import type { DQueryFileTreeAllFiles, DQueryAllPubKeys, DQueryFileTreeFile, DQueryFileTreeParams, DQueryPubKey } from '@/types/queries'
 import type {
@@ -21,7 +22,7 @@ export function createFileTreeExtension(base: QueryClient): IFileTreeExtension {
         const resp = await queryService
           .AllFiles(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [FileTree] allFiles: ${err}`)
+            warnError('[FileTree] allFiles', err)
             throw err
           })
         assertDefined(resp.pagination)
@@ -31,7 +32,7 @@ export function createFileTreeExtension(base: QueryClient): IFileTreeExtension {
         const resp = await queryService
           .AllPubKeys(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [FileTree] allPubKeys: ${err}`)
+            warnError('[FileTree] allPubKeys', err)
             throw err
           })
         assertDefined(resp.pagination)
@@ -41,7 +42,7 @@ export function createFileTreeExtension(base: QueryClient): IFileTreeExtension {
         const resp = await queryService
           .File(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [FileTree] file: ${err}`)
+            warnError('[FileTree] file', err)
             throw err
           })
         assertDefined(resp.file)
@@ -51,7 +52,7 @@ export function createFileTreeExtension(base: QueryClient): IFileTreeExtension {
         const resp = await queryService
           .Params(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [FileTree] params: ${err}`)
+            warnError('[FileTree] params', err)
             throw err
           })
         assertDefined(resp.params)
@@ -61,7 +62,7 @@ export function createFileTreeExtension(base: QueryClient): IFileTreeExtension {
         const resp = await queryService
           .PubKey(request)
           .catch((err) => {
-            console.warn(`jackal.js-protos - [FileTree] pubKey: ${err}`)
+            warnError('[FileTree] pubKey', err)
             throw err
           })
         assertDefined(resp.pubKey)

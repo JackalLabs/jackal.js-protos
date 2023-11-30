@@ -31,6 +31,7 @@ export interface MsgPostProof {
   merkle: Uint8Array;
   owner: string;
   start: number;
+  toProve: number;
 }
 
 export interface MsgPostProofResponse {
@@ -419,6 +420,7 @@ function createBaseMsgPostProof(): MsgPostProof {
     merkle: new Uint8Array(0),
     owner: "",
     start: 0,
+    toProve: 0,
   };
 }
 
@@ -441,6 +443,9 @@ export const MsgPostProof = {
     }
     if (message.start !== 0) {
       writer.uint32(48).int64(message.start);
+    }
+    if (message.toProve !== 0) {
+      writer.uint32(56).int64(message.toProve);
     }
     return writer;
   },
@@ -494,6 +499,13 @@ export const MsgPostProof = {
 
           message.start = longToNumber(reader.int64() as Long);
           continue;
+        case 7:
+          if (tag !== 56) {
+            break;
+          }
+
+          message.toProve = longToNumber(reader.int64() as Long);
+          continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -511,6 +523,7 @@ export const MsgPostProof = {
       merkle: isSet(object.merkle) ? bytesFromBase64(object.merkle) : new Uint8Array(0),
       owner: isSet(object.owner) ? gt.String(object.owner) : "",
       start: isSet(object.start) ? gt.Number(object.start) : 0,
+      toProve: isSet(object.toProve) ? gt.Number(object.toProve) : 0,
     };
   },
 
@@ -534,6 +547,9 @@ export const MsgPostProof = {
     if (message.start !== 0) {
       obj.start = Math.round(message.start);
     }
+    if (message.toProve !== 0) {
+      obj.toProve = Math.round(message.toProve);
+    }
     return obj;
   },
 
@@ -548,6 +564,7 @@ export const MsgPostProof = {
     message.merkle = object.merkle ?? new Uint8Array(0);
     message.owner = object.owner ?? "";
     message.start = object.start ?? 0;
+    message.toProve = object.toProve ?? 0;
     return message;
   },
 };

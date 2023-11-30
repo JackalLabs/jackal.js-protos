@@ -11,8 +11,10 @@ import {
 import {
   createFileTreeExtension,
   createJklMintExtension,
+  createNotificationsExtension,
   createOracleExtension,
-  createRnsExtension, createStorageExtension
+  createRnsExtension,
+  createStorageExtension
 } from '@/snackages/query'
 import { Tendermint34Client } from '@cosmjs/tendermint-rpc'
 import { OfflineSigner } from '@cosmjs/launchpad'
@@ -23,6 +25,7 @@ import type { IJackalSigningStargateClient } from '@/interfaces/classes/ISignerC
 import type { DDeliverTxResponse, DEncodeObject } from '@/types/msgs'
 import type { DHttpEndpoint, TQueryExtensions } from '@/types'
 import type { ITxLibrary } from '@/interfaces'
+import { TxNotifications } from '@/snackages/tx/notifications'
 
 export class JackalSigningStargateClient extends SigningStargateClient implements IJackalSigningStargateClient {
   protected readonly address: string
@@ -56,6 +59,7 @@ export class JackalSigningStargateClient extends SigningStargateClient implement
       /* Jackal Extensions */
       createFileTreeExtension,
       createJklMintExtension,
+      createNotificationsExtension,
       createOracleExtension,
       createRnsExtension,
       createStorageExtension,
@@ -71,6 +75,7 @@ export class JackalSigningStargateClient extends SigningStargateClient implement
       fileTree: TxFileTree,
       /* No jklMint tx */
       oracle: TxOracle,
+      notifications: TxNotifications,
       rns: TxRns,
       storage: TxStorage
     }

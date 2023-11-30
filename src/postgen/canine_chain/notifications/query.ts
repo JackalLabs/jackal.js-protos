@@ -2,77 +2,61 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { PageRequest, PageResponse } from "../../cosmos/base/query/v1beta1/pagination";
-import { NotiCounter } from "./noti_counter";
-import { Notifications } from "./notifications";
+import { Notification } from "./notification";
 import { Params } from "./params";
 
 export const protobufPackage = "canine_chain.notifications";
 
-export interface QueryParamsRequest {
+export interface QueryParams {
 }
 
 export interface QueryParamsResponse {
   params: Params | undefined;
 }
 
-export interface QueryGetNotificationsRequest {
-  count: number;
-  address: string;
+export interface QueryNotification {
+  to: string;
+  from: string;
+  /** unix timestamp in microseconds */
+  time: number;
 }
 
-export interface QueryGetNotificationsResponse {
-  notifications: Notifications | undefined;
+export interface QueryNotificationResponse {
+  notification: Notification | undefined;
 }
 
-export interface QueryAllNotificationsRequest {
+export interface QueryAllNotifications {
   pagination: PageRequest | undefined;
 }
 
 export interface QueryAllNotificationsResponse {
-  notifications: Notifications[];
+  notifications: Notification[];
   pagination: PageResponse | undefined;
 }
 
-export interface QueryAllNotificationsByAddressRequest {
+export interface QueryAllNotificationsByAddress {
   pagination: PageRequest | undefined;
-  address: string;
+  to: string;
 }
 
 export interface QueryAllNotificationsByAddressResponse {
-  notifications: Notifications[];
+  notifications: Notification[];
   pagination: PageResponse | undefined;
 }
 
-export interface QueryGetNotiCounterRequest {
-  address: string;
-}
-
-export interface QueryGetNotiCounterResponse {
-  notiCounter: NotiCounter | undefined;
-}
-
-export interface QueryAllNotiCounterRequest {
-  pagination: PageRequest | undefined;
-}
-
-export interface QueryAllNotiCounterResponse {
-  notiCounter: NotiCounter[];
-  pagination: PageResponse | undefined;
-}
-
-function createBaseQueryParamsRequest(): QueryParamsRequest {
+function createBaseQueryParams(): QueryParams {
   return {};
 }
 
-export const QueryParamsRequest = {
-  encode(_: QueryParamsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const QueryParams = {
+  encode(_: QueryParams, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryParams {
     const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryParamsRequest();
+    const message = createBaseQueryParams();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -85,20 +69,20 @@ export const QueryParamsRequest = {
     return message;
   },
 
-  fromJSON(_: any): QueryParamsRequest {
+  fromJSON(_: any): QueryParams {
     return {};
   },
 
-  toJSON(_: QueryParamsRequest): unknown {
+  toJSON(_: QueryParams): unknown {
     const obj: any = {};
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(base?: I): QueryParamsRequest {
-    return QueryParamsRequest.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<QueryParams>, I>>(base?: I): QueryParams {
+    return QueryParams.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(_: I): QueryParamsRequest {
-    const message = createBaseQueryParamsRequest();
+  fromPartial<I extends Exact<DeepPartial<QueryParams>, I>>(_: I): QueryParams {
+    const message = createBaseQueryParams();
     return message;
   },
 };
@@ -162,96 +146,28 @@ export const QueryParamsResponse = {
   },
 };
 
-function createBaseQueryGetNotificationsRequest(): QueryGetNotificationsRequest {
-  return { count: 0, address: "" };
+function createBaseQueryNotification(): QueryNotification {
+  return { to: "", from: "", time: 0 };
 }
 
-export const QueryGetNotificationsRequest = {
-  encode(message: QueryGetNotificationsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.count !== 0) {
-      writer.uint32(8).uint64(message.count);
+export const QueryNotification = {
+  encode(message: QueryNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.to !== "") {
+      writer.uint32(10).string(message.to);
     }
-    if (message.address !== "") {
-      writer.uint32(18).string(message.address);
+    if (message.from !== "") {
+      writer.uint32(18).string(message.from);
+    }
+    if (message.time !== 0) {
+      writer.uint32(24).int64(message.time);
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryGetNotificationsRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryNotification {
     const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryGetNotificationsRequest();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          if (tag !== 8) {
-            break;
-          }
-
-          message.count = longToNumber(reader.uint64() as Long);
-          continue;
-        case 2:
-          if (tag !== 18) {
-            break;
-          }
-
-          message.address = reader.string();
-          continue;
-      }
-      if ((tag & 7) === 4 || tag === 0) {
-        break;
-      }
-      reader.skipType(tag & 7);
-    }
-    return message;
-  },
-
-  fromJSON(object: any): QueryGetNotificationsRequest {
-    return {
-      count: isSet(object.count) ? gt.Number(object.count) : 0,
-      address: isSet(object.address) ? gt.String(object.address) : "",
-    };
-  },
-
-  toJSON(message: QueryGetNotificationsRequest): unknown {
-    const obj: any = {};
-    if (message.count !== 0) {
-      obj.count = Math.round(message.count);
-    }
-    if (message.address !== "") {
-      obj.address = message.address;
-    }
-    return obj;
-  },
-
-  create<I extends Exact<DeepPartial<QueryGetNotificationsRequest>, I>>(base?: I): QueryGetNotificationsRequest {
-    return QueryGetNotificationsRequest.fromPartial(base ?? ({} as any));
-  },
-  fromPartial<I extends Exact<DeepPartial<QueryGetNotificationsRequest>, I>>(object: I): QueryGetNotificationsRequest {
-    const message = createBaseQueryGetNotificationsRequest();
-    message.count = object.count ?? 0;
-    message.address = object.address ?? "";
-    return message;
-  },
-};
-
-function createBaseQueryGetNotificationsResponse(): QueryGetNotificationsResponse {
-  return { notifications: undefined };
-}
-
-export const QueryGetNotificationsResponse = {
-  encode(message: QueryGetNotificationsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.notifications !== undefined) {
-      Notifications.encode(message.notifications, writer.uint32(10).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryGetNotificationsResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryGetNotificationsResponse();
+    const message = createBaseQueryNotification();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -260,7 +176,21 @@ export const QueryGetNotificationsResponse = {
             break;
           }
 
-          message.notifications = Notifications.decode(reader, reader.uint32());
+          message.to = reader.string();
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.from = reader.string();
+          continue;
+        case 3:
+          if (tag !== 24) {
+            break;
+          }
+
+          message.time = longToNumber(reader.int64() as Long);
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -271,48 +201,115 @@ export const QueryGetNotificationsResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryGetNotificationsResponse {
-    return { notifications: isSet(object.notifications) ? Notifications.fromJSON(object.notifications) : undefined };
+  fromJSON(object: any): QueryNotification {
+    return {
+      to: isSet(object.to) ? gt.String(object.to) : "",
+      from: isSet(object.from) ? gt.String(object.from) : "",
+      time: isSet(object.time) ? gt.Number(object.time) : 0,
+    };
   },
 
-  toJSON(message: QueryGetNotificationsResponse): unknown {
+  toJSON(message: QueryNotification): unknown {
     const obj: any = {};
-    if (message.notifications !== undefined) {
-      obj.notifications = Notifications.toJSON(message.notifications);
+    if (message.to !== "") {
+      obj.to = message.to;
+    }
+    if (message.from !== "") {
+      obj.from = message.from;
+    }
+    if (message.time !== 0) {
+      obj.time = Math.round(message.time);
     }
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<QueryGetNotificationsResponse>, I>>(base?: I): QueryGetNotificationsResponse {
-    return QueryGetNotificationsResponse.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<QueryNotification>, I>>(base?: I): QueryNotification {
+    return QueryNotification.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<QueryGetNotificationsResponse>, I>>(
-    object: I,
-  ): QueryGetNotificationsResponse {
-    const message = createBaseQueryGetNotificationsResponse();
-    message.notifications = (object.notifications !== undefined && object.notifications !== null)
-      ? Notifications.fromPartial(object.notifications)
+  fromPartial<I extends Exact<DeepPartial<QueryNotification>, I>>(object: I): QueryNotification {
+    const message = createBaseQueryNotification();
+    message.to = object.to ?? "";
+    message.from = object.from ?? "";
+    message.time = object.time ?? 0;
+    return message;
+  },
+};
+
+function createBaseQueryNotificationResponse(): QueryNotificationResponse {
+  return { notification: undefined };
+}
+
+export const QueryNotificationResponse = {
+  encode(message: QueryNotificationResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.notification !== undefined) {
+      Notification.encode(message.notification, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryNotificationResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryNotificationResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.notification = Notification.decode(reader, reader.uint32());
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryNotificationResponse {
+    return { notification: isSet(object.notification) ? Notification.fromJSON(object.notification) : undefined };
+  },
+
+  toJSON(message: QueryNotificationResponse): unknown {
+    const obj: any = {};
+    if (message.notification !== undefined) {
+      obj.notification = Notification.toJSON(message.notification);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryNotificationResponse>, I>>(base?: I): QueryNotificationResponse {
+    return QueryNotificationResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<QueryNotificationResponse>, I>>(object: I): QueryNotificationResponse {
+    const message = createBaseQueryNotificationResponse();
+    message.notification = (object.notification !== undefined && object.notification !== null)
+      ? Notification.fromPartial(object.notification)
       : undefined;
     return message;
   },
 };
 
-function createBaseQueryAllNotificationsRequest(): QueryAllNotificationsRequest {
+function createBaseQueryAllNotifications(): QueryAllNotifications {
   return { pagination: undefined };
 }
 
-export const QueryAllNotificationsRequest = {
-  encode(message: QueryAllNotificationsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const QueryAllNotifications = {
+  encode(message: QueryAllNotifications, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllNotificationsRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllNotifications {
     const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryAllNotificationsRequest();
+    const message = createBaseQueryAllNotifications();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -332,11 +329,11 @@ export const QueryAllNotificationsRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryAllNotificationsRequest {
+  fromJSON(object: any): QueryAllNotifications {
     return { pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined };
   },
 
-  toJSON(message: QueryAllNotificationsRequest): unknown {
+  toJSON(message: QueryAllNotifications): unknown {
     const obj: any = {};
     if (message.pagination !== undefined) {
       obj.pagination = PageRequest.toJSON(message.pagination);
@@ -344,11 +341,11 @@ export const QueryAllNotificationsRequest = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<QueryAllNotificationsRequest>, I>>(base?: I): QueryAllNotificationsRequest {
-    return QueryAllNotificationsRequest.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<QueryAllNotifications>, I>>(base?: I): QueryAllNotifications {
+    return QueryAllNotifications.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<QueryAllNotificationsRequest>, I>>(object: I): QueryAllNotificationsRequest {
-    const message = createBaseQueryAllNotificationsRequest();
+  fromPartial<I extends Exact<DeepPartial<QueryAllNotifications>, I>>(object: I): QueryAllNotifications {
+    const message = createBaseQueryAllNotifications();
     message.pagination = (object.pagination !== undefined && object.pagination !== null)
       ? PageRequest.fromPartial(object.pagination)
       : undefined;
@@ -363,7 +360,7 @@ function createBaseQueryAllNotificationsResponse(): QueryAllNotificationsRespons
 export const QueryAllNotificationsResponse = {
   encode(message: QueryAllNotificationsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.notifications) {
-      Notifications.encode(v!, writer.uint32(10).fork()).ldelim();
+      Notification.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     if (message.pagination !== undefined) {
       PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
@@ -383,7 +380,7 @@ export const QueryAllNotificationsResponse = {
             break;
           }
 
-          message.notifications.push(Notifications.decode(reader, reader.uint32()));
+          message.notifications.push(Notification.decode(reader, reader.uint32()));
           continue;
         case 2:
           if (tag !== 18) {
@@ -404,7 +401,7 @@ export const QueryAllNotificationsResponse = {
   fromJSON(object: any): QueryAllNotificationsResponse {
     return {
       notifications: gt.Array.isArray(object?.notifications)
-        ? object.notifications.map((e: any) => Notifications.fromJSON(e))
+        ? object.notifications.map((e: any) => Notification.fromJSON(e))
         : [],
       pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
     };
@@ -413,7 +410,7 @@ export const QueryAllNotificationsResponse = {
   toJSON(message: QueryAllNotificationsResponse): unknown {
     const obj: any = {};
     if (message.notifications?.length) {
-      obj.notifications = message.notifications.map((e) => Notifications.toJSON(e));
+      obj.notifications = message.notifications.map((e) => Notification.toJSON(e));
     }
     if (message.pagination !== undefined) {
       obj.pagination = PageResponse.toJSON(message.pagination);
@@ -428,7 +425,7 @@ export const QueryAllNotificationsResponse = {
     object: I,
   ): QueryAllNotificationsResponse {
     const message = createBaseQueryAllNotificationsResponse();
-    message.notifications = object.notifications?.map((e) => Notifications.fromPartial(e)) || [];
+    message.notifications = object.notifications?.map((e) => Notification.fromPartial(e)) || [];
     message.pagination = (object.pagination !== undefined && object.pagination !== null)
       ? PageResponse.fromPartial(object.pagination)
       : undefined;
@@ -436,25 +433,25 @@ export const QueryAllNotificationsResponse = {
   },
 };
 
-function createBaseQueryAllNotificationsByAddressRequest(): QueryAllNotificationsByAddressRequest {
-  return { pagination: undefined, address: "" };
+function createBaseQueryAllNotificationsByAddress(): QueryAllNotificationsByAddress {
+  return { pagination: undefined, to: "" };
 }
 
-export const QueryAllNotificationsByAddressRequest = {
-  encode(message: QueryAllNotificationsByAddressRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const QueryAllNotificationsByAddress = {
+  encode(message: QueryAllNotificationsByAddress, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
     }
-    if (message.address !== "") {
-      writer.uint32(18).string(message.address);
+    if (message.to !== "") {
+      writer.uint32(18).string(message.to);
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllNotificationsByAddressRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllNotificationsByAddress {
     const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryAllNotificationsByAddressRequest();
+    const message = createBaseQueryAllNotificationsByAddress();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -470,7 +467,7 @@ export const QueryAllNotificationsByAddressRequest = {
             break;
           }
 
-          message.address = reader.string();
+          message.to = reader.string();
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -481,37 +478,35 @@ export const QueryAllNotificationsByAddressRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryAllNotificationsByAddressRequest {
+  fromJSON(object: any): QueryAllNotificationsByAddress {
     return {
       pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-      address: isSet(object.address) ? gt.String(object.address) : "",
+      to: isSet(object.to) ? gt.String(object.to) : "",
     };
   },
 
-  toJSON(message: QueryAllNotificationsByAddressRequest): unknown {
+  toJSON(message: QueryAllNotificationsByAddress): unknown {
     const obj: any = {};
     if (message.pagination !== undefined) {
       obj.pagination = PageRequest.toJSON(message.pagination);
     }
-    if (message.address !== "") {
-      obj.address = message.address;
+    if (message.to !== "") {
+      obj.to = message.to;
     }
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<QueryAllNotificationsByAddressRequest>, I>>(
-    base?: I,
-  ): QueryAllNotificationsByAddressRequest {
-    return QueryAllNotificationsByAddressRequest.fromPartial(base ?? ({} as any));
+  create<I extends Exact<DeepPartial<QueryAllNotificationsByAddress>, I>>(base?: I): QueryAllNotificationsByAddress {
+    return QueryAllNotificationsByAddress.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<QueryAllNotificationsByAddressRequest>, I>>(
+  fromPartial<I extends Exact<DeepPartial<QueryAllNotificationsByAddress>, I>>(
     object: I,
-  ): QueryAllNotificationsByAddressRequest {
-    const message = createBaseQueryAllNotificationsByAddressRequest();
+  ): QueryAllNotificationsByAddress {
+    const message = createBaseQueryAllNotificationsByAddress();
     message.pagination = (object.pagination !== undefined && object.pagination !== null)
       ? PageRequest.fromPartial(object.pagination)
       : undefined;
-    message.address = object.address ?? "";
+    message.to = object.to ?? "";
     return message;
   },
 };
@@ -523,7 +518,7 @@ function createBaseQueryAllNotificationsByAddressResponse(): QueryAllNotificatio
 export const QueryAllNotificationsByAddressResponse = {
   encode(message: QueryAllNotificationsByAddressResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.notifications) {
-      Notifications.encode(v!, writer.uint32(10).fork()).ldelim();
+      Notification.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     if (message.pagination !== undefined) {
       PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
@@ -543,7 +538,7 @@ export const QueryAllNotificationsByAddressResponse = {
             break;
           }
 
-          message.notifications.push(Notifications.decode(reader, reader.uint32()));
+          message.notifications.push(Notification.decode(reader, reader.uint32()));
           continue;
         case 2:
           if (tag !== 18) {
@@ -564,7 +559,7 @@ export const QueryAllNotificationsByAddressResponse = {
   fromJSON(object: any): QueryAllNotificationsByAddressResponse {
     return {
       notifications: gt.Array.isArray(object?.notifications)
-        ? object.notifications.map((e: any) => Notifications.fromJSON(e))
+        ? object.notifications.map((e: any) => Notification.fromJSON(e))
         : [],
       pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
     };
@@ -573,7 +568,7 @@ export const QueryAllNotificationsByAddressResponse = {
   toJSON(message: QueryAllNotificationsByAddressResponse): unknown {
     const obj: any = {};
     if (message.notifications?.length) {
-      obj.notifications = message.notifications.map((e) => Notifications.toJSON(e));
+      obj.notifications = message.notifications.map((e) => Notification.toJSON(e));
     }
     if (message.pagination !== undefined) {
       obj.pagination = PageResponse.toJSON(message.pagination);
@@ -590,260 +585,7 @@ export const QueryAllNotificationsByAddressResponse = {
     object: I,
   ): QueryAllNotificationsByAddressResponse {
     const message = createBaseQueryAllNotificationsByAddressResponse();
-    message.notifications = object.notifications?.map((e) => Notifications.fromPartial(e)) || [];
-    message.pagination = (object.pagination !== undefined && object.pagination !== null)
-      ? PageResponse.fromPartial(object.pagination)
-      : undefined;
-    return message;
-  },
-};
-
-function createBaseQueryGetNotiCounterRequest(): QueryGetNotiCounterRequest {
-  return { address: "" };
-}
-
-export const QueryGetNotiCounterRequest = {
-  encode(message: QueryGetNotiCounterRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.address !== "") {
-      writer.uint32(10).string(message.address);
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryGetNotiCounterRequest {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryGetNotiCounterRequest();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          if (tag !== 10) {
-            break;
-          }
-
-          message.address = reader.string();
-          continue;
-      }
-      if ((tag & 7) === 4 || tag === 0) {
-        break;
-      }
-      reader.skipType(tag & 7);
-    }
-    return message;
-  },
-
-  fromJSON(object: any): QueryGetNotiCounterRequest {
-    return { address: isSet(object.address) ? gt.String(object.address) : "" };
-  },
-
-  toJSON(message: QueryGetNotiCounterRequest): unknown {
-    const obj: any = {};
-    if (message.address !== "") {
-      obj.address = message.address;
-    }
-    return obj;
-  },
-
-  create<I extends Exact<DeepPartial<QueryGetNotiCounterRequest>, I>>(base?: I): QueryGetNotiCounterRequest {
-    return QueryGetNotiCounterRequest.fromPartial(base ?? ({} as any));
-  },
-  fromPartial<I extends Exact<DeepPartial<QueryGetNotiCounterRequest>, I>>(object: I): QueryGetNotiCounterRequest {
-    const message = createBaseQueryGetNotiCounterRequest();
-    message.address = object.address ?? "";
-    return message;
-  },
-};
-
-function createBaseQueryGetNotiCounterResponse(): QueryGetNotiCounterResponse {
-  return { notiCounter: undefined };
-}
-
-export const QueryGetNotiCounterResponse = {
-  encode(message: QueryGetNotiCounterResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.notiCounter !== undefined) {
-      NotiCounter.encode(message.notiCounter, writer.uint32(10).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryGetNotiCounterResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryGetNotiCounterResponse();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          if (tag !== 10) {
-            break;
-          }
-
-          message.notiCounter = NotiCounter.decode(reader, reader.uint32());
-          continue;
-      }
-      if ((tag & 7) === 4 || tag === 0) {
-        break;
-      }
-      reader.skipType(tag & 7);
-    }
-    return message;
-  },
-
-  fromJSON(object: any): QueryGetNotiCounterResponse {
-    return { notiCounter: isSet(object.notiCounter) ? NotiCounter.fromJSON(object.notiCounter) : undefined };
-  },
-
-  toJSON(message: QueryGetNotiCounterResponse): unknown {
-    const obj: any = {};
-    if (message.notiCounter !== undefined) {
-      obj.notiCounter = NotiCounter.toJSON(message.notiCounter);
-    }
-    return obj;
-  },
-
-  create<I extends Exact<DeepPartial<QueryGetNotiCounterResponse>, I>>(base?: I): QueryGetNotiCounterResponse {
-    return QueryGetNotiCounterResponse.fromPartial(base ?? ({} as any));
-  },
-  fromPartial<I extends Exact<DeepPartial<QueryGetNotiCounterResponse>, I>>(object: I): QueryGetNotiCounterResponse {
-    const message = createBaseQueryGetNotiCounterResponse();
-    message.notiCounter = (object.notiCounter !== undefined && object.notiCounter !== null)
-      ? NotiCounter.fromPartial(object.notiCounter)
-      : undefined;
-    return message;
-  },
-};
-
-function createBaseQueryAllNotiCounterRequest(): QueryAllNotiCounterRequest {
-  return { pagination: undefined };
-}
-
-export const QueryAllNotiCounterRequest = {
-  encode(message: QueryAllNotiCounterRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.pagination !== undefined) {
-      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllNotiCounterRequest {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryAllNotiCounterRequest();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          if (tag !== 10) {
-            break;
-          }
-
-          message.pagination = PageRequest.decode(reader, reader.uint32());
-          continue;
-      }
-      if ((tag & 7) === 4 || tag === 0) {
-        break;
-      }
-      reader.skipType(tag & 7);
-    }
-    return message;
-  },
-
-  fromJSON(object: any): QueryAllNotiCounterRequest {
-    return { pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined };
-  },
-
-  toJSON(message: QueryAllNotiCounterRequest): unknown {
-    const obj: any = {};
-    if (message.pagination !== undefined) {
-      obj.pagination = PageRequest.toJSON(message.pagination);
-    }
-    return obj;
-  },
-
-  create<I extends Exact<DeepPartial<QueryAllNotiCounterRequest>, I>>(base?: I): QueryAllNotiCounterRequest {
-    return QueryAllNotiCounterRequest.fromPartial(base ?? ({} as any));
-  },
-  fromPartial<I extends Exact<DeepPartial<QueryAllNotiCounterRequest>, I>>(object: I): QueryAllNotiCounterRequest {
-    const message = createBaseQueryAllNotiCounterRequest();
-    message.pagination = (object.pagination !== undefined && object.pagination !== null)
-      ? PageRequest.fromPartial(object.pagination)
-      : undefined;
-    return message;
-  },
-};
-
-function createBaseQueryAllNotiCounterResponse(): QueryAllNotiCounterResponse {
-  return { notiCounter: [], pagination: undefined };
-}
-
-export const QueryAllNotiCounterResponse = {
-  encode(message: QueryAllNotiCounterResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    for (const v of message.notiCounter) {
-      NotiCounter.encode(v!, writer.uint32(10).fork()).ldelim();
-    }
-    if (message.pagination !== undefined) {
-      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllNotiCounterResponse {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryAllNotiCounterResponse();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          if (tag !== 10) {
-            break;
-          }
-
-          message.notiCounter.push(NotiCounter.decode(reader, reader.uint32()));
-          continue;
-        case 2:
-          if (tag !== 18) {
-            break;
-          }
-
-          message.pagination = PageResponse.decode(reader, reader.uint32());
-          continue;
-      }
-      if ((tag & 7) === 4 || tag === 0) {
-        break;
-      }
-      reader.skipType(tag & 7);
-    }
-    return message;
-  },
-
-  fromJSON(object: any): QueryAllNotiCounterResponse {
-    return {
-      notiCounter: gt.Array.isArray(object?.notiCounter)
-        ? object.notiCounter.map((e: any) => NotiCounter.fromJSON(e))
-        : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
-    };
-  },
-
-  toJSON(message: QueryAllNotiCounterResponse): unknown {
-    const obj: any = {};
-    if (message.notiCounter?.length) {
-      obj.notiCounter = message.notiCounter.map((e) => NotiCounter.toJSON(e));
-    }
-    if (message.pagination !== undefined) {
-      obj.pagination = PageResponse.toJSON(message.pagination);
-    }
-    return obj;
-  },
-
-  create<I extends Exact<DeepPartial<QueryAllNotiCounterResponse>, I>>(base?: I): QueryAllNotiCounterResponse {
-    return QueryAllNotiCounterResponse.fromPartial(base ?? ({} as any));
-  },
-  fromPartial<I extends Exact<DeepPartial<QueryAllNotiCounterResponse>, I>>(object: I): QueryAllNotiCounterResponse {
-    const message = createBaseQueryAllNotiCounterResponse();
-    message.notiCounter = object.notiCounter?.map((e) => NotiCounter.fromPartial(e)) || [];
+    message.notifications = object.notifications?.map((e) => Notification.fromPartial(e)) || [];
     message.pagination = (object.pagination !== undefined && object.pagination !== null)
       ? PageResponse.fromPartial(object.pagination)
       : undefined;
@@ -852,19 +594,13 @@ export const QueryAllNotiCounterResponse = {
 };
 
 export interface Query {
-  Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
-  /** Queries a Notification by count and address. */
-  Notifications(request: QueryGetNotificationsRequest): Promise<QueryGetNotificationsResponse>;
+  Params(request: QueryParams): Promise<QueryParamsResponse>;
+  /** Queries a Notification object */
+  Notification(request: QueryNotification): Promise<QueryNotificationResponse>;
   /** Queries a list of Notification items. */
-  NotificationsAll(request: QueryAllNotificationsRequest): Promise<QueryAllNotificationsResponse>;
+  AllNotifications(request: QueryAllNotifications): Promise<QueryAllNotificationsResponse>;
   /** Queries a list of Notification items by address. */
-  NotificationsByAddress(
-    request: QueryAllNotificationsByAddressRequest,
-  ): Promise<QueryAllNotificationsByAddressResponse>;
-  /** Queries a NotiCounter by address. */
-  NotiCounter(request: QueryGetNotiCounterRequest): Promise<QueryGetNotiCounterResponse>;
-  /** Queries a list of NotiCounter items. */
-  NotiCounterAll(request: QueryAllNotiCounterRequest): Promise<QueryAllNotiCounterResponse>;
+  AllNotificationsByAddress(request: QueryAllNotificationsByAddress): Promise<QueryAllNotificationsByAddressResponse>;
 }
 
 export const QueryServiceName = "canine_chain.notifications.Query";
@@ -875,48 +611,32 @@ export class QueryClientImpl implements Query {
     this.service = opts?.service || QueryServiceName;
     this.rpc = rpc;
     this.Params = this.Params.bind(this);
-    this.Notifications = this.Notifications.bind(this);
-    this.NotificationsAll = this.NotificationsAll.bind(this);
-    this.NotificationsByAddress = this.NotificationsByAddress.bind(this);
-    this.NotiCounter = this.NotiCounter.bind(this);
-    this.NotiCounterAll = this.NotiCounterAll.bind(this);
+    this.Notification = this.Notification.bind(this);
+    this.AllNotifications = this.AllNotifications.bind(this);
+    this.AllNotificationsByAddress = this.AllNotificationsByAddress.bind(this);
   }
-  Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
-    const data = QueryParamsRequest.encode(request).finish();
+  Params(request: QueryParams): Promise<QueryParamsResponse> {
+    const data = QueryParams.encode(request).finish();
     const promise = this.rpc.request(this.service, "Params", data);
     return promise.then((data) => QueryParamsResponse.decode(_m0.Reader.create(data)));
   }
 
-  Notifications(request: QueryGetNotificationsRequest): Promise<QueryGetNotificationsResponse> {
-    const data = QueryGetNotificationsRequest.encode(request).finish();
-    const promise = this.rpc.request(this.service, "Notifications", data);
-    return promise.then((data) => QueryGetNotificationsResponse.decode(_m0.Reader.create(data)));
+  Notification(request: QueryNotification): Promise<QueryNotificationResponse> {
+    const data = QueryNotification.encode(request).finish();
+    const promise = this.rpc.request(this.service, "Notification", data);
+    return promise.then((data) => QueryNotificationResponse.decode(_m0.Reader.create(data)));
   }
 
-  NotificationsAll(request: QueryAllNotificationsRequest): Promise<QueryAllNotificationsResponse> {
-    const data = QueryAllNotificationsRequest.encode(request).finish();
-    const promise = this.rpc.request(this.service, "NotificationsAll", data);
+  AllNotifications(request: QueryAllNotifications): Promise<QueryAllNotificationsResponse> {
+    const data = QueryAllNotifications.encode(request).finish();
+    const promise = this.rpc.request(this.service, "AllNotifications", data);
     return promise.then((data) => QueryAllNotificationsResponse.decode(_m0.Reader.create(data)));
   }
 
-  NotificationsByAddress(
-    request: QueryAllNotificationsByAddressRequest,
-  ): Promise<QueryAllNotificationsByAddressResponse> {
-    const data = QueryAllNotificationsByAddressRequest.encode(request).finish();
-    const promise = this.rpc.request(this.service, "NotificationsByAddress", data);
+  AllNotificationsByAddress(request: QueryAllNotificationsByAddress): Promise<QueryAllNotificationsByAddressResponse> {
+    const data = QueryAllNotificationsByAddress.encode(request).finish();
+    const promise = this.rpc.request(this.service, "AllNotificationsByAddress", data);
     return promise.then((data) => QueryAllNotificationsByAddressResponse.decode(_m0.Reader.create(data)));
-  }
-
-  NotiCounter(request: QueryGetNotiCounterRequest): Promise<QueryGetNotiCounterResponse> {
-    const data = QueryGetNotiCounterRequest.encode(request).finish();
-    const promise = this.rpc.request(this.service, "NotiCounter", data);
-    return promise.then((data) => QueryGetNotiCounterResponse.decode(_m0.Reader.create(data)));
-  }
-
-  NotiCounterAll(request: QueryAllNotiCounterRequest): Promise<QueryAllNotiCounterResponse> {
-    const data = QueryAllNotiCounterRequest.encode(request).finish();
-    const promise = this.rpc.request(this.service, "NotiCounterAll", data);
-    return promise.then((data) => QueryAllNotiCounterResponse.decode(_m0.Reader.create(data)));
   }
 }
 

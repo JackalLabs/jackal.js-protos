@@ -148,7 +148,7 @@ export interface QueryFindFile {
 }
 
 export interface QueryFindFileResponse {
-  providerIps: string;
+  providerIps: string[];
 }
 
 export interface QueryClientFreeSpace {
@@ -195,8 +195,8 @@ export interface QueryFileUploadCheckResponse {
 }
 
 export interface QueryPriceCheck {
-  /** formatted as time */
-  duration: string;
+  /** days to check for */
+  duration: number;
   bytes: number;
 }
 
@@ -2273,13 +2273,13 @@ export const QueryFindFile = {
 };
 
 function createBaseQueryFindFileResponse(): QueryFindFileResponse {
-  return { providerIps: "" };
+  return { providerIps: [] };
 }
 
 export const QueryFindFileResponse = {
   encode(message: QueryFindFileResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.providerIps !== "") {
-      writer.uint32(10).string(message.providerIps);
+    for (const v of message.providerIps) {
+      writer.uint32(10).string(v!);
     }
     return writer;
   },
@@ -2296,7 +2296,7 @@ export const QueryFindFileResponse = {
             break;
           }
 
-          message.providerIps = reader.string();
+          message.providerIps.push(reader.string());
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -2308,12 +2308,14 @@ export const QueryFindFileResponse = {
   },
 
   fromJSON(object: any): QueryFindFileResponse {
-    return { providerIps: isSet(object.providerIps) ? gt.String(object.providerIps) : "" };
+    return {
+      providerIps: gt.Array.isArray(object?.providerIps) ? object.providerIps.map((e: any) => gt.String(e)) : [],
+    };
   },
 
   toJSON(message: QueryFindFileResponse): unknown {
     const obj: any = {};
-    if (message.providerIps !== "") {
+    if (message.providerIps?.length) {
       obj.providerIps = message.providerIps;
     }
     return obj;
@@ -2324,7 +2326,7 @@ export const QueryFindFileResponse = {
   },
   fromPartial<I extends Exact<DeepPartial<QueryFindFileResponse>, I>>(object: I): QueryFindFileResponse {
     const message = createBaseQueryFindFileResponse();
-    message.providerIps = object.providerIps ?? "";
+    message.providerIps = object.providerIps?.map((e) => e) || [];
     return message;
   },
 };
@@ -2969,13 +2971,13 @@ export const QueryFileUploadCheckResponse = {
 };
 
 function createBaseQueryPriceCheck(): QueryPriceCheck {
-  return { duration: "", bytes: 0 };
+  return { duration: 0, bytes: 0 };
 }
 
 export const QueryPriceCheck = {
   encode(message: QueryPriceCheck, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.duration !== "") {
-      writer.uint32(10).string(message.duration);
+    if (message.duration !== 0) {
+      writer.uint32(8).int64(message.duration);
     }
     if (message.bytes !== 0) {
       writer.uint32(16).int64(message.bytes);
@@ -2991,11 +2993,11 @@ export const QueryPriceCheck = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag !== 10) {
+          if (tag !== 8) {
             break;
           }
 
-          message.duration = reader.string();
+          message.duration = longToNumber(reader.int64() as Long);
           continue;
         case 2:
           if (tag !== 16) {
@@ -3015,15 +3017,15 @@ export const QueryPriceCheck = {
 
   fromJSON(object: any): QueryPriceCheck {
     return {
-      duration: isSet(object.duration) ? gt.String(object.duration) : "",
+      duration: isSet(object.duration) ? gt.Number(object.duration) : 0,
       bytes: isSet(object.bytes) ? gt.Number(object.bytes) : 0,
     };
   },
 
   toJSON(message: QueryPriceCheck): unknown {
     const obj: any = {};
-    if (message.duration !== "") {
-      obj.duration = message.duration;
+    if (message.duration !== 0) {
+      obj.duration = Math.round(message.duration);
     }
     if (message.bytes !== 0) {
       obj.bytes = Math.round(message.bytes);
@@ -3036,7 +3038,7 @@ export const QueryPriceCheck = {
   },
   fromPartial<I extends Exact<DeepPartial<QueryPriceCheck>, I>>(object: I): QueryPriceCheck {
     const message = createBaseQueryPriceCheck();
-    message.duration = object.duration ?? "";
+    message.duration = object.duration ?? 0;
     message.bytes = object.bytes ?? 0;
     return message;
   },

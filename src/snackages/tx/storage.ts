@@ -1,23 +1,3 @@
-import type {
-  DEncodeObject,
-  DMsgAddClaimer,
-  DMsgAttest,
-  DMsgBuyStorage,
-  DMsgInitProvider,
-  DMsgPostProof,
-  DMsgRemoveClaimer,
-  DMsgReport,
-  DMsgRequestAttestationForm,
-  DMsgRequestReportForm,
-  DMsgSetProviderIP,
-  DMsgSetProviderKeybase,
-  DMsgSetProviderTotalSpace,
-  DMsgShutdownProvider,
-  DMsgStorageDeleteFile,
-  DMsgStoragePostFile
-} from '@/types/msgs'
-import type { IJackalModuleTypeMap } from '@/interfaces/IJackalModuleTypeMap'
-import { deprecated } from '@/utils/misc'
 import {
   MsgAddClaimer,
   MsgAttest,
@@ -36,8 +16,28 @@ import {
   MsgShutdownProvider,
   protobufPackage
 } from '@/postgen/canine_chain/storage/tx'
+import { deprecated } from '@/utils/misc'
+import type {
+  DEncodeObject,
+  DMsgAddClaimer,
+  DMsgAttest,
+  DMsgBuyStorage,
+  DMsgInitProvider,
+  DMsgPostProof,
+  DMsgRemoveClaimer,
+  DMsgReport,
+  DMsgRequestAttestationForm,
+  DMsgRequestReportForm,
+  DMsgSetProviderIP,
+  DMsgSetProviderKeybase,
+  DMsgSetProviderTotalSpace,
+  DMsgShutdownProvider,
+  DMsgStorageDeleteFile,
+  DMsgStoragePostFile
+} from '@/types/msgs'
+import type { TJackalModuleTypeMap } from '@/types'
 
-export const storageTypes: IJackalModuleTypeMap = {
+export const storageTypes: TJackalModuleTypeMap = {
   addClaimer: [`/${protobufPackage}.MsgAddClaimer`, MsgAddClaimer],
   attest: [`/${protobufPackage}.MsgAttest`, MsgAttest],
   buyStorage: [`/${protobufPackage}.MsgBuyStorage`, MsgBuyStorage],
@@ -174,25 +174,38 @@ export const TxStorage: ITxStorage = {
 
   /* Deprecated */
   msgPostContract(_?: any): void {
-    deprecated('[Storage] msgPostContract', 'v2.0.0')
-    throw new Error("[Storage] msgPostContract deprecated")
+    deprecated('[Storage] msgPostContract', 'v2.0.0', {
+      abort: true
+    }).catch((err) => {
+      throw err
+    })
   },
   msgSignContract(_?: any): void {
-    deprecated('[Storage] msgSignContract', 'v2.0.0', )
-    throw new Error("[Storage] msgSignContract deprecated")
+    deprecated('[Storage] msgSignContract', 'v2.0.0', {
+      abort: true
+    }).catch((err) => {
+      throw err
+    })
   },
   msgCancelContract(_?: any): void {
-    deprecated('[Storage] msgCancelContract', 'v2.0.0')
-    throw new Error("[Storage] msgCancelContract deprecated")
+    deprecated('[Storage] msgCancelContract', 'v2.0.0', {
+      abort: true
+    }).catch((err) => {
+      throw err
+    })
   },
   msgClaimStray(_?: any): void {
-    deprecated('[Storage] msgClaimStray', 'v2.0.0')
-    throw new Error("[Storage] msgClaimStray deprecated")
+    deprecated('[Storage] msgClaimStray', 'v2.0.0', {
+      abort: true
+    }).catch((err) => {
+      throw err
+    })
   },
   msgUpgradeStorage(_?: any): void {
     deprecated('[Storage] msgUpgradeStorage', 'v2.0.0', {
       replacement: 'msgBuyStorage'
+    }).catch((err) => {
+      throw err
     })
-    throw new Error("[Storage] msgUpgradeStorage deprecated, please use msgBuyStorage")
   }
 }
