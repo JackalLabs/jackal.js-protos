@@ -4,9 +4,9 @@ import type {
   QueryFileResponse,
   QueryParamsResponse,
   QueryPubKeyResponse
-} from '@/postgen/canine_chain/filetree/query'
-import type { Params } from '@/postgen/canine_chain/filetree/params'
-import type { PageResponse } from '@/postgen/cosmos/base/query/v1beta1/pagination'
+} from '@/postGen/canine_chain/filetree/query'
+import type { Params } from '@/postGen/canine_chain/filetree/params'
+import type { PageResponse } from '@/postGen/cosmos/base/query/v1beta1/pagination'
 import type { DFile, DPubkey } from '@/types/fileTree'
 
 /**

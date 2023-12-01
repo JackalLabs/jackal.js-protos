@@ -43,9 +43,9 @@
   ],
   "exclude": [
     "node_modules",
-    "cfg",
-    "postgen",
-    "proto",
-    "staticProto",
+    "src/cfg",
+    "src/postGen",
+    "src/proto",
+    "src/staticProto",
   ]
 }

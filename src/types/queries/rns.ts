@@ -1,4 +1,4 @@
-import type { PageRequest } from '@/postgen/cosmos/base/query/v1beta1/pagination'
+import type { PageRequest } from '@/postGen/cosmos/base/query/v1beta1/pagination'
 import type {
   QueryAllBids,
   QueryAllForSale,
@@ -10,7 +10,7 @@ import type {
   QueryListOwnedNames,
   QueryName,
   QueryParams
-} from '@/postgen/canine_chain/rns/query'
+} from '@/postGen/canine_chain/rns/query'
 
 /**
  * QueryAllBids Documentation

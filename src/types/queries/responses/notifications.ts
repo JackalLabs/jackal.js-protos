@@ -3,9 +3,9 @@ import type {
   QueryAllNotificationsResponse,
   QueryNotificationResponse,
   QueryParamsResponse
-} from '@/postgen/canine_chain/notifications/query'
-import type { Params } from '@/postgen/canine_chain/notifications/params'
-import type { PageResponse } from '@/postgen/cosmos/base/query/v1beta1/pagination'
+} from '@/postGen/canine_chain/notifications/query'
+import type { Params } from '@/postGen/canine_chain/notifications/params'
+import type { PageResponse } from '@/postGen/cosmos/base/query/v1beta1/pagination'
 import type { DNotification } from '@/types/notifications'
 
 /**

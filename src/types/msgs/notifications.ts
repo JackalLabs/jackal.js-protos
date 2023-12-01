@@ -1,4 +1,4 @@
-import type { MsgBlockSenders, MsgCreateNotification, MsgDeleteNotification } from '@/postgen/canine_chain/notifications/tx'
+import type { MsgBlockSenders, MsgCreateNotification, MsgDeleteNotification } from '@/postGen/canine_chain/notifications/tx'
 
 /**
  * MsgCreateNotification Documentation

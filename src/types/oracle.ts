@@ -1,4 +1,4 @@
-import type { Feed } from '@/postgen/canine_chain/oracle/feed'
+import type { Feed } from '@/postGen/canine_chain/oracle/feed'
 
 /**
  * Feed Documentation

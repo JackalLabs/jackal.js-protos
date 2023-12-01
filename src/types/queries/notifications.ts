@@ -3,8 +3,8 @@ import type {
   QueryAllNotificationsByAddress,
   QueryNotification,
   QueryParams
-} from '@/postgen/canine_chain/notifications/query'
-import type { PageRequest } from '@/postgen/cosmos/base/query/v1beta1/pagination'
+} from '@/postGen/canine_chain/notifications/query'
+import type { PageRequest } from '@/postGen/cosmos/base/query/v1beta1/pagination'
 
 /**
  * QueryAllNotifications Documentation

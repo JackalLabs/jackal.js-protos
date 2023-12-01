@@ -1,8 +1,8 @@
 import type {
   QueryInflationResponse,
   QueryParamsResponse
-} from '@/postgen/canine_chain/jklmint/query'
-import type { Params } from '@/postgen/canine_chain/jklmint/params'
+} from '@/postGen/canine_chain/jklmint/query'
+import type { Params } from '@/postGen/canine_chain/jklmint/params'
 
 /**
  * This is the response for the [JklMint] Query/Inflation RPC method.

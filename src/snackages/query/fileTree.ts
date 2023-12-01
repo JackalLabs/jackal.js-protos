@@ -1,6 +1,6 @@
 import { createProtobufRpcClient, QueryClient } from '@cosmjs/stargate'
 import { assertDefined } from '@cosmjs/utils'
-import { QueryClientImpl } from '@/postgen/canine_chain/filetree/query'
+import { QueryClientImpl } from '@/postGen/canine_chain/filetree/query'
 import { warnError } from '@/utils/misc'
 import type { IFileTreeExtension } from '@/interfaces/snackages'
 import type { DQueryFileTreeAllFiles, DQueryAllPubKeys, DQueryFileTreeFile, DQueryFileTreeParams, DQueryPubKey } from '@/types/queries'

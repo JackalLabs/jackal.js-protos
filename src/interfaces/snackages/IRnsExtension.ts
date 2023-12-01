@@ -35,16 +35,16 @@ export interface IRnsExtension {
  * All functions for querying data from the RNS module.
  *
  * @interface IRnsExtensionMembers
- * @property {allBids} allBids
- * @property {allForSale} allForSale
- * @property {allInits} allInits
- * @property {allNames} allNames
- * @property {bid} bid
- * @property {forSale} forSale
- * @property {init} init
- * @property {listOwnedNames} listOwnedNames
- * @property {name} name
- * @property {params} params
+ * @property {allBids} allBids()
+ * @property {allForSale} allForSale()
+ * @property {allInits} allInits()
+ * @property {allNames} allNames()
+ * @property {bid} bid()
+ * @property {forSale} forSale()
+ * @property {init} init()
+ * @property {listOwnedNames} listOwnedNames()
+ * @property {name} name()
+ * @property {params} params()
  */
 export interface IRnsExtensionMembers {
 

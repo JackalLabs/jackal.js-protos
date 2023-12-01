@@ -1,6 +1,6 @@
 import { createProtobufRpcClient, QueryClient } from '@cosmjs/stargate'
 import { assertDefined } from '@cosmjs/utils'
-import { QueryClientImpl } from '@/postgen/canine_chain/rns/query'
+import { QueryClientImpl } from '@/postGen/canine_chain/rns/query'
 import { warnError } from '@/utils/misc'
 import type { IRnsExtension } from '@/interfaces/snackages/IRnsExtension'
 import type {

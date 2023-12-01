@@ -20,9 +20,18 @@ import type { StargateClientOptions } from '@cosmjs/stargate'
 import type { IJackalStargateClient } from '@/interfaces/classes'
 import type { DHttpEndpoint, TQueryExtensions } from '@/types'
 
+/**
+ * @class {IJackalStargateClient} JackalStargateClient
+ */
 export class JackalStargateClient extends StargateClient implements IJackalStargateClient {
   public readonly queries: TQueryExtensions
 
+  /**
+   * @function connect
+   * @memberof JackalStargateClient
+   * @async
+   * @static
+   */
   public static async connect(
     endpoint: string | DHttpEndpoint,
     options: StargateClientOptions = {},

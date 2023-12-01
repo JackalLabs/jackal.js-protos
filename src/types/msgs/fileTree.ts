@@ -10,7 +10,7 @@ import type {
   MsgRemoveViewers,
   MsgResetEditors,
   MsgResetViewers
-} from '@/postgen/canine_chain/filetree/tx'
+} from '@/postGen/canine_chain/filetree/tx'
 
 /**
  * MsgAddEditors Documentation

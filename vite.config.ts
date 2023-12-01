@@ -27,12 +27,24 @@ export default defineConfig({
         find: "@",
         replacement: resolve(__dirname, "./src"),
       },
+      {
+        find: "protobufjs/minimal",
+        replacement: "protobufjs",
+      },
+      {
+        find: "function-bind",
+        replacement: resolve(__dirname, "./node_modules", "function-bind", "implementation.js"),
+      },
+      {
+        find: "symbol-observable/ponyfill",
+        replacement: resolve(__dirname, "./node_modules", "symbol-observable", "ponyfill.js"),
+      },
     ],
     extensions: ['.ts']
   },
   build: {
     manifest: true,
-    minify: true,
+    minify: false,
     reportCompressedSize: true,
     lib: {
       entry: resolve(__dirname, "src/index.ts"),
@@ -42,9 +54,10 @@ export default defineConfig({
     },
     rollupOptions: {
       external: [
-        'protobufjs/minimal',
         /@cosmjs.*/,
+        /cosmjs-types*/,
         'grpc-web',
+        'protobufjs',
         'ts-proto',
       ],
       plugins: [

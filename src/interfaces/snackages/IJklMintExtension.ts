@@ -17,8 +17,8 @@ export interface IJklMintExtension {
  * All functions for querying data from the JklMint module.
  *
  * @interface IJklMintExtensionMembers
- * @property {inflation} inflation
- * @property {params} params
+ * @property {inflation} inflation()
+ * @property {params} params()
  */
 export interface IJklMintExtensionMembers {
 

@@ -21,10 +21,10 @@ export interface INotificationsExtension {
  * All functions for querying data from the Oracle module.
  *
  * @interface INotificationsExtensionMembers
- * @property {allNotifications} allNotifications
- * @property {allNotificationsByAddress} allNotificationsByAddress
- * @property {notification} notification
- * @property {params} params
+ * @property {allNotifications} allNotifications()
+ * @property {allNotificationsByAddress} allNotificationsByAddress()
+ * @property {notification} notification()
+ * @property {params} params()
  */
 export interface INotificationsExtensionMembers {
 

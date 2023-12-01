@@ -1,5 +1,5 @@
-import type { Params } from '@/postgen/canine_chain/storage/params'
-import type { PageResponse } from '@/postgen/cosmos/base/query/v1beta1/pagination'
+import type { Params } from '@/postGen/canine_chain/storage/params'
+import type { PageResponse } from '@/postGen/cosmos/base/query/v1beta1/pagination'
 import type {
   QueryActiveProvidersResponse,
   QueryAllAttestationsResponse,
@@ -24,7 +24,7 @@ import type {
   QueryStoragePaymentInfoResponse,
   QueryStorageStatsResponse,
   QueryStoreCountResponse
-} from '@/postgen/canine_chain/storage/query'
+} from '@/postGen/canine_chain/storage/query'
 import type {
   DActiveProvider,
   DAttestationForm,

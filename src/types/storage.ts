@@ -1,12 +1,12 @@
-import type { FileProof, UnifiedFile } from '@/postgen/canine_chain/storage/active_deals'
+import type { FileProof, UnifiedFile } from '@/postGen/canine_chain/storage/active_deals'
 import type {
   ActiveProviders,
   Attestation,
   AttestationForm,
   Providers,
   ReportForm
-} from '@/postgen/canine_chain/storage/providers'
-import type { StoragePaymentInfo } from '@/postgen/canine_chain/storage/payment_info'
+} from '@/postGen/canine_chain/storage/providers'
+import type { StoragePaymentInfo } from '@/postGen/canine_chain/storage/payment_info'
 import type { DCoin } from '@/types/msgs'
 
 /**

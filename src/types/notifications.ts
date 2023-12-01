@@ -1,5 +1,5 @@
-import type { Notification } from '@/postgen/canine_chain/notifications/notification'
-import type { Block } from '@/postgen/canine_chain/notifications/notification'
+import type { Notification } from '@/postGen/canine_chain/notifications/notification'
+import type { Block } from '@/postGen/canine_chain/notifications/notification'
 
 /**
  * Notification Documentation

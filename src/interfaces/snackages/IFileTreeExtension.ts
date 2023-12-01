@@ -25,11 +25,11 @@ export interface IFileTreeExtension {
  * All functions for querying data from the FileTree module.
  *
  * @interface IFileTreeExtensionMembers
- * @property {allFiles} allFiles
- * @property {allPubKeys} allPubKeys
- * @property {file} file
- * @property {params} params
- * @property {pubKey} pubKey
+ * @property {allFiles} allFiles()
+ * @property {allPubKeys} allPubKeys()
+ * @property {file} file()
+ * @property {params} params()
+ * @property {pubKey} pubKey()
  */
 export interface IFileTreeExtensionMembers {
 

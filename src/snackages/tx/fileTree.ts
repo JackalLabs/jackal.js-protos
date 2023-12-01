@@ -11,7 +11,7 @@ import {
   MsgResetEditors,
   MsgResetViewers,
   protobufPackage
-} from '@/postgen/canine_chain/filetree/tx'
+} from '@/postGen/canine_chain/filetree/tx'
 import { deprecated } from '@/utils/misc'
 import type {
   DEncodeObject,
@@ -43,6 +43,23 @@ export const fileTreeTypes: TJackalModuleTypeMap = {
   resetViewers: [`/${protobufPackage}.MsgResetViewers`, MsgResetViewers]
 }
 
+/**
+ * All functions for creating FileTree Tx.
+ *
+ * @property {msgAddEditors} msgAddEditors()
+ * @property {msgAddViewers} msgAddViewers()
+ * @property {msgChangeOwner} msgChangeOwner()
+ * @property {msgDeleteFile} msgDeleteFile()
+ * @property {msgPostKey} msgPostKey()
+ * @property {msgProvisionFileTree} msgProvisionFileTree()
+ * @property {msgRemoveEditors} msgRemoveEditors()
+ * @property {msgRemoveViewers} msgRemoveViewers()
+ * @property {msgResetEditors} msgResetEditors()
+ * @property {msgResetViewers} msgResetViewers()
+ * @property {msgPostkey} msgPostkey() deprecated
+ * @property {msgMakeRoot} msgMakeRoot() deprecated
+ * @property {msgMakeRootV2} msgMakeRootV2() deprecated
+ */
 export type ITxFileTree = {
   msgAddEditors(data: DMsgAddEditors): DEncodeObject
   msgAddViewers(data: DMsgAddViewers): DEncodeObject
@@ -56,9 +73,19 @@ export type ITxFileTree = {
   msgResetEditors(data: DMsgResetEditors): DEncodeObject
   msgResetViewers(data: DMsgResetViewers): DEncodeObject
 
-  /* Deprecated */
+  /**
+   * @deprecated since v2.0.0
+   */
   msgPostkey(_?: any): void
+
+  /**
+   * @deprecated since v1.3.0
+   */
   msgMakeRoot(_?: any): void
+
+  /**
+   * @deprecated since v2.0.0
+   */
   msgMakeRootV2(_?: any): void
 }
 

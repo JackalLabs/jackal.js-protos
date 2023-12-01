@@ -1,6 +1,6 @@
 import { createProtobufRpcClient, QueryClient } from '@cosmjs/stargate'
 import { assertDefined } from '@cosmjs/utils'
-import { QueryClientImpl } from '@/postgen/canine_chain/oracle/query'
+import { QueryClientImpl } from '@/postGen/canine_chain/oracle/query'
 import { warnError } from '@/utils/misc'
 import type { IOracleExtension } from '@/interfaces/snackages'
 import type {

@@ -27,11 +27,20 @@ import type { DHttpEndpoint, TQueryExtensions } from '@/types'
 import type { ITxLibrary } from '@/interfaces'
 import { TxNotifications } from '@/snackages/tx/notifications'
 
+/**
+ * @class {IJackalSigningStargateClient} JackalSigningStargateClient
+ */
 export class JackalSigningStargateClient extends SigningStargateClient implements IJackalSigningStargateClient {
   protected readonly address: string
   public readonly queries: TQueryExtensions
   public readonly txLibrary: ITxLibrary
 
+  /**
+   * @function connectWithSigner
+   * @memberof JackalSigningStargateClient
+   * @async
+   * @static
+   */
   public static async connectWithSigner(
     endpoint: string | DHttpEndpoint,
     signer: OfflineSigner,
@@ -74,8 +83,8 @@ export class JackalSigningStargateClient extends SigningStargateClient implement
     this.txLibrary = {
       fileTree: TxFileTree,
       /* No jklMint tx */
-      oracle: TxOracle,
       notifications: TxNotifications,
+      oracle: TxOracle,
       rns: TxRns,
       storage: TxStorage
     }

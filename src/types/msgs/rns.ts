@@ -11,7 +11,7 @@ import type {
   MsgRegister,
   MsgTransfer,
   MsgUpdate
-} from '@/postgen/canine_chain/rns/tx'
+} from '@/postGen/canine_chain/rns/tx'
 import type { DCoin } from '@/types'
 
 /**

@@ -4,8 +4,8 @@ import type {
   QueryFile,
   QueryParams,
   QueryPubKey
-} from '@/postgen/canine_chain/filetree/query'
-import type { PageRequest } from '@/postgen/cosmos/base/query/v1beta1/pagination'
+} from '@/postGen/canine_chain/filetree/query'
+import type { PageRequest } from '@/postGen/cosmos/base/query/v1beta1/pagination'
 
 /**
  * QueryFileTreeAllFiles Documentation

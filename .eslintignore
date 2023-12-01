@@ -3,5 +3,9 @@
 dist/
 node_modules/
 packs/
+src/cfg
+src/postGen
+src/proto
+src/staticProto
 .prettierrc
 tslint.json

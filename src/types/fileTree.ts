@@ -1,5 +1,5 @@
-import type { Files } from '@/postgen/canine_chain/filetree/files'
-import type { Pubkey } from '@/postgen/canine_chain/filetree/pubkey'
+import type { Files } from '@/postGen/canine_chain/filetree/files'
+import type { Pubkey } from '@/postGen/canine_chain/filetree/pubkey'
 
 /**
  * File Documentation

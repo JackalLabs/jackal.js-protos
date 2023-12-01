@@ -14,7 +14,7 @@ import type {
   MsgSetProviderKeybase,
   MsgSetProviderTotalSpace,
   MsgShutdownProvider
-} from '@/postgen/canine_chain/storage/tx'
+} from '@/postGen/canine_chain/storage/tx'
 
 /**
  * MsgStoragePostFile Documentation

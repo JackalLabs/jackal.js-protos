@@ -19,9 +19,9 @@ export interface IOracleExtension {
  * All functions for querying data from the Oracle module.
  *
  * @interface IOracleExtensionMembers
- * @property {allFeeds} allFeeds
- * @property {feed} feed
- * @property {params} params
+ * @property {allFeeds} allFeeds()
+ * @property {feed} feed()
+ * @property {params} params()
  */
 export interface IOracleExtensionMembers {
 

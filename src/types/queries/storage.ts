@@ -1,4 +1,4 @@
-import type { PageRequest } from '@/postgen/cosmos/base/query/v1beta1/pagination'
+import type { PageRequest } from '@/postGen/cosmos/base/query/v1beta1/pagination'
 import type {
   QueryActiveProviders,
   QueryAllAttestations,
@@ -24,7 +24,7 @@ import type {
   QueryStoragePaymentInfo,
   QueryStorageStats,
   QueryStoreCount
-} from '@/postgen/canine_chain/storage/query'
+} from '@/postGen/canine_chain/storage/query'
 
 /**
  * QueryAllProofs Documentation

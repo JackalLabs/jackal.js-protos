@@ -3,7 +3,7 @@ import {
   MsgCreateNotification,
   MsgDeleteNotification,
   protobufPackage
-} from '@/postgen/canine_chain/notifications/tx'
+} from '@/postGen/canine_chain/notifications/tx'
 import { deprecated } from '@/utils/misc'
 import type { DEncodeObject, DMsgBlockSenders, DMsgCreateNotification, DMsgDeleteNotification } from '@/types/msgs'
 import type { TJackalModuleTypeMap } from '@/types'
@@ -14,15 +14,40 @@ export const notificationsTypes: TJackalModuleTypeMap = {
   blockSenders: [`/${protobufPackage}.MsgBlockSenders`, MsgBlockSenders]
 }
 
+/**
+ * All functions for creating Notifications Tx.
+ *
+ * @property {msgCreateNotification} msgCreateNotification()
+ * @property {msgDeleteNotification} msgDeleteNotification()
+ * @property {msgBlockSenders} msgBlockSenders()
+ * @property {msgCreateNotifications} msgCreateNotifications() deprecated
+ * @property {msgUpdateNotifications} msgUpdateNotifications() deprecated
+ * @property {msgDeleteNotifications} msgDeleteNotifications() deprecated
+ * @property {msgSetCounter} msgSetCounter() deprecated
+ */
 export type ITxNotifications = {
   msgCreateNotification (data: DMsgCreateNotification): DEncodeObject
   msgDeleteNotification (data: DMsgDeleteNotification): DEncodeObject
   msgBlockSenders (data: DMsgBlockSenders): DEncodeObject
 
-  /* Deprecated */
+  /**
+   * @deprecated since v2.0.0
+   */
   msgCreateNotifications (_?: any): void
+
+  /**
+   * @deprecated since v2.0.0
+   */
   msgUpdateNotifications (_?: any): void
+
+  /**
+   * @deprecated since v2.0.0
+   */
   msgDeleteNotifications (_?: any): void
+
+  /**
+   * @deprecated since v2.0.0
+   */
   msgSetCounter (_?: any): void
 }
 

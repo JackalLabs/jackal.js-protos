@@ -15,7 +15,7 @@ import {
   MsgSetProviderTotalSpace,
   MsgShutdownProvider,
   protobufPackage
-} from '@/postgen/canine_chain/storage/tx'
+} from '@/postGen/canine_chain/storage/tx'
 import { deprecated } from '@/utils/misc'
 import type {
   DEncodeObject,
@@ -55,6 +55,29 @@ export const storageTypes: TJackalModuleTypeMap = {
   shutdownProvider: [`/${protobufPackage}.MsgShutdownProvider`, MsgShutdownProvider]
 }
 
+/**
+ * All functions for creating Storage Tx.
+ *
+ * @property {msgPostFile} msgPostFile()
+ * @property {msgPostProof} msgPostProof()
+ * @property {msgDeleteFile} msgDeleteFile()
+ * @property {msgSetProviderIP} msgSetProviderIP()
+ * @property {msgSetProviderKeybase} msgSetProviderKeybase()
+ * @property {msgSetProviderTotalSpace} msgSetProviderTotalSpace()
+ * @property {msgShutdownProvider} msgShutdownProvider()
+ * @property {msgBuyStorage} msgBuyStorage()
+ * @property {msgAddClaimer} msgAddClaimer()
+ * @property {msgRemoveClaimer} msgRemoveClaimer()
+ * @property {msgRequestAttestationForm} msgRequestAttestationForm()
+ * @property {msgAttest} msgAttest()
+ * @property {msgRequestReportForm} msgRequestReportForm()
+ * @property {msgReport} msgReport()
+ * @property {msgPostContract} msgPostContract() deprecated
+ * @property {msgSignContract} msgSignContract() deprecated
+ * @property {msgCancelContract} msgCancelContract() deprecated
+ * @property {msgClaimStray} msgClaimStray() deprecated
+ * @property {msgUpgradeStorage} msgUpgradeStorage() deprecated
+ */
 export type ITxStorage = {
   msgPostFile(data: DMsgStoragePostFile): DEncodeObject
   msgPostProof(data: DMsgPostProof): DEncodeObject
@@ -72,11 +95,29 @@ export type ITxStorage = {
   msgRequestReportForm(data: DMsgRequestReportForm): DEncodeObject
   msgReport(data: DMsgReport): DEncodeObject
 
-  /* Deprecated */
+  /**
+   * @deprecated since v2.0.0
+   */
   msgPostContract(_?: any): void
+
+  /**
+   * @deprecated since v2.0.0
+   */
   msgSignContract(_?: any): void
+
+  /**
+   * @deprecated since v2.0.0
+   */
   msgCancelContract(_?: any): void
+
+  /**
+   * @deprecated since v2.0.0
+   */
   msgClaimStray(_?: any): void
+
+  /**
+   * @deprecated since v2.0.0
+   */
   msgUpgradeStorage(_?: any): void
 }
 

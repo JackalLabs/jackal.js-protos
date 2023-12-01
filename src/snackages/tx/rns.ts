@@ -12,7 +12,7 @@ import {
   MsgTransfer,
   MsgUpdate,
   protobufPackage
-} from '@/postgen/canine_chain/rns/tx'
+} from '@/postGen/canine_chain/rns/tx'
 import type {
   DEncodeObject,
   DMsgAcceptBid,
@@ -45,6 +45,22 @@ export const rnsTypes: TJackalModuleTypeMap = {
   update: [`/${protobufPackage}.MsgUpdate`, MsgUpdate]
 }
 
+/**
+ * All functions for creating RNS Tx.
+ *
+ * @property {msgAcceptBid} msgAcceptBid()
+ * @property {msgAddRecord} msgAddRecord()
+ * @property {msgBid} msgBid()
+ * @property {msgBuy} msgBuy()
+ * @property {msgCancelBid} msgCancelBid()
+ * @property {msgDelist} msgDelist()
+ * @property {msgDelRecord} msgDelRecord()
+ * @property {msgInit} msgInit()
+ * @property {msgList} msgList()
+ * @property {msgRegister} msgRegister()
+ * @property {msgTransfer} msgTransfer()
+ * @property {msgUpdate} msgUpdate()
+ */
 export type ITxRns = {
   msgAcceptBid(data: DMsgAcceptBid): DEncodeObject
   msgAddRecord(data: DMsgAddRecord): DEncodeObject

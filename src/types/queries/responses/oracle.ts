@@ -1,6 +1,6 @@
-import type { Params } from '@/postgen/canine_chain/oracle/params'
-import type { PageResponse } from '@/postgen/cosmos/base/query/v1beta1/pagination'
-import type { QueryAllFeedsResponse, QueryFeedResponse, QueryParamsResponse } from '@/postgen/canine_chain/oracle/query'
+import type { Params } from '@/postGen/canine_chain/oracle/params'
+import type { PageResponse } from '@/postGen/cosmos/base/query/v1beta1/pagination'
+import type { QueryAllFeedsResponse, QueryFeedResponse, QueryParamsResponse } from '@/postGen/canine_chain/oracle/query'
 import type { DFeed } from '@/types/oracle'
 
 /**

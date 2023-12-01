@@ -1,7 +1,7 @@
 import type {
   QueryInflation,
   QueryParams
-} from '@/postgen/canine_chain/jklmint/query'
+} from '@/postGen/canine_chain/jklmint/query'
 
 /**
  * QueryInflation Documentation

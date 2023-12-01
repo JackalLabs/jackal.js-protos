@@ -1,7 +1,7 @@
-import type { Names } from '@/postgen/canine_chain/rns/names'
-import type { Bids } from '@/postgen/canine_chain/rns/bids'
-import type { Forsale } from '@/postgen/canine_chain/rns/forsale'
-import type { Init } from '@/postgen/canine_chain/rns/init'
+import type { Names } from '@/postGen/canine_chain/rns/names'
+import type { Bids } from '@/postGen/canine_chain/rns/bids'
+import type { Forsale } from '@/postGen/canine_chain/rns/forsale'
+import type { Init } from '@/postGen/canine_chain/rns/init'
 
 /**
  * Name Documentation

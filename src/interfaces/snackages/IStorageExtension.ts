@@ -62,30 +62,30 @@ export interface IStorageExtension {
  * All functions for querying data from the FileTree module.
  *
  * @interface IStorageExtensionMembers
- * @property {activeProviders} activeProviders
- * @property {allAttestations} allAttestations
- * @property {allFiles} allFiles
- * @property {allProofs} allProofs
- * @property {allProviders} allProviders
- * @property {allReports} allReports
- * @property {allStoragePaymentInfo} allStoragePaymentInfo
- * @property {attestation} attestation
- * @property {clientFreeSpace} clientFreeSpace
- * @property {file} file
- * @property {fileUploadCheck} fileUploadCheck
- * @property {findFile} findFile
- * @property {freeSpace} freeSpace
- * @property {openFiles} openFiles
- * @property {params} params
- * @property {payData} payData
- * @property {priceCheck} priceCheck
- * @property {proof} proof
- * @property {proofsByAddress} proofsByAddress
- * @property {provider} provider
- * @property {report} report
- * @property {storagePaymentInfo} storagePaymentInfo
- * @property {storageStats} storageStats
- * @property {storeCount} storeCount
+ * @property {activeProviders} activeProviders()
+ * @property {allAttestations} allAttestations()
+ * @property {allFiles} allFiles()
+ * @property {allProofs} allProofs()
+ * @property {allProviders} allProviders()
+ * @property {allReports} allReports()
+ * @property {allStoragePaymentInfo} allStoragePaymentInfo()
+ * @property {attestation} attestation()
+ * @property {clientFreeSpace} clientFreeSpace()
+ * @property {file} file()
+ * @property {fileUploadCheck} fileUploadCheck()
+ * @property {findFile} findFile()
+ * @property {freeSpace} freeSpace()
+ * @property {openFiles} openFiles()
+ * @property {params} params()
+ * @property {payData} payData()
+ * @property {priceCheck} priceCheck()
+ * @property {proof} proof()
+ * @property {proofsByAddress} proofsByAddress()
+ * @property {provider} provider()
+ * @property {report} report()
+ * @property {storagePaymentInfo} storagePaymentInfo()
+ * @property {storageStats} storageStats()
+ * @property {storeCount} storeCount()
  */
 export interface IStorageExtensionMembers {
 
