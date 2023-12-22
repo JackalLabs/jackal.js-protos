@@ -1,6 +1,12 @@
-import { defaultRegistryTypes } from "@cosmjs/stargate"
+import { defaultRegistryTypes } from '@cosmjs/stargate'
 import { Registry } from '@cosmjs/proto-signing'
-import { fileTreeTypes, notificationsTypes, oracleTypes, rnsTypes, storageTypes } from '@/snackages/tx'
+import {
+  fileTreeTypes,
+  notificationsTypes,
+  oracleTypes,
+  rnsTypes,
+  storageTypes,
+} from '@/snackages/tx'
 import type { TModuleType } from '@/types'
 
 export const jackalDefaultRegistryEntries: Array<TModuleType> = [
@@ -10,7 +16,7 @@ export const jackalDefaultRegistryEntries: Array<TModuleType> = [
   ...Object.values(notificationsTypes),
   ...Object.values(oracleTypes),
   ...Object.values(rnsTypes),
-  ...Object.values(storageTypes)
+  ...Object.values(storageTypes),
 ]
 
 export function createDefaultRegistry(): Registry {

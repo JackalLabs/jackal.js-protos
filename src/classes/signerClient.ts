@@ -1,11 +1,5 @@
 import {
   QueryClient,
-  setupBankExtension,
-  setupDistributionExtension,
-  setupGovExtension,
-  setupSlashingExtension,
-  setupStakingExtension,
-  SigningStargateClient,
   SigningStargateClientOptions
 } from '@cosmjs/stargate'
 import {
@@ -19,21 +13,31 @@ import {
 import { Tendermint34Client } from '@cosmjs/tendermint-rpc'
 import { OfflineSigner } from '@cosmjs/launchpad'
 import { createDefaultRegistry } from '@/snackages/registry'
-import { TxFileTree, TxOracle, TxRns, TxStorage } from '@/snackages'
+import {
+  fileTreeResponses, notificationsResponses, oracleResponses, rnsResponses,
+  storageResponses,
+  TxFileTree,
+  TxNotifications,
+  TxOracle,
+  TxRns,
+  TxStorage
+} from '@/snackages'
 import type { ISignAndBroadcastOptions } from '@/interfaces/ISignAndBroadcastOptions'
 import type { IJackalSigningStargateClient } from '@/interfaces/classes/ISignerClient'
 import type { DDeliverTxResponse, DEncodeObject } from '@/types/msgs'
 import type { DHttpEndpoint, TQueryExtensions } from '@/types'
 import type { ITxLibrary } from '@/interfaces'
-import { TxNotifications } from '@/snackages/tx/notifications'
+import { SigningStargateCompatibilityClient } from '@/compatibility'
+import { TMsgResponseParsers } from '@/types/msgResponseParsers'
 
 /**
  * @class {IJackalSigningStargateClient} JackalSigningStargateClient
  */
-export class JackalSigningStargateClient extends SigningStargateClient implements IJackalSigningStargateClient {
+export class JackalSigningStargateClient extends SigningStargateCompatibilityClient implements IJackalSigningStargateClient {
   protected readonly address: string
   public readonly queries: TQueryExtensions
   public readonly txLibrary: ITxLibrary
+  public readonly txResponseLibrary: TMsgResponseParsers
 
   /**
    * @function connectWithSigner
@@ -71,13 +75,7 @@ export class JackalSigningStargateClient extends SigningStargateClient implement
       createNotificationsExtension,
       createOracleExtension,
       createRnsExtension,
-      createStorageExtension,
-      /* Cosmos Extensions */
-      setupBankExtension,
-      setupDistributionExtension,
-      setupGovExtension,
-      setupSlashingExtension,
-      setupStakingExtension
+      createStorageExtension
     )
 
     this.txLibrary = {
@@ -87,6 +85,14 @@ export class JackalSigningStargateClient extends SigningStargateClient implement
       oracle: TxOracle,
       rns: TxRns,
       storage: TxStorage
+    }
+
+    this.txResponseLibrary = {
+      ...fileTreeResponses,
+      ...notificationsResponses,
+      ...oracleResponses,
+      ...rnsResponses,
+      ...storageResponses,
     }
   }
 
@@ -99,6 +105,7 @@ export class JackalSigningStargateClient extends SigningStargateClient implement
       memo: '',
       ...options
     }
+    console.log('selfSignAndBroadcast this.address', this.address)
     return this.signAndBroadcast(this.address, msgs, fee, memo)
   }
 }

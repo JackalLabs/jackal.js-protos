@@ -146,8 +146,8 @@ export type DMsgShutdownProvider = Documentation<{
  * MsgBuyStorage Documentation
  * @prop {string} creator - Jackal address of wallet creating the tx.
  * @prop {string} forAddress - Jackal address to receive storage plan purchase.
- * @prop {number} durationDays - Total number of days for plan.
- * @prop {number} bytes - Total storage space to purchase in bytes.
+ * @prop {number} durationDays - Total number of days for plan. Minimum 30.
+ * @prop {number} bytes - Total storage space to purchase in bytes. Minimum 1000000000 (1GB).
  * @prop {string} paymentDenom - desc.
  */
 export type DMsgBuyStorage = Documentation<{

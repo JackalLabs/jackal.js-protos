@@ -1,11 +1,4 @@
-import type { SlashingExtension } from '@cosmjs/stargate/build/modules'
-import type {
-  BankExtension,
-  DistributionExtension,
-  GovExtension,
-  QueryClient,
-  StakingExtension
-} from '@cosmjs/stargate'
+import type { QueryClient } from '@cosmjs/stargate'
 import type {
   IFileTreeExtension,
   IJklMintExtension,
@@ -26,9 +19,3 @@ export type TQueryExtensions = QueryClient
   & IOracleExtension
   & IRnsExtension
   & IStorageExtension
-  /* Cosmos Extensions */
-  & BankExtension
-  & DistributionExtension
-  & GovExtension
-  & SlashingExtension
-  & StakingExtension

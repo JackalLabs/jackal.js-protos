@@ -23,7 +23,7 @@ export async function deprecated(
 }
 
 /**
- * Notify that function is deprecated and should no longer be used.
+ * Generic warning handler.
  * @param {string} thing - Name of code block with error. Example: "[ParentContext] functionName()".
  * @param {any} err - Error to warn.
  */

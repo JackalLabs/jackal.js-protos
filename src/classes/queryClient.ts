@@ -1,13 +1,6 @@
 import { Tendermint34Client } from '@cosmjs/tendermint-rpc'
-import {
-  QueryClient,
-  setupBankExtension,
-  setupDistributionExtension,
-  setupGovExtension,
-  setupSlashingExtension,
-  setupStakingExtension,
-  StargateClient
-} from '@cosmjs/stargate'
+import type { StargateClientOptions } from '@cosmjs/stargate'
+import { QueryClient } from '@cosmjs/stargate'
 import {
   createFileTreeExtension,
   createJklMintExtension,
@@ -16,14 +9,14 @@ import {
   createRnsExtension,
   createStorageExtension
 } from '@/snackages/query'
-import type { StargateClientOptions } from '@cosmjs/stargate'
 import type { IJackalStargateClient } from '@/interfaces/classes'
 import type { DHttpEndpoint, TQueryExtensions } from '@/types'
+import { StargateCompatibilityClient } from '@/compatibility'
 
 /**
  * @class {IJackalStargateClient} JackalStargateClient
  */
-export class JackalStargateClient extends StargateClient implements IJackalStargateClient {
+export class JackalStargateClient extends StargateCompatibilityClient implements IJackalStargateClient {
   public readonly queries: TQueryExtensions
 
   /**
@@ -52,13 +45,7 @@ export class JackalStargateClient extends StargateClient implements IJackalStarg
       createNotificationsExtension,
       createOracleExtension,
       createRnsExtension,
-      createStorageExtension,
-      /* Cosmos Extensions */
-      setupBankExtension,
-      setupDistributionExtension,
-      setupGovExtension,
-      setupSlashingExtension,
-      setupStakingExtension
+      createStorageExtension
     )
   }
 }

@@ -7,22 +7,26 @@ import type {
   DQueryAllNotifications,
   DQueryAllNotificationsByAddress,
   DQueryNotification,
-  DQueryNotificationsParams
+  DQueryNotificationsParams,
 } from '@/types/queries'
 import type {
   TQueryAllNotificationsByAddressResponseStrict,
   TQueryAllNotificationsResponseStrict,
   TQueryNotificationResponseStrict,
-  TQueryNotificationsParamsResponseStrict
+  TQueryNotificationsParamsResponseStrict,
 } from '@/types/queries/responses'
 
-export function createNotificationsExtension(base: QueryClient): INotificationsExtension {
+export function createNotificationsExtension(
+  base: QueryClient,
+): INotificationsExtension {
   const rpc = createProtobufRpcClient(base)
   const queryService = new QueryClientImpl(rpc)
 
   return {
     notifications: {
-      allNotifications: async (request: DQueryAllNotifications): Promise<TQueryAllNotificationsResponseStrict> => {
+      allNotifications: async (
+        request: DQueryAllNotifications,
+      ): Promise<TQueryAllNotificationsResponseStrict> => {
         const resp = await queryService
           .AllNotifications(request)
           .catch((err) => {
@@ -32,7 +36,9 @@ export function createNotificationsExtension(base: QueryClient): INotificationsE
         assertDefined(resp.pagination)
         return resp as TQueryAllNotificationsResponseStrict
       },
-      allNotificationsByAddress: async (request: DQueryAllNotificationsByAddress): Promise<TQueryAllNotificationsByAddressResponseStrict> => {
+      allNotificationsByAddress: async (
+        request: DQueryAllNotificationsByAddress,
+      ): Promise<TQueryAllNotificationsByAddressResponseStrict> => {
         const resp = await queryService
           .AllNotificationsByAddress(request)
           .catch((err) => {
@@ -42,26 +48,26 @@ export function createNotificationsExtension(base: QueryClient): INotificationsE
         assertDefined(resp.pagination)
         return resp as TQueryAllNotificationsByAddressResponseStrict
       },
-      notification: async (request: DQueryNotification): Promise<TQueryNotificationResponseStrict> => {
-        const resp = await queryService
-          .Notification(request)
-          .catch((err) => {
-            warnError('[Notifications] notification', err)
-            throw err
-          })
+      notification: async (
+        request: DQueryNotification,
+      ): Promise<TQueryNotificationResponseStrict> => {
+        const resp = await queryService.Notification(request).catch((err) => {
+          warnError('[Notifications] notification', err)
+          throw err
+        })
         assertDefined(resp.notification)
         return resp as TQueryNotificationResponseStrict
       },
-      params: async (request: DQueryNotificationsParams): Promise<TQueryNotificationsParamsResponseStrict> => {
-        const resp = await queryService
-          .Params(request)
-          .catch((err) => {
-            warnError('[Notifications] params', err)
-            throw err
-          })
+      params: async (
+        request: DQueryNotificationsParams,
+      ): Promise<TQueryNotificationsParamsResponseStrict> => {
+        const resp = await queryService.Params(request).catch((err) => {
+          warnError('[Notifications] params', err)
+          throw err
+        })
         assertDefined(resp.params)
         return resp as TQueryNotificationsParamsResponseStrict
-      }
-    }
+      },
+    },
   }
 }

@@ -10,3 +10,4 @@ export * from '@/types/msgs'
 export * from '@/types/queries'
 
 export * from '@/types/TQueryExtensions'
+export * from '@/types/msgResponseParsers'
