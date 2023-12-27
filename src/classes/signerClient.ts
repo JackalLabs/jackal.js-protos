@@ -14,13 +14,11 @@ import { Tendermint34Client } from '@cosmjs/tendermint-rpc'
 import { OfflineSigner } from '@cosmjs/launchpad'
 import { createDefaultRegistry } from '@/snackages/registry'
 import {
-  fileTreeResponses, notificationsResponses, oracleResponses, rnsResponses,
-  storageResponses,
   TxFileTree,
   TxNotifications,
   TxOracle,
   TxRns,
-  TxStorage
+  TxStorage,
 } from '@/snackages'
 import type { ISignAndBroadcastOptions } from '@/interfaces/ISignAndBroadcastOptions'
 import type { IJackalSigningStargateClient } from '@/interfaces/classes/ISignerClient'
@@ -28,7 +26,6 @@ import type { DDeliverTxResponse, DEncodeObject } from '@/types/msgs'
 import type { DHttpEndpoint, TQueryExtensions } from '@/types'
 import type { ITxLibrary } from '@/interfaces'
 import { SigningStargateCompatibilityClient } from '@/compatibility'
-import { TMsgResponseParsers } from '@/types/msgResponseParsers'
 
 /**
  * @class {IJackalSigningStargateClient} JackalSigningStargateClient
@@ -37,7 +34,6 @@ export class JackalSigningStargateClient extends SigningStargateCompatibilityCli
   protected readonly address: string
   public readonly queries: TQueryExtensions
   public readonly txLibrary: ITxLibrary
-  public readonly txResponseLibrary: TMsgResponseParsers
 
   /**
    * @function connectWithSigner
@@ -85,14 +81,6 @@ export class JackalSigningStargateClient extends SigningStargateCompatibilityCli
       oracle: TxOracle,
       rns: TxRns,
       storage: TxStorage
-    }
-
-    this.txResponseLibrary = {
-      ...fileTreeResponses,
-      ...notificationsResponses,
-      ...oracleResponses,
-      ...rnsResponses,
-      ...storageResponses,
     }
   }
 

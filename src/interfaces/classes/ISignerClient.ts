@@ -1,7 +1,6 @@
 import type { ISignAndBroadcastOptions, ITxLibrary } from '@/interfaces'
 import type { DDeliverTxResponse, DEncodeObject, TQueryExtensions } from '@/types'
 import { SigningStargateCompatibilityClient } from '@/compatibility'
-import { TMsgResponseParsers } from '@/types/msgResponseParsers'
 
 /**
  * @interface IJackalSigningStargateClient
@@ -13,7 +12,6 @@ import { TMsgResponseParsers } from '@/types/msgResponseParsers'
 export interface IJackalSigningStargateClient extends SigningStargateCompatibilityClient {
   readonly queries: TQueryExtensions
   readonly txLibrary: ITxLibrary
-  readonly txResponseLibrary: TMsgResponseParsers
 
   /**
    * @function selfSignAndBroadcast
