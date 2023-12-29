@@ -18,18 +18,21 @@ import type { IMsgData } from '@/interfaces'
  * @prop {number} gasUsed - Total gas used as calculated by chain.
  * @prop {number} gasWanted - Maximum gas allowed as submitted in transaction.
  */
-export type DDeliverTxResponse = Documentation<{
-  readonly height: number;
-  readonly txIndex: number;
-  readonly code: number;
-  readonly transactionHash: string;
-  readonly events: readonly Event[];
-  readonly rawLog?: string;
-  readonly data?: readonly IMsgData[];
-  readonly msgResponses: readonly DTxMsgData[];
-  readonly gasUsed: number;
-  readonly gasWanted: number;
-}, DeliverTxResponse>
+export type DDeliverTxResponse = Documentation<
+  {
+    readonly height: number
+    readonly txIndex: number
+    readonly code: number
+    readonly transactionHash: string
+    readonly events: readonly Event[]
+    readonly rawLog?: string
+    readonly data?: readonly IMsgData[]
+    readonly msgResponses: readonly DTxMsgData[]
+    readonly gasUsed: number
+    readonly gasWanted: number
+  },
+  DeliverTxResponse
+>
 
 /**
  * TxMsgData Documentation
@@ -50,10 +53,13 @@ export type DTxMsgData = {
  * @prop {string} typeUrl - Identifier composed of msg type's package and its name.
  * @prop {any} value - Object created from msg parameters.
  */
-export type DEncodeObject = Documentation<{
-  readonly typeUrl: string;
-  readonly value: any;
-}, EncodeObject>
+export type DEncodeObject = Documentation<
+  {
+    readonly typeUrl: string
+    readonly value: any
+  },
+  EncodeObject
+>
 
 /**
  * Coin Documentation
@@ -62,7 +68,10 @@ export type DEncodeObject = Documentation<{
  * @prop {string} denom - Denom of token, should be ujkl for Jackal.
  * @prop {string} amount - String of value parsable to number.
  */
-export type DCoin = Documentation<{
-  denom: string;
-  amount: string;
-}, Coin>
+export type DCoin = Documentation<
+  {
+    denom: string
+    amount: string
+  },
+  Coin
+>

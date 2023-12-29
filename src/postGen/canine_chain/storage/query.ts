@@ -70,6 +70,26 @@ export interface QueryAllFilesResponse {
   pagination: PageResponse | undefined;
 }
 
+export interface QueryAllFilesByMerkle {
+  pagination: PageRequest | undefined;
+  merkle: Uint8Array;
+}
+
+export interface QueryAllFilesByMerkleResponse {
+  files: UnifiedFile[];
+  pagination: PageResponse | undefined;
+}
+
+export interface QueryAllFilesByOwner {
+  pagination: PageRequest | undefined;
+  owner: string;
+}
+
+export interface QueryAllFilesByOwnerResponse {
+  files: UnifiedFile[];
+  pagination: PageResponse | undefined;
+}
+
 export interface QueryProvider {
   address: string;
 }
@@ -1130,6 +1150,312 @@ export const QueryAllFilesResponse = {
   },
   fromPartial<I extends Exact<DeepPartial<QueryAllFilesResponse>, I>>(object: I): QueryAllFilesResponse {
     const message = createBaseQueryAllFilesResponse();
+    message.files = object.files?.map((e) => UnifiedFile.fromPartial(e)) || [];
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageResponse.fromPartial(object.pagination)
+      : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryAllFilesByMerkle(): QueryAllFilesByMerkle {
+  return { pagination: undefined, merkle: new Uint8Array(0) };
+}
+
+export const QueryAllFilesByMerkle = {
+  encode(message: QueryAllFilesByMerkle, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.merkle.length !== 0) {
+      writer.uint32(18).bytes(message.merkle);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllFilesByMerkle {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryAllFilesByMerkle();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.merkle = reader.bytes();
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllFilesByMerkle {
+    return {
+      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
+      merkle: isSet(object.merkle) ? bytesFromBase64(object.merkle) : new Uint8Array(0),
+    };
+  },
+
+  toJSON(message: QueryAllFilesByMerkle): unknown {
+    const obj: any = {};
+    if (message.pagination !== undefined) {
+      obj.pagination = PageRequest.toJSON(message.pagination);
+    }
+    if (message.merkle.length !== 0) {
+      obj.merkle = base64FromBytes(message.merkle);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryAllFilesByMerkle>, I>>(base?: I): QueryAllFilesByMerkle {
+    return QueryAllFilesByMerkle.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<QueryAllFilesByMerkle>, I>>(object: I): QueryAllFilesByMerkle {
+    const message = createBaseQueryAllFilesByMerkle();
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageRequest.fromPartial(object.pagination)
+      : undefined;
+    message.merkle = object.merkle ?? new Uint8Array(0);
+    return message;
+  },
+};
+
+function createBaseQueryAllFilesByMerkleResponse(): QueryAllFilesByMerkleResponse {
+  return { files: [], pagination: undefined };
+}
+
+export const QueryAllFilesByMerkleResponse = {
+  encode(message: QueryAllFilesByMerkleResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.files) {
+      UnifiedFile.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllFilesByMerkleResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryAllFilesByMerkleResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.files.push(UnifiedFile.decode(reader, reader.uint32()));
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllFilesByMerkleResponse {
+    return {
+      files: gt.Array.isArray(object?.files) ? object.files.map((e: any) => UnifiedFile.fromJSON(e)) : [],
+      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
+    };
+  },
+
+  toJSON(message: QueryAllFilesByMerkleResponse): unknown {
+    const obj: any = {};
+    if (message.files?.length) {
+      obj.files = message.files.map((e) => UnifiedFile.toJSON(e));
+    }
+    if (message.pagination !== undefined) {
+      obj.pagination = PageResponse.toJSON(message.pagination);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryAllFilesByMerkleResponse>, I>>(base?: I): QueryAllFilesByMerkleResponse {
+    return QueryAllFilesByMerkleResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<QueryAllFilesByMerkleResponse>, I>>(
+    object: I,
+  ): QueryAllFilesByMerkleResponse {
+    const message = createBaseQueryAllFilesByMerkleResponse();
+    message.files = object.files?.map((e) => UnifiedFile.fromPartial(e)) || [];
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageResponse.fromPartial(object.pagination)
+      : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryAllFilesByOwner(): QueryAllFilesByOwner {
+  return { pagination: undefined, owner: "" };
+}
+
+export const QueryAllFilesByOwner = {
+  encode(message: QueryAllFilesByOwner, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.owner !== "") {
+      writer.uint32(18).string(message.owner);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllFilesByOwner {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryAllFilesByOwner();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.owner = reader.string();
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllFilesByOwner {
+    return {
+      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
+      owner: isSet(object.owner) ? gt.String(object.owner) : "",
+    };
+  },
+
+  toJSON(message: QueryAllFilesByOwner): unknown {
+    const obj: any = {};
+    if (message.pagination !== undefined) {
+      obj.pagination = PageRequest.toJSON(message.pagination);
+    }
+    if (message.owner !== "") {
+      obj.owner = message.owner;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryAllFilesByOwner>, I>>(base?: I): QueryAllFilesByOwner {
+    return QueryAllFilesByOwner.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<QueryAllFilesByOwner>, I>>(object: I): QueryAllFilesByOwner {
+    const message = createBaseQueryAllFilesByOwner();
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageRequest.fromPartial(object.pagination)
+      : undefined;
+    message.owner = object.owner ?? "";
+    return message;
+  },
+};
+
+function createBaseQueryAllFilesByOwnerResponse(): QueryAllFilesByOwnerResponse {
+  return { files: [], pagination: undefined };
+}
+
+export const QueryAllFilesByOwnerResponse = {
+  encode(message: QueryAllFilesByOwnerResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.files) {
+      UnifiedFile.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllFilesByOwnerResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryAllFilesByOwnerResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.files.push(UnifiedFile.decode(reader, reader.uint32()));
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllFilesByOwnerResponse {
+    return {
+      files: gt.Array.isArray(object?.files) ? object.files.map((e: any) => UnifiedFile.fromJSON(e)) : [],
+      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
+    };
+  },
+
+  toJSON(message: QueryAllFilesByOwnerResponse): unknown {
+    const obj: any = {};
+    if (message.files?.length) {
+      obj.files = message.files.map((e) => UnifiedFile.toJSON(e));
+    }
+    if (message.pagination !== undefined) {
+      obj.pagination = PageResponse.toJSON(message.pagination);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryAllFilesByOwnerResponse>, I>>(base?: I): QueryAllFilesByOwnerResponse {
+    return QueryAllFilesByOwnerResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<QueryAllFilesByOwnerResponse>, I>>(object: I): QueryAllFilesByOwnerResponse {
+    const message = createBaseQueryAllFilesByOwnerResponse();
     message.files = object.files?.map((e) => UnifiedFile.fromPartial(e)) || [];
     message.pagination = (object.pagination !== undefined && object.pagination !== null)
       ? PageResponse.fromPartial(object.pagination)
@@ -3475,6 +3801,10 @@ export interface Query {
   OpenFiles(request: QueryOpenFiles): Promise<QueryAllFilesResponse>;
   /** Queries a list of File items. */
   AllFiles(request: QueryAllFiles): Promise<QueryAllFilesResponse>;
+  /** Queries a list of File items matching the merkle. */
+  AllFilesByMerkle(request: QueryAllFilesByMerkle): Promise<QueryAllFilesByMerkleResponse>;
+  /** Queries a list of File items matching the owner. */
+  AllFilesByOwner(request: QueryAllFilesByOwner): Promise<QueryAllFilesByOwnerResponse>;
   /** Queries a Proof by provider_address, merkle, owner, and start. */
   Proof(request: QueryProof): Promise<QueryProofResponse>;
   /** Queries a list of Proof items. */
@@ -3528,6 +3858,8 @@ export class QueryClientImpl implements Query {
     this.File = this.File.bind(this);
     this.OpenFiles = this.OpenFiles.bind(this);
     this.AllFiles = this.AllFiles.bind(this);
+    this.AllFilesByMerkle = this.AllFilesByMerkle.bind(this);
+    this.AllFilesByOwner = this.AllFilesByOwner.bind(this);
     this.Proof = this.Proof.bind(this);
     this.AllProofs = this.AllProofs.bind(this);
     this.ProofsByAddress = this.ProofsByAddress.bind(this);
@@ -3571,6 +3903,18 @@ export class QueryClientImpl implements Query {
     const data = QueryAllFiles.encode(request).finish();
     const promise = this.rpc.request(this.service, "AllFiles", data);
     return promise.then((data) => QueryAllFilesResponse.decode(_m0.Reader.create(data)));
+  }
+
+  AllFilesByMerkle(request: QueryAllFilesByMerkle): Promise<QueryAllFilesByMerkleResponse> {
+    const data = QueryAllFilesByMerkle.encode(request).finish();
+    const promise = this.rpc.request(this.service, "AllFilesByMerkle", data);
+    return promise.then((data) => QueryAllFilesByMerkleResponse.decode(_m0.Reader.create(data)));
+  }
+
+  AllFilesByOwner(request: QueryAllFilesByOwner): Promise<QueryAllFilesByOwnerResponse> {
+    const data = QueryAllFilesByOwner.encode(request).finish();
+    const promise = this.rpc.request(this.service, "AllFilesByOwner", data);
+    return promise.then((data) => QueryAllFilesByOwnerResponse.decode(_m0.Reader.create(data)));
   }
 
   Proof(request: QueryProof): Promise<QueryProofResponse> {

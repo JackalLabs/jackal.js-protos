@@ -8,7 +8,7 @@ import type {
   DQueryInit,
   DQueryListOwnedNames,
   DQueryName,
-  DQueryRnsParams
+  DQueryRnsParams,
 } from '@/types/queries'
 import type {
   TQueryAllBidsResponseStrict,
@@ -20,7 +20,7 @@ import type {
   TQueryInitResponseStrict,
   TQueryListOwnedNamesResponseStrict,
   TQueryNameResponseStrict,
-  TQueryRnsParamsResponseStrict
+  TQueryRnsParamsResponseStrict,
 } from '@/types/queries/responses'
 
 /**
@@ -47,34 +47,41 @@ export interface IRnsExtension {
  * @property {params} params()
  */
 export interface IRnsExtensionMembers {
-
   /**
    * @function allBids
    * @param {DQueryAllBids} request
    * @returns Promise<TQueryAllBidsResponseStrict>
    */
-  readonly allBids: (request: DQueryAllBids) => Promise<TQueryAllBidsResponseStrict>
+  readonly allBids: (
+    request: DQueryAllBids,
+  ) => Promise<TQueryAllBidsResponseStrict>
 
   /**
    * @function allForSale
    * @param {DQueryAllForSale} request
    * @returns Promise<TQueryAllForSaleResponseStrict>
    */
-  readonly allForSale: (request: DQueryAllForSale) => Promise<TQueryAllForSaleResponseStrict>
+  readonly allForSale: (
+    request: DQueryAllForSale,
+  ) => Promise<TQueryAllForSaleResponseStrict>
 
   /**
    * @function allInits
    * @param {DQueryAllInits} request
    * @returns Promise<TQueryAllInitsResponseStrict>
    */
-  readonly allInits: (request: DQueryAllInits) => Promise<TQueryAllInitsResponseStrict>
+  readonly allInits: (
+    request: DQueryAllInits,
+  ) => Promise<TQueryAllInitsResponseStrict>
 
   /**
    * @function allNames
    * @param {DQueryAllNames} request
    * @returns Promise<TQueryAllNamesResponseStrict>
    */
-  readonly allNames: (request: DQueryAllNames) => Promise<TQueryAllNamesResponseStrict>
+  readonly allNames: (
+    request: DQueryAllNames,
+  ) => Promise<TQueryAllNamesResponseStrict>
 
   /**
    * @function bid
@@ -88,7 +95,9 @@ export interface IRnsExtensionMembers {
    * @param {DQueryForSale} request
    * @returns Promise<TQueryForSaleResponseStrict>
    */
-  readonly forSale: (request: DQueryForSale) => Promise<TQueryForSaleResponseStrict>
+  readonly forSale: (
+    request: DQueryForSale,
+  ) => Promise<TQueryForSaleResponseStrict>
 
   /**
    * @function init
@@ -102,7 +111,9 @@ export interface IRnsExtensionMembers {
    * @param {DQueryListOwnedNames} request
    * @returns Promise<TQueryListOwnedNamesResponseStrict>
    */
-  readonly listOwnedNames: (request: DQueryListOwnedNames) => Promise<TQueryListOwnedNamesResponseStrict>
+  readonly listOwnedNames: (
+    request: DQueryListOwnedNames,
+  ) => Promise<TQueryListOwnedNamesResponseStrict>
 
   /**
    * @function name
@@ -115,5 +126,7 @@ export interface IRnsExtensionMembers {
    * @param {DQueryRnsParams} request
    * @returns Promise<TQueryRnsParamsResponseStrict>
    */
-  readonly params: (request: DQueryRnsParams) => Promise<TQueryRnsParamsResponseStrict>
+  readonly params: (
+    request: DQueryRnsParams,
+  ) => Promise<TQueryRnsParamsResponseStrict>
 }

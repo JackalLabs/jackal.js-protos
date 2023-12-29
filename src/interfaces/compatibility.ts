@@ -7,8 +7,8 @@ import { Event } from '@cosmjs/stargate'
  * @property {Uint8Array} data
  */
 export interface IMsgData {
-  msgType: string;
-  data: Uint8Array;
+  msgType: string
+  data: Uint8Array
 }
 
 /**
@@ -27,16 +27,18 @@ export interface IMsgData {
  * @property {number} gasWanted
  */
 export interface IIndexedTx {
-  readonly height: number;
-  readonly txIndex: number;
-  readonly hash: string;
-  readonly code: number;
-  readonly events: readonly Event[];
-  readonly rawLog: string;
-  readonly data?: Uint8Array;
-  readonly tx: Uint8Array;
-  readonly msgResponses: Array<{ readonly typeUrl: string; readonly value: Uint8Array }>;
-  readonly gasUsed: number;
-  readonly gasWanted: number;
+  readonly height: number
+  readonly txIndex: number
+  readonly hash: string
+  readonly code: number
+  readonly events: readonly Event[]
+  readonly rawLog: string
+  readonly data?: Uint8Array
+  readonly tx: Uint8Array
+  readonly msgResponses: Array<{
+    readonly typeUrl: string
+    readonly value: Uint8Array
+  }>
+  readonly gasUsed: number
+  readonly gasWanted: number
 }
-

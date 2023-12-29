@@ -3,14 +3,14 @@ import type {
   DQueryFileTreeAllFiles,
   DQueryFileTreeFile,
   DQueryFileTreeParams,
-  DQueryPubKey
+  DQueryPubKey,
 } from '@/types/queries'
 import type {
   TQueryAllPubKeysResponseStrict,
   TQueryFileTreeAllFilesResponseStrict,
   TQueryFileTreeFileResponseStrict,
   TQueryFileTreeParamsResponseStrict,
-  TQueryPubKeyResponseStrict
+  TQueryPubKeyResponseStrict,
 } from '@/types/queries/responses'
 
 /**
@@ -32,39 +32,48 @@ export interface IFileTreeExtension {
  * @property {pubKey} pubKey()
  */
 export interface IFileTreeExtensionMembers {
-
   /**
    * @function allFiles
    * @param {DQueryFileTreeAllFiles} request
    * @returns Promise<TQueryFileTreeAllFilesResponseStrict>
    */
-  readonly allFiles: (request: DQueryFileTreeAllFiles) => Promise<TQueryFileTreeAllFilesResponseStrict>
+  readonly allFiles: (
+    request: DQueryFileTreeAllFiles,
+  ) => Promise<TQueryFileTreeAllFilesResponseStrict>
 
   /**
    * @function allPubKeys
    * @param {DQueryAllPubKeys} request
    * @returns Promise<TQueryAllPubKeysResponseStrict>
    */
-  readonly allPubKeys: (request: DQueryAllPubKeys) => Promise<TQueryAllPubKeysResponseStrict>
+  readonly allPubKeys: (
+    request: DQueryAllPubKeys,
+  ) => Promise<TQueryAllPubKeysResponseStrict>
 
   /**
    * @function file
    * @param {DQueryFileTreeFile} request
    * @returns Promise<TQueryFileTreeFileResponseStrict>
    */
-  readonly file: (request: DQueryFileTreeFile) => Promise<TQueryFileTreeFileResponseStrict>
+  readonly file: (
+    request: DQueryFileTreeFile,
+  ) => Promise<TQueryFileTreeFileResponseStrict>
 
   /**
    * @function params
    * @param {DQueryFileTreeParams} request
    * @returns Promise<TQueryFileTreeParamsResponseStrict>
    */
-  readonly params: (request: DQueryFileTreeParams) => Promise<TQueryFileTreeParamsResponseStrict>
+  readonly params: (
+    request: DQueryFileTreeParams,
+  ) => Promise<TQueryFileTreeParamsResponseStrict>
 
   /**
    * @function pubKey
    * @param {DQueryPubKey} request
    * @returns Promise<TQueryPubKeyResponseStrict>
    */
-  readonly pubKey: (request: DQueryPubKey) => Promise<TQueryPubKeyResponseStrict>
+  readonly pubKey: (
+    request: DQueryPubKey,
+  ) => Promise<TQueryPubKeyResponseStrict>
 }

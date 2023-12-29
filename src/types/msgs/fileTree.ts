@@ -9,7 +9,7 @@ import type {
   MsgRemoveEditors,
   MsgRemoveViewers,
   MsgResetEditors,
-  MsgResetViewers
+  MsgResetViewers,
 } from '@/postGen/canine_chain/filetree/tx'
 
 /**
@@ -20,13 +20,16 @@ import type {
  * @prop {string} address - Merkle path of file.
  * @prop {string} fileOwner - Hashed Jackal address of file owner.
  */
-export type DMsgAddEditors = Documentation<{
-  creator: string;
-  editorIds: string;
-  editorKeys: string;
-  address: string;
-  fileOwner: string;
-}, MsgAddEditors>
+export type DMsgAddEditors = Documentation<
+  {
+    creator: string
+    editorIds: string
+    editorKeys: string
+    address: string
+    fileOwner: string
+  },
+  MsgAddEditors
+>
 
 /**
  * MsgAddViewers Documentation
@@ -36,13 +39,16 @@ export type DMsgAddEditors = Documentation<{
  * @prop {string} address - Merkle path of file.
  * @prop {string} fileOwner - Hashed Jackal address of file owner.
  */
-export type DMsgAddViewers = Documentation<{
-  creator: string;
-  viewerIds: string;
-  viewerKeys: string;
-  address: string;
-  fileOwner: string;
-}, MsgAddViewers>
+export type DMsgAddViewers = Documentation<
+  {
+    creator: string
+    viewerIds: string
+    viewerKeys: string
+    address: string
+    fileOwner: string
+  },
+  MsgAddViewers
+>
 
 /**
  * MsgChangeOwner Documentation
@@ -51,12 +57,15 @@ export type DMsgAddViewers = Documentation<{
  * @prop {string} fileOwner - Hashed Jackal address of current file owner.
  * @prop {string} newOwner - Hashed Jackal address of new file owner.
  */
-export type DMsgChangeOwner = Documentation<{
-  creator: string;
-  address: string;
-  fileOwner: string;
-  newOwner: string;
-}, MsgChangeOwner>
+export type DMsgChangeOwner = Documentation<
+  {
+    creator: string
+    address: string
+    fileOwner: string
+    newOwner: string
+  },
+  MsgChangeOwner
+>
 
 /**
  * MsgFileTreeDeleteFile Documentation
@@ -64,11 +73,14 @@ export type DMsgChangeOwner = Documentation<{
  * @prop {string} hashPath - Merkle path of file.
  * @prop {string} account - Hashed Jackal address of file owner.
  */
-export type DMsgFileTreeDeleteFile = Documentation<{
-  creator: string;
-  hashPath: string;
-  account: string;
-}, MsgDeleteFile>
+export type DMsgFileTreeDeleteFile = Documentation<
+  {
+    creator: string
+    hashPath: string
+    account: string
+  },
+  MsgDeleteFile
+>
 
 /**
  * MsgFileTreePostFile Documentation
@@ -81,26 +93,32 @@ export type DMsgFileTreeDeleteFile = Documentation<{
  * @prop {string} editors - Stringified JSON object of hashed viewers and their decryption keys.
  * @prop {string} trackingNumber - UUID v4.
  */
-export type DMsgFileTreePostFile = Documentation<{
-  creator: string;
-  account: string;
-  hashParent: string;
-  hashChild: string;
-  contents: string;
-  viewers: string;
-  editors: string;
-  trackingNumber: string;
-}, MsgPostFile>
+export type DMsgFileTreePostFile = Documentation<
+  {
+    creator: string
+    account: string
+    hashParent: string
+    hashChild: string
+    contents: string
+    viewers: string
+    editors: string
+    trackingNumber: string
+  },
+  MsgPostFile
+>
 
 /**
  * MsgPostKey Documentation
  * @prop {string} creator - Jackal address of wallet creating the tx.
  * @prop {string} key - User's public key.
  */
-export type DMsgPostKey = Documentation<{
-  creator: string;
-  key: string;
-}, MsgPostKey>
+export type DMsgPostKey = Documentation<
+  {
+    creator: string
+    key: string
+  },
+  MsgPostKey
+>
 
 /**
  * MsgProvisionFileTree Documentation
@@ -109,12 +127,15 @@ export type DMsgPostKey = Documentation<{
  * @prop {string} viewers - Stringified JSON object of hashed viewers and their decryption keys.
  * @prop {string} trackingNumber - UUID v4.
  */
-export type DMsgProvisionFileTree = Documentation<{
-  creator: string;
-  editors: string;
-  viewers: string;
-  trackingNumber: string;
-}, MsgProvisionFileTree>
+export type DMsgProvisionFileTree = Documentation<
+  {
+    creator: string
+    editors: string
+    viewers: string
+    trackingNumber: string
+  },
+  MsgProvisionFileTree
+>
 
 /**
  * MsgRemoveEditors Documentation
@@ -123,12 +144,15 @@ export type DMsgProvisionFileTree = Documentation<{
  * @prop {string} address - Merkle path of file.
  * @prop {string} fileOwner - Hashed Jackal address of file owner.
  */
-export type DMsgRemoveEditors = Documentation<{
-  creator: string;
-  editorIds: string;
-  address: string;
-  fileOwner: string;
-}, MsgRemoveEditors>
+export type DMsgRemoveEditors = Documentation<
+  {
+    creator: string
+    editorIds: string
+    address: string
+    fileOwner: string
+  },
+  MsgRemoveEditors
+>
 
 /**
  * MsgRemoveViewers Documentation
@@ -137,12 +161,15 @@ export type DMsgRemoveEditors = Documentation<{
  * @prop {string} address - Merkle path of file.
  * @prop {string} fileOwner - Hashed Jackal address of file owner.
  */
-export type DMsgRemoveViewers = Documentation<{
-  creator: string;
-  viewerIds: string;
-  address: string;
-  fileOwner: string;
-}, MsgRemoveViewers>
+export type DMsgRemoveViewers = Documentation<
+  {
+    creator: string
+    viewerIds: string
+    address: string
+    fileOwner: string
+  },
+  MsgRemoveViewers
+>
 
 /**
  * MsgResetEditors Documentation
@@ -150,11 +177,14 @@ export type DMsgRemoveViewers = Documentation<{
  * @prop {string} address - Merkle path of file.
  * @prop {string} fileOwner - Hashed Jackal address of file owner.
  */
-export type DMsgResetEditors = Documentation<{
-  creator: string;
-  address: string;
-  fileOwner: string;
-}, MsgResetEditors>
+export type DMsgResetEditors = Documentation<
+  {
+    creator: string
+    address: string
+    fileOwner: string
+  },
+  MsgResetEditors
+>
 
 /**
  * MsgResetViewers Documentation
@@ -162,8 +192,11 @@ export type DMsgResetEditors = Documentation<{
  * @prop {string} address - Merkle path of file.
  * @prop {string} fileOwner - Hashed Jackal address of file owner.
  */
-export type DMsgResetViewers = Documentation<{
-  creator: string;
-  address: string;
-  fileOwner: string;
-}, MsgResetViewers>
+export type DMsgResetViewers = Documentation<
+  {
+    creator: string
+    address: string
+    fileOwner: string
+  },
+  MsgResetViewers
+>

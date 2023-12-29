@@ -2,7 +2,7 @@ import {
   DQueryInflation,
   DQueryJklMintParams,
   TQueryInflationResponseStrict,
-  TQueryJklMintParamsResponseStrict
+  TQueryJklMintParamsResponseStrict,
 } from '@/types/queries'
 
 /**
@@ -21,18 +21,21 @@ export interface IJklMintExtension {
  * @property {params} params()
  */
 export interface IJklMintExtensionMembers {
-
   /**
    * @function inflation
    * @param {DQueryInflation} request
    * @returns Promise<TQueryInflationResponseStrict>
    */
-  readonly inflation: (request: DQueryInflation) => Promise<TQueryInflationResponseStrict>
+  readonly inflation: (
+    request: DQueryInflation,
+  ) => Promise<TQueryInflationResponseStrict>
 
   /**
    * @function params
    * @param {DQueryJklMintParams} request
    * @returns Promise<TQueryJklMintParamsResponseStrict>
    */
-  readonly params: (request: DQueryJklMintParams) => Promise<TQueryJklMintParamsResponseStrict>
+  readonly params: (
+    request: DQueryJklMintParams,
+  ) => Promise<TQueryJklMintParamsResponseStrict>
 }

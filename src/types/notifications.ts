@@ -1,5 +1,7 @@
-import type { Notification } from '@/postGen/canine_chain/notifications/notification'
-import type { Block } from '@/postGen/canine_chain/notifications/notification'
+import type {
+  Block,
+  Notification,
+} from '@/postGen/canine_chain/notifications/notification'
 
 /**
  * Notification Documentation
@@ -10,13 +12,16 @@ import type { Block } from '@/postGen/canine_chain/notifications/notification'
  * @prop {string} contents - Stringified JSON object of arbitrary data.
  * @prop {string} privateContents - Arbitrary byte array, intended to be encrypted compressed JSON stringified data.
  */
-export type DNotification = Documentation<{
-  to: string;
-  from: string;
-  time: number;
-  contents: string;
-  privateContents: Uint8Array;
-}, Notification>
+export type DNotification = Documentation<
+  {
+    to: string
+    from: string
+    time: number
+    contents: string
+    privateContents: Uint8Array
+  },
+  Notification
+>
 
 /**
  * Block Documentation
@@ -24,7 +29,10 @@ export type DNotification = Documentation<{
  * @prop {string} address - Jackal wallet address which created the block.
  * @prop {string} blockedAddress - Jackal wallet address which was blocked.
  */
-export type DBlock = Documentation<{
-  address: string;
-  blockedAddress: string;
-}, Block>
+export type DBlock = Documentation<
+  {
+    address: string
+    blockedAddress: string
+  },
+  Block
+>

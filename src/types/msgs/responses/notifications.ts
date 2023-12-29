@@ -1,7 +1,7 @@
 import {
   MsgBlockSendersResponse,
   MsgCreateNotificationResponse,
-  MsgDeleteNotificationResponse
+  MsgDeleteNotificationResponse,
 } from '@/postGen/canine_chain/notifications/tx'
 
 /**

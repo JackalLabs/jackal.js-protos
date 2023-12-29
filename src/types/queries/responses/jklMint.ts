@@ -1,6 +1,6 @@
 import type {
   QueryInflationResponse,
-  QueryParamsResponse
+  QueryParamsResponse,
 } from '@/postGen/canine_chain/jklmint/query'
 import type { Params } from '@/postGen/canine_chain/jklmint/params'
 
@@ -9,16 +9,20 @@ import type { Params } from '@/postGen/canine_chain/jklmint/params'
  *
  * @prop {Uint8Array} inflation - Raw inflation rate.
  */
-export type TQueryInflationResponseStrict
-  = ModifyDeep<QueryInflationResponse, { inflation: Uint8Array }>
+export type TQueryInflationResponseStrict = ModifyDeep<
+  QueryInflationResponse,
+  { inflation: Uint8Array }
+>
 
 /**
  * This is the response for the [JklMint] Query/Params RPC method.
  *
  * @prop {DJklMintParams} params - Current parameters of the JklMint module.
  */
-export type TQueryJklMintParamsResponseStrict
-  = ModifyDeep<QueryParamsResponse, { params: Params }>
+export type TQueryJklMintParamsResponseStrict = ModifyDeep<
+  QueryParamsResponse,
+  { params: Params }
+>
 
 /**
  * JklMintParams Documentation
@@ -29,7 +33,7 @@ export type TQueryJklMintParamsResponseStrict
  * @prop {number} tokensPerBlock - Token emissions per block.
  */
 export type DJklMintParams = {
-  mintDenom: string;
-  providerRatio: number;
-  tokensPerBlock: number;
+  mintDenom: string
+  providerRatio: number
+  tokensPerBlock: number
 }

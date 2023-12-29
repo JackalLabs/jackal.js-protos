@@ -13,7 +13,7 @@ import type {
   MsgSetProviderIP,
   MsgSetProviderKeybase,
   MsgSetProviderTotalSpace,
-  MsgShutdownProvider
+  MsgShutdownProvider,
 } from '@/postGen/canine_chain/storage/tx'
 
 /**
@@ -27,16 +27,19 @@ import type {
  * @prop {number} expires - Set custom block height when deals expires, use 0 for standard deals.
  * @prop {string} note - Stringified JSON object of arbitrary data.
  */
-export type DMsgStoragePostFile = Documentation<{
-  creator: string;
-  merkle: Uint8Array;
-  fileSize: number;
-  proofInterval: number;
-  proofType: number;
-  maxProofs: number;
-  expires: number;
-  note: string;
-}, MsgPostFile>
+export type DMsgStoragePostFile = Documentation<
+  {
+    creator: string
+    merkle: Uint8Array
+    fileSize: number
+    proofInterval: number
+    proofType: number
+    maxProofs: number
+    expires: number
+    note: string
+  },
+  MsgPostFile
+>
 
 /**
  * MsgPostProof Documentation
@@ -48,15 +51,18 @@ export type DMsgStoragePostFile = Documentation<{
  * @prop {number} start - Block height when file was stored.
  * @prop {number} toProve - Index of file chunk to prove.
  */
-export type DMsgPostProof = Documentation<{
-  creator: string;
-  item: Uint8Array;
-  hashList: Uint8Array;
-  merkle: Uint8Array;
-  owner: string;
-  start: number;
-  toProve: number;
-}, MsgPostProof>
+export type DMsgPostProof = Documentation<
+  {
+    creator: string
+    item: Uint8Array
+    hashList: Uint8Array
+    merkle: Uint8Array
+    owner: string
+    start: number
+    toProve: number
+  },
+  MsgPostProof
+>
 
 /**
  * MsgStorageDeleteFile Documentation
@@ -64,61 +70,79 @@ export type DMsgPostProof = Documentation<{
  * @prop {Uint8Array} merkle - Merkle tree root of file.
  * @prop {number} start - Block height when file was stored.
  */
-export type DMsgStorageDeleteFile = Documentation<{
-  creator: string;
-  merkle: Uint8Array;
-  start: number;
-}, MsgDeleteFile>
+export type DMsgStorageDeleteFile = Documentation<
+  {
+    creator: string
+    merkle: Uint8Array
+    start: number
+  },
+  MsgDeleteFile
+>
 
 /**
  * MsgSetProviderIP Documentation
  * @prop {string} creator - Jackal address of wallet creating the tx.
  * @prop {string} ip - Publicly accessible url.
  */
-export type DMsgSetProviderIP = Documentation<{
-  creator: string;
-  ip: string;
-}, MsgSetProviderIP>
+export type DMsgSetProviderIP = Documentation<
+  {
+    creator: string
+    ip: string
+  },
+  MsgSetProviderIP
+>
 
 /**
  * MsgAddEditors Documentation
  * @prop {string} creator - Jackal address of wallet creating the tx.
  * @prop {string} keybase - Keybase identifier.
  */
-export type DMsgSetProviderKeybase = Documentation<{
-  creator: string;
-  keybase: string;
-}, MsgSetProviderKeybase>
+export type DMsgSetProviderKeybase = Documentation<
+  {
+    creator: string
+    keybase: string
+  },
+  MsgSetProviderKeybase
+>
 
 /**
  * MsgSetProviderTotalSpace Documentation
  * @prop {string} creator - Jackal address of wallet creating the tx.
  * @prop {number} space - Total space offered by provider in bytes.
  */
-export type DMsgSetProviderTotalSpace = Documentation<{
-  creator: string;
-  space: number;
-}, MsgSetProviderTotalSpace>
+export type DMsgSetProviderTotalSpace = Documentation<
+  {
+    creator: string
+    space: number
+  },
+  MsgSetProviderTotalSpace
+>
 
 /**
  * MsgAddClaimer Documentation
  * @prop {string} creator - Jackal address of wallet creating the tx.
  * @prop {string} claimAddress - Jackal address of claimer.
  */
-export type DMsgAddClaimer = Documentation<{
-  creator: string;
-  claimAddress: string;
-}, MsgAddClaimer>
+export type DMsgAddClaimer = Documentation<
+  {
+    creator: string
+    claimAddress: string
+  },
+  MsgAddClaimer
+>
 
 /**
  * MsgRemoveClaimer Documentation
  * @prop {string} creator - Jackal address of wallet creating the tx.
  * @prop {string} claimAddress - Jackal address of claimer.
  */
-export type DMsgRemoveClaimer = Documentation<{
-  creator: string;
-  claimAddress: string;
-}, MsgRemoveClaimer>
+export type DMsgRemoveClaimer = Documentation<
+  {
+    creator: string
+    claimAddress: string
+  },
+  MsgRemoveClaimer
+>
 
 /**
  * MsgInitProvider Documentation
@@ -127,20 +151,26 @@ export type DMsgRemoveClaimer = Documentation<{
  * @prop {string} keybase - Keybase identifier.
  * @prop {number} totalSpace - Total space offered by provider in bytes.
  */
-export type DMsgInitProvider = Documentation<{
-  creator: string;
-  ip: string;
-  keybase: string;
-  totalSpace: number;
-}, MsgInitProvider>
+export type DMsgInitProvider = Documentation<
+  {
+    creator: string
+    ip: string
+    keybase: string
+    totalSpace: number
+  },
+  MsgInitProvider
+>
 
 /**
  * MsgShutdownProvider Documentation
  * @prop {string} creator - Jackal address of wallet creating the tx.
  */
-export type DMsgShutdownProvider = Documentation<{
-  creator: string;
-}, MsgShutdownProvider>
+export type DMsgShutdownProvider = Documentation<
+  {
+    creator: string
+  },
+  MsgShutdownProvider
+>
 
 /**
  * MsgBuyStorage Documentation
@@ -150,13 +180,16 @@ export type DMsgShutdownProvider = Documentation<{
  * @prop {number} bytes - Total storage space to purchase in bytes. Minimum 1000000000 (1GB).
  * @prop {string} paymentDenom - desc.
  */
-export type DMsgBuyStorage = Documentation<{
-  creator: string;
-  forAddress: string;
-  durationDays: number;
-  bytes: number;
-  paymentDenom: string;
-}, MsgBuyStorage>
+export type DMsgBuyStorage = Documentation<
+  {
+    creator: string
+    forAddress: string
+    durationDays: number
+    bytes: number
+    paymentDenom: string
+  },
+  MsgBuyStorage
+>
 
 /**
  * MsgRequestAttestationForm Documentation
@@ -165,12 +198,15 @@ export type DMsgBuyStorage = Documentation<{
  * @prop {string} owner - Jackal address of file owner.
  * @prop {number} start - Block height when file was stored.
  */
-export type DMsgRequestAttestationForm = Documentation<{
-  creator: string;
-  merkle: Uint8Array;
-  owner: string;
-  start: number;
-}, MsgRequestAttestationForm>
+export type DMsgRequestAttestationForm = Documentation<
+  {
+    creator: string
+    merkle: Uint8Array
+    owner: string
+    start: number
+  },
+  MsgRequestAttestationForm
+>
 
 /**
  * MsgAttest Documentation
@@ -180,13 +216,16 @@ export type DMsgRequestAttestationForm = Documentation<{
  * @prop {string} owner - Jackal address of file owner.
  * @prop {number} start - Block height when file was stored.
  */
-export type DMsgAttest = Documentation<{
-  creator: string;
-  prover: string;
-  merkle: Uint8Array;
-  owner: string;
-  start: number;
-}, MsgAttest>
+export type DMsgAttest = Documentation<
+  {
+    creator: string
+    prover: string
+    merkle: Uint8Array
+    owner: string
+    start: number
+  },
+  MsgAttest
+>
 
 /**
  * MsgRequestReportForm Documentation
@@ -196,13 +235,16 @@ export type DMsgAttest = Documentation<{
  * @prop {string} owner - Jackal address of file owner.
  * @prop {number} start - Block height when file was stored.
  */
-export type DMsgRequestReportForm = Documentation<{
-  creator: string;
-  prover: string;
-  merkle: Uint8Array;
-  owner: string;
-  start: number;
-}, MsgRequestReportForm>
+export type DMsgRequestReportForm = Documentation<
+  {
+    creator: string
+    prover: string
+    merkle: Uint8Array
+    owner: string
+    start: number
+  },
+  MsgRequestReportForm
+>
 
 /**
  * MsgReport Documentation
@@ -212,10 +254,13 @@ export type DMsgRequestReportForm = Documentation<{
  * @prop {string} owner - Jackal address of file owner.
  * @prop {number} start - Block height when file was stored.
  */
-export type DMsgReport = Documentation<{
-  creator: string;
-  prover: string;
-  merkle: Uint8Array;
-  owner: string;
-  start: number;
-}, MsgReport>
+export type DMsgReport = Documentation<
+  {
+    creator: string
+    prover: string
+    merkle: Uint8Array
+    owner: string
+    start: number
+  },
+  MsgReport
+>

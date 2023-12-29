@@ -3,7 +3,7 @@ import { assertDefined } from '@cosmjs/utils'
 import { QueryClientImpl } from '@/postGen/canine_chain/storage/query'
 import { warnError } from '@/utils/misc'
 import type { IStorageExtension } from '@/interfaces/snackages'
-import type {
+import {
   DQueryActiveProviders,
   DQueryAllAttestations,
   DQueryAllProofs,
@@ -23,11 +23,15 @@ import type {
   DQueryProvider,
   DQueryReport,
   DQueryStorageAllFiles,
+  DQueryStorageAllFilesByMerkle,
+  DQueryStorageAllFilesByOwner,
   DQueryStorageFile,
   DQueryStorageParams,
   DQueryStoragePaymentInfo,
   DQueryStorageStats,
   DQueryStoreCount,
+  TQueryStorageAllFilesByMerkleResponseStrict,
+  TQueryStorageAllFilesByOwnerResponseStrict,
 } from '@/types/queries'
 import type {
   TQueryActiveProvidersResponseStrict,
@@ -94,6 +98,30 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         })
         assertDefined(resp.pagination)
         return resp as TQueryStorageAllFilesResponseStrict
+      },
+      allFilesByMerkle: async (
+        request: DQueryStorageAllFilesByMerkle,
+      ): Promise<TQueryStorageAllFilesByMerkleResponseStrict> => {
+        const resp = await queryService
+          .AllFilesByMerkle(request)
+          .catch((err) => {
+            warnError('[Storage] allFiles', err)
+            throw err
+          })
+        assertDefined(resp.pagination)
+        return resp as TQueryStorageAllFilesByMerkleResponseStrict
+      },
+      allFilesByOwner: async (
+        request: DQueryStorageAllFilesByOwner,
+      ): Promise<TQueryStorageAllFilesByOwnerResponseStrict> => {
+        const resp = await queryService
+          .AllFilesByOwner(request)
+          .catch((err) => {
+            warnError('[Storage] allFiles', err)
+            throw err
+          })
+        assertDefined(resp.pagination)
+        return resp as TQueryStorageAllFilesByOwnerResponseStrict
       },
       allProofs: async (
         request: DQueryAllProofs,

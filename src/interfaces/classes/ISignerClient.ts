@@ -1,5 +1,9 @@
 import type { ISignAndBroadcastOptions, ITxLibrary } from '@/interfaces'
-import type { DDeliverTxResponse, DEncodeObject, TQueryExtensions } from '@/types'
+import type {
+  DDeliverTxResponse,
+  DEncodeObject,
+  TQueryExtensions,
+} from '@/types'
 import { SigningStargateCompatibilityClient } from '@/compatibility'
 
 /**
@@ -9,7 +13,8 @@ import { SigningStargateCompatibilityClient } from '@/compatibility'
  * @property {ITxLibrary} txLibrary
  * @property {selfSignAndBroadcast} selfSignAndBroadcast
  */
-export interface IJackalSigningStargateClient extends SigningStargateCompatibilityClient {
+export interface IJackalSigningStargateClient
+  extends SigningStargateCompatibilityClient {
   readonly queries: TQueryExtensions
   readonly txLibrary: ITxLibrary
 
@@ -19,5 +24,8 @@ export interface IJackalSigningStargateClient extends SigningStargateCompatibili
    * @param {ISignAndBroadcastOptions} [options]
    * @returns Promise<DDeliverTxResponse>
    */
-  selfSignAndBroadcast(msgs: DEncodeObject[], options?: ISignAndBroadcastOptions): Promise<DDeliverTxResponse>
+  selfSignAndBroadcast(
+    msgs: DEncodeObject[],
+    options?: ISignAndBroadcastOptions,
+  ): Promise<DDeliverTxResponse>
 }

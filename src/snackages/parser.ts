@@ -3,7 +3,7 @@ import {
   notificationsResponses,
   oracleResponses,
   rnsResponses,
-  storageResponses
+  storageResponses,
 } from '@/snackages/tx'
 import { TMsgResponseParsers } from '@/types'
 import { IMsgResponse } from '@/interfaces'

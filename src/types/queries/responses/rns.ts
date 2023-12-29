@@ -8,7 +8,7 @@ import type {
   QueryInitResponse,
   QueryListOwnedNamesResponse,
   QueryNameResponse,
-  QueryParamsResponse
+  QueryParamsResponse,
 } from '@/postGen/canine_chain/rns/query'
 import type { Params } from '@/postGen/canine_chain/rns/params'
 import type { PageResponse } from '@/postGen/cosmos/base/query/v1beta1/pagination'
@@ -20,8 +20,10 @@ import type { DBid, DForsale, DName } from '@/types/rns'
  * @prop {DBid[]} bids - Array of Bid items.
  * @prop {PageResponse} pagination - Pagination details.
  */
-export type TQueryAllBidsResponseStrict
-  = ModifyDeep<QueryAllBidsResponse, { pagination: PageResponse }>
+export type TQueryAllBidsResponseStrict = ModifyDeep<
+  QueryAllBidsResponse,
+  { pagination: PageResponse }
+>
 
 /**
  * This is the response for the [RNS] Query/AllForSale RPC method.
@@ -29,8 +31,10 @@ export type TQueryAllBidsResponseStrict
  * @prop {DForsale[]} forSale - Array of Forsale items.
  * @prop {PageResponse} pagination - Pagination details.
  */
-export type TQueryAllForSaleResponseStrict
-  = ModifyDeep<QueryAllForSaleResponse, { pagination: PageResponse }>
+export type TQueryAllForSaleResponseStrict = ModifyDeep<
+  QueryAllForSaleResponse,
+  { pagination: PageResponse }
+>
 
 /**
  * This is the response for the [RNS] Query/AllInits RPC method.
@@ -38,8 +42,10 @@ export type TQueryAllForSaleResponseStrict
  * @prop {DInit[]} init - Array of Init items.
  * @prop {PageResponse} pagination - Pagination details.
  */
-export type TQueryAllInitsResponseStrict
-  = ModifyDeep<QueryAllInitsResponse, { pagination: PageResponse }>
+export type TQueryAllInitsResponseStrict = ModifyDeep<
+  QueryAllInitsResponse,
+  { pagination: PageResponse }
+>
 
 /**
  * This is the response for the [RNS] Query/AllNames RPC method.
@@ -47,32 +53,40 @@ export type TQueryAllInitsResponseStrict
  * @prop {DName[]} name - Array of Name items.
  * @prop {PageResponse} pagination - Pagination details.
  */
-export type TQueryAllNamesResponseStrict
-  = ModifyDeep<QueryAllNamesResponse, { pagination: PageResponse }>
+export type TQueryAllNamesResponseStrict = ModifyDeep<
+  QueryAllNamesResponse,
+  { pagination: PageResponse }
+>
 
 /**
  * This is the response for the [RNS] Query/Bid RPC method.
  *
  * @prop {DBid} bids - Single Bid item.
  */
-export type TQueryBidResponseStrict
-  = ModifyDeep<QueryBidResponse, { bids: DBid }>
+export type TQueryBidResponseStrict = ModifyDeep<
+  QueryBidResponse,
+  { bids: DBid }
+>
 
 /**
  * This is the response for the [RNS] Query/ForSale RPC method.
  *
  * @prop {DForsale} forSale - Single Forsale item.
  */
-export type TQueryForSaleResponseStrict
-  = ModifyDeep<QueryForSaleResponse, { forSale: DForsale }>
+export type TQueryForSaleResponseStrict = ModifyDeep<
+  QueryForSaleResponse,
+  { forSale: DForsale }
+>
 
 /**
  * This is the response for the [RNS] Query/Init RPC method.
  *
  * @prop {boolean} init - Init status of single address.
  */
-export type TQueryInitResponseStrict
-  = ModifyDeep<QueryInitResponse, { init: boolean }>
+export type TQueryInitResponseStrict = ModifyDeep<
+  QueryInitResponse,
+  { init: boolean }
+>
 
 /**
  * This is the response for the [RNS] Query/ListOwnedNames RPC method.
@@ -80,24 +94,30 @@ export type TQueryInitResponseStrict
  * @prop {DName[]} names - Array of Name items.
  * @prop {PageResponse} pagination - Pagination details.
  */
-export type TQueryListOwnedNamesResponseStrict
-  = ModifyDeep<QueryListOwnedNamesResponse, { pagination: PageResponse }>
+export type TQueryListOwnedNamesResponseStrict = ModifyDeep<
+  QueryListOwnedNamesResponse,
+  { pagination: PageResponse }
+>
 
 /**
  * This is the response for the [RNS] Query/Name RPC method.
  *
  * @prop {DName} name - Single Name item.
  */
-export type TQueryNameResponseStrict
-  = ModifyDeep<QueryNameResponse, { name: DName }>
+export type TQueryNameResponseStrict = ModifyDeep<
+  QueryNameResponse,
+  { name: DName }
+>
 
 /**
  * This is the response for the [RNS] Query/Params RPC method.
  *
  * @prop {DRnsParams} params - Current parameters of the RNS module.
  */
-export type TQueryRnsParamsResponseStrict
-  = ModifyDeep<QueryParamsResponse, { params: Params }>
+export type TQueryRnsParamsResponseStrict = ModifyDeep<
+  QueryParamsResponse,
+  { params: Params }
+>
 
 /**
  * RnsParams Documentation
@@ -106,5 +126,5 @@ export type TQueryRnsParamsResponseStrict
  * @prop {string} depositAccount - Jackal Wallet address to receive funds from RNS registrations.
  */
 export type DRnsParams = {
-  depositAccount: string;
+  depositAccount: string
 }

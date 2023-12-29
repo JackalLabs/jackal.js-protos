@@ -9,7 +9,7 @@ import {
   MsgRemoveEditorsResponse,
   MsgRemoveViewersResponse,
   MsgResetEditorsResponse,
-  MsgResetViewersResponse
+  MsgResetViewersResponse,
 } from '@/postGen/canine_chain/filetree/tx'
 
 /**

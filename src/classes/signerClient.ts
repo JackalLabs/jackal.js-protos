@@ -1,14 +1,11 @@
-import {
-  QueryClient,
-  SigningStargateClientOptions
-} from '@cosmjs/stargate'
+import { QueryClient, SigningStargateClientOptions } from '@cosmjs/stargate'
 import {
   createFileTreeExtension,
   createJklMintExtension,
   createNotificationsExtension,
   createOracleExtension,
   createRnsExtension,
-  createStorageExtension
+  createStorageExtension,
 } from '@/snackages/query'
 import { Tendermint34Client } from '@cosmjs/tendermint-rpc'
 import { OfflineSigner } from '@cosmjs/launchpad'
@@ -30,37 +27,20 @@ import { SigningStargateCompatibilityClient } from '@/compatibility'
 /**
  * @class {IJackalSigningStargateClient} JackalSigningStargateClient
  */
-export class JackalSigningStargateClient extends SigningStargateCompatibilityClient implements IJackalSigningStargateClient {
-  protected readonly address: string
+export class JackalSigningStargateClient
+  extends SigningStargateCompatibilityClient
+  implements IJackalSigningStargateClient
+{
   public readonly queries: TQueryExtensions
   public readonly txLibrary: ITxLibrary
+  protected readonly address: string
 
-  /**
-   * @function connectWithSigner
-   * @memberof JackalSigningStargateClient
-   * @async
-   * @static
-   */
-  public static async connectWithSigner(
-    endpoint: string | DHttpEndpoint,
+  protected constructor(
+    tmClient: Tendermint34Client,
     signer: OfflineSigner,
-    options: SigningStargateClientOptions = {}
-  ): Promise<JackalSigningStargateClient> {
-    if (!endpoint) throw new Error("A valid endpoint is required!")
-    const tmClient = await Tendermint34Client
-      .connect(endpoint)
-      .catch(err => {
-        throw err
-      })
-    if (!tmClient) throw new Error("Tendermint34Client creation failed")
-    const { address } = (await signer.getAccounts())[0]
-    return new JackalSigningStargateClient(tmClient, signer, address, {
-      registry: createDefaultRegistry(),
-      ...options,
-    })
-  }
-
-  protected constructor(tmClient: Tendermint34Client, signer: OfflineSigner, address: string, options: SigningStargateClientOptions) {
+    address: string,
+    options: SigningStargateClientOptions,
+  ) {
     super(tmClient, signer, options)
     this.address = address
     this.queries = QueryClient.withExtensions(
@@ -71,7 +51,7 @@ export class JackalSigningStargateClient extends SigningStargateCompatibilityCli
       createNotificationsExtension,
       createOracleExtension,
       createRnsExtension,
-      createStorageExtension
+      createStorageExtension,
     )
 
     this.txLibrary = {
@@ -80,18 +60,48 @@ export class JackalSigningStargateClient extends SigningStargateCompatibilityCli
       notifications: TxNotifications,
       oracle: TxOracle,
       rns: TxRns,
-      storage: TxStorage
+      storage: TxStorage,
     }
   }
 
-  async selfSignAndBroadcast(msgs: DEncodeObject[], options: ISignAndBroadcastOptions = {}): Promise<DDeliverTxResponse> {
+  /**
+   * @function connectWithSigner
+   * @memberof JackalSigningStargateClient
+   * @async
+   * @static
+   */
+  public static async connectWithSigner(
+    endpoint: string | DHttpEndpoint,
+    signer: OfflineSigner,
+    options: SigningStargateClientOptions = {},
+  ): Promise<JackalSigningStargateClient> {
+    if (!endpoint) {
+      throw new Error('A valid endpoint is required!')
+    }
+    const tmClient = await Tendermint34Client.connect(endpoint).catch((err) => {
+      throw err
+    })
+    if (!tmClient) {
+      throw new Error('Tendermint34Client creation failed')
+    }
+    const { address } = (await signer.getAccounts())[0]
+    return new JackalSigningStargateClient(tmClient, signer, address, {
+      registry: createDefaultRegistry(),
+      ...options,
+    })
+  }
+
+  async selfSignAndBroadcast(
+    msgs: DEncodeObject[],
+    options: ISignAndBroadcastOptions = {},
+  ): Promise<DDeliverTxResponse> {
     const { fee, memo } = {
       fee: {
         amount: [],
-        gas: (msgs.length * 100000).toString()
+        gas: (msgs.length * 100000).toString(),
       },
       memo: '',
-      ...options
+      ...options,
     }
     console.log('selfSignAndBroadcast this.address', this.address)
     return this.signAndBroadcast(this.address, msgs, fee, memo)

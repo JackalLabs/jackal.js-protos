@@ -13,15 +13,18 @@ import type { Init } from '@/postGen/canine_chain/rns/init'
  * @prop {string} tld - Extension of RNS, only supports .jkl and this time.
  * @prop {number} locked - 0 if unlocked, > 0 otherwise.
  * */
-export type DName = Documentation<{
-  name: string;
-  expires: number;
-  value: string;
-  data: string;
-  subdomains: DName[];
-  tld: string;
-  locked: number;
-}, Names>
+export type DName = Documentation<
+  {
+    name: string
+    expires: number
+    value: string
+    data: string
+    subdomains: DName[]
+    tld: string
+    locked: number
+  },
+  Names
+>
 
 /**
  * Bid Documentation
@@ -30,12 +33,15 @@ export type DName = Documentation<{
  * @prop {string} bidder - Jackal wallet address of bid creator.
  * @prop {string} price - Value of bid in ujkl, for example 200ujkl.
  */
-export type DBid = Documentation<{
-  index: string;
-  name: string;
-  bidder: string;
-  price: string;
-}, Bids>
+export type DBid = Documentation<
+  {
+    index: string
+    name: string
+    bidder: string
+    price: string
+  },
+  Bids
+>
 
 /**
  * Forsale Documentation
@@ -43,18 +49,24 @@ export type DBid = Documentation<{
  * @prop {string} price - List price of name in ujkl, for example 200ujkl.
  * @prop {string} owner - Jackal wallet address of owner.
  */
-export type DForsale = Documentation<{
-  name: string;
-  price: string;
-  owner: string;
-}, Forsale>
+export type DForsale = Documentation<
+  {
+    name: string
+    price: string
+    owner: string
+  },
+  Forsale
+>
 
 /**
  * Init Documentation
  * @prop {string} address - Jackal wallet addressx.
  * @prop {string} complete - True if wallet has created a RNS account.
  */
-export type DInit = Documentation<{
-  address: string;
-  complete: boolean;
-}, Init>
+export type DInit = Documentation<
+  {
+    address: string
+    complete: boolean
+  },
+  Init
+>

@@ -24,7 +24,6 @@ import {
   setupBankExtension,
   setupDistributionExtension,
   setupGovExtension,
-  // setupSlashingExtension,
   setupStakingExtension,
   setupTxExtension,
   SignerData,

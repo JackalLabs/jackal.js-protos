@@ -10,7 +10,7 @@ import {
   MsgListResponse,
   MsgRegisterResponse,
   MsgTransferResponse,
-  MsgUpdateResponse
+  MsgUpdateResponse,
 } from '@/postGen/canine_chain/rns/tx'
 
 /**

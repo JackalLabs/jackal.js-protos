@@ -5,17 +5,17 @@ import type {
   INotificationsExtension,
   IOracleExtension,
   IRnsExtension,
-  IStorageExtension
+  IStorageExtension,
 } from '@/interfaces/snackages'
 
 /**
  * Wrapper of all Extensions enabled by Jackal.js-protos
  */
-export type TQueryExtensions = QueryClient
+export type TQueryExtensions = QueryClient &
   /* Jackal Extensions */
-  & IFileTreeExtension
-  & IJklMintExtension
-  & INotificationsExtension
-  & IOracleExtension
-  & IRnsExtension
-  & IStorageExtension
+  IFileTreeExtension &
+  IJklMintExtension &
+  INotificationsExtension &
+  IOracleExtension &
+  IRnsExtension &
+  IStorageExtension

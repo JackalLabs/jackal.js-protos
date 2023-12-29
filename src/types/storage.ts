@@ -1,10 +1,13 @@
-import type { FileProof, UnifiedFile } from '@/postGen/canine_chain/storage/active_deals'
+import type {
+  FileProof,
+  UnifiedFile,
+} from '@/postGen/canine_chain/storage/active_deals'
 import type {
   ActiveProviders,
   Attestation,
   AttestationForm,
   Providers,
-  ReportForm
+  ReportForm,
 } from '@/postGen/canine_chain/storage/providers'
 import type { StoragePaymentInfo } from '@/postGen/canine_chain/storage/payment_info'
 import type { DCoin } from '@/types/msgs'
@@ -13,19 +16,25 @@ import type { DCoin } from '@/types/msgs'
  * ActiveProvider Documentation
  * @prop {string} address - Jackal wallet address of provider.
  */
-export type DActiveProvider = Documentation<{
-  address: string;
-}, ActiveProviders>
+export type DActiveProvider = Documentation<
+  {
+    address: string
+  },
+  ActiveProviders
+>
 
 /**
  * Attestation Documentation
  * @prop {string} provider - Jackal wallet address of provider.
  * @prop {boolean} complete - True if complete.
  */
-export type DAttestation = Documentation<{
-  provider: string;
-  complete: boolean;
-}, Attestation>
+export type DAttestation = Documentation<
+  {
+    provider: string
+    complete: boolean
+  },
+  Attestation
+>
 
 /**
  * AttestationForm Documentation
@@ -35,13 +44,16 @@ export type DAttestation = Documentation<{
  * @prop {string} owner - Jackal wallet address of file owner.
  * @prop {number} start - Block height when file was stored.
  */
-export type DAttestationForm = Documentation<{
-  attestations: DAttestation[];
-  prover: string;
-  merkle: Uint8Array;
-  owner: string;
-  start: number;
-}, AttestationForm>
+export type DAttestationForm = Documentation<
+  {
+    attestations: DAttestation[]
+    prover: string
+    merkle: Uint8Array
+    owner: string
+    start: number
+  },
+  AttestationForm
+>
 
 /**
  * FileProof Documentation
@@ -52,14 +64,17 @@ export type DAttestationForm = Documentation<{
  * @prop {number} lastProven - Block height of last proof.
  * @prop {number} chunkToProve - Index of file chunk to prove.
  */
-export type DFileProof = Documentation<{
-  prover: string;
-  merkle: Uint8Array;
-  owner: string;
-  start: number;
-  lastProven: number;
-  chunkToProve: number;
-}, FileProof>
+export type DFileProof = Documentation<
+  {
+    prover: string
+    merkle: Uint8Array
+    owner: string
+    start: number
+    lastProven: number
+    chunkToProve: number
+  },
+  FileProof
+>
 
 /**
  * Provider Documentation
@@ -71,15 +86,18 @@ export type DFileProof = Documentation<{
  * @prop {string} keybaseIdentity - Keybase identifier.
  * @prop {string[]} authClaimers - Little Hands count, default is none.
  */
-export type DProvider = Documentation<{
-  address: string;
-  ip: string;
-  totalspace: string;
-  burnedContracts: number;
-  creator: string;
-  keybaseIdentity: string;
-  authClaimers: string[];
-}, Providers>
+export type DProvider = Documentation<
+  {
+    address: string
+    ip: string
+    totalspace: string
+    burnedContracts: number
+    creator: string
+    keybaseIdentity: string
+    authClaimers: string[]
+  },
+  Providers
+>
 
 /**
  * ReportForm Documentation
@@ -89,13 +107,16 @@ export type DProvider = Documentation<{
  * @prop {string} owner - Jackal wallet address of file owner.
  * @prop {number} start - Block height when file was stored.
  */
-export type DReportForm = Documentation<{
-  attestations: DAttestation[];
-  prover: string;
-  merkle: Uint8Array;
-  owner: string;
-  start: number;
-}, ReportForm>
+export type DReportForm = Documentation<
+  {
+    attestations: DAttestation[]
+    prover: string
+    merkle: Uint8Array
+    owner: string
+    start: number
+  },
+  ReportForm
+>
 
 /**
  * StoragePaymentInfo Documentation
@@ -106,14 +127,17 @@ export type DReportForm = Documentation<{
  * @prop {string} address - Jackal wallet address of storage plan owner.
  * @prop {DCoin[]} coins - Record of all storage purchases made, used for reward distribution.
  */
-export type DStoragePaymentInfo = Documentation<{
-  start: Date | undefined;
-  end: Date | undefined;
-  spaceAvailable: number;
-  spaceUsed: number;
-  address: string;
-  coins: DCoin[];
-}, StoragePaymentInfo>
+export type DStoragePaymentInfo = Documentation<
+  {
+    start: Date | undefined
+    end: Date | undefined
+    spaceAvailable: number
+    spaceUsed: number
+    address: string
+    coins: DCoin[]
+  },
+  StoragePaymentInfo
+>
 
 /**
  * UnifiedFile Documentation
@@ -128,15 +152,18 @@ export type DStoragePaymentInfo = Documentation<{
  * @prop {string} maxProofs - Limit of number of allowed providers.
  * @prop {string} note - Stringified JSON object of arbitrary data.
  */
-export type DUnifiedFile = Documentation<{
-  merkle: Uint8Array;
-  owner: string;
-  start: number;
-  expires: number;
-  fileSize: number;
-  proofInterval: number;
-  proofType: number;
-  proofs: string[];
-  maxProofs: number;
-  note: string;
-}, UnifiedFile>
+export type DUnifiedFile = Documentation<
+  {
+    merkle: Uint8Array
+    owner: string
+    start: number
+    expires: number
+    fileSize: number
+    proofInterval: number
+    proofType: number
+    proofs: string[]
+    maxProofs: number
+    note: string
+  },
+  UnifiedFile
+>

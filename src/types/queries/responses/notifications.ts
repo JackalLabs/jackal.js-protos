@@ -2,7 +2,7 @@ import type {
   QueryAllNotificationsByAddressResponse,
   QueryAllNotificationsResponse,
   QueryNotificationResponse,
-  QueryParamsResponse
+  QueryParamsResponse,
 } from '@/postGen/canine_chain/notifications/query'
 import type { Params } from '@/postGen/canine_chain/notifications/params'
 import type { PageResponse } from '@/postGen/cosmos/base/query/v1beta1/pagination'
@@ -14,8 +14,10 @@ import type { DNotification } from '@/types/notifications'
  * @prop {DNotification[]} notifications - Array of Notification items.
  * @prop {PageResponse} pagination - Pagination details.
  */
-export type TQueryAllNotificationsResponseStrict
-  = ModifyDeep<QueryAllNotificationsResponse, { pagination: PageResponse }>
+export type TQueryAllNotificationsResponseStrict = ModifyDeep<
+  QueryAllNotificationsResponse,
+  { pagination: PageResponse }
+>
 
 /**
  * This is the response for the [Notifications] Query/AllNotificationsByAddress RPC method.
@@ -23,21 +25,27 @@ export type TQueryAllNotificationsResponseStrict
  * @prop {DNotification[]} notifications - Array of Notification items.
  * @prop {PageResponse} pagination - Pagination details.
  */
-export type TQueryAllNotificationsByAddressResponseStrict
-  = ModifyDeep<QueryAllNotificationsByAddressResponse, { pagination: PageResponse }>
+export type TQueryAllNotificationsByAddressResponseStrict = ModifyDeep<
+  QueryAllNotificationsByAddressResponse,
+  { pagination: PageResponse }
+>
 
 /**
  * This is the response for the [Notifications] Query/Notification RPC method.
  *
  * @prop {DNotification} notification - Single Notification item.
  */
-export type TQueryNotificationResponseStrict
-  = ModifyDeep<QueryNotificationResponse, { notification: DNotification }>
+export type TQueryNotificationResponseStrict = ModifyDeep<
+  QueryNotificationResponse,
+  { notification: DNotification }
+>
 
 /**
  * This is the response for the [Notifications] Query/Params RPC method.
  *
  * @prop {Params} params - Currently none.
  */
-export type TQueryNotificationsParamsResponseStrict
-  = ModifyDeep<QueryParamsResponse, { params: Params }>
+export type TQueryNotificationsParamsResponseStrict = ModifyDeep<
+  QueryParamsResponse,
+  { params: Params }
+>

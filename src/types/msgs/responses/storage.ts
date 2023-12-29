@@ -13,7 +13,7 @@ import {
   MsgSetProviderIPResponse,
   MsgSetProviderKeybaseResponse,
   MsgSetProviderTotalSpaceResponse,
-  MsgShutdownProviderResponse
+  MsgShutdownProviderResponse,
 } from '@/postGen/canine_chain/storage/tx'
 
 /**

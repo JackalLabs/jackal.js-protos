@@ -6,7 +6,7 @@ import type {
   TQueryAllNotificationsByAddressResponseStrict,
   TQueryAllNotificationsResponseStrict,
   TQueryNotificationResponseStrict,
-  TQueryNotificationsParamsResponseStrict
+  TQueryNotificationsParamsResponseStrict,
 } from '@/types/queries'
 
 /**
@@ -27,32 +27,39 @@ export interface INotificationsExtension {
  * @property {params} params()
  */
 export interface INotificationsExtensionMembers {
-
   /**
    * @function allNotifications
    * @param {DQueryAllNotifications} request
    * @returns Promise<TQueryAllNotificationsResponseStrict>
    */
-  readonly allNotifications: (request: DQueryAllNotifications) => Promise<TQueryAllNotificationsResponseStrict>
+  readonly allNotifications: (
+    request: DQueryAllNotifications,
+  ) => Promise<TQueryAllNotificationsResponseStrict>
 
   /**
    * @function allNotificationsByAddress
    * @param {DQueryAllNotificationsByAddress} request
    * @returns Promise<TQueryAllNotificationsByAddressResponseStrict>
    */
-  readonly allNotificationsByAddress: (request: DQueryAllNotificationsByAddress) => Promise<TQueryAllNotificationsByAddressResponseStrict>
+  readonly allNotificationsByAddress: (
+    request: DQueryAllNotificationsByAddress,
+  ) => Promise<TQueryAllNotificationsByAddressResponseStrict>
 
   /**
    * @function notification
    * @param {DQueryNotification} request
    * @returns Promise<TQueryNotificationResponseStrict>
    */
-  readonly notification: (request: DQueryNotification) => Promise<TQueryNotificationResponseStrict>
+  readonly notification: (
+    request: DQueryNotification,
+  ) => Promise<TQueryNotificationResponseStrict>
 
   /**
    * @function params
    * @param {DQueryNotificationsParams} request
    * @returns Promise<TQueryNotificationsParamsResponseStrict>
    */
-  readonly params: (request: DQueryNotificationsParams) => Promise<TQueryNotificationsParamsResponseStrict>
+  readonly params: (
+    request: DQueryNotificationsParams,
+  ) => Promise<TQueryNotificationsParamsResponseStrict>
 }

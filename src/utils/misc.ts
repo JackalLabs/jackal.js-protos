@@ -11,7 +11,7 @@ const oneSecondMs = 1000
 export async function deprecated(
   thing: string,
   version: string,
-  opts?: { abort?: boolean; aggressive?: boolean; replacement?: string }
+  opts?: { abort?: boolean; aggressive?: boolean; replacement?: string },
 ) {
   let notice = `Jackal.js-protos | ${thing} is deprecated as of: ${version}`
   if (opts?.replacement) {
@@ -27,10 +27,7 @@ export async function deprecated(
  * @param {string} thing - Name of code block with error. Example: "[ParentContext] functionName()".
  * @param {any} err - Error to warn.
  */
-export function warnError(
-  thing: string,
-  err: any
-) {
+export function warnError(thing: string, err: any) {
   const notice = `Jackal.js-protos | ${thing}: ${err}`
   console.warn(notice)
 }

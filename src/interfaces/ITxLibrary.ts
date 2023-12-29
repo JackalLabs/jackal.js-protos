@@ -1,4 +1,10 @@
-import type { ITxFileTree, ITxNotifications, ITxOracle, ITxRns, ITxStorage } from '@/snackages'
+import type {
+  ITxFileTree,
+  ITxNotifications,
+  ITxOracle,
+  ITxRns,
+  ITxStorage,
+} from '@/snackages'
 
 /**
  * Collection of all custom Jackal Msgs.

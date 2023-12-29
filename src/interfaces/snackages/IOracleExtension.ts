@@ -4,7 +4,7 @@ import type {
   DQueryOracleParams,
   TQueryAllFeedsResponseStrict,
   TQueryFeedResponseStrict,
-  TQueryOracleParamsResponseStrict
+  TQueryOracleParamsResponseStrict,
 } from '@/types/queries'
 
 /**
@@ -24,13 +24,14 @@ export interface IOracleExtension {
  * @property {params} params()
  */
 export interface IOracleExtensionMembers {
-
   /**
    * @function allFeeds
    * @param {DQueryAllFeeds} request
    * @returns Promise<TQueryAllFeedsResponseStrict>
    */
-  readonly allFeeds: (request: DQueryAllFeeds) => Promise<TQueryAllFeedsResponseStrict>
+  readonly allFeeds: (
+    request: DQueryAllFeeds,
+  ) => Promise<TQueryAllFeedsResponseStrict>
 
   /**
    * @function feed
@@ -44,5 +45,7 @@ export interface IOracleExtensionMembers {
    * @param {DQueryOracleParams} request
    * @returns Promise<TQueryOracleParamsResponseStrict>
    */
-  readonly params: (request: DQueryOracleParams) => Promise<TQueryOracleParamsResponseStrict>
+  readonly params: (
+    request: DQueryOracleParams,
+  ) => Promise<TQueryOracleParamsResponseStrict>
 }
