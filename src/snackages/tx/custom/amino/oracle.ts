@@ -4,32 +4,27 @@ import {
   AminoMsgUpdateFeed
 } from '@/interfaces/amino/IAminoOracle'
 import { AminoConverters } from '@cosmjs/stargate'
+import { forAmino, wasAmino } from '@/utils/converters'
 
 export function createOracleAminoConverters(): AminoConverters {
   return {
     '/canine_chain.oracle.MsgCreateFeed': {
       aminoType: 'oracle/CreateFeed',
-      toAmino: (value: MsgCreateFeed): AminoMsgCreateFeed['value'] => ({
-        creator: value.creator,
-        name: value.name
-      }),
-      fromAmino: (value: AminoMsgCreateFeed['value']): MsgCreateFeed => ({
-        creator: value.creator,
-        name: value.name
-      })
+      toAmino: (value: MsgCreateFeed): AminoMsgCreateFeed['value'] => {
+        return forAmino(value)
+      },
+      fromAmino: (value: AminoMsgCreateFeed['value']): MsgCreateFeed => {
+        return wasAmino(value)
+      }
     },
     '/canine_chain.oracle.MsgUpdateFeed': {
       aminoType: 'oracle/UpdateFeed',
-      toAmino: (value: MsgUpdateFeed): AminoMsgUpdateFeed['value'] => ({
-        creator: value.creator,
-        name: value.name,
-        data: value.data
-      }),
-      fromAmino: (value: AminoMsgUpdateFeed['value']): MsgUpdateFeed => ({
-        creator: value.creator,
-        name: value.name,
-        data: value.data
-      })
+      toAmino: (value: MsgUpdateFeed): AminoMsgUpdateFeed['value'] => {
+        return forAmino(value)
+      },
+      fromAmino: (value: AminoMsgUpdateFeed['value']): MsgUpdateFeed => {
+        return wasAmino(value)
+      }
     }
   }
 }

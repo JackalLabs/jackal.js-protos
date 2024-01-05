@@ -27,158 +27,117 @@ import {
   AminoMsgUpdate
 } from '@/interfaces/amino/IAminoRns'
 import { AminoConverters } from '@cosmjs/stargate'
+import { forAmino, wasAmino } from '@/utils/converters'
 
 export function createRnsAminoConverters(): AminoConverters {
   return {
     '/canine_chain.rns.MsgRegister': {
       aminoType: 'rns/Register',
-      toAmino: (value: MsgRegister): AminoMsgRegister['value'] => ({
-        creator: value.creator,
-        name: value.name,
-        years: value.years,
-        data: value.data
-      }),
-      fromAmino: (value: AminoMsgRegister['value']): MsgRegister => ({
-        creator: value.creator,
-        name: value.name,
-        years: value.years,
-        data: value.data
-      })
+      toAmino: (value: MsgRegister): AminoMsgRegister['value'] => {
+        return forAmino(value)
+      },
+      fromAmino: (value: AminoMsgRegister['value']): MsgRegister => {
+        return wasAmino(value)
+      }
     },
     '/canine_chain.rns.MsgUpdate': {
       aminoType: 'rns/Update',
-      toAmino: (value: MsgUpdate): AminoMsgUpdate['value'] => ({
-        creator: value.creator,
-        name: value.name,
-        data: value.data
-      }),
-      fromAmino: (value: AminoMsgUpdate['value']): MsgUpdate => ({
-        creator: value.creator,
-        name: value.name,
-        data: value.data
-      })
+      toAmino: (value: MsgUpdate): AminoMsgUpdate['value'] => {
+        return forAmino(value)
+      },
+      fromAmino: (value: AminoMsgUpdate['value']): MsgUpdate => {
+        return wasAmino(value)
+      }
     },
     '/canine_chain.rns.MsgBid': {
       aminoType: 'rns/Bid',
-      toAmino: (value: MsgBid): AminoMsgBid['value'] => ({
-        creator: value.creator,
-        name: value.name,
-        bid: value.bid
-      }),
-      fromAmino: (value: AminoMsgBid['value']): MsgBid => ({
-        creator: value.creator,
-        name: value.name,
-        bid: value.bid
-      })
+      toAmino: (value: MsgBid): AminoMsgBid['value'] => {
+        return forAmino(value)
+      },
+      fromAmino: (value: AminoMsgBid['value']): MsgBid => {
+        return wasAmino(value)
+      }
     },
     '/canine_chain.rns.MsgAcceptBid': {
       aminoType: 'rns/AcceptBid',
-      toAmino: (value: MsgAcceptBid): AminoMsgAcceptBid['value'] => ({
-        creator: value.creator,
-        name: value.name,
-        from: value.from
-      }),
-      fromAmino: (value: AminoMsgAcceptBid['value']): MsgAcceptBid => ({
-        creator: value.creator,
-        name: value.name,
-        from: value.from
-      })
+      toAmino: (value: MsgAcceptBid): AminoMsgAcceptBid['value'] => {
+        return forAmino(value)
+      },
+      fromAmino: (value: AminoMsgAcceptBid['value']): MsgAcceptBid => {
+        return wasAmino(value)
+      }
     },
     '/canine_chain.rns.MsgCancelBid': {
-      aminoType: 'rns/AminoMsgCancelBid',
-      toAmino: (value: MsgCancelBid): AminoMsgCancelBid['value'] => ({
-        creator: value.creator,
-        name: value.name
-      }),
-      fromAmino: (value: AminoMsgCancelBid['value']): MsgCancelBid => ({
-        creator: value.creator,
-        name: value.name
-      })
+      aminoType: 'rns/CancelBid',
+      toAmino: (value: MsgCancelBid): AminoMsgCancelBid['value'] => {
+        return forAmino(value)
+      },
+      fromAmino: (value: AminoMsgCancelBid['value']): MsgCancelBid => {
+        return wasAmino(value)
+      }
     },
     '/canine_chain.rns.MsgList': {
       aminoType: 'rns/List',
-      toAmino: (value: MsgList): AminoMsgList['value'] => ({
-        creator: value.creator,
-        name: value.name,
-        price: value.price
-      }),
-      fromAmino: (value: AminoMsgList['value']): MsgList => ({
-        creator: value.creator,
-        name: value.name,
-        price: value.price
-      })
+      toAmino: (value: MsgList): AminoMsgList['value'] => {
+        return forAmino(value)
+      },
+      fromAmino: (value: AminoMsgList['value']): MsgList => {
+        return wasAmino(value)
+      }
     },
     '/canine_chain.rns.MsgBuy': {
       aminoType: 'rns/Buy',
-      toAmino: (value: MsgBuy): AminoMsgBuy['value'] => ({
-        creator: value.creator,
-        name: value.name
-      }),
-      fromAmino: (value: AminoMsgBuy['value']): MsgBuy => ({
-        creator: value.creator,
-        name: value.name
-      })
+      toAmino: (value: MsgBuy): AminoMsgBuy['value'] => {
+        return forAmino(value)
+      },
+      fromAmino: (value: AminoMsgBuy['value']): MsgBuy => {
+        return wasAmino(value)
+      }
     },
     '/canine_chain.rns.MsgDelist': {
       aminoType: 'rns/Delist',
-      toAmino: (value: MsgDelist): AminoMsgDelist['value'] => ({
-        creator: value.creator,
-        name: value.name
-      }),
-      fromAmino: (value: AminoMsgDelist['value']): MsgDelist => ({
-        creator: value.creator,
-        name: value.name
-      })
+      toAmino: (value: MsgDelist): AminoMsgDelist['value'] => {
+        return forAmino(value)
+      },
+      fromAmino: (value: AminoMsgDelist['value']): MsgDelist => {
+        return wasAmino(value)
+      }
     },
     '/canine_chain.rns.MsgTransfer': {
       aminoType: 'rns/Transfer',
-      toAmino: (value: MsgTransfer): AminoMsgTransfer['value'] => ({
-        creator: value.creator,
-        name: value.name,
-        receiver: value.receiver
-      }),
-      fromAmino: (value: AminoMsgTransfer['value']): MsgTransfer => ({
-        creator: value.creator,
-        name: value.name,
-        receiver: value.receiver
-      })
+      toAmino: (value: MsgTransfer): AminoMsgTransfer['value'] => {
+        return forAmino(value)
+      },
+      fromAmino: (value: AminoMsgTransfer['value']): MsgTransfer => {
+        return wasAmino(value)
+      }
     },
     '/canine_chain.rns.MsgAddRecord': {
       aminoType: 'rns/AddRecord',
-      toAmino: (value: MsgAddRecord): AminoMsgAddRecord['value'] => ({
-        creator: value.creator,
-        name: value.name,
-        value: value.value,
-        data: value.data,
-        record: value.record
-      }),
-      fromAmino: (value: AminoMsgAddRecord['value']): MsgAddRecord => ({
-        creator: value.creator,
-        name: value.name,
-        value: value.value,
-        data: value.data,
-        record: value.record
-      })
+      toAmino: (value: MsgAddRecord): AminoMsgAddRecord['value'] => {
+        return forAmino(value)
+      },
+      fromAmino: (value: AminoMsgAddRecord['value']): MsgAddRecord => {
+        return wasAmino(value)
+      }
     },
     '/canine_chain.rns.MsgDelRecord': {
       aminoType: 'rns/DelRecord',
-      toAmino: (value: MsgDelRecord): AminoMsgDelRecord['value'] => ({
-        creator: value.creator,
-        name: value.name
-      }),
-      fromAmino: (value: AminoMsgDelRecord['value']): MsgDelRecord => ({
-        creator: value.creator,
-        name: value.name
-      })
+      toAmino: (value: MsgDelRecord): AminoMsgDelRecord['value'] => {
+        return forAmino(value)
+      },
+      fromAmino: (value: AminoMsgDelRecord['value']): MsgDelRecord => {
+        return wasAmino(value)
+      }
     },
     '/canine_chain.rns.MsgInit': {
       aminoType: 'rns/Init',
-      toAmino: (value: MsgInit): AminoMsgInit['value'] => ({
-        creator: value.creator
-      }),
-      fromAmino: (value: AminoMsgInit['value']): MsgInit => ({
-        creator: value.creator
-      })
+      toAmino: (value: MsgInit): AminoMsgInit['value'] => {
+        return forAmino(value)
+      },
+      fromAmino: (value: AminoMsgInit['value']): MsgInit => {
+        return wasAmino(value)
+      }
     }
   }
 }

@@ -13,6 +13,7 @@ import {
   MsgSetCounter,
   MsgUpdateNotifications
 } from '@/postgen/canine_chain/notifications/tx'
+import { forAmino, wasAmino } from '@/utils/converters'
 
 export function createNotificationsAminoConverters(): AminoConverters {
   return {
@@ -20,70 +21,58 @@ export function createNotificationsAminoConverters(): AminoConverters {
       aminoType: 'notifications/CreateNotifications',
       toAmino: (
         value: MsgCreateNotifications
-      ): AminoMsgCreateNotifications['value'] => ({
-        creator: value.creator,
-        notification: value.notification,
-        address: value.address
-      }),
+      ): AminoMsgCreateNotifications['value'] => {
+        return forAmino(value)
+      },
       fromAmino: (
         value: AminoMsgCreateNotifications['value']
-      ): MsgCreateNotifications => ({
-        creator: value.creator,
-        notification: value.notification,
-        address: value.address
-      })
+      ): MsgCreateNotifications => {
+        return wasAmino(value)
+      }
     },
     '/canine_chain.notifications.MsgUpdateNotifications': {
       aminoType: 'notifications/UpdateNotifications',
       toAmino: (
         value: MsgUpdateNotifications
-      ): AminoMsgUpdateNotifications['value'] => ({
-        creator: value.creator,
-        count: value.count,
-        notification: value.notification,
-        address: value.address
-      }),
+      ): AminoMsgUpdateNotifications['value'] => {
+        return forAmino(value)
+      },
       fromAmino: (
         value: AminoMsgUpdateNotifications['value']
-      ): MsgUpdateNotifications => ({
-        creator: value.creator,
-        count: value.count,
-        notification: value.notification,
-        address: value.address
-      })
+      ): MsgUpdateNotifications => {
+        return wasAmino(value)
+      }
     },
     '/canine_chain.notifications.MsgDeleteNotifications': {
       aminoType: 'notifications/DeleteNotifications',
       toAmino: (
         value: MsgDeleteNotifications
-      ): AminoMsgDeleteNotifications['value'] => ({
-        creator: value.creator
-      }),
+      ): AminoMsgDeleteNotifications['value'] => {
+        return forAmino(value)
+      },
       fromAmino: (
         value: AminoMsgDeleteNotifications['value']
-      ): MsgDeleteNotifications => ({
-        creator: value.creator
-      })
+      ): MsgDeleteNotifications => {
+        return wasAmino(value)
+      }
     },
     '/canine_chain.notifications.MsgSetCounter': {
       aminoType: 'notifications/SetCounter',
-      toAmino: (value: MsgSetCounter): AminoMsgSetCounter['value'] => ({
-        creator: value.creator
-      }),
-      fromAmino: (value: AminoMsgSetCounter['value']): MsgSetCounter => ({
-        creator: value.creator
-      })
+      toAmino: (value: MsgSetCounter): AminoMsgSetCounter['value'] => {
+        return forAmino(value)
+      },
+      fromAmino: (value: AminoMsgSetCounter['value']): MsgSetCounter => {
+        return wasAmino(value)
+      }
     },
     '/canine_chain.notifications.MsgBlockSenders': {
       aminoType: 'notifications/BlockSenders',
-      toAmino: (value: MsgBlockSenders): AminoMsgBlockSenders['value'] => ({
-        creator: value.creator,
-        senderIds: value.senderIds
-      }),
-      fromAmino: (value: AminoMsgBlockSenders['value']): MsgBlockSenders => ({
-        creator: value.creator,
-        senderIds: value.senderIds
-      })
+      toAmino: (value: MsgBlockSenders): AminoMsgBlockSenders['value'] => {
+        return forAmino(value)
+      },
+      fromAmino: (value: AminoMsgBlockSenders['value']): MsgBlockSenders => {
+        return wasAmino(value)
+      }
     }
   }
 }
