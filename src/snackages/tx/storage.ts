@@ -143,21 +143,21 @@ export const storageResponses: TMsgResponseParsers = {
  * @property {msgUpgradeStorage} msgUpgradeStorage() deprecated
  */
 export type ITxStorage = {
+  msgAddClaimer(data: DMsgAddClaimer): DEncodeObject
+  msgAttest(data: DMsgAttest): DEncodeObject
+  msgBuyStorage(data: DMsgBuyStorage): DEncodeObject
+  msgDeleteFile(data: DMsgStorageDeleteFile): DEncodeObject
+  msgInitProvider(data: DMsgInitProvider): DEncodeObject
   msgPostFile(data: DMsgStoragePostFile): DEncodeObject
   msgPostProof(data: DMsgPostProof): DEncodeObject
-  msgDeleteFile(data: DMsgStorageDeleteFile): DEncodeObject
+  msgRemoveClaimer(data: DMsgRemoveClaimer): DEncodeObject
+  msgReport(data: DMsgReport): DEncodeObject
+  msgRequestAttestationForm(data: DMsgRequestAttestationForm): DEncodeObject
+  msgRequestReportForm(data: DMsgRequestReportForm): DEncodeObject
   msgSetProviderIP(data: DMsgSetProviderIP): DEncodeObject
   msgSetProviderKeybase(data: DMsgSetProviderKeybase): DEncodeObject
   msgSetProviderTotalSpace(data: DMsgSetProviderTotalSpace): DEncodeObject
-  msgInitProvider(data: DMsgInitProvider): DEncodeObject
   msgShutdownProvider(data: DMsgShutdownProvider): DEncodeObject
-  msgBuyStorage(data: DMsgBuyStorage): DEncodeObject
-  msgAddClaimer(data: DMsgAddClaimer): DEncodeObject
-  msgRemoveClaimer(data: DMsgRemoveClaimer): DEncodeObject
-  msgRequestAttestationForm(data: DMsgRequestAttestationForm): DEncodeObject
-  msgAttest(data: DMsgAttest): DEncodeObject
-  msgRequestReportForm(data: DMsgRequestReportForm): DEncodeObject
-  msgReport(data: DMsgReport): DEncodeObject
 
   /**
    * @deprecated since v2.0.0

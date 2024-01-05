@@ -5,6 +5,7 @@ import type {
   QueryParams,
 } from '@/postGen/canine_chain/notifications/query'
 import type { PageRequest } from '@/postGen/cosmos/base/query/v1beta1/pagination'
+import { WithOptional } from '@/types/misc'
 
 /**
  * QueryAllNotifications Documentation
@@ -12,9 +13,9 @@ import type { PageRequest } from '@/postGen/cosmos/base/query/v1beta1/pagination
  */
 export type DQueryAllNotifications = Documentation<
   {
-    pagination: PageRequest | undefined
+    pagination?: PageRequest
   },
-  QueryAllNotifications
+  WithOptional<QueryAllNotifications, 'pagination'>
 >
 
 /**
@@ -24,10 +25,10 @@ export type DQueryAllNotifications = Documentation<
  */
 export type DQueryAllNotificationsByAddress = Documentation<
   {
-    pagination: PageRequest | undefined
+    pagination?: PageRequest
     to: string
   },
-  QueryAllNotificationsByAddress
+  WithOptional<QueryAllNotificationsByAddress, 'pagination'>
 >
 
 /**

@@ -105,20 +105,20 @@ export interface IStorageExtensionMembers {
 
   /**
    * @function allAttestations
-   * @param {DQueryAllAttestations} request
+   * @param {DQueryAllAttestations} [request]
    * @returns Promise<TQueryAllAttestationsResponseStrict>
    */
   readonly allAttestations: (
-    request: DQueryAllAttestations,
+    request?: DQueryAllAttestations,
   ) => Promise<TQueryAllAttestationsResponseStrict>
 
   /**
    * @function allFiles
-   * @param {DQueryStorageAllFiles} request
+   * @param {DQueryStorageAllFiles} [request]
    * @returns Promise<TQueryStorageAllFilesResponseStrict>
    */
   readonly allFiles: (
-    request: DQueryStorageAllFiles,
+    request?: DQueryStorageAllFiles,
   ) => Promise<TQueryStorageAllFilesResponseStrict>
 
   /**
@@ -141,38 +141,38 @@ export interface IStorageExtensionMembers {
 
   /**
    * @function allProofs
-   * @param {DQueryAllProofs} request
+   * @param {DQueryAllProofs} [request]
    * @returns Promise<TQueryAllProofsResponseStrict>
    */
   readonly allProofs: (
-    request: DQueryAllProofs,
+    request?: DQueryAllProofs,
   ) => Promise<TQueryAllProofsResponseStrict>
 
   /**
    * @function allProviders
-   * @param {DQueryAllProviders} request
+   * @param {DQueryAllProviders} [request]
    * @returns Promise<TQueryAllProvidersResponseStrict>
    */
   readonly allProviders: (
-    request: DQueryAllProviders,
+    request?: DQueryAllProviders,
   ) => Promise<TQueryAllProvidersResponseStrict>
 
   /**
    * @function allReports
-   * @param {DQueryAllReports} request
+   * @param {DQueryAllReports} [request]
    * @returns Promise<TQueryAllReportsResponseStrict>
    */
   readonly allReports: (
-    request: DQueryAllReports,
+    request?: DQueryAllReports,
   ) => Promise<TQueryAllReportsResponseStrict>
 
   /**
    * @function allStoragePaymentInfo
-   * @param {DQueryAllStoragePaymentInfo} request
+   * @param {DQueryAllStoragePaymentInfo} [request]
    * @returns Promise<TQueryAllStoragePaymentInfoResponseStrict>
    */
   readonly allStoragePaymentInfo: (
-    request: DQueryAllStoragePaymentInfo,
+    request?: DQueryAllStoragePaymentInfo,
   ) => Promise<TQueryAllStoragePaymentInfoResponseStrict>
 
   /**

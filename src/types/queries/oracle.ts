@@ -4,6 +4,7 @@ import type {
   QueryFeed,
   QueryParams,
 } from '@/postGen/canine_chain/oracle/query'
+import { WithOptional } from '@/types/misc'
 
 /**
  * QueryAllFeeds Documentation
@@ -11,9 +12,9 @@ import type {
  */
 export type DQueryAllFeeds = Documentation<
   {
-    pagination: PageRequest | undefined
+    pagination?: PageRequest
   },
-  QueryAllFeeds
+  WithOptional<QueryAllFeeds, 'pagination'>
 >
 
 /**

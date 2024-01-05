@@ -49,38 +49,38 @@ export interface IRnsExtension {
 export interface IRnsExtensionMembers {
   /**
    * @function allBids
-   * @param {DQueryAllBids} request
+   * @param {DQueryAllBids} [request]
    * @returns Promise<TQueryAllBidsResponseStrict>
    */
   readonly allBids: (
-    request: DQueryAllBids,
+    request?: DQueryAllBids,
   ) => Promise<TQueryAllBidsResponseStrict>
 
   /**
    * @function allForSale
-   * @param {DQueryAllForSale} request
+   * @param {DQueryAllForSale} [request]
    * @returns Promise<TQueryAllForSaleResponseStrict>
    */
   readonly allForSale: (
-    request: DQueryAllForSale,
+    request?: DQueryAllForSale,
   ) => Promise<TQueryAllForSaleResponseStrict>
 
   /**
    * @function allInits
-   * @param {DQueryAllInits} request
+   * @param {DQueryAllInits} [request]
    * @returns Promise<TQueryAllInitsResponseStrict>
    */
   readonly allInits: (
-    request: DQueryAllInits,
+    request?: DQueryAllInits,
   ) => Promise<TQueryAllInitsResponseStrict>
 
   /**
    * @function allNames
-   * @param {DQueryAllNames} request
+   * @param {DQueryAllNames} [request]
    * @returns Promise<TQueryAllNamesResponseStrict>
    */
   readonly allNames: (
-    request: DQueryAllNames,
+    request?: DQueryAllNames,
   ) => Promise<TQueryAllNamesResponseStrict>
 
   /**
@@ -123,10 +123,10 @@ export interface IRnsExtensionMembers {
   readonly name: (request: DQueryName) => Promise<TQueryNameResponseStrict>
   /**
    * @function params
-   * @param {DQueryRnsParams} request
+   * @param {DQueryRnsParams} [request]
    * @returns Promise<TQueryRnsParamsResponseStrict>
    */
   readonly params: (
-    request: DQueryRnsParams,
+    request?: DQueryRnsParams,
   ) => Promise<TQueryRnsParamsResponseStrict>
 }

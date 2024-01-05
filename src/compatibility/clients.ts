@@ -74,7 +74,10 @@ import Long from 'long'
 import { MsgTransfer } from 'cosmjs-types/ibc/applications/transfer/v1/tx'
 import { TxRaw } from 'cosmjs-types/cosmos/tx/v1beta1/tx'
 import { SignMode } from 'cosmjs-types/cosmos/tx/signing/v1beta1/signing'
-import { createCompatibilityDefaultAminoConverters } from '@/compatibility/aminoConverters'
+import {
+  createCompatibilityDefaultAminoConverters,
+  createCompatibilityJackalAminoConverters
+} from '@/compatibility/amino'
 
 export class StargateCompatibilityClient {
   private readonly tmClient: TendermintClient | undefined
@@ -437,7 +440,10 @@ export class SigningStargateCompatibilityClient extends StargateCompatibilityCli
     super(tmClient, options)
     const {
       registry = new Registry(defaultRegistryTypes),
-      aminoTypes = new AminoTypes(createCompatibilityDefaultAminoConverters()),
+      aminoTypes = new AminoTypes({
+        ...createCompatibilityDefaultAminoConverters(),
+        ...createCompatibilityJackalAminoConverters()
+      }),
     } = options
     this.registry = registry
     this.aminoTypes = aminoTypes

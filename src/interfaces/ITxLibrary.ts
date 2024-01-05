@@ -1,10 +1,4 @@
-import type {
-  ITxFileTree,
-  ITxNotifications,
-  ITxOracle,
-  ITxRns,
-  ITxStorage,
-} from '@/snackages'
+import type { ITxBank, ITxFileTree, ITxNotifications, ITxOracle, ITxRns, ITxStorage } from '@/snackages'
 
 /**
  * Collection of all custom Jackal Msgs.
@@ -14,6 +8,7 @@ import type {
  * @property {ITxOracle} oracle
  * @property {ITxRns} rns
  * @property {ITxStorage} storage
+ * @property {ITxBank} bank
  */
 export interface ITxLibrary {
   fileTree: ITxFileTree
@@ -21,4 +16,6 @@ export interface ITxLibrary {
   oracle: ITxOracle
   rns: ITxRns
   storage: ITxStorage
+  /* cosmos */
+  bank: ITxBank
 }

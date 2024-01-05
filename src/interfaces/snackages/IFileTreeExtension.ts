@@ -34,20 +34,20 @@ export interface IFileTreeExtension {
 export interface IFileTreeExtensionMembers {
   /**
    * @function allFiles
-   * @param {DQueryFileTreeAllFiles} request
+   * @param {DQueryFileTreeAllFiles} [request]
    * @returns Promise<TQueryFileTreeAllFilesResponseStrict>
    */
   readonly allFiles: (
-    request: DQueryFileTreeAllFiles,
+    request?: DQueryFileTreeAllFiles,
   ) => Promise<TQueryFileTreeAllFilesResponseStrict>
 
   /**
    * @function allPubKeys
-   * @param {DQueryAllPubKeys} request
+   * @param {DQueryAllPubKeys} [request]
    * @returns Promise<TQueryAllPubKeysResponseStrict>
    */
   readonly allPubKeys: (
-    request: DQueryAllPubKeys,
+    request?: DQueryAllPubKeys,
   ) => Promise<TQueryAllPubKeysResponseStrict>
 
   /**
@@ -61,11 +61,11 @@ export interface IFileTreeExtensionMembers {
 
   /**
    * @function params
-   * @param {DQueryFileTreeParams} request
+   * @param {DQueryFileTreeParams} [request]
    * @returns Promise<TQueryFileTreeParamsResponseStrict>
    */
   readonly params: (
-    request: DQueryFileTreeParams,
+    request?: DQueryFileTreeParams,
   ) => Promise<TQueryFileTreeParamsResponseStrict>
 
   /**

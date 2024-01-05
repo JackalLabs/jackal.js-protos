@@ -1,6 +1,9 @@
 import { createProtobufRpcClient, QueryClient } from '@cosmjs/stargate'
 import { assertDefined } from '@cosmjs/utils'
-import { QueryClientImpl } from '@/postGen/canine_chain/oracle/query'
+import {
+  QueryAllFeeds,
+  QueryClientImpl,
+} from '@/postGen/canine_chain/oracle/query'
 import { warnError } from '@/utils/misc'
 import type { IOracleExtension } from '@/interfaces/snackages'
 import type {
@@ -21,12 +24,14 @@ export function createOracleExtension(base: QueryClient): IOracleExtension {
   return {
     oracle: {
       allFeeds: async (
-        request: DQueryAllFeeds,
+        request: DQueryAllFeeds = {},
       ): Promise<TQueryAllFeedsResponseStrict> => {
-        const resp = await queryService.AllFeeds(request).catch((err) => {
-          warnError('[Oracle] allFeeds', err)
-          throw err
-        })
+        const resp = await queryService
+          .AllFeeds(request as QueryAllFeeds)
+          .catch((err) => {
+            warnError('[Oracle] allFeeds', err)
+            throw err
+          })
         assertDefined(resp.pagination)
         return resp as TQueryAllFeedsResponseStrict
       },
@@ -39,7 +44,7 @@ export function createOracleExtension(base: QueryClient): IOracleExtension {
         return resp as TQueryFeedResponseStrict
       },
       params: async (
-        request: DQueryOracleParams,
+        request: DQueryOracleParams = {},
       ): Promise<TQueryOracleParamsResponseStrict> => {
         const resp = await queryService.Params(request).catch((err) => {
           warnError('[Oracle] params', err)

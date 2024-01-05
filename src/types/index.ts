@@ -9,5 +9,6 @@ export * from '@/types/storage'
 export * from '@/types/msgs'
 export * from '@/types/queries'
 
-export * from '@/types/TQueryExtensions'
+export * from '@/types/misc'
 export * from '@/types/msgResponseParsers'
+export * from '@/types/TQueryExtensions'

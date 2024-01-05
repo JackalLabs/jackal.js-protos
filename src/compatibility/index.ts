@@ -1,3 +1,3 @@
-export * from '@/compatibility/aminoConverters'
+export * from '@/compatibility/amino'
 export * from '@/compatibility/clients'
 // export * from '@/compatibility/extensions'

@@ -26,11 +26,11 @@ export interface IOracleExtension {
 export interface IOracleExtensionMembers {
   /**
    * @function allFeeds
-   * @param {DQueryAllFeeds} request
+   * @param {DQueryAllFeeds} [request]
    * @returns Promise<TQueryAllFeedsResponseStrict>
    */
   readonly allFeeds: (
-    request: DQueryAllFeeds,
+    request?: DQueryAllFeeds,
   ) => Promise<TQueryAllFeedsResponseStrict>
 
   /**
@@ -42,10 +42,10 @@ export interface IOracleExtensionMembers {
 
   /**
    * @function params
-   * @param {DQueryOracleParams} request
+   * @param {DQueryOracleParams} [request]
    * @returns Promise<TQueryOracleParamsResponseStrict>
    */
   readonly params: (
-    request: DQueryOracleParams,
+    request?: DQueryOracleParams,
   ) => Promise<TQueryOracleParamsResponseStrict>
 }

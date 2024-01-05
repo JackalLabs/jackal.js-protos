@@ -29,11 +29,11 @@ export interface INotificationsExtension {
 export interface INotificationsExtensionMembers {
   /**
    * @function allNotifications
-   * @param {DQueryAllNotifications} request
+   * @param {DQueryAllNotifications} [request]
    * @returns Promise<TQueryAllNotificationsResponseStrict>
    */
   readonly allNotifications: (
-    request: DQueryAllNotifications,
+    request?: DQueryAllNotifications,
   ) => Promise<TQueryAllNotificationsResponseStrict>
 
   /**
@@ -56,10 +56,10 @@ export interface INotificationsExtensionMembers {
 
   /**
    * @function params
-   * @param {DQueryNotificationsParams} request
+   * @param {DQueryNotificationsParams} [request]
    * @returns Promise<TQueryNotificationsParamsResponseStrict>
    */
   readonly params: (
-    request: DQueryNotificationsParams,
+    request?: DQueryNotificationsParams,
   ) => Promise<TQueryNotificationsParamsResponseStrict>
 }

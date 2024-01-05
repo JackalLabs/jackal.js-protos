@@ -27,6 +27,7 @@ import type {
   QueryStorageStats,
   QueryStoreCount,
 } from '@/postGen/canine_chain/storage/query'
+import { WithOptional } from '@/types/misc'
 
 /**
  * QueryAllProofs Documentation
@@ -34,9 +35,9 @@ import type {
  */
 export type DQueryAllProofs = Documentation<
   {
-    pagination: PageRequest | undefined
+    pagination?: PageRequest
   },
-  QueryAllProofs
+  WithOptional<QueryAllProofs, 'pagination'>
 >
 
 /**
@@ -45,9 +46,9 @@ export type DQueryAllProofs = Documentation<
  */
 export type DQueryStorageAllFiles = Documentation<
   {
-    pagination: PageRequest | undefined
+    pagination?: PageRequest
   },
-  QueryAllFiles
+  WithOptional<QueryAllFiles, 'pagination'>
 >
 
 /**
@@ -58,9 +59,9 @@ export type DQueryStorageAllFiles = Documentation<
 export type DQueryStorageAllFilesByMerkle = Documentation<
   {
     merkle: Uint8Array
-    pagination: PageRequest | undefined
+    pagination?: PageRequest
   },
-  QueryAllFilesByMerkle
+  WithOptional<QueryAllFilesByMerkle, 'pagination'>
 >
 
 /**
@@ -71,9 +72,9 @@ export type DQueryStorageAllFilesByMerkle = Documentation<
 export type DQueryStorageAllFilesByOwner = Documentation<
   {
     owner: string
-    pagination: PageRequest | undefined
+    pagination?: PageRequest
   },
-  QueryAllFilesByOwner
+  WithOptional<QueryAllFilesByOwner, 'pagination'>
 >
 
 /**
@@ -82,9 +83,9 @@ export type DQueryStorageAllFilesByOwner = Documentation<
  */
 export type DQueryAllAttestations = Documentation<
   {
-    pagination: PageRequest | undefined
+    pagination?: PageRequest
   },
-  QueryAllAttestations
+  WithOptional<QueryAllAttestations, 'pagination'>
 >
 
 /**
@@ -93,9 +94,9 @@ export type DQueryAllAttestations = Documentation<
  */
 export type DQueryAllProviders = Documentation<
   {
-    pagination: PageRequest | undefined
+    pagination?: PageRequest
   },
-  QueryAllProviders
+  WithOptional<QueryAllProviders, 'pagination'>
 >
 
 /**
@@ -104,9 +105,9 @@ export type DQueryAllProviders = Documentation<
  */
 export type DQueryAllReports = Documentation<
   {
-    pagination: PageRequest | undefined
+    pagination?: PageRequest
   },
-  QueryAllReports
+  WithOptional<QueryAllReports, 'pagination'>
 >
 
 /**
@@ -115,9 +116,9 @@ export type DQueryAllReports = Documentation<
  */
 export type DQueryAllStoragePaymentInfo = Documentation<
   {
-    pagination: PageRequest | undefined
+    pagination?: PageRequest
   },
-  QueryAllStoragePaymentInfo
+  WithOptional<QueryAllStoragePaymentInfo, 'pagination'>
 >
 
 /**
@@ -128,9 +129,9 @@ export type DQueryAllStoragePaymentInfo = Documentation<
 export type DQueryOpenFiles = Documentation<
   {
     providerAddress: string
-    pagination: PageRequest | undefined
+    pagination?: PageRequest
   },
-  QueryOpenFiles
+  WithOptional<QueryOpenFiles, 'pagination'>
 >
 
 /**
@@ -141,9 +142,9 @@ export type DQueryOpenFiles = Documentation<
 export type DQueryProofsByAddress = Documentation<
   {
     providerAddress: string
-    pagination: PageRequest | undefined
+    pagination?: PageRequest
   },
-  QueryProofsByAddress
+  WithOptional<QueryProofsByAddress, 'pagination'>
 >
 
 /**

@@ -1,6 +1,10 @@
 import { createProtobufRpcClient, QueryClient } from '@cosmjs/stargate'
 import { assertDefined } from '@cosmjs/utils'
-import { QueryClientImpl } from '@/postGen/canine_chain/notifications/query'
+import {
+  QueryAllNotifications,
+  QueryAllNotificationsByAddress,
+  QueryClientImpl,
+} from '@/postGen/canine_chain/notifications/query'
 import { warnError } from '@/utils/misc'
 import type { INotificationsExtension } from '@/interfaces/snackages'
 import type {
@@ -25,10 +29,10 @@ export function createNotificationsExtension(
   return {
     notifications: {
       allNotifications: async (
-        request: DQueryAllNotifications,
+        request: DQueryAllNotifications = {},
       ): Promise<TQueryAllNotificationsResponseStrict> => {
         const resp = await queryService
-          .AllNotifications(request)
+          .AllNotifications(request as QueryAllNotifications)
           .catch((err) => {
             warnError('[Notifications] allNotifications', err)
             throw err
@@ -40,7 +44,7 @@ export function createNotificationsExtension(
         request: DQueryAllNotificationsByAddress,
       ): Promise<TQueryAllNotificationsByAddressResponseStrict> => {
         const resp = await queryService
-          .AllNotificationsByAddress(request)
+          .AllNotificationsByAddress(request as QueryAllNotificationsByAddress)
           .catch((err) => {
             warnError('[Notifications] allNotificationsByAddress', err)
             throw err
@@ -59,7 +63,7 @@ export function createNotificationsExtension(
         return resp as TQueryNotificationResponseStrict
       },
       params: async (
-        request: DQueryNotificationsParams,
+        request: DQueryNotificationsParams = {},
       ): Promise<TQueryNotificationsParamsResponseStrict> => {
         const resp = await queryService.Params(request).catch((err) => {
           warnError('[Notifications] params', err)

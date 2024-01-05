@@ -11,6 +11,7 @@ import type {
   QueryName,
   QueryParams,
 } from '@/postGen/canine_chain/rns/query'
+import { WithOptional } from '@/types/misc'
 
 /**
  * QueryAllBids Documentation
@@ -18,9 +19,9 @@ import type {
  */
 export type DQueryAllBids = Documentation<
   {
-    pagination: PageRequest | undefined
+    pagination?: PageRequest
   },
-  QueryAllBids
+  WithOptional<QueryAllBids, 'pagination'>
 >
 
 /**
@@ -29,9 +30,9 @@ export type DQueryAllBids = Documentation<
  */
 export type DQueryAllForSale = Documentation<
   {
-    pagination: PageRequest | undefined
+    pagination?: PageRequest
   },
-  QueryAllForSale
+  WithOptional<QueryAllForSale, 'pagination'>
 >
 
 /**
@@ -40,9 +41,9 @@ export type DQueryAllForSale = Documentation<
  */
 export type DQueryAllInits = Documentation<
   {
-    pagination: PageRequest | undefined
+    pagination?: PageRequest
   },
-  QueryAllInits
+  WithOptional<QueryAllInits, 'pagination'>
 >
 
 /**
@@ -51,9 +52,9 @@ export type DQueryAllInits = Documentation<
  */
 export type DQueryAllNames = Documentation<
   {
-    pagination: PageRequest | undefined
+    pagination?: PageRequest
   },
-  QueryAllNames
+  WithOptional<QueryAllNames, 'pagination'>
 >
 
 /**
@@ -97,9 +98,9 @@ export type DQueryInit = Documentation<
 export type DQueryListOwnedNames = Documentation<
   {
     address: string
-    pagination: PageRequest | undefined
+    pagination?: PageRequest
   },
-  QueryListOwnedNames
+  WithOptional<QueryListOwnedNames, 'pagination'>
 >
 
 /**

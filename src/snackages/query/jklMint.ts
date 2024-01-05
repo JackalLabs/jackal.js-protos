@@ -16,7 +16,7 @@ export function createJklMintExtension(base: QueryClient): IJklMintExtension {
   return {
     jklMint: {
       inflation: async (
-        request: DQueryInflation,
+        request: DQueryInflation = {},
       ): Promise<TQueryInflationResponseStrict> => {
         const resp = await queryService.Inflation(request).catch((err) => {
           warnError('[jklMint] inflation', err)
@@ -26,7 +26,7 @@ export function createJklMintExtension(base: QueryClient): IJklMintExtension {
         return resp as TQueryInflationResponseStrict
       },
       params: async (
-        request: DQueryJklMintParams,
+        request: DQueryJklMintParams = {},
       ): Promise<TQueryJklMintParamsResponseStrict> => {
         const resp = await queryService.Params(request).catch((err) => {
           warnError('[jklMint] params', err)

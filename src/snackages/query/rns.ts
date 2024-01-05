@@ -1,6 +1,13 @@
 import { createProtobufRpcClient, QueryClient } from '@cosmjs/stargate'
 import { assertDefined } from '@cosmjs/utils'
-import { QueryClientImpl } from '@/postGen/canine_chain/rns/query'
+import {
+  QueryAllBids,
+  QueryAllForSale,
+  QueryAllInits,
+  QueryAllNames,
+  QueryClientImpl,
+  QueryListOwnedNames,
+} from '@/postGen/canine_chain/rns/query'
 import { warnError } from '@/utils/misc'
 import type { IRnsExtension } from '@/interfaces/snackages/IRnsExtension'
 import type {
@@ -35,42 +42,50 @@ export function createRnsExtension(base: QueryClient): IRnsExtension {
   return {
     rns: {
       allBids: async (
-        request: DQueryAllBids,
+        request: DQueryAllBids = {},
       ): Promise<TQueryAllBidsResponseStrict> => {
-        const resp = await queryService.AllBids(request).catch((err) => {
-          warnError('[RNS] allBids', err)
-          throw err
-        })
+        const resp = await queryService
+          .AllBids(request as QueryAllBids)
+          .catch((err) => {
+            warnError('[RNS] allBids', err)
+            throw err
+          })
         assertDefined(resp.pagination)
         return resp as TQueryAllBidsResponseStrict
       },
       allForSale: async (
-        request: DQueryAllForSale,
+        request: DQueryAllForSale = {},
       ): Promise<TQueryAllForSaleResponseStrict> => {
-        const resp = await queryService.AllForSale(request).catch((err) => {
-          warnError('[RNS] allForSale', err)
-          throw err
-        })
+        const resp = await queryService
+          .AllForSale(request as QueryAllForSale)
+          .catch((err) => {
+            warnError('[RNS] allForSale', err)
+            throw err
+          })
         assertDefined(resp.pagination)
         return resp as TQueryAllForSaleResponseStrict
       },
       allInits: async (
-        request: DQueryAllInits,
+        request: DQueryAllInits = {},
       ): Promise<TQueryAllInitsResponseStrict> => {
-        const resp = await queryService.AllInits(request).catch((err) => {
-          warnError('[RNS] allInits', err)
-          throw err
-        })
+        const resp = await queryService
+          .AllInits(request as QueryAllInits)
+          .catch((err) => {
+            warnError('[RNS] allInits', err)
+            throw err
+          })
         assertDefined(resp.pagination)
         return resp as TQueryAllInitsResponseStrict
       },
       allNames: async (
-        request: DQueryAllNames,
+        request: DQueryAllNames = {},
       ): Promise<TQueryAllNamesResponseStrict> => {
-        const resp = await queryService.AllNames(request).catch((err) => {
-          warnError('[RNS] allNames', err)
-          throw err
-        })
+        const resp = await queryService
+          .AllNames(request as QueryAllNames)
+          .catch((err) => {
+            warnError('[RNS] allNames', err)
+            throw err
+          })
         assertDefined(resp.pagination)
         return resp as TQueryAllNamesResponseStrict
       },
@@ -103,10 +118,12 @@ export function createRnsExtension(base: QueryClient): IRnsExtension {
       listOwnedNames: async (
         request: DQueryListOwnedNames,
       ): Promise<TQueryListOwnedNamesResponseStrict> => {
-        const resp = await queryService.ListOwnedNames(request).catch((err) => {
-          warnError('[RNS] listOwnedNames', err)
-          throw err
-        })
+        const resp = await queryService
+          .ListOwnedNames(request as QueryListOwnedNames)
+          .catch((err) => {
+            warnError('[RNS] listOwnedNames', err)
+            throw err
+          })
         assertDefined(resp.pagination)
         return resp as TQueryListOwnedNamesResponseStrict
       },
@@ -119,7 +136,7 @@ export function createRnsExtension(base: QueryClient): IRnsExtension {
         return resp as TQueryNameResponseStrict
       },
       params: async (
-        request: DQueryRnsParams,
+        request: DQueryRnsParams = {},
       ): Promise<TQueryRnsParamsResponseStrict> => {
         const resp = await queryService.Params(request).catch((err) => {
           warnError('[RNS] params', err)

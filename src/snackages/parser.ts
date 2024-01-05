@@ -3,10 +3,11 @@ import {
   notificationsResponses,
   oracleResponses,
   rnsResponses,
-  storageResponses,
+  storageResponses
 } from '@/snackages/tx'
-import { TMsgResponseParsers } from '@/types'
-import { IMsgResponse } from '@/interfaces'
+import { bankResponses } from '@/snackages/cosmos'
+import type { TMsgResponseParsers } from '@/types'
+import type { IMsgResponse } from '@/interfaces'
 
 export const txResponseLibrary: TMsgResponseParsers = {
   ...fileTreeResponses,
@@ -14,6 +15,8 @@ export const txResponseLibrary: TMsgResponseParsers = {
   ...oracleResponses,
   ...rnsResponses,
   ...storageResponses,
+  /* cosmos */
+  ...bankResponses,
 }
 
 export function parseMsgResponse(msgResponse: IMsgResponse) {

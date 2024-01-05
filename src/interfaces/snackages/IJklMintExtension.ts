@@ -23,19 +23,19 @@ export interface IJklMintExtension {
 export interface IJklMintExtensionMembers {
   /**
    * @function inflation
-   * @param {DQueryInflation} request
+   * @param {DQueryInflation} [request]
    * @returns Promise<TQueryInflationResponseStrict>
    */
   readonly inflation: (
-    request: DQueryInflation,
+    request?: DQueryInflation,
   ) => Promise<TQueryInflationResponseStrict>
 
   /**
    * @function params
-   * @param {DQueryJklMintParams} request
+   * @param {DQueryJklMintParams} [request]
    * @returns Promise<TQueryJklMintParamsResponseStrict>
    */
   readonly params: (
-    request: DQueryJklMintParams,
+    request?: DQueryJklMintParams,
   ) => Promise<TQueryJklMintParamsResponseStrict>
 }

@@ -1,9 +1,21 @@
 import { createProtobufRpcClient, QueryClient } from '@cosmjs/stargate'
 import { assertDefined } from '@cosmjs/utils'
-import { QueryClientImpl } from '@/postGen/canine_chain/storage/query'
+import {
+  QueryAllAttestations,
+  QueryAllFiles,
+  QueryAllFilesByMerkle,
+  QueryAllFilesByOwner,
+  QueryAllProofs,
+  QueryAllProviders,
+  QueryAllReports,
+  QueryAllStoragePaymentInfo,
+  QueryClientImpl,
+  QueryOpenFiles,
+  QueryProofsByAddress,
+} from '@/postGen/canine_chain/storage/query'
 import { warnError } from '@/utils/misc'
 import type { IStorageExtension } from '@/interfaces/snackages'
-import {
+import type {
   DQueryActiveProviders,
   DQueryAllAttestations,
   DQueryAllProofs,
@@ -29,9 +41,7 @@ import {
   DQueryStorageParams,
   DQueryStoragePaymentInfo,
   DQueryStorageStats,
-  DQueryStoreCount,
-  TQueryStorageAllFilesByMerkleResponseStrict,
-  TQueryStorageAllFilesByOwnerResponseStrict,
+  DQueryStoreCount
 } from '@/types/queries'
 import type {
   TQueryActiveProvidersResponseStrict,
@@ -51,6 +61,8 @@ import type {
   TQueryProofsByAddressResponseStrict,
   TQueryProviderResponseStrict,
   TQueryReportResponseStrict,
+  TQueryStorageAllFilesByMerkleResponseStrict,
+  TQueryStorageAllFilesByOwnerResponseStrict,
   TQueryStorageAllFilesResponseStrict,
   TQueryStorageFileResponseStrict,
   TQueryStorageParamsResponseStrict,
@@ -78,10 +90,10 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         return resp as TQueryActiveProvidersResponseStrict
       },
       allAttestations: async (
-        request: DQueryAllAttestations,
+        request: DQueryAllAttestations = {},
       ): Promise<TQueryAllAttestationsResponseStrict> => {
         const resp = await queryService
-          .AllAttestations(request)
+          .AllAttestations(request as QueryAllAttestations)
           .catch((err) => {
             warnError('[Storage] allAttestations', err)
             throw err
@@ -90,12 +102,14 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         return resp as TQueryAllAttestationsResponseStrict
       },
       allFiles: async (
-        request: DQueryStorageAllFiles,
+        request: DQueryStorageAllFiles = {},
       ): Promise<TQueryStorageAllFilesResponseStrict> => {
-        const resp = await queryService.AllFiles(request).catch((err) => {
-          warnError('[Storage] allFiles', err)
-          throw err
-        })
+        const resp = await queryService
+          .AllFiles(request as QueryAllFiles)
+          .catch((err) => {
+            warnError('[Storage] allFiles', err)
+            throw err
+          })
         assertDefined(resp.pagination)
         return resp as TQueryStorageAllFilesResponseStrict
       },
@@ -103,9 +117,9 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         request: DQueryStorageAllFilesByMerkle,
       ): Promise<TQueryStorageAllFilesByMerkleResponseStrict> => {
         const resp = await queryService
-          .AllFilesByMerkle(request)
+          .AllFilesByMerkle(request as QueryAllFilesByMerkle)
           .catch((err) => {
-            warnError('[Storage] allFiles', err)
+            warnError('[Storage] allFilesByMerkle', err)
             throw err
           })
         assertDefined(resp.pagination)
@@ -115,49 +129,55 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         request: DQueryStorageAllFilesByOwner,
       ): Promise<TQueryStorageAllFilesByOwnerResponseStrict> => {
         const resp = await queryService
-          .AllFilesByOwner(request)
+          .AllFilesByOwner(request as QueryAllFilesByOwner)
           .catch((err) => {
-            warnError('[Storage] allFiles', err)
+            warnError('[Storage] allFilesByOwner', err)
             throw err
           })
         assertDefined(resp.pagination)
         return resp as TQueryStorageAllFilesByOwnerResponseStrict
       },
       allProofs: async (
-        request: DQueryAllProofs,
+        request: DQueryAllProofs = {},
       ): Promise<TQueryAllProofsResponseStrict> => {
-        const resp = await queryService.AllProofs(request).catch((err) => {
-          warnError('[Storage] allProofs', err)
-          throw err
-        })
+        const resp = await queryService
+          .AllProofs(request as QueryAllProofs)
+          .catch((err) => {
+            warnError('[Storage] allProofs', err)
+            throw err
+          })
         assertDefined(resp.pagination)
         return resp as TQueryAllProofsResponseStrict
       },
       allProviders: async (
-        request: DQueryAllProviders,
+        request: DQueryAllProviders = {},
       ): Promise<TQueryAllProvidersResponseStrict> => {
-        const resp = await queryService.AllProviders(request).catch((err) => {
-          warnError('[Storage] allProviders', err)
-          throw err
-        })
+        const resp = await queryService
+          .AllProviders(request as QueryAllProviders)
+          .catch((err) => {
+            warnError('[Storage] allProviders', err)
+            throw err
+          })
         assertDefined(resp.pagination)
         return resp as TQueryAllProvidersResponseStrict
       },
       allReports: async (
-        request: DQueryAllReports,
+        request: DQueryAllReports = {},
       ): Promise<TQueryAllReportsResponseStrict> => {
-        const resp = await queryService.AllReports(request).catch((err) => {
-          warnError('[Storage] allReports', err)
-          throw err
-        })
+        const resp = await queryService
+          .AllReports(request as QueryAllReports)
+          .catch((err) => {
+            warnError('[Storage] allReports', err)
+            throw err
+          })
         assertDefined(resp.pagination)
         return resp as TQueryAllReportsResponseStrict
       },
       allStoragePaymentInfo: async (
-        request: DQueryAllStoragePaymentInfo,
+        request: DQueryAllStoragePaymentInfo = {},
       ): Promise<TQueryAllStoragePaymentInfoResponseStrict> => {
         const resp = await queryService
-          .AllStoragePaymentInfo(request)
+          .AllStoragePaymentInfo(request as QueryAllStoragePaymentInfo)
           .catch((err) => {
             warnError('[Storage] allStoragePaymentInfo', err)
             throw err
@@ -232,10 +252,12 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
       openFiles: async (
         request: DQueryOpenFiles,
       ): Promise<TQueryStorageAllFilesResponseStrict> => {
-        const resp = await queryService.OpenFiles(request).catch((err) => {
-          warnError('[Storage] openFiles', err)
-          throw err
-        })
+        const resp = await queryService
+          .OpenFiles(request as QueryOpenFiles)
+          .catch((err) => {
+            warnError('[Storage] openFiles', err)
+            throw err
+          })
         assertDefined(resp.pagination)
         return resp as TQueryStorageAllFilesResponseStrict
       },
@@ -273,7 +295,7 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         request: DQueryProofsByAddress,
       ): Promise<TQueryProofsByAddressResponseStrict> => {
         const resp = await queryService
-          .ProofsByAddress(request)
+          .ProofsByAddress(request as QueryProofsByAddress)
           .catch((err) => {
             warnError('[Storage] proofsByAddress', err)
             throw err

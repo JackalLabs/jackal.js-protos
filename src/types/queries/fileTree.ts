@@ -6,6 +6,7 @@ import type {
   QueryPubKey,
 } from '@/postGen/canine_chain/filetree/query'
 import type { PageRequest } from '@/postGen/cosmos/base/query/v1beta1/pagination'
+import { WithOptional } from '@/types/misc'
 
 /**
  * QueryFileTreeAllFiles Documentation
@@ -13,9 +14,9 @@ import type { PageRequest } from '@/postGen/cosmos/base/query/v1beta1/pagination
  */
 export type DQueryFileTreeAllFiles = Documentation<
   {
-    pagination: PageRequest | undefined
+    pagination?: PageRequest
   },
-  QueryAllFiles
+  WithOptional<QueryAllFiles, 'pagination'>
 >
 
 /**
@@ -24,9 +25,9 @@ export type DQueryFileTreeAllFiles = Documentation<
  */
 export type DQueryAllPubKeys = Documentation<
   {
-    pagination: PageRequest | undefined
+    pagination?: PageRequest
   },
-  QueryAllPubKeys
+  WithOptional<QueryAllPubKeys, 'pagination'>
 >
 
 /**

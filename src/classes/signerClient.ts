@@ -16,13 +16,14 @@ import {
   TxOracle,
   TxRns,
   TxStorage,
+  TxBank,
 } from '@/snackages'
+import { SigningStargateCompatibilityClient } from '@/compatibility'
 import type { ISignAndBroadcastOptions } from '@/interfaces/ISignAndBroadcastOptions'
 import type { IJackalSigningStargateClient } from '@/interfaces/classes/ISignerClient'
 import type { DDeliverTxResponse, DEncodeObject } from '@/types/msgs'
 import type { DHttpEndpoint, TQueryExtensions } from '@/types'
 import type { ITxLibrary } from '@/interfaces'
-import { SigningStargateCompatibilityClient } from '@/compatibility'
 
 /**
  * @class {IJackalSigningStargateClient} JackalSigningStargateClient
@@ -61,6 +62,8 @@ export class JackalSigningStargateClient
       oracle: TxOracle,
       rns: TxRns,
       storage: TxStorage,
+      /* cosmos tx */
+      bank: TxBank,
     }
   }
 

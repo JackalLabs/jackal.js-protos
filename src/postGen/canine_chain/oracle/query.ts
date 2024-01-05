@@ -1,6 +1,6 @@
 /* eslint-disable */
 import _m0 from "protobufjs/minimal";
-import { PageResponse } from "../../cosmos/base/query/v1beta1/pagination";
+import { PageRequest, PageResponse } from "../../cosmos/base/query/v1beta1/pagination";
 import { Feed } from "./feed";
 import { Params } from "./params";
 
@@ -22,6 +22,7 @@ export interface QueryFeedResponse {
 }
 
 export interface QueryAllFeeds {
+  pagination: PageRequest | undefined;
 }
 
 export interface QueryAllFeedsResponse {
@@ -246,11 +247,14 @@ export const QueryFeedResponse = {
 };
 
 function createBaseQueryAllFeeds(): QueryAllFeeds {
-  return {};
+  return { pagination: undefined };
 }
 
 export const QueryAllFeeds = {
-  encode(_: QueryAllFeeds, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: QueryAllFeeds, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -261,6 +265,13 @@ export const QueryAllFeeds = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -270,20 +281,26 @@ export const QueryAllFeeds = {
     return message;
   },
 
-  fromJSON(_: any): QueryAllFeeds {
-    return {};
+  fromJSON(object: any): QueryAllFeeds {
+    return { pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined };
   },
 
-  toJSON(_: QueryAllFeeds): unknown {
+  toJSON(message: QueryAllFeeds): unknown {
     const obj: any = {};
+    if (message.pagination !== undefined) {
+      obj.pagination = PageRequest.toJSON(message.pagination);
+    }
     return obj;
   },
 
   create<I extends Exact<DeepPartial<QueryAllFeeds>, I>>(base?: I): QueryAllFeeds {
     return QueryAllFeeds.fromPartial(base ?? ({} as any));
   },
-  fromPartial<I extends Exact<DeepPartial<QueryAllFeeds>, I>>(_: I): QueryAllFeeds {
+  fromPartial<I extends Exact<DeepPartial<QueryAllFeeds>, I>>(object: I): QueryAllFeeds {
     const message = createBaseQueryAllFeeds();
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageRequest.fromPartial(object.pagination)
+      : undefined;
     return message;
   },
 };
