@@ -15,7 +15,7 @@ import {
 } from '@/postgen/canine_chain/notifications/tx'
 import { forAmino, wasAmino } from '@/utils/converters'
 
-export function createNotificationsAminoConverters(): AminoConverters {
+export function createNotificationsAminoConverters (): AminoConverters {
   return {
     '/canine_chain.notifications.MsgCreateNotifications': {
       aminoType: 'notifications/CreateNotifications',

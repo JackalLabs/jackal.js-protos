@@ -1,12 +1,9 @@
 import { MsgCreateFeed, MsgUpdateFeed } from '@/postgen/canine_chain/oracle/tx'
-import {
-  AminoMsgCreateFeed,
-  AminoMsgUpdateFeed
-} from '@/interfaces/amino/IAminoOracle'
+import { AminoMsgCreateFeed, AminoMsgUpdateFeed } from '@/interfaces/amino/IAminoOracle'
 import { AminoConverters } from '@cosmjs/stargate'
 import { forAmino, wasAmino } from '@/utils/converters'
 
-export function createOracleAminoConverters(): AminoConverters {
+export function createOracleAminoConverters (): AminoConverters {
   return {
     '/canine_chain.oracle.MsgCreateFeed': {
       aminoType: 'oracle/CreateFeed',

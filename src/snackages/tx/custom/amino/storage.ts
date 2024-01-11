@@ -25,13 +25,12 @@ import {
   AminoMsgSetProviderIP,
   AminoMsgSetProviderKeybase,
   AminoMsgSetProviderTotalspace,
-  AminoMsgSignContract,
   AminoMsgUpgradeStorage
 } from '@/interfaces/amino/IAminoStorage'
 import { AminoConverters } from '@cosmjs/stargate'
-import { forAmino, wasAmino } from '@/utils/converters'
+import { forAmino, sortAmino, wasAmino } from '@/utils/converters'
 
-export function createStorageAminoConverters(): AminoConverters {
+export function createStorageAminoConverters (): AminoConverters {
   return {
     '/canine_chain.storage.MsgPostContract': {
       aminoType: 'storage/PostContract',
@@ -48,16 +47,31 @@ export function createStorageAminoConverters(): AminoConverters {
         return forAmino(value)
       },
       fromAmino: (value: AminoMsgPostproof['value']): MsgPostproof => {
-        return wasAmino(value)
+        // TODO - correct
+        return sortAmino(value)
       }
     },
     '/canine_chain.storage.MsgSignContract': {
       aminoType: 'storage/SignContract',
-      toAmino: (value: MsgSignContract): AminoMsgSignContract['value'] => {
-        return forAmino(value)
+      toAmino: (value: MsgSignContract): any => {
+        console.log('forAmino(storage/SignContract)')
+        // return forAmino(value)
+        // return sortAmino(value)
+        return {
+          cid: value.cid,
+          creator: value.creator,
+          pay_once: value.payOnce.toString()
+        }
       },
-      fromAmino: (value: AminoMsgSignContract['value']): MsgSignContract => {
-        return wasAmino(value)
+      fromAmino: (value: any): MsgSignContract => {
+        console.log('value(storage/SignContract)')
+        console.log(value)
+        // return sortAmino(value)
+        return {
+          creator: value.creator,
+          cid: value.cid,
+          payOnce: value.pay_once.toString()
+        }
       }
     },
     '/canine_chain.storage.MsgSetProviderIP': {

@@ -27,17 +27,34 @@ import {
   AminoMsgResetViewers
 } from '@/interfaces/amino/IAminoFileTree'
 import { AminoConverters } from '@cosmjs/stargate'
-import { forAmino, wasAmino } from '@/utils/converters'
+import { forAmino, sortAmino, wasAmino } from '@/utils/converters'
 
-export function createFileTreeAminoConverters(): AminoConverters {
+export function createFileTreeAminoConverters (): AminoConverters {
   return {
     '/canine_chain.filetree.MsgPostFile': {
       aminoType: 'filetree/PostFile',
       toAmino: (value: MsgPostFile): AminoMsgPostFile['value'] => {
-        return forAmino(value)
+        console.log('forAminoV3(filetree/PostFile)')
+        // return forAminoV3(value)
+        return sortAmino(value)
       },
-      fromAmino: (value: AminoMsgPostFile['value']): MsgPostFile => {
-        return wasAmino(value)
+      fromAmino: (value: AminoMsgPostFile['value']): any => {
+        console.log('wasAminoV3(filetree/PostFile)')
+        // return wasAminoV3(value)
+        // return sortAmino(value)
+        return {
+          creator: value.creator,
+          account: value.account,
+          // hash_parent: value.hashParent,
+          hashParent: value.hashParent,
+          // hash_child: value.hashChild,
+          hashChild: value.hashChild,
+          contents: value.contents,
+          viewers: value.viewers,
+          editors: value.editors,
+          // tracking_number: value.trackingNumber
+          trackingNumber: value.trackingNumber
+        }
       }
     },
     '/canine_chain.filetree.MsgAddViewers': {
@@ -52,9 +69,11 @@ export function createFileTreeAminoConverters(): AminoConverters {
     '/canine_chain.filetree.MsgPostkey': {
       aminoType: 'filetree/Postkey',
       toAmino: (value: MsgPostkey): AminoMsgPostkey['value'] => {
+        console.log('forAmino(filetree/Postkey)')
         return forAmino(value)
       },
       fromAmino: (value: AminoMsgPostkey['value']): MsgPostkey => {
+        console.log('wasAmino(filetree/Postkey)')
         return wasAmino(value)
       }
     },
@@ -88,10 +107,12 @@ export function createFileTreeAminoConverters(): AminoConverters {
     '/canine_chain.filetree.MsgMakeRootV2': {
       aminoType: 'filetree/MakeRootV2',
       toAmino: (value: MsgMakeRootV2): AminoMsgMakeRootV2['value'] => {
-        return forAmino(value)
+        console.log('sortAmino(filetree/MakeRootV2)')
+        return sortAmino(value)
       },
       fromAmino: (value: AminoMsgMakeRootV2['value']): MsgMakeRootV2 => {
-        return wasAmino(value)
+        console.log('sortAmino(filetree/MakeRootV2)')
+        return sortAmino(value)
       }
     },
     '/canine_chain.filetree.MsgAddEditors': {

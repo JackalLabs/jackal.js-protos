@@ -29,7 +29,7 @@ import {
 import { AminoConverters } from '@cosmjs/stargate'
 import { forAmino, wasAmino } from '@/utils/converters'
 
-export function createRnsAminoConverters(): AminoConverters {
+export function createRnsAminoConverters (): AminoConverters {
   return {
     '/canine_chain.rns.MsgRegister': {
       aminoType: 'rns/Register',
