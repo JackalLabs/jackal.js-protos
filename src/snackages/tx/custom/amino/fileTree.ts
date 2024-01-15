@@ -12,131 +12,175 @@ import {
   MsgResetEditors,
   MsgResetViewers
 } from '@/postgen/canine_chain/filetree/tx'
-import {
-  AminoMsgAddEditors,
-  AminoMsgAddViewers,
-  AminoMsgChangeOwner,
-  AminoMsgDeleteFile,
-  AminoMsgMakeRoot,
-  AminoMsgMakeRootV2,
-  AminoMsgPostFile,
-  AminoMsgPostkey,
-  AminoMsgRemoveEditors,
-  AminoMsgRemoveViewers,
-  AminoMsgResetEditors,
-  AminoMsgResetViewers
-} from '@/interfaces/amino/IAminoFileTree'
 import { AminoConverters } from '@cosmjs/stargate'
-import { forAmino, wasAmino } from '@/utils/converters'
+import { sortAmino, wasAmino } from '@/utils/converters'
 
 export function createFileTreeAminoConverters(): AminoConverters {
   return {
     '/canine_chain.filetree.MsgPostFile': {
       aminoType: 'filetree/PostFile',
-      toAmino: (value: MsgPostFile): AminoMsgPostFile['value'] => {
-        return forAmino(value)
+      toAmino: (value: MsgPostFile): any => {
+        return sortAmino(value)
       },
-      fromAmino: (value: AminoMsgPostFile['value']): MsgPostFile => {
-        return wasAmino(value)
+      fromAmino: (value: any): MsgPostFile => {
+        return {
+          creator: value.creator,
+          account: value.account,
+          hashParent: value.hashParent,
+          hashChild: value.hashChild,
+          contents: value.contents,
+          viewers: value.viewers,
+          editors: value.editors,
+          trackingNumber: value.trackingNumber
+        }
       }
     },
     '/canine_chain.filetree.MsgAddViewers': {
       aminoType: 'filetree/AddViewers',
-      toAmino: (value: MsgAddViewers): AminoMsgAddViewers['value'] => {
-        return forAmino(value)
+      toAmino: (value: MsgAddViewers): any => {
+        return sortAmino(value)
       },
-      fromAmino: (value: AminoMsgAddViewers['value']): MsgAddViewers => {
-        return wasAmino(value)
+      fromAmino: (value: any): MsgAddViewers => {
+        return {
+          creator: value.creator,
+          viewerIds: value.viewerIds,
+          viewerKeys: value.viewerKeys,
+          address: value.address,
+          fileowner: value.fileowner
+        }
       }
     },
     '/canine_chain.filetree.MsgPostkey': {
       aminoType: 'filetree/Postkey',
-      toAmino: (value: MsgPostkey): AminoMsgPostkey['value'] => {
-        return forAmino(value)
+      toAmino: (value: MsgPostkey): any => {
+        return sortAmino(value)
       },
-      fromAmino: (value: AminoMsgPostkey['value']): MsgPostkey => {
-        return wasAmino(value)
+      fromAmino: (value: any): MsgPostkey => {
+        return {
+          creator: value.creator,
+          key: value.key
+        }
       }
     },
     '/canine_chain.filetree.MsgDeleteFile': {
       aminoType: 'filetree/DeleteFile',
-      toAmino: (value: MsgDeleteFile): AminoMsgDeleteFile['value'] => {
-        return forAmino(value)
+      toAmino: (value: MsgDeleteFile): any => {
+        return sortAmino(value)
       },
-      fromAmino: (value: AminoMsgDeleteFile['value']): MsgDeleteFile => {
-        return wasAmino(value)
+      fromAmino: (value: any): MsgDeleteFile => {
+        return {
+          creator: value.creator,
+          hashPath: value.hashPath,
+          account: value.account
+        }
       }
     },
     '/canine_chain.filetree.MsgRemoveViewers': {
       aminoType: 'filetree/RemoveViewers',
-      toAmino: (value: MsgRemoveViewers): AminoMsgRemoveViewers['value'] => {
-        return forAmino(value)
+      toAmino: (value: MsgRemoveViewers): any => {
+        return sortAmino(value)
       },
-      fromAmino: (value: AminoMsgRemoveViewers['value']): MsgRemoveViewers => {
-        return wasAmino(value)
+      fromAmino: (value: any): MsgRemoveViewers => {
+        return {
+          creator: value.creator,
+          viewerIds: value.viewerIds,
+          address: value.address,
+          fileowner: value.fileowner
+        }
       }
     },
     '/canine_chain.filetree.MsgMakeRoot': {
       aminoType: 'filetree/MakeRoot',
-      toAmino: (value: MsgMakeRoot): AminoMsgMakeRoot['value'] => {
-        return forAmino(value)
+      toAmino: (value: MsgMakeRoot): any => {
+        // deprecated
+        return sortAmino(value)
       },
-      fromAmino: (value: AminoMsgMakeRoot['value']): MsgMakeRoot => {
+      fromAmino: (value: any): MsgMakeRoot => {
+        // deprecated
         return wasAmino(value)
       }
     },
     '/canine_chain.filetree.MsgMakeRootV2': {
       aminoType: 'filetree/MakeRootV2',
-      toAmino: (value: MsgMakeRootV2): AminoMsgMakeRootV2['value'] => {
-        return forAmino(value)
+      toAmino: (value: MsgMakeRootV2): any => {
+        return sortAmino(value)
       },
-      fromAmino: (value: AminoMsgMakeRootV2['value']): MsgMakeRootV2 => {
-        return wasAmino(value)
+      fromAmino: (value: any): MsgMakeRootV2 => {
+        return {
+          creator: value.creator,
+          editors: value.editors,
+          viewers: value.viewers,
+          trackingNumber: value.trackingNumber
+        }
       }
     },
     '/canine_chain.filetree.MsgAddEditors': {
       aminoType: 'filetree/AddEditors',
-      toAmino: (value: MsgAddEditors): AminoMsgAddEditors['value'] => {
-        return forAmino(value)
+      toAmino: (value: MsgAddEditors): any => {
+        return sortAmino(value)
       },
-      fromAmino: (value: AminoMsgAddEditors['value']): MsgAddEditors => {
-        return wasAmino(value)
+      fromAmino: (value: any): MsgAddEditors => {
+        return {
+          creator: value.creator,
+          editorIds: value.editorIds,
+          editorKeys: value.editorKeys,
+          address: value.address,
+          fileowner: value.fileowner
+        }
       }
     },
     '/canine_chain.filetree.MsgRemoveEditors': {
       aminoType: 'filetree/RemoveEditors',
-      toAmino: (value: MsgRemoveEditors): AminoMsgRemoveEditors['value'] => {
-        return forAmino(value)
+      toAmino: (value: MsgRemoveEditors): any => {
+        return sortAmino(value)
       },
-      fromAmino: (value: AminoMsgRemoveEditors['value']): MsgRemoveEditors => {
-        return wasAmino(value)
+      fromAmino: (value: any): MsgRemoveEditors => {
+        return {
+          creator: value.creator,
+          editorIds: value.editorIds,
+          address: value.address,
+          fileowner: value.fileowner
+        }
       }
     },
     '/canine_chain.filetree.MsgResetEditors': {
       aminoType: 'filetree/ResetEditors',
-      toAmino: (value: MsgResetEditors): AminoMsgResetEditors['value'] => {
-        return forAmino(value)
+      toAmino: (value: MsgResetEditors): any => {
+        return sortAmino(value)
       },
-      fromAmino: (value: AminoMsgResetEditors['value']): MsgResetEditors => {
-        return wasAmino(value)
+      fromAmino: (value: any): MsgResetEditors => {
+        return {
+          creator: value.creator,
+          address: value.address,
+          fileowner: value.fileowner
+        }
       }
     },
     '/canine_chain.filetree.MsgResetViewers': {
       aminoType: 'filetree/ResetViewers',
-      toAmino: (value: MsgResetViewers): AminoMsgResetViewers['value'] => {
-        return forAmino(value)
+      toAmino: (value: MsgResetViewers): any => {
+        return sortAmino(value)
       },
-      fromAmino: (value: AminoMsgResetViewers['value']): MsgResetViewers => {
-        return wasAmino(value)
+      fromAmino: (value: any): MsgResetViewers => {
+        return {
+          creator: value.creator,
+          address: value.address,
+          fileowner: value.fileowner
+        }
       }
     },
     '/canine_chain.filetree.MsgChangeOwner': {
       aminoType: 'filetree/ChangeOwner',
-      toAmino: (value: MsgChangeOwner): AminoMsgChangeOwner['value'] => {
-        return forAmino(value)
+      toAmino: (value: MsgChangeOwner): any => {
+        return sortAmino(value)
       },
-      fromAmino: (value: AminoMsgChangeOwner['value']): MsgChangeOwner => {
-        return wasAmino(value)
+      fromAmino: (value: any): MsgChangeOwner => {
+        return {
+          creator: value.creator,
+          address: value.address,
+          fileOwner: value.fileOwner,
+          newOwner: value.newOwner
+        }
       }
     }
   }

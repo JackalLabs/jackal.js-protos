@@ -13,153 +13,187 @@ import {
   MsgSignContract,
   MsgUpgradeStorage
 } from '@/postgen/canine_chain/storage/tx'
-import {
-  AminoMsgAddClaimer,
-  AminoMsgBuyStorage,
-  AminoMsgCancelContract,
-  AminoMsgClaimStray,
-  AminoMsgInitProvider,
-  AminoMsgPostContract,
-  AminoMsgPostproof,
-  AminoMsgRemoveClaimer,
-  AminoMsgSetProviderIP,
-  AminoMsgSetProviderKeybase,
-  AminoMsgSetProviderTotalspace,
-  AminoMsgSignContract,
-  AminoMsgUpgradeStorage
-} from '@/interfaces/amino/IAminoStorage'
 import { AminoConverters } from '@cosmjs/stargate'
-import { forAmino, wasAmino } from '@/utils/converters'
+import { forAmino, sortAmino } from '@/utils/converters'
 
 export function createStorageAminoConverters(): AminoConverters {
   return {
     '/canine_chain.storage.MsgPostContract': {
       aminoType: 'storage/PostContract',
-      toAmino: (value: MsgPostContract): AminoMsgPostContract['value'] => {
-        return forAmino(value)
+      toAmino: (value: MsgPostContract): any => {
+        return sortAmino(value)
       },
-      fromAmino: (value: AminoMsgPostContract['value']): MsgPostContract => {
-        return wasAmino(value)
+      fromAmino: (value: any): MsgPostContract => {
+        return {
+          creator: value.creator,
+          merkle: value.merkle,
+          signee: value.signee,
+          filesize: value.filesize,
+          fid: value.fid
+        }
       }
     },
     '/canine_chain.storage.MsgPostproof': {
       aminoType: 'storage/Postproof',
-      toAmino: (value: MsgPostproof): AminoMsgPostproof['value'] => {
-        return forAmino(value)
+      toAmino: (value: MsgPostproof): any => {
+        return sortAmino(value)
       },
-      fromAmino: (value: AminoMsgPostproof['value']): MsgPostproof => {
-        return wasAmino(value)
+      fromAmino: (value: any): MsgPostproof => {
+        return {
+          creator: value.creator,
+          item: value.item,
+          hashlist: value.hashlist,
+          cid: value.cid
+        }
       }
     },
     '/canine_chain.storage.MsgSignContract': {
       aminoType: 'storage/SignContract',
-      toAmino: (value: MsgSignContract): AminoMsgSignContract['value'] => {
-        return forAmino(value)
+      toAmino: (value: MsgSignContract): any => {
+        const msg: any = {
+          cid: value.cid,
+          creator: value.creator,
+          ...(value.payOnce && { pay_once: value.payOnce })
+        }
+
+        console.log(msg)
+        return msg
       },
-      fromAmino: (value: AminoMsgSignContract['value']): MsgSignContract => {
-        return wasAmino(value)
+      fromAmino: (value: any): MsgSignContract => {
+        return {
+          creator: value.creator,
+          cid: value.creator,
+          payOnce: value.pay_once || false
+        }
       }
     },
     '/canine_chain.storage.MsgSetProviderIP': {
       aminoType: 'storage/SetProviderIp',
-      toAmino: (value: MsgSetProviderIP): AminoMsgSetProviderIP['value'] => {
-        return forAmino(value)
+      toAmino: (value: MsgSetProviderIP): any => {
+        return sortAmino(value)
       },
-      fromAmino: (value: AminoMsgSetProviderIP['value']): MsgSetProviderIP => {
-        return wasAmino(value)
+      fromAmino: (value: any): MsgSetProviderIP => {
+        return {
+          creator: value.creator,
+          ip: value.ip
+        }
       }
     },
     '/canine_chain.storage.MsgSetProviderKeybase': {
       aminoType: 'storage/SetProviderKeybase',
-      toAmino: (
-        value: MsgSetProviderKeybase
-      ): AminoMsgSetProviderKeybase['value'] => {
-        return forAmino(value)
+      toAmino: (value: MsgSetProviderKeybase): any => {
+        return sortAmino(value)
       },
-      fromAmino: (
-        value: AminoMsgSetProviderKeybase['value']
-      ): MsgSetProviderKeybase => {
-        return wasAmino(value)
+      fromAmino: (value: any): MsgSetProviderKeybase => {
+        return {
+          creator: value.creator,
+          keybase: value.keybase
+        }
       }
     },
     '/canine_chain.storage.MsgSetProviderTotalspace': {
       aminoType: 'storage/SetProviderTotalspace',
-      toAmino: (
-        value: MsgSetProviderTotalspace
-      ): AminoMsgSetProviderTotalspace['value'] => {
-        return forAmino(value)
+      toAmino: (value: MsgSetProviderTotalspace): any => {
+        return sortAmino(value)
       },
-      fromAmino: (
-        value: AminoMsgSetProviderTotalspace['value']
-      ): MsgSetProviderTotalspace => {
-        return wasAmino(value)
+      fromAmino: (value: any): MsgSetProviderTotalspace => {
+        return {
+          creator: value.creator,
+          space: value.space
+        }
       }
     },
     '/canine_chain.storage.MsgAddClaimer': {
       aminoType: 'storage/AddClaimer',
-      toAmino: (value: MsgAddClaimer): AminoMsgAddClaimer['value'] => {
+      toAmino: (value: MsgAddClaimer): any => {
         return forAmino(value)
       },
-      fromAmino: (value: AminoMsgAddClaimer['value']): MsgAddClaimer => {
-        return wasAmino(value)
+      fromAmino: (value: any): MsgAddClaimer => {
+        return {
+          creator: value.creator,
+          claimAddress: value.claim_address
+        }
       }
     },
     '/canine_chain.storage.MsgRemoveClaimer': {
       aminoType: 'storage/RemoveClaimer',
-      toAmino: (value: MsgRemoveClaimer): AminoMsgRemoveClaimer['value'] => {
+      toAmino: (value: MsgRemoveClaimer): any => {
         return forAmino(value)
       },
-      fromAmino: (value: AminoMsgRemoveClaimer['value']): MsgRemoveClaimer => {
-        return wasAmino(value)
+      fromAmino: (value: any): MsgRemoveClaimer => {
+        return {
+          creator: value.creator,
+          claimAddress: value.claim_address
+        }
       }
     },
     '/canine_chain.storage.MsgInitProvider': {
       aminoType: 'storage/InitProvider',
-      toAmino: (value: MsgInitProvider): AminoMsgInitProvider['value'] => {
-        return forAmino(value)
+      toAmino: (value: MsgInitProvider): any => {
+        return sortAmino(value)
       },
-      fromAmino: (value: AminoMsgInitProvider['value']): MsgInitProvider => {
-        return wasAmino(value)
+      fromAmino: (value: any): MsgInitProvider => {
+        return {
+          creator: value.creator,
+          ip: value.ip,
+          keybase: value.keybase,
+          totalspace: value.totalspace
+        }
       }
     },
     '/canine_chain.storage.MsgCancelContract': {
       aminoType: 'storage/CancelContract',
-      toAmino: (value: MsgCancelContract): AminoMsgCancelContract['value'] => {
-        return forAmino(value)
+      toAmino: (value: MsgCancelContract): any => {
+        return sortAmino(value)
       },
-      fromAmino: (
-        value: AminoMsgCancelContract['value']
-      ): MsgCancelContract => {
-        return wasAmino(value)
+      fromAmino: (value: any): MsgCancelContract => {
+        return {
+          creator: value.creator,
+          cid: value.cid
+        }
       }
     },
     '/canine_chain.storage.MsgBuyStorage': {
       aminoType: 'storage/BuyStorage',
-      toAmino: (value: MsgBuyStorage): AminoMsgBuyStorage['value'] => {
+      toAmino: (value: MsgBuyStorage): any => {
         return forAmino(value)
       },
-      fromAmino: (value: AminoMsgBuyStorage['value']): MsgBuyStorage => {
-        return wasAmino(value)
+      fromAmino: (value: any): MsgBuyStorage => {
+        return {
+          creator: value.creator,
+          forAddress: value.for_address,
+          duration: value.duration,
+          bytes: value.bytes,
+          paymentDenom: value.payment_denom
+        }
       }
     },
     '/canine_chain.storage.MsgClaimStray': {
       aminoType: 'storage/ClaimStray',
-      toAmino: (value: MsgClaimStray): AminoMsgClaimStray['value'] => {
+      toAmino: (value: MsgClaimStray): any => {
         return forAmino(value)
       },
-      fromAmino: (value: AminoMsgClaimStray['value']): MsgClaimStray => {
-        return wasAmino(value)
+      fromAmino: (value: any): MsgClaimStray => {
+        return {
+          creator: value.creator,
+          cid: value.cid,
+          forAddress: value.for_address
+        }
       }
     },
     '/canine_chain.storage.MsgUpgradeStorage': {
       aminoType: 'storage/UpgradeStorage',
-      toAmino: (value: MsgUpgradeStorage): AminoMsgUpgradeStorage['value'] => {
+      toAmino: (value: MsgUpgradeStorage): any => {
         return forAmino(value)
       },
-      fromAmino: (
-        value: AminoMsgUpgradeStorage['value']
-      ): MsgUpgradeStorage => {
-        return wasAmino(value)
+      fromAmino: (value: any): MsgUpgradeStorage => {
+        return {
+          creator: value.creator,
+          forAddress: value.for_address,
+          duration: value.duration,
+          bytes: value.bytes,
+          paymentDenom: value.payment_denom
+        }
       }
     }
   }

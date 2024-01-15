@@ -1,8 +1,6 @@
 export function snakeToCamel(key: string): string {
-  return key.replace(/([-_][a-z])/g, ($1) => {
-    return $1.toUpperCase()
-      .replace('-', '')
-      .replace('_', '')
+  return key.replace(/(_[a-z])/g, ($1) => {
+    return $1.toUpperCase().replace('_', '')
   })
 }
 
@@ -11,24 +9,32 @@ export function camelToSnake(key: string): string {
 }
 
 export function forAmino(msg: any) {
-  const sorted = Object.keys(msg)
+  return Object.keys(msg)
     .sort()
     .reduce((acc, key) => {
       const snakeKey = camelToSnake(key)
-
       acc[snakeKey] = msg[key]
+
       return acc
     }, {} as any)
-  return sorted
 }
 
 export function wasAmino(msg: any) {
-  const sorted = Object.keys(msg)
+  return Object.keys(msg)
+    .sort()
     .reduce((acc, key) => {
       const camelKey = snakeToCamel(key)
-
       acc[camelKey] = msg[key]
+
       return acc
     }, {} as any)
-  return sorted
+}
+
+export function sortAmino(msg: any) {
+  return Object.keys(msg)
+    .sort()
+    .reduce((acc, key) => {
+      acc[key] = msg[key]
+      return acc
+    }, {} as any)
 }
