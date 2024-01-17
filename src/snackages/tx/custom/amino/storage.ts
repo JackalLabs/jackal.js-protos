@@ -62,7 +62,7 @@ export function createStorageAminoConverters(): AminoConverters {
       fromAmino: (value: any): MsgSignContract => {
         return {
           creator: value.creator,
-          cid: value.creator,
+          cid: value.cid,
           payOnce: value.pay_once || false
         }
       }
