@@ -33,9 +33,13 @@ export default defineConfig({
     },
     rollupOptions: {
       external: [
-        'protobufjs/minimal',
+        /.*node_modules\/has(h(es)?)?/,
+        /.*node_modules\/function-bind/,
         /@cosmjs.*/,
         '@improbable-eng/grpc-web',
+        'hash.js',
+        'has-property-descriptors',
+        'protobufjs/minimal',
         'ts-proto',
       ],
       plugins: [
