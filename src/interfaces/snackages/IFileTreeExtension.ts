@@ -17,7 +17,8 @@ import type {
  * @interface IFileTreeExtension
  * @property {IFileTreeExtensionMembers} fileTree
  */
-export interface IFileTreeExtension {
+export interface IFileTreeExtension
+  extends Record<string, IFileTreeExtensionMembers> {
   readonly fileTree: IFileTreeExtensionMembers
 }
 
@@ -31,7 +32,8 @@ export interface IFileTreeExtension {
  * @property {params} params()
  * @property {pubKey} pubKey()
  */
-export interface IFileTreeExtensionMembers {
+export interface IFileTreeExtensionMembers
+  extends Record<string, (request?: any) => Promise<any>> {
   /**
    * @function allFiles
    * @param {DQueryFileTreeAllFiles} [request]

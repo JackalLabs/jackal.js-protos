@@ -1,4 +1,4 @@
-import { forAmino, wasAmino } from '@/utils/converters'
+import { sortAndSnake, sortFilterAndSnake } from '@/utils/converters'
 import type { AminoConverters } from '@cosmjs/stargate/build/aminotypes'
 import type {
   DMsgAddClaimer,
@@ -23,136 +23,206 @@ export function createStorageAminoConverters(): AminoConverters {
     '/canine_chain.storage.MsgAddClaimer': {
       aminoType: 'storage/AddClaimer',
       toAmino: (value: DMsgAddClaimer): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgAddClaimer => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          claimAddress: value.claim_address,
+        }
       },
     },
     '/canine_chain.storage.MsgAttest': {
-      aminoType: 'storage/Init',
+      aminoType: 'storage/Init' /* TODO - update with real path */,
       toAmino: (value: DMsgAttest): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgAttest => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          prover: value.prover,
+          merkle: value.merkle,
+          owner: value.owner,
+          start: value.start,
+        }
       },
     },
     '/canine_chain.storage.MsgBuyStorage': {
       aminoType: 'storage/BuyStorage',
       toAmino: (value: DMsgBuyStorage): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgBuyStorage => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          forAddress: value.for_address,
+          durationDays: value.duration_days,
+          bytes: value.bytes,
+          paymentDenom: value.payment_denom,
+        }
       },
     },
     '/canine_chain.storage.MsgDeleteFile': {
       aminoType: 'storage/DeleteFile',
       toAmino: (value: DMsgStorageDeleteFile): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgStorageDeleteFile => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          merkle: value.merkle,
+          start: value.start,
+        }
       },
     },
     '/canine_chain.storage.MsgInitProvider': {
       aminoType: 'storage/InitProvider',
       toAmino: (value: DMsgInitProvider): any => {
-        return forAmino(value)
+        return sortFilterAndSnake(value)
       },
       fromAmino: (value: any): DMsgInitProvider => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          ip: value.ip,
+          keybase: value.keybase || '',
+          totalSpace: value.total_space,
+        }
       },
     },
     '/canine_chain.storage.MsgPostFile': {
       aminoType: 'storage/PostFile',
       toAmino: (value: DMsgStoragePostFile): any => {
-        return forAmino(value)
+        return sortFilterAndSnake(value)
       },
       fromAmino: (value: any): DMsgStoragePostFile => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          merkle: value.merkle,
+          fileSize: value.file_size || 0,
+          proofInterval: value.proof_interval,
+          proofType: value.proof_type || 0,
+          maxProofs: value.max_proofs,
+          expires: value.expires || 0,
+          note: value.note,
+        }
       },
     },
     '/canine_chain.storage.MsgPostProof': {
       aminoType: 'storage/PostProof',
       toAmino: (value: DMsgPostProof): any => {
-        return forAmino(value)
+        return sortFilterAndSnake(value)
       },
       fromAmino: (value: any): DMsgPostProof => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          item: value.item,
+          hashList: value.hash_list,
+          merkle: value.merkle,
+          owner: value.owner,
+          start: value.start,
+          toProve: value.to_prove || 0,
+        }
       },
     },
     '/canine_chain.storage.MsgRemoveClaimer': {
       aminoType: 'storage/RemoveClaimer',
       toAmino: (value: DMsgRemoveClaimer): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgRemoveClaimer => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          claimAddress: value.claim_address,
+        }
       },
     },
     '/canine_chain.storage.MsgReport': {
-      aminoType: 'storage/Init',
+      aminoType: 'storage/Init' /* TODO - update with real path */,
       toAmino: (value: DMsgReport): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgReport => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          prover: value.prover,
+          merkle: value.merkle,
+          owner: value.owner,
+          start: value.start,
+        }
       },
     },
     '/canine_chain.storage.MsgRequestAttestationForm': {
-      aminoType: 'storage/Init',
+      aminoType: 'storage/Init' /* TODO - update with real path */,
       toAmino: (value: DMsgRequestAttestationForm): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgRequestAttestationForm => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          merkle: value.merkle,
+          owner: value.owner,
+          start: value.start,
+        }
       },
     },
     '/canine_chain.storage.MsgRequestReportForm': {
-      aminoType: 'storage/Init',
+      aminoType: 'storage/Init' /* TODO - update with real path */,
       toAmino: (value: DMsgRequestReportForm): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgRequestReportForm => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          prover: value.prover,
+          merkle: value.merkle,
+          owner: value.owner,
+          start: value.start,
+        }
       },
     },
     '/canine_chain.storage.MsgSetProviderIP': {
       aminoType: 'storage/SetProviderIp',
       toAmino: (value: DMsgSetProviderIP): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgSetProviderIP => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          ip: value.ip,
+        }
       },
     },
     '/canine_chain.storage.MsgSetProviderKeybase': {
       aminoType: 'storage/SetProviderKeybase',
       toAmino: (value: DMsgSetProviderKeybase): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgSetProviderKeybase => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          keybase: value.keybase,
+        }
       },
     },
     '/canine_chain.storage.MsgSetProviderTotalSpace': {
       aminoType: 'storage/SetProviderTotalSpace',
       toAmino: (value: DMsgSetProviderTotalSpace): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgSetProviderTotalSpace => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          space: value.space,
+        }
       },
     },
     '/canine_chain.storage.MsgShutdownProvider': {
-      aminoType: 'storage/Init',
+      aminoType: 'storage/Init' /* TODO - update with real path */,
       toAmino: (value: DMsgShutdownProvider): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgShutdownProvider => {
-        return wasAmino(value)
+        return value
       },
     },
   }

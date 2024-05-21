@@ -1,7 +1,4 @@
-import type {
-  Block,
-  Notification,
-} from '@/postGen/canine_chain/notifications/notification'
+import type { Block, Notification } from '@/postGen/canine_chain/notifications/notification'
 
 /**
  * Notification Documentation
@@ -36,3 +33,5 @@ export type DBlock = Documentation<
   },
   Block
 >
+
+export { Notification, Block }

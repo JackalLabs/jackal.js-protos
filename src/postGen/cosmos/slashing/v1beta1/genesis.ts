@@ -308,7 +308,7 @@ export const MissedBlock = {
     if (message.index !== 0) {
       writer.uint32(8).int64(message.index);
     }
-    if (message.missed === true) {
+    if (message.missed !== false) {
       writer.uint32(16).bool(message.missed);
     }
     return writer;
@@ -356,7 +356,7 @@ export const MissedBlock = {
     if (message.index !== 0) {
       obj.index = Math.round(message.index);
     }
-    if (message.missed === true) {
+    if (message.missed !== false) {
       obj.missed = message.missed;
     }
     return obj;

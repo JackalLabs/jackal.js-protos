@@ -17,7 +17,7 @@ export const Init = {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
-    if (message.complete === true) {
+    if (message.complete !== false) {
       writer.uint32(16).bool(message.complete);
     }
     return writer;
@@ -65,7 +65,7 @@ export const Init = {
     if (message.address !== "") {
       obj.address = message.address;
     }
-    if (message.complete === true) {
+    if (message.complete !== false) {
       obj.complete = message.complete;
     }
     return obj;

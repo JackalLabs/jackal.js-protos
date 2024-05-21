@@ -1717,28 +1717,20 @@ const gt: any = (() => {
 })();
 
 function bytesFromBase64(b64: string): Uint8Array {
-  if (gt.Buffer) {
-    return Uint8Array.from(gt.Buffer.from(b64, "base64"));
-  } else {
-    const bin = gt.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+  const bin = gt.atob(b64);
+  const arr = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; ++i) {
+    arr[i] = bin.charCodeAt(i);
   }
+  return arr;
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if (gt.Buffer) {
-    return gt.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(gt.String.fromCharCode(byte));
-    });
-    return gt.btoa(bin.join(""));
-  }
+  const bin: string[] = [];
+  arr.forEach((byte) => {
+    bin.push(gt.String.fromCharCode(byte));
+  });
+  return gt.btoa(bin.join(""));
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
@@ -1754,7 +1746,7 @@ export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function toTimestamp(date: Date): Timestamp {
-  const seconds = date.getTime() / 1_000;
+  const seconds = Math.trunc(date.getTime() / 1_000);
   const nanos = (date.getTime() % 1_000) * 1_000_000;
   return { seconds, nanos };
 }

@@ -27,7 +27,8 @@ import type {
  * @interface IRnsExtension
  * @property {IRnsExtensionMembers} rns
  */
-export interface IRnsExtension {
+export interface IRnsExtension
+  extends Record<string, IRnsExtensionMembers> {
   readonly rns: IRnsExtensionMembers
 }
 
@@ -46,7 +47,8 @@ export interface IRnsExtension {
  * @property {name} name()
  * @property {params} params()
  */
-export interface IRnsExtensionMembers {
+export interface IRnsExtensionMembers
+  extends Record<string, (request?: any) => Promise<any>> {
   /**
    * @function allBids
    * @param {DQueryAllBids} [request]

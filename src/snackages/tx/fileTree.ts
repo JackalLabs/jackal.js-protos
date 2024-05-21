@@ -23,7 +23,6 @@ import {
   MsgResetViewersResponse,
   protobufPackage,
 } from '@/postGen/canine_chain/filetree/tx'
-import { deprecated } from '@/utils/misc'
 import type {
   DEncodeObject,
   DMsgAddEditors,
@@ -40,6 +39,7 @@ import type {
 } from '@/types/msgs'
 import type { TJackalModuleTypeMap, TMsgResponseParsers } from '@/types'
 import _m0 from 'protobufjs/minimal'
+import { uintArrayToString } from '@/utils/converters'
 
 export const fileTreeTypes: TJackalModuleTypeMap = {
   addEditors: [`/${protobufPackage}.MsgAddEditors`, MsgAddEditors],
@@ -96,9 +96,6 @@ export const fileTreeResponses: TMsgResponseParsers = {
  * @property {msgRemoveViewers} msgRemoveViewers()
  * @property {msgResetEditors} msgResetEditors()
  * @property {msgResetViewers} msgResetViewers()
- * @property {msgPostkey} msgPostkey() deprecated
- * @property {msgMakeRoot} msgMakeRoot() deprecated
- * @property {msgMakeRootV2} msgMakeRootV2() deprecated
  */
 export type ITxFileTree = {
   msgAddEditors(data: DMsgAddEditors): DEncodeObject
@@ -112,21 +109,17 @@ export type ITxFileTree = {
   msgRemoveViewers(data: DMsgRemoveViewers): DEncodeObject
   msgResetEditors(data: DMsgResetEditors): DEncodeObject
   msgResetViewers(data: DMsgResetViewers): DEncodeObject
-
-  /**
-   * @deprecated since v2.0.0
-   */
-  msgPostkey(_?: any): void
-
-  /**
-   * @deprecated since v1.3.0
-   */
-  msgMakeRoot(_?: any): void
-
-  /**
-   * @deprecated since v2.0.0
-   */
-  msgMakeRootV2(_?: any): void
+  writerAddEditors(data: DMsgAddEditors): DEncodeObject
+  writerAddViewers(data: DMsgAddViewers): DEncodeObject
+  writerChangeOwner(data: DMsgChangeOwner): DEncodeObject
+  writerDeleteFile(data: DMsgFileTreeDeleteFile): DEncodeObject
+  writerPostFile(data: DMsgFileTreePostFile): DEncodeObject
+  writerPostKey(data: DMsgPostKey): DEncodeObject
+  writerProvisionFileTree(data: DMsgProvisionFileTree): DEncodeObject
+  writerRemoveEditors(data: DMsgRemoveEditors): DEncodeObject
+  writerRemoveViewers(data: DMsgRemoveViewers): DEncodeObject
+  writerResetEditors(data: DMsgResetEditors): DEncodeObject
+  writerResetViewers(data: DMsgResetViewers): DEncodeObject
 }
 
 export const TxFileTree: ITxFileTree = {
@@ -196,30 +189,147 @@ export const TxFileTree: ITxFileTree = {
       value: fileTreeTypes.resetViewers[1].fromPartial(data),
     }
   },
-
-  /* Deprecated */
-  msgPostkey(_?: any): void {
-    deprecated('[FileTree] msgPostkey', 'v2.0.0', {
-      abort: true,
-      replacement: 'msgPostKey',
-    }).catch((err) => {
+  writerAddEditors(data: DMsgAddEditors): DEncodeObject {
+    try {
+      const asWriter = fileTreeTypes.addEditors[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: fileTreeTypes.addEditors[0],
+        value: final,
+      }
+    } catch (err) {
       throw err
-    })
+    }
   },
-  msgMakeRoot(_?: any): void {
-    deprecated('[FileTree] msgMakeRoot', 'v1.3.0', {
-      abort: true,
-      replacement: 'msgProvisionFileTree',
-    }).catch((err) => {
+  writerAddViewers(data: MsgAddViewers): DEncodeObject {
+    try {
+      const asWriter = fileTreeTypes.addViewers[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: fileTreeTypes.addViewers[0],
+        value: final,
+      }
+    } catch (err) {
       throw err
-    })
+    }
   },
-  msgMakeRootV2(_?: any): void {
-    deprecated('[FileTree] msgMakeRootV2', 'v2.0.0', {
-      abort: true,
-      replacement: 'msgProvisionFileTree',
-    }).catch((err) => {
+  writerChangeOwner(data: MsgChangeOwner): DEncodeObject {
+    try {
+      const asWriter = fileTreeTypes.changeOwner[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: fileTreeTypes.changeOwner[0],
+        value: final,
+      }
+    } catch (err) {
       throw err
-    })
+    }
+  },
+  writerDeleteFile(data: MsgDeleteFile): DEncodeObject {
+    try {
+      const asWriter = fileTreeTypes.deleteFile[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: fileTreeTypes.deleteFile[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+  writerPostFile(data: MsgPostFile): DEncodeObject {
+    try {
+      const asWriter = fileTreeTypes.postFile[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: fileTreeTypes.postFile[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+  writerPostKey(data: DMsgPostKey): DEncodeObject {
+    try {
+      const asWriter = fileTreeTypes.postKey[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: fileTreeTypes.postKey[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+  writerProvisionFileTree(data: DMsgProvisionFileTree): DEncodeObject {
+    try {
+      const asWriter = fileTreeTypes.provisionFileTree[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: fileTreeTypes.provisionFileTree[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+  writerRemoveEditors(data: MsgRemoveEditors): DEncodeObject {
+    try {
+      const asWriter = fileTreeTypes.removeEditors[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: fileTreeTypes.removeEditors[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+  writerRemoveViewers(data: MsgRemoveViewers): DEncodeObject {
+    try {
+      const asWriter = fileTreeTypes.removeViewers[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: fileTreeTypes.removeViewers[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+  writerResetEditors(data: MsgResetEditors): DEncodeObject {
+    try {
+      const asWriter = fileTreeTypes.resetEditors[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: fileTreeTypes.resetEditors[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+  writerResetViewers(data: MsgResetViewers): DEncodeObject {
+    try {
+      const asWriter = fileTreeTypes.resetViewers[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: fileTreeTypes.resetViewers[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
   },
 }

@@ -3245,7 +3245,7 @@ function createBaseQueryFileUploadCheckResponse(): QueryFileUploadCheckResponse 
 
 export const QueryFileUploadCheckResponse = {
   encode(message: QueryFileUploadCheckResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.valid === true) {
+    if (message.valid !== false) {
       writer.uint32(8).bool(message.valid);
     }
     return writer;
@@ -3280,7 +3280,7 @@ export const QueryFileUploadCheckResponse = {
 
   toJSON(message: QueryFileUploadCheckResponse): unknown {
     const obj: any = {};
-    if (message.valid === true) {
+    if (message.valid !== false) {
       obj.valid = message.valid;
     }
     return obj;
@@ -4062,28 +4062,20 @@ const gt: any = (() => {
 })();
 
 function bytesFromBase64(b64: string): Uint8Array {
-  if (gt.Buffer) {
-    return Uint8Array.from(gt.Buffer.from(b64, "base64"));
-  } else {
-    const bin = gt.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+  const bin = gt.atob(b64);
+  const arr = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; ++i) {
+    arr[i] = bin.charCodeAt(i);
   }
+  return arr;
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if (gt.Buffer) {
-    return gt.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(gt.String.fromCharCode(byte));
-    });
-    return gt.btoa(bin.join(""));
-  }
+  const bin: string[] = [];
+  arr.forEach((byte) => {
+    bin.push(gt.String.fromCharCode(byte));
+  });
+  return gt.btoa(bin.join(""));
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

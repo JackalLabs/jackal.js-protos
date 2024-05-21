@@ -1,7 +1,4 @@
-import type {
-  QueryInflationResponse,
-  QueryParamsResponse,
-} from '@/postGen/canine_chain/jklmint/query'
+import type { QueryInflationResponse, QueryParamsResponse } from '@/postGen/canine_chain/jklmint/query'
 import type { Params } from '@/postGen/canine_chain/jklmint/params'
 
 /**

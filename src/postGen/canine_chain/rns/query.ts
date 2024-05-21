@@ -1162,7 +1162,7 @@ function createBaseQueryInitResponse(): QueryInitResponse {
 
 export const QueryInitResponse = {
   encode(message: QueryInitResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.init === true) {
+    if (message.init !== false) {
       writer.uint32(8).bool(message.init);
     }
     return writer;
@@ -1197,7 +1197,7 @@ export const QueryInitResponse = {
 
   toJSON(message: QueryInitResponse): unknown {
     const obj: any = {};
-    if (message.init === true) {
+    if (message.init !== false) {
       obj.init = message.init;
     }
     return obj;

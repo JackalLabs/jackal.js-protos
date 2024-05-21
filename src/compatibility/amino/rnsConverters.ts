@@ -1,4 +1,4 @@
-import { forAmino, wasAmino } from '@/utils/converters'
+import { sortAndSnake } from '@/utils/converters'
 import type { AminoConverters } from '@cosmjs/stargate/build/aminotypes'
 import type {
   DMsgAcceptBid,
@@ -20,109 +20,160 @@ export function createRnsAminoConverters(): AminoConverters {
     '/canine_chain.rns.MsgAcceptBid': {
       aminoType: 'rns/AcceptBid',
       toAmino: (value: DMsgAcceptBid): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgAcceptBid => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          name: value.name,
+          from: value.from,
+        }
       },
     },
     '/canine_chain.rns.MsgAddRecord': {
       aminoType: 'rns/AddRecord',
       toAmino: (value: DMsgAddRecord): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgAddRecord => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          name: value.name,
+          value: value.value,
+          data: value.data,
+          record: value.record,
+        }
       },
     },
     '/canine_chain.rns.MsgBid': {
       aminoType: 'rns/Bid',
       toAmino: (value: DMsgBid): any => {
-        return forAmino(value)
+        const base = sortAndSnake(value)
+        if (!value.bid) {
+          delete base.bid
+        }
+        return base
       },
       fromAmino: (value: any): DMsgBid => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          name: value.name,
+          bid: value.bid,
+        }
       },
     },
     '/canine_chain.rns.MsgBuy': {
       aminoType: 'rns/Buy',
       toAmino: (value: DMsgBuy): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgBuy => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          name: value.name,
+        }
       },
     },
     '/canine_chain.rns.MsgCancelBid': {
       aminoType: 'rns/CancelBid',
       toAmino: (value: DMsgCancelBid): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgCancelBid => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          name: value.name,
+        }
       },
     },
     '/canine_chain.rns.MsgDelist': {
       aminoType: 'rns/Delist',
       toAmino: (value: DMsgDelist): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgDelist => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          name: value.name,
+        }
       },
     },
     '/canine_chain.rns.MsgDelRecord': {
       aminoType: 'rns/DelRecord',
       toAmino: (value: DMsgDelRecord): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgDelRecord => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          name: value.name,
+        }
       },
     },
     '/canine_chain.rns.MsgInit': {
       aminoType: 'rns/Init',
       toAmino: (value: DMsgInit): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgInit => {
-        return wasAmino(value)
+        return value
       },
     },
     '/canine_chain.rns.MsgList': {
       aminoType: 'rns/List',
       toAmino: (value: DMsgList): any => {
-        return forAmino(value)
+        const base = sortAndSnake(value)
+        if (!value.price) {
+          delete base.price
+        }
+        return base
       },
       fromAmino: (value: any): DMsgList => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          name: value.name,
+          price: value.price,
+        }
       },
     },
     '/canine_chain.rns.MsgRegister': {
       aminoType: 'rns/Register',
       toAmino: (value: DMsgRegister): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgRegister => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          name: value.name,
+          years: value.years,
+          data: value.data,
+        }
       },
     },
     '/canine_chain.rns.MsgTransfer': {
       aminoType: 'rns/Transfer',
       toAmino: (value: DMsgTransfer): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgTransfer => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          name: value.name,
+          receiver: value.receiver,
+        }
       },
     },
     '/canine_chain.rns.MsgUpdate': {
       aminoType: 'rns/Update',
       toAmino: (value: DMsgUpdate): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgUpdate => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          name: value.name,
+          data: value.data,
+        }
       },
     },
   }

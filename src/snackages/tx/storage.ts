@@ -31,7 +31,6 @@ import {
   MsgShutdownProviderResponse,
   protobufPackage,
 } from '@/postGen/canine_chain/storage/tx'
-import { deprecated } from '@/utils/misc'
 import type {
   DEncodeObject,
   DMsgAddClaimer,
@@ -52,6 +51,7 @@ import type {
 } from '@/types/msgs'
 import type { TJackalModuleTypeMap, TMsgResponseParsers } from '@/types'
 import _m0 from 'protobufjs/minimal'
+import { uintArrayToString } from '@/utils/converters'
 
 export const storageTypes: TJackalModuleTypeMap = {
   addClaimer: [`/${protobufPackage}.MsgAddClaimer`, MsgAddClaimer],
@@ -136,11 +136,6 @@ export const storageResponses: TMsgResponseParsers = {
  * @property {msgAttest} msgAttest()
  * @property {msgRequestReportForm} msgRequestReportForm()
  * @property {msgReport} msgReport()
- * @property {msgPostContract} msgPostContract() deprecated
- * @property {msgSignContract} msgSignContract() deprecated
- * @property {msgCancelContract} msgCancelContract() deprecated
- * @property {msgClaimStray} msgClaimStray() deprecated
- * @property {msgUpgradeStorage} msgUpgradeStorage() deprecated
  */
 export type ITxStorage = {
   msgAddClaimer(data: DMsgAddClaimer): DEncodeObject
@@ -158,31 +153,21 @@ export type ITxStorage = {
   msgSetProviderKeybase(data: DMsgSetProviderKeybase): DEncodeObject
   msgSetProviderTotalSpace(data: DMsgSetProviderTotalSpace): DEncodeObject
   msgShutdownProvider(data: DMsgShutdownProvider): DEncodeObject
-
-  /**
-   * @deprecated since v2.0.0
-   */
-  msgPostContract(_?: any): void
-
-  /**
-   * @deprecated since v2.0.0
-   */
-  msgSignContract(_?: any): void
-
-  /**
-   * @deprecated since v2.0.0
-   */
-  msgCancelContract(_?: any): void
-
-  /**
-   * @deprecated since v2.0.0
-   */
-  msgClaimStray(_?: any): void
-
-  /**
-   * @deprecated since v2.0.0
-   */
-  msgUpgradeStorage(_?: any): void
+  writerPostFile(data: DMsgStoragePostFile): DEncodeObject
+  writerPostProof(data: DMsgPostProof): DEncodeObject
+  writerDeleteFile(data: DMsgStorageDeleteFile): DEncodeObject
+  writerSetProviderIP(data: DMsgSetProviderIP): DEncodeObject
+  writerSetProviderKeybase(data: DMsgSetProviderKeybase): DEncodeObject
+  writerSetProviderTotalSpace(data: DMsgSetProviderTotalSpace): DEncodeObject
+  writerInitProvider(data: DMsgInitProvider): DEncodeObject
+  writerShutdownProvider(data: DMsgShutdownProvider): DEncodeObject
+  writerBuyStorage(data: DMsgBuyStorage): DEncodeObject
+  writerAddClaimer(data: DMsgAddClaimer): DEncodeObject
+  writerRemoveClaimer(data: DMsgRemoveClaimer): DEncodeObject
+  writerRequestAttestationForm(data: DMsgRequestAttestationForm): DEncodeObject
+  writerAttest(data: DMsgAttest): DEncodeObject
+  writerRequestReportForm(data: DMsgRequestReportForm): DEncodeObject
+  writerReport(data: DMsgReport): DEncodeObject
 }
 
 export const TxStorage: ITxStorage = {
@@ -276,41 +261,199 @@ export const TxStorage: ITxStorage = {
       value: storageTypes.report[1].fromPartial(data),
     }
   },
-
-  /* Deprecated */
-  msgPostContract(_?: any): void {
-    deprecated('[Storage] msgPostContract', 'v2.0.0', {
-      abort: true,
-    }).catch((err) => {
+  writerPostFile(data: DMsgStoragePostFile): DEncodeObject {
+    try {
+      const asWriter = storageTypes.postFile[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: storageTypes.postFile[0],
+        value: final,
+      }
+    } catch (err) {
       throw err
-    })
+    }
   },
-  msgSignContract(_?: any): void {
-    deprecated('[Storage] msgSignContract', 'v2.0.0', {
-      abort: true,
-    }).catch((err) => {
+  writerPostProof(data: DMsgPostProof): DEncodeObject {
+    try {
+      const asWriter = storageTypes.postProof[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: storageTypes.postProof[0],
+        value: final,
+      }
+    } catch (err) {
       throw err
-    })
+    }
   },
-  msgCancelContract(_?: any): void {
-    deprecated('[Storage] msgCancelContract', 'v2.0.0', {
-      abort: true,
-    }).catch((err) => {
+  writerDeleteFile(data: DMsgStorageDeleteFile): DEncodeObject {
+    try {
+      const asWriter = storageTypes.deleteFile[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: storageTypes.deleteFile[0],
+        value: final,
+      }
+    } catch (err) {
       throw err
-    })
+    }
   },
-  msgClaimStray(_?: any): void {
-    deprecated('[Storage] msgClaimStray', 'v2.0.0', {
-      abort: true,
-    }).catch((err) => {
+  writerSetProviderIP(data: DMsgSetProviderIP): DEncodeObject {
+    try {
+      const asWriter = storageTypes.setProviderIP[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: storageTypes.setProviderIP[0],
+        value: final,
+      }
+    } catch (err) {
       throw err
-    })
+    }
   },
-  msgUpgradeStorage(_?: any): void {
-    deprecated('[Storage] msgUpgradeStorage', 'v2.0.0', {
-      replacement: 'msgBuyStorage',
-    }).catch((err) => {
+  writerSetProviderKeybase(data: DMsgSetProviderKeybase): DEncodeObject {
+    try {
+      const asWriter = storageTypes.setProviderKeybase[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: storageTypes.setProviderKeybase[0],
+        value: final,
+      }
+    } catch (err) {
       throw err
-    })
+    }
+  },
+  writerSetProviderTotalSpace(data: DMsgSetProviderTotalSpace): DEncodeObject {
+    try {
+      const asWriter = storageTypes.setProviderTotalSpace[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: storageTypes.setProviderTotalSpace[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+  writerInitProvider(data: DMsgInitProvider): DEncodeObject {
+    try {
+      const asWriter = storageTypes.initProvider[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: storageTypes.initProvider[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+  writerShutdownProvider(data: DMsgShutdownProvider): DEncodeObject {
+    try {
+      const asWriter = storageTypes.shutdownProvider[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: storageTypes.shutdownProvider[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+  writerBuyStorage(data: DMsgBuyStorage): DEncodeObject {
+    try {
+      const asWriter = storageTypes.buyStorage[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: storageTypes.buyStorage[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+  writerAddClaimer(data: DMsgAddClaimer): DEncodeObject {
+    try {
+      const asWriter = storageTypes.addClaimer[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: storageTypes.addClaimer[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+  writerRemoveClaimer(data: DMsgRemoveClaimer): DEncodeObject {
+    try {
+      const asWriter = storageTypes.removeClaimer[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: storageTypes.removeClaimer[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+  writerRequestAttestationForm(data: DMsgRequestAttestationForm): DEncodeObject {
+    try {
+      const asWriter = storageTypes.requestAttestationForm[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: storageTypes.requestAttestationForm[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+  writerAttest(data: DMsgAttest): DEncodeObject {
+    try {
+      const asWriter = storageTypes.attest[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: storageTypes.attest[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+  writerRequestReportForm(data: DMsgRequestReportForm): DEncodeObject {
+    try {
+      const asWriter = storageTypes.requestReportForm[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: storageTypes.requestReportForm[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+  writerReport(data: DMsgReport): DEncodeObject {
+    try {
+      const asWriter = storageTypes.report[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: storageTypes.report[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
   },
 }

@@ -1,3 +1,4 @@
+export * from '@/types/queries/cosmwasm'
 export * from '@/types/queries/fileTree'
 export * from '@/types/queries/jklMint'
 export * from '@/types/queries/notifications'

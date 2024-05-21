@@ -42,6 +42,7 @@ import type {
 } from '@/types/msgs'
 import type { TJackalModuleTypeMap, TMsgResponseParsers } from '@/types'
 import _m0 from 'protobufjs/minimal'
+import { uintArrayToString } from '@/utils/converters'
 
 export const rnsTypes: TJackalModuleTypeMap = {
   acceptBid: [`/${protobufPackage}.MsgAcceptBid`, MsgAcceptBid],
@@ -114,6 +115,19 @@ export type ITxRns = {
   msgRegister(data: DMsgRegister): DEncodeObject
   msgTransfer(data: DMsgTransfer): DEncodeObject
   msgUpdate(data: DMsgUpdate): DEncodeObject
+
+  writerAcceptBid(data: DMsgAcceptBid): DEncodeObject
+  writerAddRecord(data: DMsgAddRecord): DEncodeObject
+  writerBid(data: DMsgBid): DEncodeObject
+  writerBuy(data: DMsgBuy): DEncodeObject
+  writerCancelBid(data: DMsgCancelBid): DEncodeObject
+  writerDelist(data: DMsgDelist): DEncodeObject
+  writerDelRecord(data: DMsgDelRecord): DEncodeObject
+  writerInit(data: DMsgInit): DEncodeObject
+  writerList(data: DMsgList): DEncodeObject
+  writerRegister(data: DMsgRegister): DEncodeObject
+  writerTransfer(data: DMsgTransfer): DEncodeObject
+  writerUpdate(data: DMsgUpdate): DEncodeObject
 }
 
 export const TxRns: ITxRns = {
@@ -187,6 +201,162 @@ export const TxRns: ITxRns = {
     return {
       typeUrl: rnsTypes.update[0],
       value: rnsTypes.update[1].fromPartial(data),
+    }
+  },
+  writerAcceptBid(data: DMsgAcceptBid): DEncodeObject {
+    try {
+      const asWriter = rnsTypes.acceptBid[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: rnsTypes.acceptBid[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+  writerAddRecord(data: DMsgAddRecord): DEncodeObject {
+    try {
+      const asWriter = rnsTypes.addRecord[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: rnsTypes.addRecord[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+  writerBid(data: DMsgBid): DEncodeObject {
+    try {
+      const asWriter = rnsTypes.bid[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: rnsTypes.bid[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+  writerBuy(data: DMsgBuy): DEncodeObject {
+    try {
+      const asWriter = rnsTypes.buy[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: rnsTypes.buy[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+  writerCancelBid(data: DMsgCancelBid): DEncodeObject {
+    try {
+      const asWriter = rnsTypes.cancelBid[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: rnsTypes.cancelBid[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+  writerDelist(data: DMsgDelist): DEncodeObject {
+    try {
+      const asWriter = rnsTypes.delist[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: rnsTypes.delist[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+  writerDelRecord(data: DMsgDelRecord): DEncodeObject {
+    try {
+      const asWriter = rnsTypes.delRecord[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: rnsTypes.delRecord[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+  writerInit(data: DMsgInit): DEncodeObject {
+    try {
+      const asWriter = rnsTypes.init[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: rnsTypes.init[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+  writerList(data: DMsgList): DEncodeObject {
+    try {
+      const asWriter = rnsTypes.list[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: rnsTypes.list[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+  writerRegister(data: DMsgRegister): DEncodeObject {
+    try {
+      const asWriter = rnsTypes.register[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: rnsTypes.register[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+  writerTransfer(data: DMsgTransfer): DEncodeObject {
+    try {
+      const asWriter = rnsTypes.transfer[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: rnsTypes.transfer[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+  writerUpdate(data: DMsgUpdate): DEncodeObject {
+    try {
+      const asWriter = rnsTypes.update[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: rnsTypes.update[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
     }
   },
 }

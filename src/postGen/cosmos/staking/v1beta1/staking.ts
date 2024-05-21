@@ -695,7 +695,7 @@ export const Validator = {
     if (message.consensusPubkey !== undefined) {
       Any.encode(message.consensusPubkey, writer.uint32(18).fork()).ldelim();
     }
-    if (message.jailed === true) {
+    if (message.jailed !== false) {
       writer.uint32(24).bool(message.jailed);
     }
     if (message.status !== 0) {
@@ -842,7 +842,7 @@ export const Validator = {
     if (message.consensusPubkey !== undefined) {
       obj.consensusPubkey = Any.toJSON(message.consensusPubkey);
     }
-    if (message.jailed === true) {
+    if (message.jailed !== false) {
       obj.jailed = message.jailed;
     }
     if (message.status !== 0) {
@@ -2187,7 +2187,7 @@ export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function toTimestamp(date: Date): Timestamp {
-  const seconds = date.getTime() / 1_000;
+  const seconds = Math.trunc(date.getTime() / 1_000);
   const nanos = (date.getTime() % 1_000) * 1_000_000;
   return { seconds, nanos };
 }

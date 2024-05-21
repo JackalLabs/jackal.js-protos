@@ -1,4 +1,4 @@
-import { forAmino, wasAmino } from '@/utils/converters'
+import { sortAndSnake } from '@/utils/converters'
 import type { AminoConverters } from '@cosmjs/stargate/build/aminotypes'
 import type {
   DMsgAddEditors,
@@ -19,100 +19,156 @@ export function createFileTreeAminoConverters(): AminoConverters {
     '/canine_chain.filetree.MsgAddEditors': {
       aminoType: 'filetree/AddEditors',
       toAmino: (value: DMsgAddEditors): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgAddEditors => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          editorIds: value.editor_ids,
+          editorKeys: value.editor_keys,
+          address: value.address,
+          fileOwner: value.file_owner,
+        }
       },
     },
     '/canine_chain.filetree.MsgAddViewers': {
       aminoType: 'filetree/AddViewers',
       toAmino: (value: DMsgAddViewers): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgAddViewers => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          viewerIds: value.viewer_ids,
+          viewerKeys: value.accviewer_keysount,
+          address: value.address,
+          fileOwner: value.file_owner,
+        }
       },
     },
     '/canine_chain.filetree.MsgChangeOwner': {
       aminoType: 'filetree/ChangeOwner',
       toAmino: (value: DMsgChangeOwner): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgChangeOwner => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          address: value.address,
+          fileOwner: value.file_owner,
+          newOwner: value.new_owner,
+        }
       },
     },
     '/canine_chain.filetree.MsgDeleteFile': {
       aminoType: 'filetree/DeleteFile',
       toAmino: (value: DMsgFileTreeDeleteFile): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgFileTreeDeleteFile => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          hashPath: value.hash_path,
+          account: value.account,
+        }
       },
     },
     '/canine_chain.filetree.MsgPostFile': {
       aminoType: 'filetree/PostFile',
       toAmino: (value: DMsgFileTreePostFile): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgFileTreePostFile => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          account: value.account,
+          hashParent: value.hash_parent,
+          hashChild: value.hash_child,
+          contents: value.contents,
+          viewers: value.viewers,
+          editors: value.editors,
+          trackingNumber: value.tracking_number,
+        }
       },
     },
     '/canine_chain.filetree.MsgPostKey': {
       aminoType: 'filetree/PostKey',
       toAmino: (value: DMsgPostKey): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgPostKey => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          key: value.key,
+        }
       },
     },
     '/canine_chain.filetree.MsgProvisionFileTree': {
       aminoType: 'filetree/ProvisionFileTree',
       toAmino: (value: DMsgProvisionFileTree): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgProvisionFileTree => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          editors: value.editors,
+          viewers: value.viewers,
+          trackingNumber: value.tracking_number,
+        }
       },
     },
     '/canine_chain.filetree.MsgRemoveEditors': {
       aminoType: 'filetree/RemoveEditors',
       toAmino: (value: DMsgRemoveEditors): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgRemoveEditors => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          editorIds: value.editor_ids,
+          address: value.address,
+          fileOwner: value.file_owner,
+        }
       },
     },
     '/canine_chain.filetree.MsgRemoveViewers': {
       aminoType: 'filetree/RemoveViewers',
       toAmino: (value: DMsgRemoveViewers): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgRemoveViewers => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          viewerIds: value.viewer_ids,
+          address: value.address,
+          fileOwner: value.file_owner,
+        }
       },
     },
     '/canine_chain.filetree.MsgResetEditors': {
       aminoType: 'filetree/ResetEditors',
       toAmino: (value: DMsgResetEditors): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgResetEditors => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          address: value.address,
+          fileOwner: value.file_owner,
+        }
       },
     },
     '/canine_chain.filetree.MsgResetViewers': {
       aminoType: 'filetree/ResetViewers',
       toAmino: (value: DMsgResetViewers): any => {
-        return forAmino(value)
+        return sortAndSnake(value)
       },
       fromAmino: (value: any): DMsgResetViewers => {
-        return wasAmino(value)
+        return {
+          creator: value.creator,
+          address: value.address,
+          fileOwner: value.file_owner,
+        }
       },
     },
   }

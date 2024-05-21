@@ -1,7 +1,4 @@
-import type {
-  FileProof,
-  UnifiedFile,
-} from '@/postGen/canine_chain/storage/active_deals'
+import type { FileProof, UnifiedFile } from '@/postGen/canine_chain/storage/active_deals'
 import type {
   ActiveProviders,
   Attestation,
@@ -167,3 +164,14 @@ export type DUnifiedFile = Documentation<
   },
   UnifiedFile
 >
+
+export {
+  ActiveProviders,
+  Attestation,
+  AttestationForm,
+  FileProof,
+  Providers,
+  ReportForm,
+  StoragePaymentInfo,
+  UnifiedFile,
+}

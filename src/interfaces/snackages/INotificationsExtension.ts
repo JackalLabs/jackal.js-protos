@@ -13,7 +13,8 @@ import type {
  * @interface INotificationsExtension
  * @property {INotificationsExtensionMembers} notifications
  */
-export interface INotificationsExtension {
+export interface INotificationsExtension
+  extends Record<string, INotificationsExtensionMembers> {
   readonly notifications: INotificationsExtensionMembers
 }
 
@@ -26,7 +27,8 @@ export interface INotificationsExtension {
  * @property {notification} notification()
  * @property {params} params()
  */
-export interface INotificationsExtensionMembers {
+export interface INotificationsExtensionMembers
+  extends Record<string, (request?: any) => Promise<any>> {
   /**
    * @function allNotifications
    * @param {DQueryAllNotifications} [request]

@@ -7,7 +7,6 @@ import {
   MsgDeleteNotificationResponse,
   protobufPackage,
 } from '@/postGen/canine_chain/notifications/tx'
-import { deprecated } from '@/utils/misc'
 import type {
   DEncodeObject,
   DMsgBlockSenders,
@@ -16,6 +15,7 @@ import type {
 } from '@/types/msgs'
 import type { TJackalModuleTypeMap, TMsgResponseParsers } from '@/types'
 import _m0 from 'protobufjs/minimal'
+import { uintArrayToString } from '@/utils/converters'
 
 export const notificationsTypes: TJackalModuleTypeMap = {
   createNotification: [
@@ -44,35 +44,14 @@ export const notificationsResponses: TMsgResponseParsers = {
  * @property {msgCreateNotification} msgCreateNotification()
  * @property {msgDeleteNotification} msgDeleteNotification()
  * @property {msgBlockSenders} msgBlockSenders()
- * @property {msgCreateNotifications} msgCreateNotifications() deprecated
- * @property {msgUpdateNotifications} msgUpdateNotifications() deprecated
- * @property {msgDeleteNotifications} msgDeleteNotifications() deprecated
- * @property {msgSetCounter} msgSetCounter() deprecated
  */
 export type ITxNotifications = {
   msgCreateNotification(data: DMsgCreateNotification): DEncodeObject
   msgDeleteNotification(data: DMsgDeleteNotification): DEncodeObject
   msgBlockSenders(data: DMsgBlockSenders): DEncodeObject
-
-  /**
-   * @deprecated since v2.0.0
-   */
-  msgCreateNotifications(_?: any): void
-
-  /**
-   * @deprecated since v2.0.0
-   */
-  msgUpdateNotifications(_?: any): void
-
-  /**
-   * @deprecated since v2.0.0
-   */
-  msgDeleteNotifications(_?: any): void
-
-  /**
-   * @deprecated since v2.0.0
-   */
-  msgSetCounter(_?: any): void
+  writerCreateNotification(data: DMsgCreateNotification): DEncodeObject
+  writerDeleteNotification(data: DMsgDeleteNotification): DEncodeObject
+  writerBlockSenders(data: DMsgBlockSenders): DEncodeObject
 }
 
 export const TxNotifications: ITxNotifications = {
@@ -94,36 +73,43 @@ export const TxNotifications: ITxNotifications = {
       value: notificationsTypes.blockSenders[1].fromPartial(data),
     }
   },
-
-  /* Deprecated */
-  msgCreateNotifications(_?: any): void {
-    deprecated('[Notifications] msgCreateNotifications', 'v2.0.0', {
-      abort: true,
-      replacement: 'msgCreateNotification',
-    }).catch((err) => {
+  writerCreateNotification(data: DMsgCreateNotification): DEncodeObject {
+    try {
+      const asWriter = notificationsTypes.createNotification[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: notificationsTypes.createNotification[0],
+        value: final,
+      }
+    } catch (err) {
       throw err
-    })
+    }
   },
-  msgUpdateNotifications(_?: any): void {
-    deprecated('[Notifications] msgUpdateNotifications', 'v2.0.0', {
-      abort: true,
-    }).catch((err) => {
+  writerDeleteNotification(data: DMsgDeleteNotification): DEncodeObject {
+    try {
+      const asWriter = notificationsTypes.deleteNotification[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: notificationsTypes.deleteNotification[0],
+        value: final,
+      }
+    } catch (err) {
       throw err
-    })
+    }
   },
-  msgDeleteNotifications(_?: any): void {
-    deprecated('[Notifications] msgDeleteNotifications', 'v2.0.0', {
-      abort: true,
-      replacement: 'msgDeleteNotification',
-    }).catch((err) => {
+  writerBlockSenders(data: DMsgBlockSenders): DEncodeObject {
+    try {
+      const asWriter = notificationsTypes.blockSenders[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: notificationsTypes.blockSenders[0],
+        value: final,
+      }
+    } catch (err) {
       throw err
-    })
-  },
-  msgSetCounter(_?: any): void {
-    deprecated('[Notifications] msgSetCounter', 'v2.0.0', {
-      abort: true,
-    }).catch((err) => {
-      throw err
-    })
+    }
   },
 }

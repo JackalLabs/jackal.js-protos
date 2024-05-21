@@ -1,3 +1,4 @@
+export * from '@/types/msgs/responses/cosmwasm'
 export * from '@/types/msgs/responses/fileTree'
 export * from '@/types/msgs/responses/notifications'
 export * from '@/types/msgs/responses/oracle'

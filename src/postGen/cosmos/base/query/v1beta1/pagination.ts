@@ -84,10 +84,10 @@ export const PageRequest = {
     if (message.limit !== 0) {
       writer.uint32(24).uint64(message.limit);
     }
-    if (message.countTotal === true) {
+    if (message.countTotal !== false) {
       writer.uint32(32).bool(message.countTotal);
     }
-    if (message.reverse === true) {
+    if (message.reverse !== false) {
       writer.uint32(40).bool(message.reverse);
     }
     return writer;
@@ -165,10 +165,10 @@ export const PageRequest = {
     if (message.limit !== 0) {
       obj.limit = Math.round(message.limit);
     }
-    if (message.countTotal === true) {
+    if (message.countTotal !== false) {
       obj.countTotal = message.countTotal;
     }
-    if (message.reverse === true) {
+    if (message.reverse !== false) {
       obj.reverse = message.reverse;
     }
     return obj;
@@ -282,28 +282,20 @@ const gt: any = (() => {
 })();
 
 function bytesFromBase64(b64: string): Uint8Array {
-  if (gt.Buffer) {
-    return Uint8Array.from(gt.Buffer.from(b64, "base64"));
-  } else {
-    const bin = gt.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+  const bin = gt.atob(b64);
+  const arr = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; ++i) {
+    arr[i] = bin.charCodeAt(i);
   }
+  return arr;
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if (gt.Buffer) {
-    return gt.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(gt.String.fromCharCode(byte));
-    });
-    return gt.btoa(bin.join(""));
-  }
+  const bin: string[] = [];
+  arr.forEach((byte) => {
+    bin.push(gt.String.fromCharCode(byte));
+  });
+  return gt.btoa(bin.join(""));
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

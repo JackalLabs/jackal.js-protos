@@ -1,6 +1,9 @@
 import { createProtobufRpcClient, QueryClient } from '@cosmjs/stargate'
 import { assertDefined } from '@cosmjs/utils'
-import {
+import { QueryClientImpl } from '@/postGen/canine_chain/storage/query'
+import { warnError } from '@/utils/misc'
+import type {
+  QueryActiveProviders,
   QueryAllAttestations,
   QueryAllFiles,
   QueryAllFilesByMerkle,
@@ -9,11 +12,11 @@ import {
   QueryAllProviders,
   QueryAllReports,
   QueryAllStoragePaymentInfo,
-  QueryClientImpl,
   QueryOpenFiles,
+  QueryParams,
   QueryProofsByAddress,
+  QueryStorageStats,
 } from '@/postGen/canine_chain/storage/query'
-import { warnError } from '@/utils/misc'
 import type { IStorageExtension } from '@/interfaces/snackages'
 import type {
   DQueryActiveProviders,
@@ -41,7 +44,7 @@ import type {
   DQueryStorageParams,
   DQueryStoragePaymentInfo,
   DQueryStorageStats,
-  DQueryStoreCount
+  DQueryStoreCount,
 } from '@/types/queries'
 import type {
   TQueryActiveProvidersResponseStrict,
@@ -78,10 +81,10 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
   return {
     storage: {
       activeProviders: async (
-        request: DQueryActiveProviders,
+        request: DQueryActiveProviders = {},
       ): Promise<TQueryActiveProvidersResponseStrict> => {
         const resp = await queryService
-          .ActiveProviders(request)
+          .ActiveProviders(request as QueryActiveProviders)
           .catch((err) => {
             warnError('[Storage] activeProviders', err)
             throw err
@@ -336,12 +339,14 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         return resp as TQueryStoragePaymentInfoResponseStrict
       },
       storageStats: async (
-        request: DQueryStorageStats,
+        request: DQueryStorageStats = {},
       ): Promise<TQueryStorageStatsResponseStrict> => {
-        const resp = await queryService.StorageStats(request).catch((err) => {
-          warnError('[Storage] storageStats', err)
-          throw err
-        })
+        const resp = await queryService
+          .StorageStats(request as QueryStorageStats)
+          .catch((err) => {
+            warnError('[Storage] storageStats', err)
+            throw err
+          })
         assertDefined(resp.purchased)
         return resp as TQueryStorageStatsResponseStrict
       },
@@ -356,12 +361,14 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         return resp as TQueryStoreCountResponseStrict
       },
       params: async (
-        request: DQueryStorageParams,
+        request: DQueryStorageParams = {},
       ): Promise<TQueryStorageParamsResponseStrict> => {
-        const resp = await queryService.Params(request).catch((err) => {
-          warnError('[Storage] params', err)
-          throw err
-        })
+        const resp = await queryService
+          .Params(request as QueryParams)
+          .catch((err) => {
+            warnError('[Storage] params', err)
+            throw err
+          })
         assertDefined(resp.params)
         return resp as TQueryStorageParamsResponseStrict
       },

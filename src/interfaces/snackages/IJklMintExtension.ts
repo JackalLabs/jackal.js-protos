@@ -9,7 +9,8 @@ import {
  * @interface IJklMintExtension
  * @property {IJklMintExtensionMembers} jklMint
  */
-export interface IJklMintExtension {
+export interface IJklMintExtension
+  extends Record<string, IJklMintExtensionMembers> {
   readonly jklMint: IJklMintExtensionMembers
 }
 
@@ -20,7 +21,8 @@ export interface IJklMintExtension {
  * @property {inflation} inflation()
  * @property {params} params()
  */
-export interface IJklMintExtensionMembers {
+export interface IJklMintExtensionMembers
+  extends Record<string, (request?: any) => Promise<any>> {
   /**
    * @function inflation
    * @param {DQueryInflation} [request]

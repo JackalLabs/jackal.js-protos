@@ -575,7 +575,7 @@ function createBaseMsgPostProofResponse(): MsgPostProofResponse {
 
 export const MsgPostProofResponse = {
   encode(message: MsgPostProofResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.success === true) {
+    if (message.success !== false) {
       writer.uint32(8).bool(message.success);
     }
     if (message.errorMessage !== "") {
@@ -623,7 +623,7 @@ export const MsgPostProofResponse = {
 
   toJSON(message: MsgPostProofResponse): unknown {
     const obj: any = {};
-    if (message.success === true) {
+    if (message.success !== false) {
       obj.success = message.success;
     }
     if (message.errorMessage !== "") {
@@ -1886,7 +1886,7 @@ export const MsgRequestAttestationFormResponse = {
     for (const v of message.providers) {
       writer.uint32(10).string(v!);
     }
-    if (message.success === true) {
+    if (message.success !== false) {
       writer.uint32(16).bool(message.success);
     }
     if (message.error !== "") {
@@ -1945,7 +1945,7 @@ export const MsgRequestAttestationFormResponse = {
     if (message.providers?.length) {
       obj.providers = message.providers;
     }
-    if (message.success === true) {
+    if (message.success !== false) {
       obj.success = message.success;
     }
     if (message.error !== "") {
@@ -2260,7 +2260,7 @@ export const MsgRequestReportFormResponse = {
     for (const v of message.providers) {
       writer.uint32(10).string(v!);
     }
-    if (message.success === true) {
+    if (message.success !== false) {
       writer.uint32(16).bool(message.success);
     }
     if (message.error !== "") {
@@ -2319,7 +2319,7 @@ export const MsgRequestReportFormResponse = {
     if (message.providers?.length) {
       obj.providers = message.providers;
     }
-    if (message.success === true) {
+    if (message.success !== false) {
       obj.success = message.success;
     }
     if (message.error !== "") {
@@ -2658,28 +2658,20 @@ const gt: any = (() => {
 })();
 
 function bytesFromBase64(b64: string): Uint8Array {
-  if (gt.Buffer) {
-    return Uint8Array.from(gt.Buffer.from(b64, "base64"));
-  } else {
-    const bin = gt.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
+  const bin = gt.atob(b64);
+  const arr = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; ++i) {
+    arr[i] = bin.charCodeAt(i);
   }
+  return arr;
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if (gt.Buffer) {
-    return gt.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(gt.String.fromCharCode(byte));
-    });
-    return gt.btoa(bin.join(""));
-  }
+  const bin: string[] = [];
+  arr.forEach((byte) => {
+    bin.push(gt.String.fromCharCode(byte));
+  });
+  return gt.btoa(bin.join(""));
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

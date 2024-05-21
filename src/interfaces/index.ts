@@ -1,4 +1,3 @@
-export * from '@/interfaces/classes'
 export * from '@/interfaces/snackages'
 
 export * from '@/interfaces/compatibility'

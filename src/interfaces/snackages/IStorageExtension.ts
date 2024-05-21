@@ -58,7 +58,8 @@ import type {
  * @interface IStorageExtension
  * @property {IStorageExtensionMembers} storage
  */
-export interface IStorageExtension {
+export interface IStorageExtension
+  extends Record<string, IStorageExtensionMembers> {
   readonly storage: IStorageExtensionMembers
 }
 
@@ -93,14 +94,15 @@ export interface IStorageExtension {
  * @property {storageStats} storageStats()
  * @property {storeCount} storeCount()
  */
-export interface IStorageExtensionMembers {
+export interface IStorageExtensionMembers
+  extends Record<string, (request?: any) => Promise<any>> {
   /**
    * @function activeProviders
    * @param {DQueryActiveProviders} request
    * @returns Promise<TQueryActiveProvidersResponseStrict>
    */
   readonly activeProviders: (
-    request: DQueryActiveProviders,
+    request?: DQueryActiveProviders,
   ) => Promise<TQueryActiveProvidersResponseStrict>
 
   /**
@@ -244,7 +246,7 @@ export interface IStorageExtensionMembers {
    * @returns Promise<TQueryStorageParamsResponseStrict>
    */
   readonly params: (
-    request: DQueryStorageParams,
+    request?: DQueryStorageParams,
   ) => Promise<TQueryStorageParamsResponseStrict>
 
   /**
@@ -314,7 +316,7 @@ export interface IStorageExtensionMembers {
    * @returns Promise<TQueryStorageStatsResponseStrict>
    */
   readonly storageStats: (
-    request: DQueryStorageStats,
+    request?: DQueryStorageStats,
   ) => Promise<TQueryStorageStatsResponseStrict>
 
   /**

@@ -11,7 +11,8 @@ import type {
  * @interface IOracleExtension
  * @property {IOracleExtensionMembers} oracle
  */
-export interface IOracleExtension {
+export interface IOracleExtension
+  extends Record<string, IOracleExtensionMembers> {
   readonly oracle: IOracleExtensionMembers
 }
 
@@ -23,7 +24,8 @@ export interface IOracleExtension {
  * @property {feed} feed()
  * @property {params} params()
  */
-export interface IOracleExtensionMembers {
+export interface IOracleExtensionMembers
+  extends Record<string, (request?: any) => Promise<any>> {
   /**
    * @function allFeeds
    * @param {DQueryAllFeeds} [request]

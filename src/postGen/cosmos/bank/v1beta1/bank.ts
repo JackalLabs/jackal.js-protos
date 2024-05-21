@@ -100,7 +100,7 @@ export const Params = {
     for (const v of message.sendEnabled) {
       SendEnabled.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-    if (message.defaultSendEnabled === true) {
+    if (message.defaultSendEnabled !== false) {
       writer.uint32(16).bool(message.defaultSendEnabled);
     }
     return writer;
@@ -150,7 +150,7 @@ export const Params = {
     if (message.sendEnabled?.length) {
       obj.sendEnabled = message.sendEnabled.map((e) => SendEnabled.toJSON(e));
     }
-    if (message.defaultSendEnabled === true) {
+    if (message.defaultSendEnabled !== false) {
       obj.defaultSendEnabled = message.defaultSendEnabled;
     }
     return obj;
@@ -176,7 +176,7 @@ export const SendEnabled = {
     if (message.denom !== "") {
       writer.uint32(10).string(message.denom);
     }
-    if (message.enabled === true) {
+    if (message.enabled !== false) {
       writer.uint32(16).bool(message.enabled);
     }
     return writer;
@@ -224,7 +224,7 @@ export const SendEnabled = {
     if (message.denom !== "") {
       obj.denom = message.denom;
     }
-    if (message.enabled === true) {
+    if (message.enabled !== false) {
       obj.enabled = message.enabled;
     }
     return obj;

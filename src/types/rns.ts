@@ -70,3 +70,5 @@ export type DInit = Documentation<
   },
   Init
 >
+
+export { Names, Bids, Forsale, Init }

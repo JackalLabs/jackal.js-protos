@@ -1,3 +1,4 @@
+export * from '@/snackages/tx/cosmwasm'
 export * from '@/snackages/tx/fileTree'
 export * from '@/snackages/tx/notifications'
 export * from '@/snackages/tx/oracle'

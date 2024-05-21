@@ -34,3 +34,5 @@ export type DPubkey = Documentation<
   },
   Pubkey
 >
+
+export { Files, Pubkey }

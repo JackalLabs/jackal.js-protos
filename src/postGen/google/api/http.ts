@@ -378,7 +378,7 @@ export const Http = {
     for (const v of message.rules) {
       HttpRule.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-    if (message.fullyDecodeReservedExpansion === true) {
+    if (message.fullyDecodeReservedExpansion !== false) {
       writer.uint32(16).bool(message.fullyDecodeReservedExpansion);
     }
     return writer;
@@ -428,7 +428,7 @@ export const Http = {
     if (message.rules?.length) {
       obj.rules = message.rules.map((e) => HttpRule.toJSON(e));
     }
-    if (message.fullyDecodeReservedExpansion === true) {
+    if (message.fullyDecodeReservedExpansion !== false) {
       obj.fullyDecodeReservedExpansion = message.fullyDecodeReservedExpansion;
     }
     return obj;

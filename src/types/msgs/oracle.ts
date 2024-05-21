@@ -1,7 +1,4 @@
-import type {
-  MsgCreateFeed,
-  MsgUpdateFeed,
-} from '@/postGen/canine_chain/oracle/tx'
+import type { MsgCreateFeed, MsgUpdateFeed } from '@/postGen/canine_chain/oracle/tx'
 
 /**
  * MsgCreateFeed Documentation

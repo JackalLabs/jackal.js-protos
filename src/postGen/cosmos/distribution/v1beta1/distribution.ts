@@ -141,7 +141,7 @@ export const Params = {
     if (message.bonusProposerReward !== "") {
       writer.uint32(26).string(message.bonusProposerReward);
     }
-    if (message.withdrawAddrEnabled === true) {
+    if (message.withdrawAddrEnabled !== false) {
       writer.uint32(32).bool(message.withdrawAddrEnabled);
     }
     return writer;
@@ -211,7 +211,7 @@ export const Params = {
     if (message.bonusProposerReward !== "") {
       obj.bonusProposerReward = message.bonusProposerReward;
     }
-    if (message.withdrawAddrEnabled === true) {
+    if (message.withdrawAddrEnabled !== false) {
       obj.withdrawAddrEnabled = message.withdrawAddrEnabled;
     }
     return obj;

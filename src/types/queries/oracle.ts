@@ -1,9 +1,5 @@
 import type { PageRequest } from '@/postGen/cosmos/base/query/v1beta1/pagination'
-import type {
-  QueryAllFeeds,
-  QueryFeed,
-  QueryParams,
-} from '@/postGen/canine_chain/oracle/query'
+import type { QueryAllFeeds, QueryFeed, QueryParams } from '@/postGen/canine_chain/oracle/query'
 import { WithOptional } from '@/types/misc'
 
 /**
