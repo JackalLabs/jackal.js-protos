@@ -143,6 +143,7 @@ export type TQueryAllStoragePaymentInfoResponseStrict = ModifyDeep<
  * @prop {number} used - Total storage used in bytes.
  * @prop {Uint8Array} usedRatio - Ratio of used<>purchased.
  * @prop {number} activeUsers - Total number of active storage plans.
+ * @prop {number} uniqueUsers - Total number of unique accounts with storage plans.
  * @prop {DUsersByPlanMap} usersByPlan - Map of number of users indexed by total plan storage.
  */
 export type TQueryStorageStatsResponseStrict = ModifyDeep<
@@ -152,6 +153,7 @@ export type TQueryStorageStatsResponseStrict = ModifyDeep<
     used: number
     usedRatio: Uint8Array
     activeUsers: number
+    uniqueUsers: number
     usersByPlan: DUsersByPlanMap
   }
 >

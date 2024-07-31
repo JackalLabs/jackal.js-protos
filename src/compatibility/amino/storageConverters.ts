@@ -59,6 +59,7 @@ export function createStorageAminoConverters(): AminoConverters {
           durationDays: value.duration_days,
           bytes: value.bytes,
           paymentDenom: value.payment_denom,
+          referral: value.referral,
         }
       },
     },

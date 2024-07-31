@@ -179,6 +179,7 @@ export type DMsgShutdownProvider = Documentation<
  * @prop {number} durationDays - Total number of days for plan. Minimum 30.
  * @prop {number} bytes - Total storage space to purchase in bytes. Minimum 1000000000 (1GB).
  * @prop {string} paymentDenom - desc.
+ * @prop {string} referral - RNS address of referring account.
  */
 export type DMsgBuyStorage = Documentation<
   {
@@ -187,6 +188,7 @@ export type DMsgBuyStorage = Documentation<
     durationDays: number
     bytes: number
     paymentDenom: string
+    referral: string
   },
   MsgBuyStorage
 >
