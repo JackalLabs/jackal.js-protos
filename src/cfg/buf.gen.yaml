@@ -1,9 +1,10 @@
 version: v1beta1
 plugins:
   - name: ts
-    out: ./postgen
+    out: ./postGen
     path: ../node_modules/ts-proto/protoc-gen-ts_proto
     strategy: all
     opt:
       - esModuleInterop=true
-      - outputClientImpl=grpc-web
+      - globalThisPolyfill=true
+      - env=browser

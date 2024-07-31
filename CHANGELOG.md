@@ -15,12 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Minor Releases:
 - None
 
-## Alpha Releases:
-### [v0.0.1] - 2022 09 16
-#### Added
--  Starting protos for Jackal.js
-
 <!-- LINKS -->
 <!-- RELEASES -->
-[Unreleased]: https://github.com/JackalLabs/jackal.js-protos/compare/v0.0.1...dev
+[Unreleased]: https://github.com/JackalLabs/template_vite_module/compare/v0.0.1...dev
 <!-- ISSUES -->

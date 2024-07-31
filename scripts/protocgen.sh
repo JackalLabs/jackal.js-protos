@@ -23,6 +23,12 @@ for file in $static_tendermint_proto_dirs; do
   buf generate --template ./cfg/buf.gen.yaml "$file"
 done
 
+static_cosmwasm_dirs_regex='(wasm)'
+static_cosmwasm_proto_dirs=$(find -E . -iregex ".*\/staticProto\/cosmwasm\/$static_cosmwasm_dirs_regex.*\.proto")
+for file in $static_cosmwasm_proto_dirs; do
+  buf generate --template ./cfg/buf.gen.yaml "$file"
+done
+
 # Generate Custom Protos
 proto_dirs=$(find ./proto -name '*.proto')
 for file in $proto_dirs; do
