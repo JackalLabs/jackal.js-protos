@@ -5,23 +5,28 @@ import {
   DQueryContractHistoryRequest,
   DQueryContractInfoRequest,
   DQueryContractsByCodeRequest,
-  DQueryContractsByCreatorRequest, DQueryParamsRequest,
+  DQueryContractsByCreatorRequest,
+  DQueryParamsRequest,
   DQueryPinnedCodesRequest,
-  DQueryRawContractStateRequest, DQuerySmartContractStateRequest,
+  DQueryRawContractStateRequest,
+  DQuerySmartContractStateRequest
 } from '@/types/queries'
 import type {
   TQueryAllContractStateResponseStrict,
   TQueryCodeResponse,
-  TQueryCodesResponseStrict, TQueryContractHistoryResponseStrict,
+  TQueryCodesResponseStrict,
+  TQueryContractHistoryResponseStrict,
   TQueryContractInfoResponse,
   TQueryContractsByCodeResponseStrict,
   TQueryContractsByCreatorResponseStrict,
-  TQueryPinnedCodesResponseStrict, TQueryRawContractStateResponseStrict, TQuerySmartContractStateResponseStrict,
+  TQueryPinnedCodesResponseStrict,
+  TQueryRawContractStateResponseStrict,
+  TQuerySmartContractStateResponseStrict
 } from '@/types/queries/responses'
 
 /**
- * @interface IStorageExtension
- * @property {IStorageExtensionMembers} storage
+ * @interface ICosmwasmExtension
+ * @property {ICosmwasmExtensionMembers} cosmwasm
  */
 export interface ICosmwasmExtension
   extends Record<string, ICosmwasmExtensionMembers> {
@@ -29,134 +34,120 @@ export interface ICosmwasmExtension
 }
 
 /**
- * All functions for querying data from the FileTree module.
- *
- * @interface IStorageExtensionMembers
- * @property {activeProviders} activeProviders()
- * @property {allAttestations} allAttestations()
- * @property {allFiles} allFiles()
- * @property {allFilesByMerkle} allFilesByMerkle()
- * @property {allFilesByOwner} allFilesByOwner()
- * @property {allProofs} allProofs()
- * @property {allProviders} allProviders()
- * @property {allReports} allReports()
- * @property {allStoragePaymentInfo} allStoragePaymentInfo()
- * @property {attestation} attestation()
- * @property {clientFreeSpace} clientFreeSpace()
- * @property {file} file()
- * @property {fileUploadCheck} fileUploadCheck()
- * @property {findFile} findFile()
- * @property {freeSpace} freeSpace()
- * @property {openFiles} openFiles()
+ * All functions for the Cosmwasm module.
+ * @interface ICosmwasmExtensionMembers
+ * @property {allContractState} allContractState()
+ * @property {code} code()
+ * @property {codes} codes()
+ * @property {contractHistory} contractHistory()
+ * @property {contractInfo} contractInfo()
+ * @property {contractsByCode} contractsByCode()
+ * @property {contractsByCreator} contractsByCreator()
+ * @property {pinnedCodes} pinnedCodes()
+ * @property {rawContractState} rawContractState()
+ * @property {smartContractState} smartContractState()
  * @property {params} params()
- * @property {payData} payData()
- * @property {priceCheck} priceCheck()
- * @property {proof} proof()
- * @property {proofsByAddress} proofsByAddress()
- * @property {provider} provider()
- * @property {report} report()
- * @property {storagePaymentInfo} storagePaymentInfo()
- * @property {storageStats} storageStats()
- * @property {storeCount} storeCount()
+ *
  */
 export interface ICosmwasmExtensionMembers
   extends Record<string, (request?: any) => Promise<any>> {
   /**
-   * @function activeProviders
-   * @param {DQueryActiveProviders} request
-   * @returns Promise<TQueryActiveProvidersResponseStrict>
+   * @function allContractState
+   * @param {DQueryAllContractStateRequest} request
+   * @returns Promise<TQueryAllContractStateResponseStrict>
    */
+
   readonly allContractState: (
-    request: DQueryAllContractStateRequest,
+    request: DQueryAllContractStateRequest
   ) => Promise<TQueryAllContractStateResponseStrict>
 
   /**
-   * @function allAttestations
-   * @param {DQueryAllAttestations} [request]
-   * @returns Promise<TQueryAllAttestationsResponseStrict>
+   * @function code
+   * @param {DQueryCodeRequest} request
+   * @returns Promise<TQueryCodeResponse>
    */
   readonly code: (
-    request: DQueryCodeRequest,
+    request: DQueryCodeRequest
   ) => Promise<TQueryCodeResponse>
 
   /**
-   * @function allFiles
-   * @param {DQueryStorageAllFiles} [request]
-   * @returns Promise<TQueryStorageAllFilesResponseStrict>
+   * @function codes
+   * @param {DQueryCodesRequest} request
+   * @returns Promise<TQueryCodesResponseStrict>
    */
   readonly codes: (
-    request: DQueryCodesRequest,
+    request: DQueryCodesRequest
   ) => Promise<TQueryCodesResponseStrict>
 
   /**
-   * @function allFilesByMerkle
-   * @param {DQueryStorageAllFilesByMerkle} request
-   * @returns Promise<TQueryStorageAllFilesByMerkleResponseStrict>
+   * @function contractHistory
+   * @param {DQueryContractHistoryRequest} request
+   * @returns Promise<TQueryContractHistoryResponseStrict>
    */
   readonly contractHistory: (
-    request: DQueryContractHistoryRequest,
+    request: DQueryContractHistoryRequest
   ) => Promise<TQueryContractHistoryResponseStrict>
 
   /**
-   * @function allFilesByOwner
-   * @param {DQueryStorageAllFilesByOwner} request
-   * @returns Promise<TQueryStorageAllFilesByOwnerResponseStrict>
+   * @function contractInfo
+   * @param {DQueryContractInfoRequest} request
+   * @returns Promise<TQueryContractInfoResponse>
    */
   readonly contractInfo: (
-    request: DQueryContractInfoRequest,
+    request: DQueryContractInfoRequest
   ) => Promise<TQueryContractInfoResponse>
 
   /**
-   * @function allProofs
-   * @param {DQueryAllProofs} [request]
-   * @returns Promise<TQueryAllProofsResponseStrict>
+   * @function contractsByCode
+   * @param {DQueryContractsByCodeRequest} request
+   * @returns Promise<TQueryContractsByCodeResponseStrict>
    */
   readonly contractsByCode: (
-    request: DQueryContractsByCodeRequest,
+    request: DQueryContractsByCodeRequest
   ) => Promise<TQueryContractsByCodeResponseStrict>
 
   /**
-   * @function allProviders
-   * @param {DQueryAllProviders} [request]
-   * @returns Promise<TQueryAllProvidersResponseStrict>
+   * @function contractsByCreator
+   * @param {DQueryContractsByCreatorRequest} request
+   * @returns Promise<TQueryContractsByCreatorResponseStrict>
    */
   readonly contractsByCreator: (
-    request: DQueryContractsByCreatorRequest,
+    request: DQueryContractsByCreatorRequest
   ) => Promise<TQueryContractsByCreatorResponseStrict>
 
   /**
-   * @function allReports
-   * @param {DQueryAllReports} [request]
-   * @returns Promise<TQueryAllReportsResponseStrict>
+   * @function pinnedCodes
+   * @param {DQueryPinnedCodesRequest} request
+   * @returns Promise<TQueryPinnedCodesResponseStrict>
    */
   readonly pinnedCodes: (
-    request: DQueryPinnedCodesRequest,
+    request: DQueryPinnedCodesRequest
   ) => Promise<TQueryPinnedCodesResponseStrict>
 
   /**
-   * @function allStoragePaymentInfo
-   * @param {DQueryAllStoragePaymentInfo} [request]
-   * @returns Promise<TQueryAllStoragePaymentInfoResponseStrict>
+   * @function rawContractState
+   * @param {DQueryRawContractStateRequest} request
+   * @returns Promise<TQueryRawContractStateResponseStrict>
    */
   readonly rawContractState: (
-    request: DQueryRawContractStateRequest,
+    request: DQueryRawContractStateRequest
   ) => Promise<TQueryRawContractStateResponseStrict>
 
   /**
-   * @function attestation
-   * @param {DQueryAttestation} request
-   * @returns Promise<TQueryAttestationResponseStrict>
+   * @function smartContractState
+   * @param {DQuerySmartContractStateRequest} request
+   * @returns Promise<TQuerySmartContractStateResponseStrict>
    */
   readonly smartContractState: (
-    request: DQuerySmartContractStateRequest,
+    request: DQuerySmartContractStateRequest
   ) => Promise<TQuerySmartContractStateResponseStrict>
 
   /**
-   * @function clientFreeSpace
-   * @param {DQueryClientFreeSpace} request
-   * @returns Promise<TQueryClientFreeSpaceResponseStrict>
+   * @function params
+   * @param {DQueryParamsRequest} [request]
+   * @returns Promise<DQueryParamsRequest>
    */
   readonly params: (
-    request?: DQueryParamsRequest,
+    request?: DQueryParamsRequest
   ) => Promise<DQueryParamsRequest>
 }
