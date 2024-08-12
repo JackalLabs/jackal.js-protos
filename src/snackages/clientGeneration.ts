@@ -36,6 +36,7 @@ import {
 } from '@/compatibility'
 import { createCosmwasmExtension } from '@/snackages/query/cosmwasm'
 import { cosmwasmTypes, TxCosmwasm } from '@/snackages/tx/cosmwasm'
+import { createBankExtension } from '@/snackages/cosmos/query'
 
 export type TJackalQueryClient = IIbcQueryClient<TQueryExtensions>
 export type THostQueryClient = IIbcQueryClient<THostQueryExtensions>
@@ -59,7 +60,8 @@ export async function connectJackalQueryClient(
     createOracleExtension,
     createRnsExtension,
     createStorageExtension,
-    createCosmwasmExtension
+    createCosmwasmExtension,
+    createBankExtension
   ]
 
   return await IbcQueryClient.connect<TQueryExtensions>(endpoint, options)
@@ -96,7 +98,8 @@ export async function connectJackalSigningClient(
     createOracleExtension,
     createRnsExtension,
     createStorageExtension,
-    createCosmwasmExtension
+    createCosmwasmExtension,
+    createBankExtension
   ]
   const txLibrary = {
     fileTree: TxFileTree,
