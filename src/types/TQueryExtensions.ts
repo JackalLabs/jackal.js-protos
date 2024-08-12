@@ -1,12 +1,13 @@
 import type { QueryClient } from '@cosmjs/stargate'
 import {
+  IBankExtension,
   ICosmwasmExtension,
   IFileTreeExtension,
   IJklMintExtension,
   INotificationsExtension,
   IOracleExtension,
   IRnsExtension,
-  IStorageExtension,
+  IStorageExtension
 } from '@/interfaces/snackages'
 
 /**
@@ -20,6 +21,7 @@ export type TQueryExtensions = QueryClient &
   IOracleExtension &
   IRnsExtension &
   IStorageExtension &
-  ICosmwasmExtension
+  ICosmwasmExtension &
+  IBankExtension
 
 export type THostQueryExtensions = QueryClient & ICosmwasmExtension
