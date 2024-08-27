@@ -14,7 +14,16 @@ export type DFeed = Documentation<
     lastUpdate: string
     name: string
   },
-  Feed
+  MFeed
+>
+export type MFeed = ModifyDeep<
+  Feed,
+  {
+    owner: string
+    data: string
+    lastUpdate: string
+    name: string
+  }
 >
 
 export { Feed }

@@ -41,7 +41,7 @@ export function createOracleExtension(base: QueryClient): IOracleExtension {
           throw err
         })
         assertDefined(resp.feed)
-        return resp as TQueryFeedResponseStrict
+        return resp as unknown as TQueryFeedResponseStrict
       },
       params: async (
         request: DQueryOracleParams = {},

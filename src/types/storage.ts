@@ -133,8 +133,20 @@ export type DStoragePaymentInfo = Documentation<
     address: string
     coins: DCoin[]
   },
-  StoragePaymentInfo
+  MStoragePaymentInfo
 >
+export type MStoragePaymentInfo = ModifyDeep<
+  StoragePaymentInfo,
+  {
+    start: string
+    end: string
+    spaceAvailable: number
+    spaceUsed: number
+    address: string
+    coins: DCoin[]
+  }
+>
+
 
 /**
  * UnifiedFile Documentation

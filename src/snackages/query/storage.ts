@@ -336,7 +336,7 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
             throw err
           })
         assertDefined(resp.storagePaymentInfo)
-        return resp as TQueryStoragePaymentInfoResponseStrict
+        return resp as unknown as TQueryStoragePaymentInfoResponseStrict
       },
       storageStats: async (
         request: DQueryStorageStats = {},
