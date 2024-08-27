@@ -117,8 +117,8 @@ export type DReportForm = Documentation<
 
 /**
  * StoragePaymentInfo Documentation
- * @prop {Date | undefined} start - Date storage plan was purchased.
- * @prop {Date | undefined} end - Date storage plan expires.
+ * @prop {string} start - Stringified Date storage plan was purchased.
+ * @prop {string} end - Stringified Date storage plan expires.
  * @prop {number} spaceAvailable - Total storage purchased in bytes.
  * @prop {number} spaceUsed - Total storage used in bytes.
  * @prop {string} address - Jackal wallet address of storage plan owner.
@@ -126,8 +126,8 @@ export type DReportForm = Documentation<
  */
 export type DStoragePaymentInfo = Documentation<
   {
-    start: Date | undefined
-    end: Date | undefined
+    start: string
+    end: string
     spaceAvailable: number
     spaceUsed: number
     address: string
