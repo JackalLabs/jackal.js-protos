@@ -27,6 +27,10 @@ export interface Params {
   /** TODO: fix casing */
   collateralPrice: number;
   checkWindow: number;
+  /** default 40 */
+  polRatio: number;
+  /** default 25 */
+  referralCommission: number;
 }
 
 function createBaseParams(): Params {
@@ -42,6 +46,8 @@ function createBaseParams(): Params {
     attestMinToPass: 0,
     collateralPrice: 0,
     checkWindow: 0,
+    polRatio: 0,
+    referralCommission: 0,
   };
 }
 
@@ -79,6 +85,12 @@ export const Params = {
     }
     if (message.checkWindow !== 0) {
       writer.uint32(88).int64(message.checkWindow);
+    }
+    if (message.polRatio !== 0) {
+      writer.uint32(96).int64(message.polRatio);
+    }
+    if (message.referralCommission !== 0) {
+      writer.uint32(104).int64(message.referralCommission);
     }
     return writer;
   },
@@ -167,6 +179,20 @@ export const Params = {
 
           message.checkWindow = longToNumber(reader.int64() as Long);
           continue;
+        case 12:
+          if (tag !== 96) {
+            break;
+          }
+
+          message.polRatio = longToNumber(reader.int64() as Long);
+          continue;
+        case 13:
+          if (tag !== 104) {
+            break;
+          }
+
+          message.referralCommission = longToNumber(reader.int64() as Long);
+          continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -189,6 +215,8 @@ export const Params = {
       attestMinToPass: isSet(object.attestMinToPass) ? gt.Number(object.attestMinToPass) : 0,
       collateralPrice: isSet(object.collateralPrice) ? gt.Number(object.collateralPrice) : 0,
       checkWindow: isSet(object.checkWindow) ? gt.Number(object.checkWindow) : 0,
+      polRatio: isSet(object.polRatio) ? gt.Number(object.polRatio) : 0,
+      referralCommission: isSet(object.referralCommission) ? gt.Number(object.referralCommission) : 0,
     };
   },
 
@@ -227,6 +255,12 @@ export const Params = {
     if (message.checkWindow !== 0) {
       obj.checkWindow = Math.round(message.checkWindow);
     }
+    if (message.polRatio !== 0) {
+      obj.polRatio = Math.round(message.polRatio);
+    }
+    if (message.referralCommission !== 0) {
+      obj.referralCommission = Math.round(message.referralCommission);
+    }
     return obj;
   },
 
@@ -246,6 +280,8 @@ export const Params = {
     message.attestMinToPass = object.attestMinToPass ?? 0;
     message.collateralPrice = object.collateralPrice ?? 0;
     message.checkWindow = object.checkWindow ?? 0;
+    message.polRatio = object.polRatio ?? 0;
+    message.referralCommission = object.referralCommission ?? 0;
     return message;
   },
 };

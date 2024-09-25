@@ -1,21 +1,25 @@
-import type { Params } from '@/postGen/canine_chain/storage/params'
-import type { PageResponse } from '@/postGen/cosmos/base/query/v1beta1/pagination'
+import type {Params} from '@/postGen/canine_chain/storage/params'
+import type {PageResponse} from '@/postGen/cosmos/base/query/v1beta1/pagination'
 import type {
   QueryActiveProvidersResponse,
   QueryAllAttestationsResponse,
   QueryAllFilesByMerkleResponse,
   QueryAllFilesByOwnerResponse,
   QueryAllFilesResponse,
+  QueryAllGaugesResponse,
   QueryAllProofsResponse,
   QueryAllProvidersResponse,
   QueryAllReportsResponse,
   QueryAllStoragePaymentInfoResponse,
   QueryAttestationResponse,
+  QueryAvailableSpaceResponse,
   QueryClientFreeSpaceResponse,
   QueryFileResponse,
+  QueryFilesFromNoteResponse,
   QueryFileUploadCheckResponse,
   QueryFindFileResponse,
   QueryFreeSpaceResponse,
+  QueryNetworkSizeResponse,
   QueryParamsResponse,
   QueryPayDataResponse,
   QueryPriceCheckResponse,
@@ -56,6 +60,28 @@ export type TQueryProofsByAddressResponseStrict = ModifyDeep<
  */
 export type TQueryAllProofsResponseStrict = ModifyDeep<
   QueryAllProofsResponse,
+  { pagination: PageResponse }
+>
+
+/**
+ * This is the response for the [Storage] Query/AllGauges RPC method.
+ *
+ * @prop {DPaymentGauge[]} gauges - Array of PaymentGauge items.
+ * @prop {PageResponse} pagination - Pagination details.
+ */
+export type TQueryAllGaugesResponseStrict = ModifyDeep<
+  QueryAllGaugesResponse,
+  { pagination: PageResponse }
+>
+
+/**
+ * This is the response for the [Storage] Query/FilesFromNote RPC method.
+ *
+ * @prop {DUnifiedFile[]} files - Array of UnifiedFile items.
+ * @prop {PageResponse} pagination - Pagination details.
+ */
+export type TQueryFilesFromNoteResponseStrict = ModifyDeep<
+  QueryFilesFromNoteResponse,
   { pagination: PageResponse }
 >
 
@@ -247,6 +273,26 @@ export type TQueryFindFileResponseStrict = ModifyDeep<
 export type TQueryFreeSpaceResponseStrict = ModifyDeep<
   QueryFreeSpaceResponse,
   { space: number }
+>
+
+/**
+ * This is the response for the [Storage] Query/NetworkSize RPC method.
+ *
+ * @prop {number} space - Current total space on the network in bytes.
+ */
+export type TQueryNetworkSizeResponseStrict = ModifyDeep<
+  QueryNetworkSizeResponse,
+  { size: number }
+>
+
+/**
+ * This is the response for the [Storage] Query/AvailableSpace RPC method.
+ *
+ * @prop {number} space - Current available space on the network in bytes.
+ */
+export type TQueryAvailableSpaceResponseStrict = ModifyDeep<
+  QueryAvailableSpaceResponse,
+  { size: number }
 >
 
 /**

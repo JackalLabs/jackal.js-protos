@@ -22,6 +22,12 @@ service Query {
         "/jackal/canine-chain/storage/files/{merkle}/{owner}/{start}";
   }
 
+  // Queries a File by merkle, owner, and start.
+  rpc FilesFromNote(QueryFilesFromNote) returns (QueryFilesFromNoteResponse) {
+    option (google.api.http).get =
+        "/jackal/canine-chain/storage/files/note/{key}/{value}";
+  }
+
   // Queries a list of open files by provider_address.
   rpc OpenFiles(QueryOpenFiles)
       returns (QueryAllFilesResponse) {
@@ -174,6 +180,24 @@ service Query {
     option (google.api.http).get =
         "/jackal/canine-chain/storage/storage_stats";
   }
+
+  // Queries how much storage space is being used on the network at this time.
+  rpc NetworkSize(QueryNetworkSize) returns (QueryNetworkSizeResponse) {
+    option (google.api.http).get =
+        "/jackal/canine-chain/storage/network_size";
+  }
+
+  // Queries the amount of offered storage by active providers
+  rpc AvailableSpace(QueryAvailableSpace) returns (QueryAvailableSpaceResponse) {
+    option (google.api.http).get =
+        "/jackal/canine-chain/storage/available_space";
+  }
+
+  // Queries protocol storage space used and purchased.
+  rpc Gauges(QueryAllGauges) returns (QueryAllGaugesResponse) {
+    option (google.api.http).get =
+        "/jackal/canine-chain/storage/gauges";
+  }
 }
 
 message QueryParams {}
@@ -181,6 +205,7 @@ message QueryParams {}
 message QueryParamsResponse {
   Params params = 1 [ (gogoproto.nullable) = false ];
 }
+
 
 message QueryProof {
   string provider_address = 1;
@@ -212,6 +237,16 @@ message QueryAllProofsResponse {
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
+
+message QueryAllGauges {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllGaugesResponse {
+  repeated PaymentGauge gauges = 1 [ (gogoproto.nullable) = false ];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
 message QueryFile {
   bytes merkle = 1;
   string owner = 2;
@@ -220,6 +255,17 @@ message QueryFile {
 
 message QueryFileResponse {
   UnifiedFile file = 1 [ (gogoproto.nullable) = false ];
+}
+
+message QueryFilesFromNote {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+  string key = 2;
+  string value = 3;
+}
+
+message QueryFilesFromNoteResponse {
+  repeated UnifiedFile files = 1 [ (gogoproto.nullable) = false ];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
 message QueryOpenFiles {
@@ -405,4 +451,16 @@ message QueryStorageStatsResponse {
   uint64 activeUsers = 4;
   uint64 uniqueUsers = 5;
   map<int64, int64> users_by_plan= 6;
+}
+
+message QueryNetworkSize {}
+
+message QueryNetworkSizeResponse {
+  uint64 size = 1;
+}
+
+message QueryAvailableSpace {}
+
+message QueryAvailableSpaceResponse {
+  uint64 size = 1;
 }

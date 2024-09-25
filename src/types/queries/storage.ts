@@ -1,33 +1,37 @@
-import type { PageRequest } from '@/postGen/cosmos/base/query/v1beta1/pagination'
+import type {PageRequest} from '@/postGen/cosmos/base/query/v1beta1/pagination'
 import type {
-  QueryActiveProviders,
-  QueryAllAttestations,
-  QueryAllFiles,
-  QueryAllFilesByMerkle,
-  QueryAllFilesByOwner,
-  QueryAllProofs,
-  QueryAllProviders,
-  QueryAllReports,
-  QueryAllStoragePaymentInfo,
-  QueryAttestation,
-  QueryClientFreeSpace,
-  QueryFile,
-  QueryFileUploadCheck,
-  QueryFindFile,
-  QueryFreeSpace,
-  QueryOpenFiles,
-  QueryParams,
-  QueryPayData,
-  QueryPriceCheck,
-  QueryProof,
-  QueryProofsByAddress,
-  QueryProvider,
-  QueryReport,
-  QueryStoragePaymentInfo,
-  QueryStorageStats,
-  QueryStoreCount,
+    QueryActiveProviders,
+    QueryAllAttestations,
+    QueryAllFiles,
+    QueryAllFilesByMerkle,
+    QueryAllFilesByOwner,
+    QueryAllGauges,
+    QueryAllProofs,
+    QueryAllProviders,
+    QueryAllReports,
+    QueryAllStoragePaymentInfo,
+    QueryAttestation,
+    QueryAvailableSpace,
+    QueryClientFreeSpace,
+    QueryFile,
+    QueryFilesFromNote,
+    QueryFileUploadCheck,
+    QueryFindFile,
+    QueryFreeSpace,
+    QueryNetworkSize,
+    QueryOpenFiles,
+    QueryParams,
+    QueryPayData,
+    QueryPriceCheck,
+    QueryProof,
+    QueryProofsByAddress,
+    QueryProvider,
+    QueryReport,
+    QueryStoragePaymentInfo,
+    QueryStorageStats,
+    QueryStoreCount,
 } from '@/postGen/canine_chain/storage/query'
-import { WithOptional } from '@/types/misc'
+import {WithOptional} from '@/types/misc'
 
 /**
  * QueryAllProofs Documentation
@@ -38,6 +42,32 @@ export type DQueryAllProofs = Documentation<
     pagination?: PageRequest
   },
   WithOptional<QueryAllProofs, 'pagination'>
+>
+
+/**
+ * QueryAllGauges Documentation
+ * @prop {PageRequest} [pagination] - Optional pagination, defaults to first 100 results.
+ */
+export type DQueryAllGauges = Documentation<
+  {
+    pagination?: PageRequest
+  },
+  WithOptional<QueryAllGauges, 'pagination'>
+>
+
+/**
+ * QueryFilesFromNote Documentation
+ * @prop {string} key - Key of target note.
+ * @prop {string} value - Value of target note.
+ * @prop {PageRequest} [pagination] - Optional pagination, defaults to first 100 results.
+ */
+export type DQueryFilesFromNote = Documentation<
+  {
+    key: string
+    value: string
+    pagination?: PageRequest
+  },
+  WithOptional<QueryFilesFromNote, 'pagination'>
 >
 
 /**
@@ -336,3 +366,17 @@ export type DQueryStorageStats = Documentation<{}, QueryStorageStats>
  * No parameters.
  */
 export type DQueryStorageParams = Documentation<{}, QueryParams>
+
+/**
+ * QueryNetworkSize Documentation
+ *
+ * No parameters.
+ */
+export type DQueryNetworkSize = Documentation<{}, QueryNetworkSize>
+
+/**
+ * QueryAvailableSpace Documentation
+ *
+ * No parameters.
+ */
+export type DQueryAvailableSpace = Documentation<{}, QueryAvailableSpace>

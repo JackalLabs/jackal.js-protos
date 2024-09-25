@@ -1,15 +1,18 @@
 import {
   DQueryActiveProviders,
   DQueryAllAttestations,
+  type DQueryAllGauges,
   DQueryAllProofs,
   DQueryAllProviders,
   DQueryAllReports,
   DQueryAllStoragePaymentInfo,
   DQueryAttestation,
+  type DQueryAvailableSpace,
   DQueryClientFreeSpace,
+  type DQueryFilesFromNote,
   DQueryFileUploadCheck,
   DQueryFindFile,
-  DQueryFreeSpace,
+  DQueryFreeSpace, type DQueryNetworkSize,
   DQueryOpenFiles,
   DQueryPayData,
   DQueryPriceCheck,
@@ -25,6 +28,9 @@ import {
   DQueryStoragePaymentInfo,
   DQueryStorageStats,
   DQueryStoreCount,
+  type TQueryAllGaugesResponseStrict,
+  type TQueryAvailableSpaceResponseStrict,
+  type TQueryFilesFromNoteResponseStrict, type TQueryNetworkSizeResponseStrict,
   TQueryStorageAllFilesByMerkleResponseStrict,
   TQueryStorageAllFilesByOwnerResponseStrict,
 } from '@/types/queries'
@@ -142,6 +148,15 @@ export interface IStorageExtensionMembers
   ) => Promise<TQueryStorageAllFilesByOwnerResponseStrict>
 
   /**
+   * @function allGauges
+   * @param {DQueryAllGauges} [request]
+   * @returns Promise<TQueryAllGaugesResponseStrict>
+   */
+  readonly allGauges: (
+      request?: DQueryAllGauges,
+  ) => Promise<TQueryAllGaugesResponseStrict>
+
+  /**
    * @function allProofs
    * @param {DQueryAllProofs} [request]
    * @returns Promise<TQueryAllProofsResponseStrict>
@@ -187,6 +202,15 @@ export interface IStorageExtensionMembers
   ) => Promise<TQueryAttestationResponseStrict>
 
   /**
+   * @function availableSpace
+   * @param {DQueryAvailableSpace} [request]
+   * @returns Promise<TQueryAvailableSpaceResponseStrict>
+   */
+  readonly availableSpace: (
+      request?: DQueryAvailableSpace,
+  ) => Promise<TQueryAvailableSpaceResponseStrict>
+
+  /**
    * @function clientFreeSpace
    * @param {DQueryClientFreeSpace} request
    * @returns Promise<TQueryClientFreeSpaceResponseStrict>
@@ -203,6 +227,15 @@ export interface IStorageExtensionMembers
   readonly file: (
     request: DQueryStorageFile,
   ) => Promise<TQueryStorageFileResponseStrict>
+
+  /**
+   * @function filesFromNote
+   * @param {DQueryFilesFromNote} request
+   * @returns Promise<TQueryFilesFromNoteResponseStrict>
+   */
+  readonly filesFromNote: (
+      request: DQueryFilesFromNote,
+  ) => Promise<TQueryFilesFromNoteResponseStrict>
 
   /**
    * @function fileUploadCheck
@@ -230,6 +263,15 @@ export interface IStorageExtensionMembers
   readonly freeSpace: (
     request: DQueryFreeSpace,
   ) => Promise<TQueryFreeSpaceResponseStrict>
+
+  /**
+   * @function networkSize
+   * @param {DQueryNetworkSize} [request]
+   * @returns Promise<TQueryNetworkSizeResponseStrict>
+   */
+  readonly networkSize: (
+      request?: DQueryNetworkSize,
+  ) => Promise<TQueryNetworkSizeResponseStrict>
 
   /**
    * @function openFiles

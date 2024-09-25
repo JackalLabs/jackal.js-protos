@@ -9,10 +9,11 @@ import type {
   QueryListOwnedNamesResponse,
   QueryNameResponse,
   QueryParamsResponse,
+  QueryPrimaryNameResponse,
 } from '@/postGen/canine_chain/rns/query'
-import type { Params } from '@/postGen/canine_chain/rns/params'
-import type { PageResponse } from '@/postGen/cosmos/base/query/v1beta1/pagination'
-import type { DBid, DForsale, DName } from '@/types/rns'
+import type {Params} from '@/postGen/canine_chain/rns/params'
+import type {PageResponse} from '@/postGen/cosmos/base/query/v1beta1/pagination'
+import type {DBid, DForsale, DName} from '@/types/rns'
 
 /**
  * This is the response for the [RNS] Query/AllBids RPC method.
@@ -106,6 +107,16 @@ export type TQueryListOwnedNamesResponseStrict = ModifyDeep<
  */
 export type TQueryNameResponseStrict = ModifyDeep<
   QueryNameResponse,
+  { name: DName }
+>
+
+/**
+ * This is the response for the [RNS] Query/PrimaryName RPC method.
+ *
+ * @prop {DName} name - Single Name item.
+ */
+export type TQueryPrimaryNameResponseStrict = ModifyDeep<
+  QueryPrimaryNameResponse,
   { name: DName }
 >
 

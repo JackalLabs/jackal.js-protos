@@ -1,6 +1,6 @@
 {
   "name": "@jackallabs/jackal.js-protos",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "Package of all protos used by Jackal.js",
   "keywords": [
     "jackal",
@@ -80,7 +80,7 @@
     "typedoc": "^0.25.3",
     "typescript": "^5.2.2",
     "vite": "^5.2.10",
-    "vite-plugin-dts": "^3.6.3",
+    "vite-plugin-dts": "^4.2.2",
     "vite-tsconfig-paths": "^4.2.1",
     "vitest": "0.34.6"
   }

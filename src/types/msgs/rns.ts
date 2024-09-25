@@ -1,18 +1,20 @@
 import type {
-  MsgAcceptBid,
-  MsgAddRecord,
-  MsgBid,
-  MsgBuy,
-  MsgCancelBid,
-  MsgDelist,
-  MsgDelRecord,
-  MsgInit,
-  MsgList,
-  MsgRegister,
-  MsgTransfer,
-  MsgUpdate,
+    MsgAcceptBid,
+    MsgAddRecord,
+    MsgBid,
+    MsgBuy,
+    MsgCancelBid,
+    MsgDelist,
+    MsgDelRecord,
+    MsgInit,
+    MsgList,
+    MsgMakePrimary,
+    MsgRegister,
+    MsgRegisterName,
+    MsgTransfer,
+    MsgUpdate,
 } from '@/postGen/canine_chain/rns/tx'
-import type { DCoin } from '@/types'
+import type {DCoin} from '@/types'
 
 /**
  * MsgAcceptBid Documentation
@@ -142,6 +144,19 @@ export type DMsgList = Documentation<
 >
 
 /**
+ * MsgMakePrimary Documentation
+ * @prop {string} creator - Jackal address of wallet creating the tx.
+ * @prop {string} name - RNS address.
+ */
+export type DMsgMakePrimary = Documentation<
+  {
+    creator: string
+    name: string
+  },
+  MsgMakePrimary
+>
+
+/**
  * MsgRegister Documentation
  * @prop {string} creator - Jackal address of wallet creating the tx.
  * @prop {string} name - RNS address.
@@ -156,6 +171,25 @@ export type DMsgRegister = Documentation<
     data: string
   },
   MsgRegister
+>
+
+/**
+ * MsgRegisterName Documentation
+ * @prop {string} creator - Jackal address of wallet creating the tx.
+ * @prop {string} name - RNS address.
+ * @prop {number} years - Number of years to register new RNS for.
+ * @prop {string} data - Details about the RNS.
+ * @prop {boolean} setPrimary - If RNS is primary for wallet.
+ */
+export type DMsgRegisterName = Documentation<
+  {
+    creator: string
+    name: string
+    years: number
+    data: string
+    setPrimary: boolean
+  },
+  MsgRegisterName
 >
 
 /**

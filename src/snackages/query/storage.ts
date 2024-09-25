@@ -1,7 +1,5 @@
 import { createProtobufRpcClient, QueryClient } from '@cosmjs/stargate'
 import { assertDefined } from '@cosmjs/utils'
-import { QueryClientImpl } from '@/postGen/canine_chain/storage/query'
-import { warnError } from '@/utils/misc'
 import type {
   QueryActiveProviders,
   QueryAllAttestations,
@@ -17,19 +15,31 @@ import type {
   QueryProofsByAddress,
   QueryStorageStats,
 } from '@/postGen/canine_chain/storage/query'
+import {
+  QueryAllGauges,
+  QueryAvailableSpace,
+  QueryClientImpl,
+  QueryFilesFromNote,
+  QueryNetworkSize,
+} from '@/postGen/canine_chain/storage/query'
+import { warnError } from '@/utils/misc'
 import type { IStorageExtension } from '@/interfaces/snackages'
 import type {
   DQueryActiveProviders,
   DQueryAllAttestations,
+  DQueryAllGauges,
   DQueryAllProofs,
   DQueryAllProviders,
   DQueryAllReports,
   DQueryAllStoragePaymentInfo,
   DQueryAttestation,
+  DQueryAvailableSpace,
   DQueryClientFreeSpace,
+  DQueryFilesFromNote,
   DQueryFileUploadCheck,
   DQueryFindFile,
   DQueryFreeSpace,
+  DQueryNetworkSize,
   DQueryOpenFiles,
   DQueryPayData,
   DQueryPriceCheck,
@@ -45,6 +55,10 @@ import type {
   DQueryStoragePaymentInfo,
   DQueryStorageStats,
   DQueryStoreCount,
+  TQueryAllGaugesResponseStrict,
+  TQueryAvailableSpaceResponseStrict,
+  TQueryFilesFromNoteResponseStrict,
+  TQueryNetworkSizeResponseStrict,
 } from '@/types/queries'
 import type {
   TQueryActiveProvidersResponseStrict,
@@ -140,6 +154,18 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         assertDefined(resp.pagination)
         return resp as TQueryStorageAllFilesByOwnerResponseStrict
       },
+      allGauges: async (
+        request: DQueryAllGauges = {},
+      ): Promise<TQueryAllGaugesResponseStrict> => {
+        const resp = await queryService
+          .Gauges(request as QueryAllGauges)
+          .catch((err) => {
+            warnError('[Storage] allGauges', err)
+            throw err
+          })
+        assertDefined(resp.pagination)
+        return resp as TQueryAllGaugesResponseStrict
+      },
       allProofs: async (
         request: DQueryAllProofs = {},
       ): Promise<TQueryAllProofsResponseStrict> => {
@@ -198,6 +224,18 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         assertDefined(resp.attestation)
         return resp as TQueryAttestationResponseStrict
       },
+      availableSpace: async (
+        request: DQueryAvailableSpace = {},
+      ): Promise<TQueryAvailableSpaceResponseStrict> => {
+        const resp = await queryService
+          .AvailableSpace(request as QueryAvailableSpace)
+          .catch((err) => {
+            warnError('[Storage] availableSpace', err)
+            throw err
+          })
+        assertDefined(resp.size)
+        return resp as TQueryAvailableSpaceResponseStrict
+      },
       clientFreeSpace: async (
         request: DQueryClientFreeSpace,
       ): Promise<TQueryClientFreeSpaceResponseStrict> => {
@@ -219,6 +257,18 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         })
         assertDefined(resp.file)
         return resp as TQueryStorageFileResponseStrict
+      },
+      filesFromNote: async (
+        request: DQueryFilesFromNote,
+      ): Promise<TQueryFilesFromNoteResponseStrict> => {
+        const resp = await queryService
+          .FilesFromNote(request as QueryFilesFromNote)
+          .catch((err) => {
+            warnError('[Storage] filesFromNote', err)
+            throw err
+          })
+        assertDefined(resp.pagination)
+        return resp as TQueryFilesFromNoteResponseStrict
       },
       fileUploadCheck: async (
         request: DQueryFileUploadCheck,
@@ -251,6 +301,18 @@ export function createStorageExtension(base: QueryClient): IStorageExtension {
         })
         assertDefined(resp.space)
         return resp as TQueryFreeSpaceResponseStrict
+      },
+      networkSize: async (
+        request: DQueryNetworkSize = {},
+      ): Promise<TQueryNetworkSizeResponseStrict> => {
+        const resp = await queryService
+          .NetworkSize(request as QueryNetworkSize)
+          .catch((err) => {
+            warnError('[Storage] networkSize', err)
+            throw err
+          })
+        assertDefined(resp.size)
+        return resp as TQueryNetworkSizeResponseStrict
       },
       openFiles: async (
         request: DQueryOpenFiles,

@@ -20,7 +20,9 @@ import type {
   DQueryInit,
   DQueryListOwnedNames,
   DQueryName,
+  DQueryPrimaryName,
   DQueryRnsParams,
+  TQueryPrimaryNameResponseStrict,
 } from '@/types/queries'
 import type {
   TQueryAllBidsResponseStrict,
@@ -134,6 +136,16 @@ export function createRnsExtension(base: QueryClient): IRnsExtension {
         })
         assertDefined(resp.name)
         return resp as TQueryNameResponseStrict
+      },
+      primaryName: async (
+        request: DQueryPrimaryName,
+      ): Promise<TQueryPrimaryNameResponseStrict> => {
+        const resp = await queryService.PrimaryName(request).catch((err) => {
+          warnError('[RNS] primaryName', err)
+          throw err
+        })
+        assertDefined(resp.name)
+        return resp as TQueryPrimaryNameResponseStrict
       },
       params: async (
         request: DQueryRnsParams = {},

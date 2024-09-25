@@ -17,15 +17,17 @@ import {
   MsgInitResponse,
   MsgList,
   MsgListResponse,
-  MsgRegister,
-  MsgRegisterResponse,
+  MsgMakePrimary,
+  MsgMakePrimaryResponse,
+  MsgRegisterName,
+  MsgRegisterNameResponse,
   MsgTransfer,
   MsgTransferResponse,
   MsgUpdate,
   MsgUpdateResponse,
   protobufPackage,
 } from '@/postGen/canine_chain/rns/tx'
-import type {
+import {
   DEncodeObject,
   DMsgAcceptBid,
   DMsgAddRecord,
@@ -36,13 +38,16 @@ import type {
   DMsgDelRecord,
   DMsgInit,
   DMsgList,
+  DMsgMakePrimary,
   DMsgRegister,
+  DMsgRegisterName,
   DMsgTransfer,
   DMsgUpdate,
 } from '@/types/msgs'
 import type { TJackalModuleTypeMap, TMsgResponseParsers } from '@/types'
 import _m0 from 'protobufjs/minimal'
 import { uintArrayToString } from '@/utils/converters'
+import { deprecated } from '@/utils/misc'
 
 export const rnsTypes: TJackalModuleTypeMap = {
   acceptBid: [`/${protobufPackage}.MsgAcceptBid`, MsgAcceptBid],
@@ -54,7 +59,8 @@ export const rnsTypes: TJackalModuleTypeMap = {
   delRecord: [`/${protobufPackage}.MsgDelRecord`, MsgDelRecord],
   init: [`/${protobufPackage}.MsgInit`, MsgInit],
   list: [`/${protobufPackage}.MsgList`, MsgList],
-  register: [`/${protobufPackage}.MsgRegister`, MsgRegister],
+  makePrimary: [`/${protobufPackage}.MsgMakePrimary`, MsgMakePrimary],
+  registerName: [`/${protobufPackage}.MsgRegisterName`, MsgRegisterName],
   transfer: [`/${protobufPackage}.MsgTransfer`, MsgTransfer],
   update: [`/${protobufPackage}.MsgUpdate`, MsgUpdate],
 }
@@ -78,8 +84,10 @@ export const rnsResponses: TMsgResponseParsers = {
     MsgInitResponse.decode(_m0.Reader.create(data)),
   [rnsTypes.list[0]]: (data: Uint8Array) =>
     MsgListResponse.decode(_m0.Reader.create(data)),
-  [rnsTypes.register[0]]: (data: Uint8Array) =>
-    MsgRegisterResponse.decode(_m0.Reader.create(data)),
+  [rnsTypes.makePrimary[0]]: (data: Uint8Array) =>
+    MsgMakePrimaryResponse.decode(_m0.Reader.create(data)),
+  [rnsTypes.registerName[0]]: (data: Uint8Array) =>
+    MsgRegisterNameResponse.decode(_m0.Reader.create(data)),
   [rnsTypes.transfer[0]]: (data: Uint8Array) =>
     MsgTransferResponse.decode(_m0.Reader.create(data)),
   [rnsTypes.update[0]]: (data: Uint8Array) =>
@@ -98,7 +106,9 @@ export const rnsResponses: TMsgResponseParsers = {
  * @property {msgDelRecord} msgDelRecord()
  * @property {msgInit} msgInit()
  * @property {msgList} msgList()
+ * @property {msgMakePrimary} msgMakePrimary()
  * @property {msgRegister} msgRegister()
+ * @property {msgRegisterName} msgRegisterName()
  * @property {msgTransfer} msgTransfer()
  * @property {msgUpdate} msgUpdate()
  */
@@ -112,7 +122,9 @@ export type ITxRns = {
   msgDelRecord(data: DMsgDelRecord): DEncodeObject
   msgInit(data: DMsgInit): DEncodeObject
   msgList(data: DMsgList): DEncodeObject
+  msgMakePrimary(data: DMsgMakePrimary): DEncodeObject
   msgRegister(data: DMsgRegister): DEncodeObject
+  msgRegisterName(data: DMsgRegister): DEncodeObject
   msgTransfer(data: DMsgTransfer): DEncodeObject
   msgUpdate(data: DMsgUpdate): DEncodeObject
 
@@ -125,7 +137,9 @@ export type ITxRns = {
   writerDelRecord(data: DMsgDelRecord): DEncodeObject
   writerInit(data: DMsgInit): DEncodeObject
   writerList(data: DMsgList): DEncodeObject
+  writerMakePrimary(data: DMsgMakePrimary): DEncodeObject
   writerRegister(data: DMsgRegister): DEncodeObject
+  writerRegisterName(data: DMsgRegister): DEncodeObject
   writerTransfer(data: DMsgTransfer): DEncodeObject
   writerUpdate(data: DMsgUpdate): DEncodeObject
 }
@@ -185,10 +199,25 @@ export const TxRns: ITxRns = {
       value: rnsTypes.list[1].fromPartial(data),
     }
   },
+  msgMakePrimary(data: DMsgMakePrimary): DEncodeObject {
+    return {
+      typeUrl: rnsTypes.makePrimary[0],
+      value: rnsTypes.makePrimary[1].fromPartial(data),
+    }
+  },
   msgRegister(data: DMsgRegister): DEncodeObject {
+    throw deprecated('[RNS] msgRegister()', 'v2.2.0', {
+      replacement: 'msgRegisterName()',
+    })
     return {
       typeUrl: rnsTypes.register[0],
       value: rnsTypes.register[1].fromPartial(data),
+    }
+  },
+  msgRegisterName(data: DMsgRegisterName): DEncodeObject {
+    return {
+      typeUrl: rnsTypes.registerName[0],
+      value: rnsTypes.registerName[1].fromPartial(data),
     }
   },
   msgTransfer(data: DMsgTransfer): DEncodeObject {
@@ -320,13 +349,42 @@ export const TxRns: ITxRns = {
       throw err
     }
   },
+  writerMakePrimary(data: DMsgMakePrimary): DEncodeObject {
+    try {
+      const asWriter = rnsTypes.makePrimary[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: rnsTypes.makePrimary[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
+  },
   writerRegister(data: DMsgRegister): DEncodeObject {
+    throw deprecated('[RNS] writerRegister()', 'v2.2.0', {
+      replacement: 'writerRegisterName()',
+    })
     try {
       const asWriter = rnsTypes.register[1].encode(data)
       const asUint = asWriter.finish()
       const final = btoa(uintArrayToString(asUint))
       return {
         typeUrl: rnsTypes.register[0],
+        value: final,
+      }
+    } catch (err) {
+      throw err
+    }
+  },
+  writerRegisterName(data: DMsgRegisterName): DEncodeObject {
+    try {
+      const asWriter = rnsTypes.registerName[1].encode(data)
+      const asUint = asWriter.finish()
+      const final = btoa(uintArrayToString(asUint))
+      return {
+        typeUrl: rnsTypes.registerName[0],
         value: final,
       }
     } catch (err) {

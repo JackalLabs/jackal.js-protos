@@ -30,6 +30,14 @@ export interface QueryNameResponse {
   name: Names | undefined;
 }
 
+export interface QueryPrimaryName {
+  owner: string;
+}
+
+export interface QueryPrimaryNameResponse {
+  name: Names | undefined;
+}
+
 export interface QueryListOwnedNames {
   address: string;
   pagination: PageRequest | undefined;
@@ -313,6 +321,120 @@ export const QueryNameResponse = {
   },
   fromPartial<I extends Exact<DeepPartial<QueryNameResponse>, I>>(object: I): QueryNameResponse {
     const message = createBaseQueryNameResponse();
+    message.name = (object.name !== undefined && object.name !== null) ? Names.fromPartial(object.name) : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryPrimaryName(): QueryPrimaryName {
+  return { owner: "" };
+}
+
+export const QueryPrimaryName = {
+  encode(message: QueryPrimaryName, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.owner !== "") {
+      writer.uint32(10).string(message.owner);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryPrimaryName {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryPrimaryName();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.owner = reader.string();
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryPrimaryName {
+    return { owner: isSet(object.owner) ? gt.String(object.owner) : "" };
+  },
+
+  toJSON(message: QueryPrimaryName): unknown {
+    const obj: any = {};
+    if (message.owner !== "") {
+      obj.owner = message.owner;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryPrimaryName>, I>>(base?: I): QueryPrimaryName {
+    return QueryPrimaryName.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<QueryPrimaryName>, I>>(object: I): QueryPrimaryName {
+    const message = createBaseQueryPrimaryName();
+    message.owner = object.owner ?? "";
+    return message;
+  },
+};
+
+function createBaseQueryPrimaryNameResponse(): QueryPrimaryNameResponse {
+  return { name: undefined };
+}
+
+export const QueryPrimaryNameResponse = {
+  encode(message: QueryPrimaryNameResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.name !== undefined) {
+      Names.encode(message.name, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryPrimaryNameResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryPrimaryNameResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.name = Names.decode(reader, reader.uint32());
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryPrimaryNameResponse {
+    return { name: isSet(object.name) ? Names.fromJSON(object.name) : undefined };
+  },
+
+  toJSON(message: QueryPrimaryNameResponse): unknown {
+    const obj: any = {};
+    if (message.name !== undefined) {
+      obj.name = Names.toJSON(message.name);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryPrimaryNameResponse>, I>>(base?: I): QueryPrimaryNameResponse {
+    return QueryPrimaryNameResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<QueryPrimaryNameResponse>, I>>(object: I): QueryPrimaryNameResponse {
+    const message = createBaseQueryPrimaryNameResponse();
     message.name = (object.name !== undefined && object.name !== null) ? Names.fromPartial(object.name) : undefined;
     return message;
   },
@@ -1374,6 +1496,8 @@ export interface Query {
   Init(request: QueryInit): Promise<QueryInitResponse>;
   /** Queries a list of Init items. */
   AllInits(request: QueryAllInits): Promise<QueryAllInitsResponse>;
+  /** Queries a list of Init items. */
+  PrimaryName(request: QueryPrimaryName): Promise<QueryPrimaryNameResponse>;
 }
 
 export const QueryServiceName = "canine_chain.rns.Query";
@@ -1393,6 +1517,7 @@ export class QueryClientImpl implements Query {
     this.AllForSale = this.AllForSale.bind(this);
     this.Init = this.Init.bind(this);
     this.AllInits = this.AllInits.bind(this);
+    this.PrimaryName = this.PrimaryName.bind(this);
   }
   Params(request: QueryParams): Promise<QueryParamsResponse> {
     const data = QueryParams.encode(request).finish();
@@ -1452,6 +1577,12 @@ export class QueryClientImpl implements Query {
     const data = QueryAllInits.encode(request).finish();
     const promise = this.rpc.request(this.service, "AllInits", data);
     return promise.then((data) => QueryAllInitsResponse.decode(_m0.Reader.create(data)));
+  }
+
+  PrimaryName(request: QueryPrimaryName): Promise<QueryPrimaryNameResponse> {
+    const data = QueryPrimaryName.encode(request).finish();
+    const promise = this.rpc.request(this.service, "PrimaryName", data);
+    return promise.then((data) => QueryPrimaryNameResponse.decode(_m0.Reader.create(data)));
   }
 }
 

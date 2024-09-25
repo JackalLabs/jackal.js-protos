@@ -1,17 +1,18 @@
-import type { PageRequest } from '@/postGen/cosmos/base/query/v1beta1/pagination'
+import type {PageRequest} from '@/postGen/cosmos/base/query/v1beta1/pagination'
 import type {
-  QueryAllBids,
-  QueryAllForSale,
-  QueryAllInits,
-  QueryAllNames,
-  QueryBid,
-  QueryForSale,
-  QueryInit,
-  QueryListOwnedNames,
-  QueryName,
-  QueryParams,
+    QueryAllBids,
+    QueryAllForSale,
+    QueryAllInits,
+    QueryAllNames,
+    QueryBid,
+    QueryForSale,
+    QueryInit,
+    QueryListOwnedNames,
+    QueryName,
+    QueryParams,
+    QueryPrimaryName,
 } from '@/postGen/canine_chain/rns/query'
-import { WithOptional } from '@/types/misc'
+import {WithOptional} from '@/types/misc'
 
 /**
  * QueryAllBids Documentation
@@ -112,6 +113,17 @@ export type DQueryName = Documentation<
     name: string
   },
   QueryName
+>
+
+/**
+ * QueryPrimaryName Documentation
+ * @prop {string} owner - Owning wallet address of RNS.
+ */
+export type DQueryPrimaryName = Documentation<
+  {
+    owner: string
+  },
+  QueryPrimaryName
 >
 
 /**

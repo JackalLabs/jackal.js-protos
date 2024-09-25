@@ -10,7 +10,7 @@ import _m0 from "protobufjs/minimal";
 import { PageRequest, PageResponse } from "../../cosmos/base/query/v1beta1/pagination";
 import { FileProof, UnifiedFile } from "./active_deals";
 import { Params } from "./params";
-import { StoragePaymentInfo } from "./payment_info";
+import { PaymentGauge, StoragePaymentInfo } from "./payment_info";
 import { ActiveProviders, AttestationForm, Providers, ReportForm } from "./providers";
 
 export const protobufPackage = "canine_chain.storage";
@@ -52,6 +52,15 @@ export interface QueryAllProofsResponse {
   pagination: PageResponse | undefined;
 }
 
+export interface QueryAllGauges {
+  pagination: PageRequest | undefined;
+}
+
+export interface QueryAllGaugesResponse {
+  gauges: PaymentGauge[];
+  pagination: PageResponse | undefined;
+}
+
 export interface QueryFile {
   merkle: Uint8Array;
   owner: string;
@@ -60,6 +69,17 @@ export interface QueryFile {
 
 export interface QueryFileResponse {
   file: UnifiedFile | undefined;
+}
+
+export interface QueryFilesFromNote {
+  pagination: PageRequest | undefined;
+  key: string;
+  value: string;
+}
+
+export interface QueryFilesFromNoteResponse {
+  files: UnifiedFile[];
+  pagination: PageResponse | undefined;
 }
 
 export interface QueryOpenFiles {
@@ -252,6 +272,20 @@ export interface QueryStorageStatsResponse {
 export interface QueryStorageStatsResponse_UsersByPlanEntry {
   key: number;
   value: number;
+}
+
+export interface QueryNetworkSize {
+}
+
+export interface QueryNetworkSizeResponse {
+  size: number;
+}
+
+export interface QueryAvailableSpace {
+}
+
+export interface QueryAvailableSpaceResponse {
+  size: number;
 }
 
 function createBaseQueryParams(): QueryParams {
@@ -806,6 +840,141 @@ export const QueryAllProofsResponse = {
   },
 };
 
+function createBaseQueryAllGauges(): QueryAllGauges {
+  return { pagination: undefined };
+}
+
+export const QueryAllGauges = {
+  encode(message: QueryAllGauges, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllGauges {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryAllGauges();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllGauges {
+    return { pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined };
+  },
+
+  toJSON(message: QueryAllGauges): unknown {
+    const obj: any = {};
+    if (message.pagination !== undefined) {
+      obj.pagination = PageRequest.toJSON(message.pagination);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryAllGauges>, I>>(base?: I): QueryAllGauges {
+    return QueryAllGauges.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<QueryAllGauges>, I>>(object: I): QueryAllGauges {
+    const message = createBaseQueryAllGauges();
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageRequest.fromPartial(object.pagination)
+      : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryAllGaugesResponse(): QueryAllGaugesResponse {
+  return { gauges: [], pagination: undefined };
+}
+
+export const QueryAllGaugesResponse = {
+  encode(message: QueryAllGaugesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.gauges) {
+      PaymentGauge.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllGaugesResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryAllGaugesResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.gauges.push(PaymentGauge.decode(reader, reader.uint32()));
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllGaugesResponse {
+    return {
+      gauges: gt.Array.isArray(object?.gauges) ? object.gauges.map((e: any) => PaymentGauge.fromJSON(e)) : [],
+      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
+    };
+  },
+
+  toJSON(message: QueryAllGaugesResponse): unknown {
+    const obj: any = {};
+    if (message.gauges?.length) {
+      obj.gauges = message.gauges.map((e) => PaymentGauge.toJSON(e));
+    }
+    if (message.pagination !== undefined) {
+      obj.pagination = PageResponse.toJSON(message.pagination);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryAllGaugesResponse>, I>>(base?: I): QueryAllGaugesResponse {
+    return QueryAllGaugesResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<QueryAllGaugesResponse>, I>>(object: I): QueryAllGaugesResponse {
+    const message = createBaseQueryAllGaugesResponse();
+    message.gauges = object.gauges?.map((e) => PaymentGauge.fromPartial(e)) || [];
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageResponse.fromPartial(object.pagination)
+      : undefined;
+    return message;
+  },
+};
+
 function createBaseQueryFile(): QueryFile {
   return { merkle: new Uint8Array(0), owner: "", start: 0 };
 }
@@ -949,6 +1118,173 @@ export const QueryFileResponse = {
     const message = createBaseQueryFileResponse();
     message.file = (object.file !== undefined && object.file !== null)
       ? UnifiedFile.fromPartial(object.file)
+      : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryFilesFromNote(): QueryFilesFromNote {
+  return { pagination: undefined, key: "", value: "" };
+}
+
+export const QueryFilesFromNote = {
+  encode(message: QueryFilesFromNote, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.key !== "") {
+      writer.uint32(18).string(message.key);
+    }
+    if (message.value !== "") {
+      writer.uint32(26).string(message.value);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryFilesFromNote {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryFilesFromNote();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.key = reader.string();
+          continue;
+        case 3:
+          if (tag !== 26) {
+            break;
+          }
+
+          message.value = reader.string();
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryFilesFromNote {
+    return {
+      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
+      key: isSet(object.key) ? gt.String(object.key) : "",
+      value: isSet(object.value) ? gt.String(object.value) : "",
+    };
+  },
+
+  toJSON(message: QueryFilesFromNote): unknown {
+    const obj: any = {};
+    if (message.pagination !== undefined) {
+      obj.pagination = PageRequest.toJSON(message.pagination);
+    }
+    if (message.key !== "") {
+      obj.key = message.key;
+    }
+    if (message.value !== "") {
+      obj.value = message.value;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryFilesFromNote>, I>>(base?: I): QueryFilesFromNote {
+    return QueryFilesFromNote.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<QueryFilesFromNote>, I>>(object: I): QueryFilesFromNote {
+    const message = createBaseQueryFilesFromNote();
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageRequest.fromPartial(object.pagination)
+      : undefined;
+    message.key = object.key ?? "";
+    message.value = object.value ?? "";
+    return message;
+  },
+};
+
+function createBaseQueryFilesFromNoteResponse(): QueryFilesFromNoteResponse {
+  return { files: [], pagination: undefined };
+}
+
+export const QueryFilesFromNoteResponse = {
+  encode(message: QueryFilesFromNoteResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.files) {
+      UnifiedFile.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryFilesFromNoteResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryFilesFromNoteResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.files.push(UnifiedFile.decode(reader, reader.uint32()));
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryFilesFromNoteResponse {
+    return {
+      files: gt.Array.isArray(object?.files) ? object.files.map((e: any) => UnifiedFile.fromJSON(e)) : [],
+      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
+    };
+  },
+
+  toJSON(message: QueryFilesFromNoteResponse): unknown {
+    const obj: any = {};
+    if (message.files?.length) {
+      obj.files = message.files.map((e) => UnifiedFile.toJSON(e));
+    }
+    if (message.pagination !== undefined) {
+      obj.pagination = PageResponse.toJSON(message.pagination);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryFilesFromNoteResponse>, I>>(base?: I): QueryFilesFromNoteResponse {
+    return QueryFilesFromNoteResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<QueryFilesFromNoteResponse>, I>>(object: I): QueryFilesFromNoteResponse {
+    const message = createBaseQueryFilesFromNoteResponse();
+    message.files = object.files?.map((e) => UnifiedFile.fromPartial(e)) || [];
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageResponse.fromPartial(object.pagination)
       : undefined;
     return message;
   },
@@ -3815,10 +4151,212 @@ export const QueryStorageStatsResponse_UsersByPlanEntry = {
   },
 };
 
+function createBaseQueryNetworkSize(): QueryNetworkSize {
+  return {};
+}
+
+export const QueryNetworkSize = {
+  encode(_: QueryNetworkSize, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryNetworkSize {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryNetworkSize();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(_: any): QueryNetworkSize {
+    return {};
+  },
+
+  toJSON(_: QueryNetworkSize): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryNetworkSize>, I>>(base?: I): QueryNetworkSize {
+    return QueryNetworkSize.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<QueryNetworkSize>, I>>(_: I): QueryNetworkSize {
+    const message = createBaseQueryNetworkSize();
+    return message;
+  },
+};
+
+function createBaseQueryNetworkSizeResponse(): QueryNetworkSizeResponse {
+  return { size: 0 };
+}
+
+export const QueryNetworkSizeResponse = {
+  encode(message: QueryNetworkSizeResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.size !== 0) {
+      writer.uint32(8).uint64(message.size);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryNetworkSizeResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryNetworkSizeResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 8) {
+            break;
+          }
+
+          message.size = longToNumber(reader.uint64() as Long);
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryNetworkSizeResponse {
+    return { size: isSet(object.size) ? gt.Number(object.size) : 0 };
+  },
+
+  toJSON(message: QueryNetworkSizeResponse): unknown {
+    const obj: any = {};
+    if (message.size !== 0) {
+      obj.size = Math.round(message.size);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryNetworkSizeResponse>, I>>(base?: I): QueryNetworkSizeResponse {
+    return QueryNetworkSizeResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<QueryNetworkSizeResponse>, I>>(object: I): QueryNetworkSizeResponse {
+    const message = createBaseQueryNetworkSizeResponse();
+    message.size = object.size ?? 0;
+    return message;
+  },
+};
+
+function createBaseQueryAvailableSpace(): QueryAvailableSpace {
+  return {};
+}
+
+export const QueryAvailableSpace = {
+  encode(_: QueryAvailableSpace, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAvailableSpace {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryAvailableSpace();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(_: any): QueryAvailableSpace {
+    return {};
+  },
+
+  toJSON(_: QueryAvailableSpace): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryAvailableSpace>, I>>(base?: I): QueryAvailableSpace {
+    return QueryAvailableSpace.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<QueryAvailableSpace>, I>>(_: I): QueryAvailableSpace {
+    const message = createBaseQueryAvailableSpace();
+    return message;
+  },
+};
+
+function createBaseQueryAvailableSpaceResponse(): QueryAvailableSpaceResponse {
+  return { size: 0 };
+}
+
+export const QueryAvailableSpaceResponse = {
+  encode(message: QueryAvailableSpaceResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.size !== 0) {
+      writer.uint32(8).uint64(message.size);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAvailableSpaceResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryAvailableSpaceResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 8) {
+            break;
+          }
+
+          message.size = longToNumber(reader.uint64() as Long);
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAvailableSpaceResponse {
+    return { size: isSet(object.size) ? gt.Number(object.size) : 0 };
+  },
+
+  toJSON(message: QueryAvailableSpaceResponse): unknown {
+    const obj: any = {};
+    if (message.size !== 0) {
+      obj.size = Math.round(message.size);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryAvailableSpaceResponse>, I>>(base?: I): QueryAvailableSpaceResponse {
+    return QueryAvailableSpaceResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<QueryAvailableSpaceResponse>, I>>(object: I): QueryAvailableSpaceResponse {
+    const message = createBaseQueryAvailableSpaceResponse();
+    message.size = object.size ?? 0;
+    return message;
+  },
+};
+
 export interface Query {
   Params(request: QueryParams): Promise<QueryParamsResponse>;
   /** Queries a File by merkle, owner, and start. */
   File(request: QueryFile): Promise<QueryFileResponse>;
+  /** Queries a File by merkle, owner, and start. */
+  FilesFromNote(request: QueryFilesFromNote): Promise<QueryFilesFromNoteResponse>;
   /** Queries a list of open files by provider_address. */
   OpenFiles(request: QueryOpenFiles): Promise<QueryAllFilesResponse>;
   /** Queries a list of File items. */
@@ -3867,6 +4405,12 @@ export interface Query {
   ActiveProviders(request: QueryActiveProviders): Promise<QueryActiveProvidersResponse>;
   /** Queries protocol storage space used and purchased. */
   StorageStats(request: QueryStorageStats): Promise<QueryStorageStatsResponse>;
+  /** Queries how much storage space is being used on the network at this time. */
+  NetworkSize(request: QueryNetworkSize): Promise<QueryNetworkSizeResponse>;
+  /** Queries the amount of offered storage by active providers */
+  AvailableSpace(request: QueryAvailableSpace): Promise<QueryAvailableSpaceResponse>;
+  /** Queries protocol storage space used and purchased. */
+  Gauges(request: QueryAllGauges): Promise<QueryAllGaugesResponse>;
 }
 
 export const QueryServiceName = "canine_chain.storage.Query";
@@ -3878,6 +4422,7 @@ export class QueryClientImpl implements Query {
     this.rpc = rpc;
     this.Params = this.Params.bind(this);
     this.File = this.File.bind(this);
+    this.FilesFromNote = this.FilesFromNote.bind(this);
     this.OpenFiles = this.OpenFiles.bind(this);
     this.AllFiles = this.AllFiles.bind(this);
     this.AllFilesByMerkle = this.AllFilesByMerkle.bind(this);
@@ -3902,6 +4447,9 @@ export class QueryClientImpl implements Query {
     this.PriceCheck = this.PriceCheck.bind(this);
     this.ActiveProviders = this.ActiveProviders.bind(this);
     this.StorageStats = this.StorageStats.bind(this);
+    this.NetworkSize = this.NetworkSize.bind(this);
+    this.AvailableSpace = this.AvailableSpace.bind(this);
+    this.Gauges = this.Gauges.bind(this);
   }
   Params(request: QueryParams): Promise<QueryParamsResponse> {
     const data = QueryParams.encode(request).finish();
@@ -3913,6 +4461,12 @@ export class QueryClientImpl implements Query {
     const data = QueryFile.encode(request).finish();
     const promise = this.rpc.request(this.service, "File", data);
     return promise.then((data) => QueryFileResponse.decode(_m0.Reader.create(data)));
+  }
+
+  FilesFromNote(request: QueryFilesFromNote): Promise<QueryFilesFromNoteResponse> {
+    const data = QueryFilesFromNote.encode(request).finish();
+    const promise = this.rpc.request(this.service, "FilesFromNote", data);
+    return promise.then((data) => QueryFilesFromNoteResponse.decode(_m0.Reader.create(data)));
   }
 
   OpenFiles(request: QueryOpenFiles): Promise<QueryAllFilesResponse> {
@@ -4057,6 +4611,24 @@ export class QueryClientImpl implements Query {
     const data = QueryStorageStats.encode(request).finish();
     const promise = this.rpc.request(this.service, "StorageStats", data);
     return promise.then((data) => QueryStorageStatsResponse.decode(_m0.Reader.create(data)));
+  }
+
+  NetworkSize(request: QueryNetworkSize): Promise<QueryNetworkSizeResponse> {
+    const data = QueryNetworkSize.encode(request).finish();
+    const promise = this.rpc.request(this.service, "NetworkSize", data);
+    return promise.then((data) => QueryNetworkSizeResponse.decode(_m0.Reader.create(data)));
+  }
+
+  AvailableSpace(request: QueryAvailableSpace): Promise<QueryAvailableSpaceResponse> {
+    const data = QueryAvailableSpace.encode(request).finish();
+    const promise = this.rpc.request(this.service, "AvailableSpace", data);
+    return promise.then((data) => QueryAvailableSpaceResponse.decode(_m0.Reader.create(data)));
+  }
+
+  Gauges(request: QueryAllGauges): Promise<QueryAllGaugesResponse> {
+    const data = QueryAllGauges.encode(request).finish();
+    const promise = this.rpc.request(this.service, "Gauges", data);
+    return promise.then((data) => QueryAllGaugesResponse.decode(_m0.Reader.create(data)));
   }
 }
 

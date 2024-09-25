@@ -8,6 +8,8 @@ import {
   MsgDelRecordResponse,
   MsgInitResponse,
   MsgListResponse,
+  MsgMakePrimaryResponse,
+  MsgRegisterNameResponse,
   MsgRegisterResponse,
   MsgTransferResponse,
   MsgUpdateResponse,
@@ -17,6 +19,19 @@ import {
  * MsgRegisterResponse Documentation
  */
 export type DMsgRegisterResponse = Documentation<{}, MsgRegisterResponse>
+
+/**
+ * MsgRegisterNameResponse Documentation
+ */
+export type DMsgRegisterNameResponse = Documentation<
+  {},
+  MsgRegisterNameResponse
+>
+
+/**
+ * MsgMakePrimaryResponse Documentation
+ */
+export type DMsgMakePrimaryResponse = Documentation<{}, MsgMakePrimaryResponse>
 
 /**
  * MsgUpdateResponse Documentation

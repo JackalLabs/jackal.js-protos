@@ -7,8 +7,8 @@ import type {
   DQueryForSale,
   DQueryInit,
   DQueryListOwnedNames,
-  DQueryName,
-  DQueryRnsParams,
+  DQueryName, DQueryPrimaryName,
+  DQueryRnsParams, TQueryPrimaryNameResponseStrict,
 } from '@/types/queries'
 import type {
   TQueryAllBidsResponseStrict,
@@ -123,6 +123,14 @@ export interface IRnsExtensionMembers
    * @returns Promise<TQueryNameResponseStrict>
    */
   readonly name: (request: DQueryName) => Promise<TQueryNameResponseStrict>
+
+  /**
+   * @function primaryName
+   * @param {DQueryPrimaryName} request
+   * @returns Promise<TQueryPrimaryNameResponseStrict>
+   */
+  readonly primaryName: (request: DQueryPrimaryName) => Promise<TQueryPrimaryNameResponseStrict>
+
   /**
    * @function params
    * @param {DQueryRnsParams} [request]

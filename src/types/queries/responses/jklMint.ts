@@ -1,5 +1,5 @@
-import type { QueryInflationResponse, QueryParamsResponse } from '@/postGen/canine_chain/jklmint/query'
-import type { Params } from '@/postGen/canine_chain/jklmint/params'
+import type {QueryInflationResponse, QueryParamsResponse} from '@/postGen/canine_chain/jklmint/query'
+import type {Params} from '@/postGen/canine_chain/jklmint/params'
 
 /**
  * This is the response for the [JklMint] Query/Inflation RPC method.
@@ -26,11 +26,19 @@ export type TQueryJklMintParamsResponseStrict = ModifyDeep<
  *
  * JklMintParams defines current parameters of the JklMint module.
  * @prop {string} mintDenom - Denom of token, should be ujkl for Jackal.
- * @prop {number} providerRatio - Portion of emissions diverted to providers.
+ * @prop {number} devGrantsRatio - Portion of emissions diverted to grant pools.
+ * @prop {number} stakerRatio - Portion of emissions diverted to stakers.
  * @prop {number} tokensPerBlock - Token emissions per block.
+ * @prop {number} mintDecrease - Curve of emissions decrease.
+ * @prop {string} storageStipendAddress - Multisig of storage stipends.
+ * @prop {number} storageProviderRatio - Defaults to 12.
  */
 export type DJklMintParams = {
   mintDenom: string
-  providerRatio: number
+  devGrantsRatio: number
+  stakerRatio: number
   tokensPerBlock: number
+  mintDecrease: number
+  storageStipendAddress: string
+  storageProviderRatio: number
 }

@@ -1,13 +1,13 @@
-import type { FileProof, UnifiedFile } from '@/postGen/canine_chain/storage/active_deals'
+import type {FileProof, UnifiedFile} from '@/postGen/canine_chain/storage/active_deals'
 import type {
-  ActiveProviders,
-  Attestation,
-  AttestationForm,
-  Providers,
-  ReportForm,
+    ActiveProviders,
+    Attestation,
+    AttestationForm,
+    Providers,
+    ReportForm,
 } from '@/postGen/canine_chain/storage/providers'
-import type { StoragePaymentInfo } from '@/postGen/canine_chain/storage/payment_info'
-import type { DCoin } from '@/types/msgs'
+import type {PaymentGauge, StoragePaymentInfo} from '@/postGen/canine_chain/storage/payment_info'
+import type {DCoin} from '@/types/msgs'
 
 /**
  * ActiveProvider Documentation
@@ -71,6 +71,32 @@ export type DFileProof = Documentation<
     chunkToProve: number
   },
   FileProof
+>
+
+/**
+ * PaymentGauge Documentation
+ * @prop {Uint8Array} id - Id of the payment gauge.
+ * @prop {string} start - Stringified Date storage plan was purchased.
+ * @prop {string} end - Stringified Date storage plan expires.
+ * @prop {DCoin[]} coins - Record of all storage purchases made, used for reward distribution.
+ */
+export type DPaymentGauge = Documentation<
+  {
+    id: Uint8Array
+    start: string
+    end: string
+    coins: DCoin[]
+  },
+  MPaymentGauge
+>
+export type MPaymentGauge = ModifyDeep<
+  PaymentGauge,
+  {
+    id: Uint8Array
+    start: string
+    end: string
+    coins: DCoin[]
+  }
 >
 
 /**
@@ -147,7 +173,6 @@ export type MStoragePaymentInfo = ModifyDeep<
   }
 >
 
-
 /**
  * UnifiedFile Documentation
  * @prop {Uint8Array} merkle - Merkle tree root of file.
@@ -182,6 +207,7 @@ export {
   Attestation,
   AttestationForm,
   FileProof,
+  PaymentGauge,
   Providers,
   ReportForm,
   StoragePaymentInfo,

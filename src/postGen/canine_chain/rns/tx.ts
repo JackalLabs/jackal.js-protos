@@ -11,6 +11,7 @@ import { Coin } from "../../cosmos/base/v1beta1/coin";
 
 export const protobufPackage = "canine_chain.rns";
 
+/** Deprecated! Use MsgRegisterName instead */
 export interface MsgRegister {
   creator: string;
   name: string;
@@ -21,6 +22,17 @@ export interface MsgRegister {
 export interface MsgRegisterResponse {
 }
 
+export interface MsgRegisterName {
+  creator: string;
+  name: string;
+  years: number;
+  data: string;
+  setPrimary: boolean;
+}
+
+export interface MsgRegisterNameResponse {
+}
+
 export interface MsgUpdate {
   creator: string;
   name: string;
@@ -28,6 +40,14 @@ export interface MsgUpdate {
 }
 
 export interface MsgUpdateResponse {
+}
+
+export interface MsgMakePrimary {
+  creator: string;
+  name: string;
+}
+
+export interface MsgMakePrimaryResponse {
 }
 
 export interface MsgBid {
@@ -263,6 +283,168 @@ export const MsgRegisterResponse = {
   },
 };
 
+function createBaseMsgRegisterName(): MsgRegisterName {
+  return { creator: "", name: "", years: 0, data: "", setPrimary: false };
+}
+
+export const MsgRegisterName = {
+  encode(message: MsgRegisterName, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.name !== "") {
+      writer.uint32(18).string(message.name);
+    }
+    if (message.years !== 0) {
+      writer.uint32(24).int64(message.years);
+    }
+    if (message.data !== "") {
+      writer.uint32(34).string(message.data);
+    }
+    if (message.setPrimary !== false) {
+      writer.uint32(40).bool(message.setPrimary);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgRegisterName {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgRegisterName();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.creator = reader.string();
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.name = reader.string();
+          continue;
+        case 3:
+          if (tag !== 24) {
+            break;
+          }
+
+          message.years = longToNumber(reader.int64() as Long);
+          continue;
+        case 4:
+          if (tag !== 34) {
+            break;
+          }
+
+          message.data = reader.string();
+          continue;
+        case 5:
+          if (tag !== 40) {
+            break;
+          }
+
+          message.setPrimary = reader.bool();
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgRegisterName {
+    return {
+      creator: isSet(object.creator) ? gt.String(object.creator) : "",
+      name: isSet(object.name) ? gt.String(object.name) : "",
+      years: isSet(object.years) ? gt.Number(object.years) : 0,
+      data: isSet(object.data) ? gt.String(object.data) : "",
+      setPrimary: isSet(object.setPrimary) ? gt.Boolean(object.setPrimary) : false,
+    };
+  },
+
+  toJSON(message: MsgRegisterName): unknown {
+    const obj: any = {};
+    if (message.creator !== "") {
+      obj.creator = message.creator;
+    }
+    if (message.name !== "") {
+      obj.name = message.name;
+    }
+    if (message.years !== 0) {
+      obj.years = Math.round(message.years);
+    }
+    if (message.data !== "") {
+      obj.data = message.data;
+    }
+    if (message.setPrimary !== false) {
+      obj.setPrimary = message.setPrimary;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgRegisterName>, I>>(base?: I): MsgRegisterName {
+    return MsgRegisterName.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<MsgRegisterName>, I>>(object: I): MsgRegisterName {
+    const message = createBaseMsgRegisterName();
+    message.creator = object.creator ?? "";
+    message.name = object.name ?? "";
+    message.years = object.years ?? 0;
+    message.data = object.data ?? "";
+    message.setPrimary = object.setPrimary ?? false;
+    return message;
+  },
+};
+
+function createBaseMsgRegisterNameResponse(): MsgRegisterNameResponse {
+  return {};
+}
+
+export const MsgRegisterNameResponse = {
+  encode(_: MsgRegisterNameResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgRegisterNameResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgRegisterNameResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgRegisterNameResponse {
+    return {};
+  },
+
+  toJSON(_: MsgRegisterNameResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgRegisterNameResponse>, I>>(base?: I): MsgRegisterNameResponse {
+    return MsgRegisterNameResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<MsgRegisterNameResponse>, I>>(_: I): MsgRegisterNameResponse {
+    const message = createBaseMsgRegisterNameResponse();
+    return message;
+  },
+};
+
 function createBaseMsgUpdate(): MsgUpdate {
   return { creator: "", name: "", data: "" };
 }
@@ -391,6 +573,123 @@ export const MsgUpdateResponse = {
   },
   fromPartial<I extends Exact<DeepPartial<MsgUpdateResponse>, I>>(_: I): MsgUpdateResponse {
     const message = createBaseMsgUpdateResponse();
+    return message;
+  },
+};
+
+function createBaseMsgMakePrimary(): MsgMakePrimary {
+  return { creator: "", name: "" };
+}
+
+export const MsgMakePrimary = {
+  encode(message: MsgMakePrimary, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.name !== "") {
+      writer.uint32(18).string(message.name);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgMakePrimary {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgMakePrimary();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.creator = reader.string();
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.name = reader.string();
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgMakePrimary {
+    return {
+      creator: isSet(object.creator) ? gt.String(object.creator) : "",
+      name: isSet(object.name) ? gt.String(object.name) : "",
+    };
+  },
+
+  toJSON(message: MsgMakePrimary): unknown {
+    const obj: any = {};
+    if (message.creator !== "") {
+      obj.creator = message.creator;
+    }
+    if (message.name !== "") {
+      obj.name = message.name;
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgMakePrimary>, I>>(base?: I): MsgMakePrimary {
+    return MsgMakePrimary.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<MsgMakePrimary>, I>>(object: I): MsgMakePrimary {
+    const message = createBaseMsgMakePrimary();
+    message.creator = object.creator ?? "";
+    message.name = object.name ?? "";
+    return message;
+  },
+};
+
+function createBaseMsgMakePrimaryResponse(): MsgMakePrimaryResponse {
+  return {};
+}
+
+export const MsgMakePrimaryResponse = {
+  encode(_: MsgMakePrimaryResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgMakePrimaryResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgMakePrimaryResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgMakePrimaryResponse {
+    return {};
+  },
+
+  toJSON(_: MsgMakePrimaryResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgMakePrimaryResponse>, I>>(base?: I): MsgMakePrimaryResponse {
+    return MsgMakePrimaryResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<MsgMakePrimaryResponse>, I>>(_: I): MsgMakePrimaryResponse {
+    const message = createBaseMsgMakePrimaryResponse();
     return message;
   },
 };
@@ -1655,6 +1954,7 @@ export const MsgInitResponse = {
 
 export interface Msg {
   Register(request: MsgRegister): Promise<MsgRegisterResponse>;
+  RegisterName(request: MsgRegisterName): Promise<MsgRegisterNameResponse>;
   Bid(request: MsgBid): Promise<MsgBidResponse>;
   AcceptBid(request: MsgAcceptBid): Promise<MsgAcceptBidResponse>;
   CancelBid(request: MsgCancelBid): Promise<MsgCancelBidResponse>;
@@ -1666,6 +1966,7 @@ export interface Msg {
   DelRecord(request: MsgDelRecord): Promise<MsgDelRecordResponse>;
   Init(request: MsgInit): Promise<MsgInitResponse>;
   Update(request: MsgUpdate): Promise<MsgUpdateResponse>;
+  MakePrimary(request: MsgMakePrimary): Promise<MsgMakePrimaryResponse>;
 }
 
 export const MsgServiceName = "canine_chain.rns.Msg";
@@ -1676,6 +1977,7 @@ export class MsgClientImpl implements Msg {
     this.service = opts?.service || MsgServiceName;
     this.rpc = rpc;
     this.Register = this.Register.bind(this);
+    this.RegisterName = this.RegisterName.bind(this);
     this.Bid = this.Bid.bind(this);
     this.AcceptBid = this.AcceptBid.bind(this);
     this.CancelBid = this.CancelBid.bind(this);
@@ -1687,11 +1989,18 @@ export class MsgClientImpl implements Msg {
     this.DelRecord = this.DelRecord.bind(this);
     this.Init = this.Init.bind(this);
     this.Update = this.Update.bind(this);
+    this.MakePrimary = this.MakePrimary.bind(this);
   }
   Register(request: MsgRegister): Promise<MsgRegisterResponse> {
     const data = MsgRegister.encode(request).finish();
     const promise = this.rpc.request(this.service, "Register", data);
     return promise.then((data) => MsgRegisterResponse.decode(_m0.Reader.create(data)));
+  }
+
+  RegisterName(request: MsgRegisterName): Promise<MsgRegisterNameResponse> {
+    const data = MsgRegisterName.encode(request).finish();
+    const promise = this.rpc.request(this.service, "RegisterName", data);
+    return promise.then((data) => MsgRegisterNameResponse.decode(_m0.Reader.create(data)));
   }
 
   Bid(request: MsgBid): Promise<MsgBidResponse> {
@@ -1758,6 +2067,12 @@ export class MsgClientImpl implements Msg {
     const data = MsgUpdate.encode(request).finish();
     const promise = this.rpc.request(this.service, "Update", data);
     return promise.then((data) => MsgUpdateResponse.decode(_m0.Reader.create(data)));
+  }
+
+  MakePrimary(request: MsgMakePrimary): Promise<MsgMakePrimaryResponse> {
+    const data = MsgMakePrimary.encode(request).finish();
+    const promise = this.rpc.request(this.service, "MakePrimary", data);
+    return promise.then((data) => MsgMakePrimaryResponse.decode(_m0.Reader.create(data)));
   }
 }
 

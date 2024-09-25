@@ -14,33 +14,27 @@ export interface Params {
   mintDenom: string;
   /** default 8 */
   devGrantsRatio: number;
-  /** default 25 */
-  referralCommission: number;
-  /** default 12 */
-  storageProviderRatio: number;
   /** default 80 - this includes the community pool allocation */
   stakerRatio: number;
   /** default 4200000 */
   tokensPerBlock: number;
-  /** default 40 */
-  polRatio: number;
   /** default 6 */
   mintDecrease: number;
   /** multi-sig */
   storageStipendAddress: string;
+  /** default 12 */
+  storageProviderRatio: number;
 }
 
 function createBaseParams(): Params {
   return {
     mintDenom: "",
     devGrantsRatio: 0,
-    referralCommission: 0,
-    storageProviderRatio: 0,
     stakerRatio: 0,
     tokensPerBlock: 0,
-    polRatio: 0,
     mintDecrease: 0,
     storageStipendAddress: "",
+    storageProviderRatio: 0,
   };
 }
 
@@ -52,26 +46,20 @@ export const Params = {
     if (message.devGrantsRatio !== 0) {
       writer.uint32(16).int64(message.devGrantsRatio);
     }
-    if (message.referralCommission !== 0) {
-      writer.uint32(24).int64(message.referralCommission);
-    }
-    if (message.storageProviderRatio !== 0) {
-      writer.uint32(32).int64(message.storageProviderRatio);
-    }
     if (message.stakerRatio !== 0) {
-      writer.uint32(40).int64(message.stakerRatio);
+      writer.uint32(24).int64(message.stakerRatio);
     }
     if (message.tokensPerBlock !== 0) {
-      writer.uint32(48).int64(message.tokensPerBlock);
-    }
-    if (message.polRatio !== 0) {
-      writer.uint32(56).int64(message.polRatio);
+      writer.uint32(32).int64(message.tokensPerBlock);
     }
     if (message.mintDecrease !== 0) {
-      writer.uint32(64).int64(message.mintDecrease);
+      writer.uint32(40).int64(message.mintDecrease);
     }
     if (message.storageStipendAddress !== "") {
-      writer.uint32(74).string(message.storageStipendAddress);
+      writer.uint32(50).string(message.storageStipendAddress);
+    }
+    if (message.storageProviderRatio !== 0) {
+      writer.uint32(56).int64(message.storageProviderRatio);
     }
     return writer;
   },
@@ -102,49 +90,35 @@ export const Params = {
             break;
           }
 
-          message.referralCommission = longToNumber(reader.int64() as Long);
+          message.stakerRatio = longToNumber(reader.int64() as Long);
           continue;
         case 4:
           if (tag !== 32) {
             break;
           }
 
-          message.storageProviderRatio = longToNumber(reader.int64() as Long);
+          message.tokensPerBlock = longToNumber(reader.int64() as Long);
           continue;
         case 5:
           if (tag !== 40) {
             break;
           }
 
-          message.stakerRatio = longToNumber(reader.int64() as Long);
+          message.mintDecrease = longToNumber(reader.int64() as Long);
           continue;
         case 6:
-          if (tag !== 48) {
+          if (tag !== 50) {
             break;
           }
 
-          message.tokensPerBlock = longToNumber(reader.int64() as Long);
+          message.storageStipendAddress = reader.string();
           continue;
         case 7:
           if (tag !== 56) {
             break;
           }
 
-          message.polRatio = longToNumber(reader.int64() as Long);
-          continue;
-        case 8:
-          if (tag !== 64) {
-            break;
-          }
-
-          message.mintDecrease = longToNumber(reader.int64() as Long);
-          continue;
-        case 9:
-          if (tag !== 74) {
-            break;
-          }
-
-          message.storageStipendAddress = reader.string();
+          message.storageProviderRatio = longToNumber(reader.int64() as Long);
           continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
@@ -159,13 +133,11 @@ export const Params = {
     return {
       mintDenom: isSet(object.mintDenom) ? gt.String(object.mintDenom) : "",
       devGrantsRatio: isSet(object.devGrantsRatio) ? gt.Number(object.devGrantsRatio) : 0,
-      referralCommission: isSet(object.referralCommission) ? gt.Number(object.referralCommission) : 0,
-      storageProviderRatio: isSet(object.storageProviderRatio) ? gt.Number(object.storageProviderRatio) : 0,
       stakerRatio: isSet(object.stakerRatio) ? gt.Number(object.stakerRatio) : 0,
       tokensPerBlock: isSet(object.tokensPerBlock) ? gt.Number(object.tokensPerBlock) : 0,
-      polRatio: isSet(object.polRatio) ? gt.Number(object.polRatio) : 0,
       mintDecrease: isSet(object.mintDecrease) ? gt.Number(object.mintDecrease) : 0,
       storageStipendAddress: isSet(object.storageStipendAddress) ? gt.String(object.storageStipendAddress) : "",
+      storageProviderRatio: isSet(object.storageProviderRatio) ? gt.Number(object.storageProviderRatio) : 0,
     };
   },
 
@@ -177,26 +149,20 @@ export const Params = {
     if (message.devGrantsRatio !== 0) {
       obj.devGrantsRatio = Math.round(message.devGrantsRatio);
     }
-    if (message.referralCommission !== 0) {
-      obj.referralCommission = Math.round(message.referralCommission);
-    }
-    if (message.storageProviderRatio !== 0) {
-      obj.storageProviderRatio = Math.round(message.storageProviderRatio);
-    }
     if (message.stakerRatio !== 0) {
       obj.stakerRatio = Math.round(message.stakerRatio);
     }
     if (message.tokensPerBlock !== 0) {
       obj.tokensPerBlock = Math.round(message.tokensPerBlock);
     }
-    if (message.polRatio !== 0) {
-      obj.polRatio = Math.round(message.polRatio);
-    }
     if (message.mintDecrease !== 0) {
       obj.mintDecrease = Math.round(message.mintDecrease);
     }
     if (message.storageStipendAddress !== "") {
       obj.storageStipendAddress = message.storageStipendAddress;
+    }
+    if (message.storageProviderRatio !== 0) {
+      obj.storageProviderRatio = Math.round(message.storageProviderRatio);
     }
     return obj;
   },
@@ -208,13 +174,11 @@ export const Params = {
     const message = createBaseParams();
     message.mintDenom = object.mintDenom ?? "";
     message.devGrantsRatio = object.devGrantsRatio ?? 0;
-    message.referralCommission = object.referralCommission ?? 0;
-    message.storageProviderRatio = object.storageProviderRatio ?? 0;
     message.stakerRatio = object.stakerRatio ?? 0;
     message.tokensPerBlock = object.tokensPerBlock ?? 0;
-    message.polRatio = object.polRatio ?? 0;
     message.mintDecrease = object.mintDecrease ?? 0;
     message.storageStipendAddress = object.storageStipendAddress ?? "";
+    message.storageProviderRatio = object.storageProviderRatio ?? 0;
     return message;
   },
 };
