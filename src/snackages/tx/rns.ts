@@ -124,7 +124,7 @@ export type ITxRns = {
   msgList(data: DMsgList): DEncodeObject
   msgMakePrimary(data: DMsgMakePrimary): DEncodeObject
   msgRegister(data: DMsgRegister): DEncodeObject
-  msgRegisterName(data: DMsgRegister): DEncodeObject
+  msgRegisterName(data: DMsgRegisterName): DEncodeObject
   msgTransfer(data: DMsgTransfer): DEncodeObject
   msgUpdate(data: DMsgUpdate): DEncodeObject
 
