@@ -1,6 +1,6 @@
 {
   "name": "@jackallabs/jackal.js-protos",
-  "version": "2.2.2",
+  "version": "2.3.0",
   "description": "Package of all protos used by Jackal.js",
   "keywords": [
     "jackal",
