@@ -29,6 +29,12 @@ for file in $static_cosmwasm_proto_dirs; do
   buf generate --template ./cfg/buf.gen.yaml "$file"
 done
 
+static_ibc_dirs_regex='(applications|core)'
+static_ibc_proto_dirs=$(find -E . -iregex ".*\/staticProto\/ibc\/$static_ibc_dirs_regex.*\.proto")
+for file in $static_ibc_proto_dirs; do
+  buf generate --template ./cfg/buf.gen.yaml "$file"
+done
+
 # Generate Custom Protos
 proto_dirs=$(find ./proto -name '*.proto')
 for file in $proto_dirs; do

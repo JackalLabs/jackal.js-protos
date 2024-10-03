@@ -1,6 +1,7 @@
 export * from '@/interfaces/snackages/IBankExtension'
 export * from '@/interfaces/snackages/ICosmwasmExtension'
 export * from '@/interfaces/snackages/IFileTreeExtension'
+export * from '@/interfaces/snackages/IIbcExtension'
 export * from '@/interfaces/snackages/IJklMintExtension'
 export * from '@/interfaces/snackages/INotificationsExtension'
 export * from '@/interfaces/snackages/IOracleExtension'

@@ -1,4 +1,13 @@
-import type { ITxBank, ITxCosmwasm, ITxFileTree, ITxNotifications, ITxOracle, ITxRns, ITxStorage } from '@/snackages'
+import type {
+  ITxBank,
+  ITxCosmwasm,
+  ITxFileTree,
+  ITxIbc,
+  ITxNotifications,
+  ITxOracle,
+  ITxRns,
+  ITxStorage,
+} from '@/snackages'
 
 /**
  * Collection of all custom Jackal Msgs.
@@ -10,6 +19,7 @@ import type { ITxBank, ITxCosmwasm, ITxFileTree, ITxNotifications, ITxOracle, IT
  * @property {ITxStorage} storage
  * @property {ITxBank} bank
  * @property {ITxCosmwasm} cosmwasm
+ * @property {ITxIbc} ibc
  */
 export interface ITxLibrary extends Record<string, any> {
   fileTree: ITxFileTree
@@ -20,6 +30,7 @@ export interface ITxLibrary extends Record<string, any> {
   /* cosmos */
   bank: ITxBank
   cosmwasm: ITxCosmwasm
+  ibc: ITxIbc
 }
 
 /**

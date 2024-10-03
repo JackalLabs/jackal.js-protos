@@ -1,4 +1,5 @@
 export * from '@/snackages/cosmos'
+export * from '@/snackages/ibc'
 export * from '@/snackages/query'
 export * from '@/snackages/tx'
 

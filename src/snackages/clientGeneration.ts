@@ -7,21 +7,25 @@ import type {
 } from '@jackallabs/banshee'
 import { IbcQueryClient, IbcSigningClient } from '@jackallabs/banshee'
 import {
+  cosmwasmTypes,
+  createBankExtension,
+  createCosmwasmExtension,
   createFileTreeExtension,
+  createIbcExtension,
   createJklMintExtension,
   createNotificationsExtension,
   createOracleExtension,
   createRnsExtension,
   createStorageExtension,
-} from '@/snackages/query'
-import {
   fileTreeTypes,
   notificationsTypes,
   oracleTypes,
   rnsTypes,
   storageTypes,
   TxBank,
+  TxCosmwasm,
   TxFileTree,
+  TxIbc,
   TxNotifications,
   TxOracle,
   TxRns,
@@ -34,9 +38,6 @@ import {
   createCompatibilityDefaultAminoConverters,
   createCompatibilityJackalAminoConverters,
 } from '@/compatibility'
-import { createCosmwasmExtension } from '@/snackages/query/cosmwasm'
-import { cosmwasmTypes, TxCosmwasm } from '@/snackages/tx/cosmwasm'
-import { createBankExtension } from '@/snackages/cosmos/query'
 
 export type TJackalQueryClient = IIbcQueryClient<TQueryExtensions>
 export type THostQueryClient = IIbcQueryClient<THostQueryExtensions>
@@ -61,7 +62,8 @@ export async function connectJackalQueryClient(
     createRnsExtension,
     createStorageExtension,
     createCosmwasmExtension,
-    createBankExtension
+    createBankExtension,
+    createIbcExtension,
   ]
 
   return await IbcQueryClient.connect<TQueryExtensions>(endpoint, options)
@@ -71,9 +73,7 @@ export async function connectHostQueryClient(
   endpoint: string,
   options: IExtendedStargateClientOptions,
 ): Promise<THostQueryClient> {
-  options.queryExtensions = [
-    createCosmwasmExtension
-  ]
+  options.queryExtensions = [createCosmwasmExtension]
 
   return await IbcQueryClient.connect<THostQueryExtensions>(endpoint, options)
 }
@@ -99,7 +99,8 @@ export async function connectJackalSigningClient(
     createRnsExtension,
     createStorageExtension,
     createCosmwasmExtension,
-    createBankExtension
+    createBankExtension,
+    createIbcExtension,
   ]
   const txLibrary = {
     fileTree: TxFileTree,
@@ -111,6 +112,7 @@ export async function connectJackalSigningClient(
     /* cosmos tx */
     bank: TxBank,
     cosmwasm: TxCosmwasm,
+    ibc: TxIbc,
   }
   const aminoTypes = new AminoTypes({
     ...createCompatibilityDefaultAminoConverters(),
@@ -135,12 +137,8 @@ export async function connectHostSigningClient(
   signer: TMergedSigner,
   options: IExtendedSigningStargateClientOptions,
 ): Promise<THostSigningClient> {
-  const customModules = [
-    cosmwasmTypes,
-  ]
-  const queryExtensions = [
-    createCosmwasmExtension
-  ]
+  const customModules = [cosmwasmTypes]
+  const queryExtensions = [createCosmwasmExtension]
   const txLibrary = {
     cosmwasm: TxCosmwasm,
   }
@@ -148,17 +146,16 @@ export async function connectHostSigningClient(
     ...createCompatibilityDefaultAminoConverters(),
   })
 
-  return await IbcSigningClient.connectWithSigner<THostQueryExtensions, IHostTxLibrary>(
-    endpoint,
-    signer,
-    {
-      ...options,
-      customModules,
-      queryExtensions,
-      txLibrary,
-      aminoTypes,
-    },
-  )
+  return await IbcSigningClient.connectWithSigner<
+    THostQueryExtensions,
+    IHostTxLibrary
+  >(endpoint, signer, {
+    ...options,
+    customModules,
+    queryExtensions,
+    txLibrary,
+    aminoTypes,
+  })
 }
 
 export {

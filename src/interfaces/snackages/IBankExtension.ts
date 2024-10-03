@@ -9,15 +9,14 @@ import {
  * @interface IBankExtension
  * @property {IBankExtensionMembers} bank
  */
-export interface IBankExtension
-  extends Record<string, IBankExtensionMembers> {
+export interface IBankExtension extends Record<string, IBankExtensionMembers> {
   readonly bank: IBankExtensionMembers
 }
 
 /**
  * Some functions for querying data from the Bank module.
  *
- * @interface IStorageExtensionMembers
+ * @interface IBankExtensionMembers
  * @property {allBalances} allBalances()
  * @property {balance} balance()
 
@@ -30,7 +29,7 @@ export interface IBankExtensionMembers
    * @returns Promise<TQueryAllBalancesResponseStrict>
    */
   readonly allBalances: (
-    request: DQueryAllBalances
+    request: DQueryAllBalances,
   ) => Promise<TQueryAllBalancesResponseStrict>
 
   /**
@@ -39,7 +38,6 @@ export interface IBankExtensionMembers
    * @returns Promise<TQueryBalanceResponseStrict>
    */
   readonly balance: (
-    request: DQueryBalance
+    request: DQueryBalance,
   ) => Promise<TQueryBalanceResponseStrict>
-
 }
