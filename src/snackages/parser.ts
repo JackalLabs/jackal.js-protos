@@ -33,9 +33,13 @@ export function parseMsgResponse(
 }
 
 const queryKeyLibrary: Record<string, string> = {
+  /* bank */
+  '/cosmos.bank.v1beta1.MsgSen': 'transfer.sender',
   /* cosmwasm */
   '/cosmwasm.wasm.v1.MsgExecuteContract': 'execute._contract_address',
   '/cosmwasm.wasm.v1.MsgInstantiateContract': 'instantiate._contract_address',
+  /* ibc */
+  '/ibc.applications.transfer.v1.MsgTransfer': 'ibc_transfer.sender',
   /* fileTree */
   '/canine_chain.filetree.MsgAddEditors': 'editors_added.singer',
   '/canine_chain.filetree.MsgAddViewers': 'viewers_added.signer',
@@ -49,25 +53,26 @@ const queryKeyLibrary: Record<string, string> = {
   '/canine_chain.filetree.MsgResetEditors': 'editors_reset.signer',
   '/canine_chain.filetree.MsgResetViewers': 'viewers_reset.signer',
   /* notifications */
-  '/canine_chain.notifications.MsgCreateNotification': 'xx',
-  '/canine_chain.notifications.MsgDeleteNotification': 'xx',
-  '/canine_chain.notifications.MsgBlockSenders': 'xx',
+  '/canine_chain.notifications.MsgCreateNotification': 'create_notification.signer',
+  '/canine_chain.notifications.MsgDeleteNotification': 'notification_removed.signer',
+  '/canine_chain.notifications.MsgBlockSenders': 'block_senders.signer',
   /* oracle */
   '/canine_chain.oracle.MsgCreateFeed': 'xx',
   '/canine_chain.oracle.MsgUpdateFeed': 'xx',
   /* rns */
-  '/canine_chain.rns.MsgAcceptBid': 'xx',
-  '/canine_chain.rns.MsgAddRecord': 'xx',
-  '/canine_chain.rns.MsgBid': 'xx',
-  '/canine_chain.rns.MsgBuy': 'xx',
-  '/canine_chain.rns.MsgCancelBid': 'xx',
-  '/canine_chain.rns.MsgDelist': 'xx',
-  '/canine_chain.rns.MsgDelRecord': 'xx',
-  '/canine_chain.rns.MsgInit': 'xx',
-  '/canine_chain.rns.MsgList': 'xx',
-  '/canine_chain.rns.MsgRegister': 'xx',
-  '/canine_chain.rns.MsgTransfer': 'xx',
-  '/canine_chain.rns.MsgUpdate': 'xx',
+  '/canine_chain.rns.MsgAcceptBid': 'accept_bid.signer',
+  '/canine_chain.rns.MsgAddRecord': 'add_record.signer',
+  '/canine_chain.rns.MsgBid': 'add_bid.signer',
+  '/canine_chain.rns.MsgBuy': 'buy_name.signer',
+  '/canine_chain.rns.MsgCancelBid': 'remove_bid.signer',
+  '/canine_chain.rns.MsgDelist': 'remove_sale.signer',
+  '/canine_chain.rns.MsgDelRecord': 'remove_record.signer',
+  '/canine_chain.rns.MsgInit': 'init_rns.signer',
+  '/canine_chain.rns.MsgList': 'add_sale.signer',
+  '/canine_chain.rns.MsgMakePrimary': 'set_primary_name.signer',
+  '/canine_chain.rns.MsgRegisterName': 'register.signer',
+  '/canine_chain.rns.MsgTransfer': 'transfer_name.signer',
+  '/canine_chain.rns.MsgUpdate': 'update.signer',
   /* storage */
   '/canine_chain.storage.MsgAddClaimer': 'xx',
   '/canine_chain.storage.MsgAttest': 'xx',
