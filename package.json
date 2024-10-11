@@ -1,6 +1,6 @@
 {
   "name": "@jackallabs/jackal.js-protos",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Package of all protos used by Jackal.js",
   "keywords": [
     "jackal",
@@ -59,7 +59,7 @@
     "@cosmjs/stargate": "^0.32.3",
     "@cosmjs/tendermint-rpc": "^0.32.3",
     "@cosmjs/utils": "^0.32.3",
-    "@jackallabs/banshee": "1.0.1",
+    "@jackallabs/banshee": "1.0.2",
     "cosmjs-types": "^0.8.0",
     "grpc-web": "^1.5.0",
     "protobufjs": "^7.2.5",
