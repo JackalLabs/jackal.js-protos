@@ -1,6 +1,6 @@
 import { sortAndSnake } from '@/utils/converters'
 import type { AminoConverters } from '@cosmjs/stargate/build/aminotypes'
-import type {
+import {
   DMsgAcceptBid,
   DMsgAddRecord,
   DMsgBid,
@@ -10,7 +10,8 @@ import type {
   DMsgDelRecord,
   DMsgInit,
   DMsgList,
-  DMsgRegister,
+  DMsgMakePrimary,
+  DMsgRegisterName,
   DMsgTransfer,
   DMsgUpdate,
 } from '@/types'
@@ -136,17 +137,30 @@ export function createRnsAminoConverters(): AminoConverters {
         }
       },
     },
-    '/canine_chain.rns.MsgRegister': {
-      aminoType: 'rns/Register',
-      toAmino: (value: DMsgRegister): any => {
+    '/canine_chain.rns.MsgMakePrimary': {
+      aminoType: 'rns/MakePrimary',
+      toAmino: (value: DMsgMakePrimary): any => {
         return sortAndSnake(value)
       },
-      fromAmino: (value: any): DMsgRegister => {
+      fromAmino: (value: any): DMsgMakePrimary => {
+        return {
+          creator: value.creator,
+          name: value.name,
+        }
+      },
+    },
+    '/canine_chain.rns.MsgRegisterName': {
+      aminoType: 'rns/RegisterName',
+      toAmino: (value: DMsgRegisterName): any => {
+        return sortAndSnake(value)
+      },
+      fromAmino: (value: any): DMsgRegisterName => {
         return {
           creator: value.creator,
           name: value.name,
           years: value.years,
           data: value.data,
+          setPrimary: value.setPrimary,
         }
       },
     },
