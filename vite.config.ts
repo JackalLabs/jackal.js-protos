@@ -2,7 +2,6 @@ import { defineConfig } from "vite"
 
 import typescript from "@rollup/plugin-typescript"
 import { resolve } from "path"
-import { copyFileSync } from "fs"
 import { typescriptPaths } from "rollup-plugin-typescript-paths"
 import tsconfigPaths from 'vite-tsconfig-paths'
 import dts from 'vite-plugin-dts'
@@ -14,14 +13,10 @@ export default defineConfig({
   plugins: [
     tsconfigPaths(),
     dts({
-      afterBuild: () => {
-        copyFileSync("dist/index.d.ts", "dist/index.d.mts")
-      },
       include: ["src"],
       rollupTypes: true,
       logLevel: 'error'
     }),
-    nodePolyfills()
   ],
   resolve: {
     preserveSymlinks: true,
@@ -32,7 +27,7 @@ export default defineConfig({
       },
       {
         find: "protobufjs/minimal",
-        replacement: "protobufjs",
+        replacement: "@jackallabs/protobufjs",
       },
       {
         find: "function-bind",
@@ -49,18 +44,31 @@ export default defineConfig({
     manifest: true,
     minify: false,
     reportCompressedSize: true,
-    lib: {
-      entry: resolve(__dirname, "src/index.ts"),
-      fileName: (format) => `index.${format}.js`,
-      formats: ['es'],
-      name: 'Jackal.js-protos'
-    },
     rollupOptions: {
+      input: resolve(__dirname, "src/index.ts"),
+      preserveEntrySignatures: 'allow-extension',
+      output: [
+        {
+          dir: './dist',
+          entryFileNames: 'index.cjs.js',
+          format: 'cjs',
+          name: 'Jackal.js-protos',
+          plugins: []
+        },
+        {
+          dir: './dist',
+          entryFileNames: 'index.esm.js',
+          format: 'esm',
+          name: 'Jackal.js-protos',
+          plugins: [
+            nodePolyfills({ include: ['buffer', 'util'] })
+          ]
+        }
+      ],
       external: [
         /@cosmjs.*/,
         /cosmjs-types*/,
         'grpc-web',
-        'protobufjs',
         'ts-proto',
       ],
       plugins: [
