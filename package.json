@@ -66,7 +66,7 @@
     "@cosmjs/stargate": "^0.32.3",
     "@cosmjs/tendermint-rpc": "^0.32.3",
     "@cosmjs/utils": "^0.32.3",
-    "@jackallabs/banshee": "1.0.2",
+    "@jackallabs/banshee": "1.0.4",
     "@jackallabs/protobufjs": "^7.4.0-patch.1",
     "cosmjs-types": "^0.8.0",
     "grpc-web": "^1.5.0",
